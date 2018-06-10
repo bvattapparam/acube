@@ -1,0 +1,21 @@
+<div id="confirmationpop">
+	<div class="col-xs-12 modal-container">
+        <div class="modal-header modal-header-customized">
+         	<h2> <i class="fa fa-warning"></i> {{ title }}</h2>
+        </div>
+        <div class="row">
+          <div class="col-xs-12">
+          	<div class="modal-body confirmationbox-body" data-ng-bind-html="body"></div>
+          </div>
+          <div class="row">
+          	<div class="col-xs-12">
+          		<div class="modal-footer">
+					<button class="btn {{btn.class}}" data-ng-repeat="btn in buttons" ng-click="buttonHandler($index)">
+   			 			{{btn.label}}
+ 					</button>
+ 				</div>
+          	</div>
+          </div>
+        </div>
+    </div>
+</div>

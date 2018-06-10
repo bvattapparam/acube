@@ -1,0 +1,24 @@
+
+<div class="generic-container">
+  <h2><i class="fa fa-credit-card"></i> <span data-ng-bind="'dashboard.title.Totals' | i18n"></h2>
+  <div class="table-responsive white md-tbl-view">
+    <table class="clear-both table table-hover table-full table-full-small">
+      <thead>
+      <tr>
+        <th data-ng-bind-html="'dashboard.tbl.totalitem' | i18n"></th>
+        <th data-ng-bind-html="'dashboard.tbl.amount' | i18n"></th>
+        <th></th>
+      </tr>
+      </thead>
+      <tbody>
+        <tr><td data-ng-bind="'grandtotal.label.rent' | i18n"></td><td><span data-ng-bind="getGrandTotal.getGrandTotalBO[0].rentTotal | aswaCurrency"> </span></td><td></td></tr>
+        <tr><td data-ng-bind="'grandtotal.label.mobile' | i18n"></td><td>{{5000 | aswaCurrency}}</td><td></td></tr>
+        <tr><td data-ng-bind="'grandtotal.label.gas' | i18n"></td><td><span data-ng-bind="getGrandTotal.getGrandTotalBO[0].gasTotal-getGrandTotal.getGrandTotalBO[0].subsTotal | aswaCurrency"></td><td></td></tr>
+        <tr><td data-ng-bind="'grandtotal.label.net' | i18n"></td><td>{{2000 | aswaCurrency}}</td><td></td></tr>
+        <tr><td data-ng-bind="'grandtotal.label.eb' | i18n"></td><td>{{200 | aswaCurrency}}</td><td></td></tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+   
+

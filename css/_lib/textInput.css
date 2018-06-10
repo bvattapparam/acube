@@ -1,0 +1,319 @@
+/**
+ * @fileOverview textInput styles.
+ * @name textInput.less
+ * @tested ?
+ */
+/** method responsible for loading the background image set in CSS **/
+@-webkit-keyframes rotation {
+  from {
+    -webkit-transform: rotate(0deg);
+    transform: rotate(0deg);
+  }
+  to {
+    -webkit-transform: rotate(359deg);
+    transform: rotate(359deg);
+  }
+}
+@-moz-keyframes rotation {
+  from {
+    -moz-transform: rotate(0deg);
+    transform: rotate(0deg);
+  }
+  to {
+    -moz-transform: rotate(359deg);
+    transform: rotate(359deg);
+  }
+}
+@-o-keyframes rotation {
+  from {
+    -o-transform: rotate(0deg);
+    transform: rotate(0deg);
+  }
+  to {
+    -o-transform: rotate(359deg);
+    transform: rotate(359deg);
+  }
+}
+@keyframes rotation {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(359deg);
+  }
+}
+.fieldLabel {
+  display: none;
+}
+.fieldWrapper {
+  position: relative;
+  z-index: 2;
+  width: 100%;
+}
+.errorMessage {
+  background: none repeat scroll 0 0 padding-box #efcaca;
+  position: relative;
+  top: -35px;
+  left: 0;
+  z-index: 1;
+  width: 100%;
+  padding: 5px 10px;
+  margin: 5px 0 0;
+  border-radius: 5px;
+  border: 1px solid #d9534f;
+  font-size: 12px;
+  color: #000;
+  transition: all 0.3s ease-out;
+  opacity: 0;
+  overflow: hidden;
+}
+/*.errorMessage p {
+  margin: 0;
+  color: #fff;
+}
+*/
+.errorMessage.show {
+  overflow: visible;
+  opacity: 1;
+  left: 0;
+  top: 1px;
+  height: auto;
+  border-radius: 5px;
+  text-align: left;
+  margin-bottom: 5px;
+}
+.errorMessage.caret:before {
+  border-color: transparent transparent #d9534f;
+  border-style: dashed solid;
+  border-width: 7px;
+  content: "";
+  left: 10px;
+  position: absolute;
+  top: -15px;
+  z-index: 1;
+}
+.errorMessage.caret:after {
+  border-color: transparent transparent #efcaca;
+  border-style: dashed solid;
+  border-width: 7px;
+  content: "";
+  left: 10px;
+  position: absolute;
+  top: -13px;
+  z-index: 2;
+}
+.textInput {
+  position: relative;
+  min-height: 45px;
+  margin: 0 0 15px 0;
+}
+.textInput.hasError input {
+  border: 1px solid #c72f38;
+  background-image: url(../images/sprite/sprite_form_2x.png);
+  background-position: top -409px right 10px;
+  background-size: 25px;
+  background-repeat: no-repeat;
+}
+.textInput input,
+.textInput textarea {
+  height: 44px;
+  width: 100%;
+  padding: 0 24px 0 12px;
+  border: 1px solid #aaaaaa;
+  outline: 0;
+  background: #ffffff;
+  text-overflow: ellipsis;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+  -webkit-border-radius: 5px;
+  -moz-border-radius: 5px;
+  -khtml-border-radius: 5px;
+  border-radius: 5px;
+  color: #000000;
+  font-size: 16px;
+  font-family: Helvetica, Arial, sans-serif;
+  font-weight: normal;
+}
+.textInput input:focus,
+.textInput textarea:focus {
+  border: 1px solid #009cde;
+  background-color: #ffffff;
+}
+.textInput textarea {
+  padding-top: 12px;
+  padding-right: 0;
+  height: 100%;
+  overflow: auto;
+}
+.textInput input:not([type=submit]):not([type=radio]):not([type=checkbox]) {
+  -webkit-background-clip: padding-box;
+  -moz-background-clip: padding-box;
+  background-clip: padding-box;
+  -webkit-transition: border 0.2s ease-in-out, background-color 0.2s ease-in-out;
+  -moz-transition: border 0.2s ease-in-out, background-color 0.2s ease-in-out;
+  -o-transition: border 0.2s ease-in-out, background-color 0.2s ease-in-out;
+  -ms-transition: border 0.2s ease-in-out, background-color 0.2s ease-in-out;
+  transition: border 0.2s ease-in-out, background-color 0.2s ease-in-out;
+}
+.textInput .tickmark {
+  background: url("sprite_form.png") no-repeat;
+}
+@media only screen and (-webkit-min-device-pixel-ratio: 2), only screen and (min--moz-device-pixel-ratio: 2), only screen and (-o-min-device-pixel-ratio: 2/1), only screen and (min-device-pixel-ratio: 2) {
+  .textInput .tickmark {
+    background: url("sprite_form_2x.png") no-repeat;
+    background-size: 25px;
+  }
+}
+.textInput .tickmark {
+  width: 35px;
+  height: 35px;
+  margin-top: 2px;
+  right: 5px;
+  float: right;
+  position: absolute;
+  z-index: 3;
+  text-align: center;
+  cursor: pointer;
+  background-position: 0 69%;
+}
+/* LAP - large */
+.js .lap .textInput,
+.js div.lap.textInput {
+  padding: 0;
+  position: relative;
+}
+.js .lap .textInput label,
+.js div.lap.textInput label {
+  position: absolute;
+  left: 12px;
+  z-index: 1;
+  color: #666666;
+  cursor: text;
+}
+.js .lap .textInput label.focus,
+.js div.lap.textInput label.focus,
+.js div.lap.textInput label.focus span.optional,
+.js .lap .textInput label.focus span.optional {
+  color: #b3b3b3;
+}
+/* LAP - medium */
+.js .lap .textInput.medium,
+.js div.lap.textInput.medium {
+  padding: 0;
+  position: relative;
+}
+.js .lap .textInput.medium label.focus,
+.js .formMedium div.lap.textInput.medium label.focus {
+  color: #b3b3b3;
+}
+.js .lap .textInput.medium label,
+.js div.lap.textInput.medium label {
+  position: absolute;
+  left: 12px;
+  z-index: 1;
+  color: #666666;
+}
+.groupFields {
+  clear: both;
+}
+.groupFields .textInput {
+  width: 48.9%;
+  float: left;
+}
+.groupFields .textInput input {
+  width: 100%;
+}
+.groupFields .left,
+.groupFields .middle {
+  margin-right: 10px;
+}
+.groupFields .multi .left {
+  width: 72.5%;
+  float: left;
+}
+.groupFields .multi .right {
+  width: 25%;
+  float: left;
+}
+.groupFields .multi.equal .left,
+.groupFields .multi.equal .right {
+  width: 48.6%;
+}
+.groupFields .reverse .right {
+  width: 72.3%;
+}
+.groupFields .reverse .left {
+  width: 25%;
+}
+.groupFields .multiple .left {
+  width: 48.8%;
+  float: left;
+}
+.groupFields .multiple .right {
+  width: 25%;
+  float: left;
+}
+.groupFields .multiple .middle {
+  width: 21.4%;
+  float: left;
+}
+.groupFields .multiple.equal .left,
+.groupFields .multiple.equal .right,
+.groupFields .multiple.equal .middle {
+  width: 31.8%;
+}
+.groupFields .large {
+  width: 100%;
+}
+.groupReatedFields .left {
+  width: 27%;
+  float: left;
+}
+.groupReatedFields .right {
+  width: 73%;
+  float: left;
+}
+.groupReatedFields .selectDropdown {
+  border-right: 0;
+  border-top-right-radius: 0;
+  border-bottom-right-radius: 0;
+}
+.groupReatedFields .textInput input {
+  border-top-left-radius: 0;
+  border-bottom-left-radius: 0;
+}
+/** IPAD STYLING **/
+@media all and (min-width: 768px) and (max-width: 1024px) {
+  .groupFields .multi.equal .left,
+  .groupFields .multi.equal .right {
+    width: 48.4%;
+  }
+}
+@media all and (min-width: 768px) and (max-width: 1024px) and (orientation: portrait) {
+  .groupFields .multi.equal .left,
+  .groupFields .multi.equal .right {
+    width: 48.2%;
+  }
+}
+@media all and (max-width: 538px) {
+  .groupFields .textInput,
+  .groupFields .multi .textInput,
+  .groupFields .multiple .textInput,
+  .groupFields .selectDropdown,
+  .groupFields .multi .selectDropdown,
+  .groupFields .multiple .selectDropdown {
+    width: 100%;
+  }
+}
+/* mobile ---- */
+@media all and (max-width: 767px) {
+  .groupFields .multi.equal .left,
+  .groupFields .multi.equal .right {
+    width: 48.2%;
+  }
+}
+/* android specific */
+.android .textInput input:focus {
+  -webkit-user-modify: read-write-plaintext-only;
+}

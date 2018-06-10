@@ -1,0 +1,61 @@
+<nav class="navbar navbar-default navbar-fixed-top navbar-header" data-ng-controller = "headerController">
+  <div class="row">
+    <div class="col-xs-4 col-lg-2 logo-box" style="min-height:60px">
+      <h1>aCUBE</h1>
+    </div>
+    <div class="col-xs-1 menu-icon">
+        <ul class="user-info-menu list-inline settings-menu"> 
+          <li class="user-profile" dropdown> 
+            <a href="#" dropdown-toggle> 
+             <i class="fa fa-bars"></i> 
+            </a> 
+            <ul class="text-uppercase dropdown-menu navbar-setting settings-sub-menu profile-settings" role="menu" aria-labelledby="simple-btn-keyboard-nav">
+              <li icon="md md-blur-on" permission="['JRD_ADMIN']">
+                <a href="#/customer" >
+                <i class="fa fa-user"></i><span data-ng-bind-html="'menu.customer' | i18n"></span></a>
+              </li>
+              <li icon="md md-blur-on">
+                <a href="#/estimate" permission="['JRD_ADMIN']">
+                <i class="fa fa-file-text"></i><span data-ng-bind-html="'menu.estimate' | i18n"></span></a>
+              </li>
+              <li icon="md md-blur-on">
+                <a href="#/quote" permission="['JRD_ADMIN']">
+                <i class="fa fa-file-text"></i><span data-ng-bind-html="'menu.quote' | i18n"></span></a>
+              </li>
+              <li icon="md md-blur-on">
+                <a href="#/cashreceipt" permission="['JRD_ADMIN']">
+                <i class="fa fa-money"></i><span data-ng-bind-html="'menu.cashreceipt' | i18n"></span></a>
+              </li>
+              <li icon="md md-blur-on">
+                <a href="#/invoice" permission="['JRD_ADMIN']">
+                <i class="fa fa-files-o"></i><span data-ng-bind-html="'menu.invoice' | i18n"></span></a>
+              </li>
+               <li icon="md md-blur-on">
+                <a href="#/marketingbasket" permission="['JRD_MARKETING','JRD_ADMIN']">
+                <i class="fa fa-users"></i><span data-ng-bind-html="'menu.marketingbasket' | i18n"></span></a>
+              </li>
+              <!-- <li class="divider">d</li> -->
+              <li icon="md md-blur-on" permission="['JRD_ADMIN']">
+                <a href="#/users" >
+                <i class="fa fa-users"></i><span data-ng-bind-html="'menu.users' | i18n"></span></a>
+              </li>
+              <li icon="md md-blur-on">
+                <a href="#/myaccount" >
+                <i class="fa fa-cogs"></i><span data-ng-bind-html="'menu.myaccount' | i18n"></span></a>
+              </li>
+              <li icon="md md-blur-on">
+                <a href="#/logout" >
+                <i class="fa fa-power-off"></i><span data-ng-bind-html="'menu.logout' | i18n"></span></a>
+              </li>
+            </ul>
+          </li> 
+        </ul>
+    </div>
+    <div class="col-xs-7 col-lg-9">
+      <div class="col-xs-12 text-right profile-settings">
+          <img src="../img/{{user.AVATAR}}.png" alt="user-image" class ="img-circle img-inline" width="40">
+          <span class="text-uppercase" data-ng-bind-template="{{user.FULLNAME}}"></span> <span class="header-logout hidden-xs"><i class=" btn btn-xs fa fa-power-off" ng-click="logout();"></i></span>
+      </div>
+    </div>
+  </div>
+</nav>

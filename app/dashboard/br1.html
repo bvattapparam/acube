@@ -1,0 +1,30 @@
+  <div class="col-sm-4">
+    <div class="row accordian m-r-side">
+        <div class="col-sm-12 sub-title"><i class="fa fa-file-text"></i> <span data-ng-bind="'dashboard.title.billreminders' | i18n"></span></div>
+        <div class="table-responsive white md-tbl-view">
+          <div class="col-sm-12">
+          <table class="clear-both table table-hover table-full table-full-small">
+            <thead>
+            <tr>
+              <th width="2%"></th>
+              <th data-ng-bind-html="'dashboard.tbl.billitem' | i18n"></th>
+              <th data-ng-bind-html="'dashboard.tbl.billdate' | i18n"></th>
+            </tr>
+            </thead>
+            <tbody>
+              <tr data-ng-repeat="rel in br.brBO" tooltip="{{refData.referencesDataMap.genericStatusTwo[rel.status]}}" tooltip-placement="left">
+                <td>
+                  <span class="col-sm-12 status-box" ng-class="settings.text_status[rel.status]">
+                    <i class="fa fa-flag"></i>
+                  </span>
+                </td>
+                <td data-ng-bind="rel.item">Chennai</td>
+                <td data-ng-bind="rel.billdate | aswaDate">Kerala</td>
+
+                </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>

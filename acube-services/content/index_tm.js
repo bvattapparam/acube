@@ -1,0 +1,30 @@
+{
+	"lbl.name":"Bijesh",
+	"lbl.age":"Major",
+	"login.btn.label" : "உள்நுழைய",
+	"login.placeholder.passkey" : "ரகசிய குறியீடு",
+	"login.failure.message" : "உள்ளிட்ட தவறு ரகசிய குறியீடு.",
+
+	"cnt.travel.pageheader":"இப்பக்கம் போன்ற பதிவு தேதி, பயண தேதி, பயண staus , பயண முறையில் முதலியன Icon கலர் ஆப் பயண நிலையை சித்தரிக்கிறது என்று பயண விபரங்கள் . சிவப்பு, ஆரஞ்சு, கிரே ரத்து அல்லது நிறைவு , பச்சை திறந்த பெயர் என்று பொருள் நிலுவையில் பொருள் , பணத்தை குறிக்கிறது",
+	"menu.dashboard":"கட்டுப்பாட்டு அறை",
+	"menu.travel":"பயணம்",
+	"menu.mobile":"தொலைபேசி ",
+	"menu.internet":"இணைய",
+	"menu.houserent":"வீட்டு வாடகை",
+	"menu.ksfe":"KSFE",
+	"menu.gas":"எரிவாயு",
+	"menu.carservice":"கார் சேவை",
+	"menu.milk":"பால்",
+	"menu.eb":"மின்சாரம்",
+	"travel.pageheader":"பயண விவரம்",
+
+	"travel.tbl.icon":"ஐகான்",
+	"travel.tbl.source":"மூல",
+	"travel.tbl.destination":"இலக்கு",
+	"travel.tbl.pnr":"டிக்கெட் எண்",
+	"travel.tbl.traveldate":"பயண தேதி",
+	"travel.tbl.bookeddate":"பதிவு தேதி",
+	"travel.tbl.amount":"பணம்",
+	"travel.tbl.action":"நடவடிக்கை",
+	"cnt.rows":"வரிசைகள்"
+}

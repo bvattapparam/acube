@@ -1,0 +1,94 @@
+
+<!DOCTYPE html>
+<html lang="en" ng-app="paaplogin">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta name='keywords' content='UI developer application, personal application'>
+    <meta name='description' content='Aswa is one of the best application for personal usage'>
+    <meta name='subject' content='Personal application for monitoring'>
+    <meta name='Classification' content='Personal'>
+    <meta name='designer' content='bvattapparam'>
+    <meta name='owner' content='bvattapparam'>
+    <meta name='rating' content='General'>
+    <link rel="icon" href="../img/fav-icon.png" />
+    <title>aswa2.0 - personal monitor system</title>
+     <link rel="stylesheet" type="text/css" href="../css/app.css">
+    <link rel="stylesheet" href="../css/_lib/select2/select2.css">
+    <link rel="stylesheet" href="../css/_lib/select2/select2-bootstrap.css">
+    <link rel="stylesheet" href="../css/_lib/chart/angular-chart.css">
+    <script src="../js/libs/jquery/jquery.min.js"></script>
+    <script src="../js/libs/angularjs/1.3.16/angular.min.js"></script>
+    <script src="../js/libs/angularjs/angular-route.min.js"></script>
+    <script src="../js/libs/angularjs/1.3.17/angular-sanitize.js"></script>
+    <script src="../js/libs/bootstrap/0.13.0/ui-bootstrap-tpls-0.13.0.js"></script>
+    <script src="../js/libs/angularjs/datetime-picker.js"></script>
+    <script src="../js/libs/select2/select2.js"></script>
+    <script src="../js/libs/select2-ng/select2.js"></script>
+    <script src="../js/libs/jquery/jquery.gritter.min.js"></script>
+<script>
+    var Messages = {};
+    var reference = {};
+</script>
+</head>
+<body data-ng-controller='mainController' id="login-bg">
+
+  <div class="login-parent" ng-view></div>
+<div class="loadRunner" ng-show="spinnerShow">
+  <div style="position: absolute;
+    left: 50%;
+    top: 50%;
+    text-align: center;
+    width:100px;
+    height:100px;
+    margin-left: -100px;
+    margin-top: -50px; ">
+    <div style="width:100px; padding:5px; background-color:#fff; text-align:center; border-radius:10px"><img src="../img/lr1.gif"></div>
+  </div>
+</div>
+
+
+<div confirmation-modal-popup modal-popupconfiguration='modalConfig'></div>
+
+    <script src="app.js"></script>
+    <script src="config/router.js"></script>
+    <script src="config/config.settings.js"></script>
+    <script src="config/config.urlsettings.js"></script>
+    <script src="filters/filters.js"></script>
+    <script src="filters/i18n.js"></script>
+    <script src="common/services/main.service.js"></script>
+    <script src="common/services/utilityServices.js"></script>
+    <script src="common/services/storageServices.js"></script>
+    <script src="common/services/getReference.service.js"></script>
+     <script src="common/controllers/main.controller.js"></script>
+
+    <script src="common/services/aswaValidationService.js"></script>
+
+    <script src="login.services.js"></script>
+    <script src="login.controller.js"></script>
+
+    
+
+
+    <script src="common/directive/directive.js"></script>
+<script>
+    angular.element(document.body).bind('click', function (e) {
+        var popups = document.querySelectorAll('.popover');
+        if(popups) {
+            for(var i=0; i<popups.length; i++) {
+                var popup = popups[i];
+                var popupElement = angular.element(popup);
+                console.log(popupElement[0]);
+                if(popupElement[0].previousSibling!=e.target){
+                    popupElement.scope().$parent.isOpen=false;
+                    popupElement.remove();
+                }
+            }
+        }
+    });
+</script>
+
+
+</body>
+</html>

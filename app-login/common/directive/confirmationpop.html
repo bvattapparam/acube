@@ -1,0 +1,11 @@
+<div id="confirmationpop">
+  <div class="modal-header confirmationbox-title">
+  {{title}}
+</div>
+<div class="modal-body confirmationbox-body" data-ng-bind-html="body"></div>
+<div class="modal-footer">
+  <button class="btn {{btn.class}}" data-ng-repeat="btn in buttons" ng-click="buttonHandler($index)">
+    {{btn.label}}
+  </button>
+</div>
+</div>

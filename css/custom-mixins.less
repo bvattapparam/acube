@@ -1,0 +1,151 @@
+// Login container 
+
+.login-variant(@lwidth; @lheight; @lbackground-color; @lposition; @lleft; @ltop; @ltext-align; @lmargin-left; @lmargin-top; @lpadding){
+  width                 : @lwidth;
+  height                : @lheight;
+  background-color      : @lbackground-color;
+  position              : @lposition;
+  left                  : @lleft;
+  top                   : @ltop; 
+  text-align            : @ltext-align; 
+  margin-left           : @lmargin-left; 
+  margin-top            : @lmargin-top;
+  padding               : @lpadding;
+
+  &:hover{
+    box-shadow: 0 0 1px rgba(0, 0, 0, 0.3);
+  }
+
+  & span{
+    width             : 125px;
+    height            : 125px;
+    line-height       : 190px;
+    border-radius     : 50%;
+    background-color  : #6c857b;
+    display           : inline-block;
+    & i{
+      font-size       : 90px;
+      color           : #FFF; 
+    }
+
+  }
+}
+.header-container-variant(@hpadding; @hmargin; @hbackground-color){
+  padding           : @hpadding;
+  margin            : @hmargin;
+  background-color  : @hbackground-color;
+  & h1{
+    margin          : 4px 0 5px;
+    color           : @brand-primary;
+    font-size       : 20px;
+    font-weight     : 400;
+    & i{
+      margin-right      : 5px;
+    }
+  }
+}
+
+.generic-container-variant(@generic-padding; @generic-background-color; @generic-border-top){
+  padding           : @generic-padding;
+  background-color  : @generic-background-color;
+  border-top        : 5px solid darken(@brand-primary,5%);
+  & h2{
+    margin          : 0 0 5px;
+    color           : @brand-primary;
+    font-size       : 16px;
+    font-weight     : 400;
+    padding-left    : 5px;
+    padding-bottom  : 5px;
+    border-bottom   : 1px solid #eee;
+    & i{
+      margin-right      : 5px;
+    }
+  }
+}
+
+.generic-sticker-variant(@generic-padding; @generic-background-color; @generic-border-bottom){
+  padding           : @generic-padding;
+  background-color  : @generic-background-color;
+  border-bottom     : 5px solid @generic-border-bottom;
+  & h2{
+    margin          : 0 0 5px;
+    color           : @brand-primary;
+    font-size       : 16px;
+    font-weight     : 400;
+    padding-left    : 5px;
+    padding-bottom  : 5px;
+    border-bottom   : 1px solid #eee;
+    & i{
+      margin-right      : 5px;
+    }
+  }
+}
+
+.action-icon-small-variant(@actFontSize; @actFontColor; @actTextAlign){
+  font-size       : @actFontSize;
+  color           : @actFontColor;
+  text-align      : @actTextAlign;
+    &:hover,
+    &:focus,
+    &:active{
+      color     : lighten(@actFontColor, 20%);
+    }
+  
+}
+
+
+.action-icon-variant(@width; @height; @lHeight; @fontSize; @textAlign; @bgColor; @border-radius; @fontColor){
+  width               :   @width;
+  height              :   @height;
+  line-height         :   @lHeight !important;
+  font-size           :   @fontSize !important;
+  text-align          :   @textAlign;
+  background-color    :   @bgColor;
+  border-radius       :   @border-radius;
+  cursor              :   pointer;
+  color               :   @fontColor;
+    &:hover,
+    &:focus,
+    &:active{
+      background-color  : darken(@bgColor, 20%);
+    }
+  
+}
+
+
+.generic-panel-variant(@panel-color){
+  border-bottom   : 5px solid darken(@panel-color,5%);
+  overflow : auto;
+  i{
+    padding           : 0; 
+    margin            : 0;
+    color             : #fff;
+    text-align        : center;
+    width             : 40px;
+    height            : 40px;
+    line-height       : 40px;
+    font-size         : 20px;
+    border-radius     : 50px; 
+    background-color  : @panel-color;
+  }
+  h2{
+    font-size : 20px;
+    color     : @panel-color-one;
+  }
+  span{
+    display         : block;
+    text-align      : right;
+    color           : @panel-color;
+    text-transform  : uppercase;
+  }
+&:hover {
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.175);
+  }
+}
+.generic-selected-row(@background-color, @text-color){
+  background-color  : @background-color;
+  color             : @text-color;
+}
+
+
+

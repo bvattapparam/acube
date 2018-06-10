@@ -1,0 +1,38 @@
+<div class="generic-container">
+  <h2><i class="fa fa-file-text"></i> <span data-ng-bind="'dashboard.title.billreminders' | i18n"></span> - <span data-ng-bind="currentMonth"></span></h2>
+  <div class="table-responsive white md-tbl-view">
+    <table class="clear-both table table-hover table-full table-full-small">
+      <thead>
+        <tr>
+          <th width="2%"></th>
+          <th data-ng-bind="'dashboard.tbl.billitem' | i18n"></th>
+          <th data-ng-bind="'dashboard.tbl.billdate' | i18n"></th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr data-ng-class="{'critical-light':dateCompare(rel.billdate) ==='TODAY' && rel.status == 0, 'warning-light':dateCompare(rel.billdate) ==='TOMORROW' && rel.status == 0}" data-ng-repeat="rel in br.brBO" tooltip="{{refData.referencesDataMap.genericStatusTwo[rel.status]}}" tooltip-placement="left">
+          <td>
+            <span class="col-sm-12 status-box" ng-class="settings.text_status[rel.status]">
+              <i class="fa fa-flag"></i>
+            </span>
+          </td>
+          <td data-ng-bind="rel.item">Chennai</td>
+          <td data-ng-bind="dateCompare(rel.billdate) | aswaDate"></td>
+          <td>
+            <i class="action-icon-small-primary fa fa-edit" tooltip="{{'tooltip.edit' | i18n}}" ng-click="editBR(rel)"></i>
+          </td>
+        </tr>
+        <tr data-ng-if="br.brBO.length < emptyRowCount" data-ng-repeat="er in emptyRow(emptyRowCount - br.brBO.length) track by $index">
+          <td></td><td></td><td></td>
+          <td>
+            <i class="action-icon-small-primary fa fa-plus-circle" tooltip="{{'tooltip.add' | i18n}}" ng-click="addBR();"></i>
+          </td>
+        <tr>
+      </tbody>
+    </table>
+  </div> 
+</div>
+
+
+

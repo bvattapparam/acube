@@ -1,0 +1,74 @@
+
+<div class="row pageheader">
+  <div class="col-xs-11">
+    <h1><span ng-bind ="'usermanager.pageheader' | i18n"></span></h1>
+  </div>
+  <div class="col-xs-1">
+    <button type="button" class="btn btn-xs btn-primary pull-right" ng-click="refresh();" tooltip="{{'tooltip.refresh' | i18n}}">
+      <span class="fa fa-refresh fa-spin"></span>
+    </button>
+  </div>
+  <div class="col-xs-12">
+    <span class="bottomliner"></span>
+  </div>
+</div>
+
+<div class="row section-container">
+  <div class="col-xs-12">
+    <div class="col-xs-12 section-box">
+      <div class="row">
+        <div class="col-xs-12">
+          <div class="section-box-header">
+           <h2 class="text-uppercase"><i class="fa fa-users"></i> {{'usermanager.users' | i18n}} <i class="pull-right icon-link fa fa-plus-circle action-icon" ng-click="addUser('sm')" title ="Add New User"></i></h2>
+          </div>
+        </div>
+        <div class="col-xs-12 section-box-body table-responsive">
+          <table class="table table-hover">
+              <colgroup>
+                <col class="auto-cell-size p-r-20">
+              </colgroup>
+              <thead class="table-bg">
+              <tr>
+                <th></th>
+                <th data-ng-bind-html="'label.userid' | i18n"></th>
+                <th data-ng-bind-html="'label.fullname' | i18n"></th>
+                <th data-ng-bind-html="'label.mobile' | i18n"></th>
+                <th data-ng-bind-html="'label.role' | i18n"></th>
+                <th data-ng-bind-html="'label.modifieddate' | i18n"></th>
+                <th data-ng-bind-html="'label.modifiedby' | i18n"></th>
+                <th></th>
+              </tr>
+              </thead>
+              <tbody>
+              <tr ng-repeat ="rel in userManagerBO">
+                <td class="f20 part1"><img src="../img/{{rel.AVATAR}}.png" width="25"></td>
+                <td data-ng-bind="rel.USERID"></td>
+                <td data-ng-bind="rel.FULLNAME"></td>
+                <td data-ng-bind="rel.MOBILE"></td>
+                <td data-ng-bind="referenceData.referencesDataMap.jurisdiction[rel.ROLE]"></td>
+                <td data-ng-bind="rel.MODIFIEDDATE | aswaDate"></td>
+                <td data-ng-bind="rel.MODIFIEDBY"></td>
+                <td class="f20 ng-binding action comment-content">
+                  <i class="action-icon-small-primary fa fa-edit"  ng-click="editUser(rel)"></i>
+                  <i class="action-icon-small-primary fa fa-trash" ng-click="showInfoBox('Info', 'generalinfoone', 'sm')"></i>
+                </td>
+              </tr>
+              </tbody>
+            </table>
+        </div>
+        <div class="col-xs-12">
+          <div class="audit-box">&nbsp;
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- <div class="col-lg-4">
+      
+      <div id="container">Placeholder for chart</div>
+    </div> -->
+
+</div>
+
+
+

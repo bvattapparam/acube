@@ -1,0 +1,34 @@
+
+<div class="generic-container">
+  <h2><i class="fa fa-money"></i> <span data-ng-bind="'dashboard.title.iowe' | i18n"></h2>
+    <div class="table-responsive white md-tbl-view">
+      <table class="clear-both table table-hover table-full table-full-small">
+        <thead>
+          <tr>
+            <th data-ng-bind-html="'dashboard.tbl.contact' | i18n"></th>
+            <th data-ng-bind-html="'dashboard.tbl.amount' | i18n"></th>
+            <th width="2%"></th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr data-ng-repeat="rel in iowe.ioweBO">
+            <td data-ng-bind="rel.contact">Chennai</td>
+            <td data-ng-bind="rel.amount | aswaCurrency">Kerala</td>
+            <td>
+              <span class="col-sm-12" ng-class="settings.text_status[rel.status]">
+                <i class="action-icon-small fa fa-edit" tooltip="{{refData.referencesDataMap.genericStatus[rel.status]}}" tooltip-placement="top" ng-click="editIOWE(rel)"></i>
+              </span>
+            </td>
+          </tr>
+          <tr data-ng-if="iowe.ioweBO.length < emptyRowCount" data-ng-repeat="er in emptyRow(emptyRowCount - iowe.ioweBO.length) track by $index">
+            <td></td><td></td>
+            <td>
+              <span class="col-sm-12">
+                <i class="action-icon-small fa fa-plus-circle" tooltip="{{'tooltip.add' | i18n}}" ng-click="addIOWE();"></i>
+             </span>
+            </td>
+          <tr>
+        </tbody>
+      </table>
+    </div> 
+</div>

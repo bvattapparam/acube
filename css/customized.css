@@ -1,0 +1,40 @@
+/* cutomized less */
+body {
+  background-color: #eee;
+}
+#login-container {
+  width: 400px;
+  height: 100px;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  margin: auto;
+}
+#login-container .login-box {
+  padding: 0;
+  margin: 0;
+}
+#login-container .login-box .login-icon {
+  padding: 0;
+  margin: 0;
+}
+#login-container .login-box .login-field {
+  padding: 0;
+  margin: 0;
+}
+#login-container .login-box .icon-box {
+  margin: 1px;
+  padding: 2px;
+  height: 75px;
+  border: 1px solid #ccc;
+  background-color: #fff;
+}
+#login-container .login-box .field-box {
+  margin: 1px;
+  padding: 2px;
+  height: 75px;
+  border: 1px solid #ccc;
+  background-color: #fff;
+}
