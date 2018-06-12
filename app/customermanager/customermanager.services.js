@@ -50,7 +50,7 @@
           var deferred = $q.defer();
               $http({
                 method  : "GET",
-                url     : urlsettings['customermanager.getCustomer'] + "/customerid",
+                url     : urlsettings['customermanager.getCustomer'] + "&customerid=" + customerid,
                 headers :   {'Content-Type' : 'application/json'}
               }).success(function(data){
                 deferred.resolve(data);

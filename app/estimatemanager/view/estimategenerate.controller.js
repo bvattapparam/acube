@@ -13,11 +13,16 @@
 
 
 		$scope.getCustomer = function(){
+			console.log(1)
 			$rootScope.showSpinner();
 			customerManagerServices.getCustomer($routeParams.CUSTOMERID).then(function(data){
+				console.log(2)
 				if(data.msg!=''){
 					$scope.customerManagerBO	=	[];
 					$scope.customerManagerBO 	= 	data;
+
+					console.log("PRINT: ", $scope.customerManagerBO);
+					
 					$scope.getEstimateCount();
 					
 					$rootScope.hideSpinner();
@@ -36,6 +41,7 @@
 			var pushData = {};
 			pushData.CUSTOMERID = $routeParams.CUSTOMERID;
 			
+			
 			estimateManagerServices.getEstimateCount(pushData).then(function(data){
 				if(data.msg!=''){
 					$scope.estimateManagerBO	=	[];
@@ -43,16 +49,13 @@
 
 					// GENERATE A NEW ESTIMATE. IF THE COUNT IS 0 THEN VERSION IS 0, IF COUNT IS 1 THEN VERSION IS 2.
 					
-					var totalCount = $scope.estimateManagerBO.total;
-					if(totalCount === 0){
+					var totalCount = $scope.estimateManagerBO[0].total;
+					if(typeof totalCount == 'undefined' || totalCount === 0){
 						$scope.version = "V0";
 					}else{
-						$scope.version = "V" + totalCount+1;
+						$scope.version = "V" + totalCount;
 					}
-
 					$scope.generateEstimate($scope.version);
-
-					console.log("ESTIMATE : ", data[0].total)
 					$rootScope.hideSpinner();
 				}else{
 					$rootScope.hideSpinner();
@@ -65,11 +68,10 @@
 		$scope.generateEstimate = function(version){
 
 			// AGM-ESTI-R-BI-V0-41720182123;
-
 			var CUSTOMERID = $routeParams.CUSTOMERID;
 			var VERSION = version;
-			var CUSTOMER_TYPE = $scope.customerManagerBO.TYPE;
-			var CUSTOMERNAME = $scope.customerManagerBO .FULLNAME;
+			var CUSTOMER_TYPE = $scope.customerManagerBO[0].TYPE;
+			var CUSTOMERNAME = $scope.customerManagerBO[0].FULLNAME;
 			var COMPANY = "AGM";
 			var ENTITY = "ESTI";
 			var D = new Date();
@@ -79,6 +81,7 @@
 			var pushData = {};
 			pushData.ESTIMATEID = ESTIMATEID;
 			pushData.CUSTOMERID = CUSTOMERID;
+			pushData.MODIFIEDBY = $rootScope.user.USERID;
 
 			estimateManagerServices.generateEstimate(pushData).then(function(data){
 				if(status==200){
@@ -98,19 +101,6 @@
 				if(data.msg!=''){
 					$scope.estimateManagerBO	=	[];
 					$scope.estimateManagerBO 	= 	data;
-
-					// GENERATE A NEW ESTIMATE. IF THE COUNT IS 0 THEN VERSION IS 0, IF COUNT IS 1 THEN VERSION IS 2.
-					
-					var totalCount = $scope.estimateManagerBO.total;
-					if(totalCount === 0){
-						$scope.version = "V0";
-					}else{
-						$scope.version = "V" + totalCount+1;
-					}
-
-					$scope.generateEstimate($scope.version);
-
-					console.log("ESTIMATE : ", data[0].total)
 					$rootScope.hideSpinner();
 				}else{
 					$rootScope.hideSpinner();
@@ -125,10 +115,7 @@
 		$scope.refresh	=	function(){
 			$scope.getCustomers();
 		};
-
 		
-
-
 	}
 
 	angular.module('aswa').controller('estimateGenerateController',['$location', '$window', '$routeParams', '$scope', '$rootScope', '$modal', '$filter', 'settings', 'customerManagerServices', 'estimateManagerServices', 'utilityServices', 'storageServices', 'getreferences', '$http', 'mainServices', estimateGenerateController]);

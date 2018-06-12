@@ -9,7 +9,8 @@
 		"usermanager.updateUser"						: 	"../acube-services/usermanager/update/?action=put_user_data",
 		"usermanager.addUser"							: 	"../acube-services/usermanager/add/",
 
-		"customermanager.getCustomers"					: 	"../acube-services/customermanager/get/",
+		"customermanager.getCustomers"					: 	"../acube-services/customermanager/get/?action=get_customers",
+		"customermanager.getCustomer"					: 	"../acube-services/customermanager/get/?action=get_customer",
 		"customermanager.updateCustomer"				: 	"../acube-services/customermanager/update/?action=put_customer_data",
 		"customermanager.addCustomer"					: 	"../acube-services/customermanager/add/",
 		
@@ -19,7 +20,7 @@
 
 		"estimatemanager.getEstimates"					: 	"../acube-services/estimatemanager/get/",
 		"estimatemanager.getEstimateCount"				: 	"../acube-services/estimatemanager/get/?action=get_estimate_count",
-		"estimatemanager.generateEstimate"				: 	"../acube-services/estimatemanager/add/"
+		"estimatemanager.generateEstimate"				: 	"../acube-services/estimatemanager/generate/"
 	}
 
 	angular.module('aswa').constant('urlsettings',urlsettings);
