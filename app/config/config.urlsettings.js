@@ -18,9 +18,13 @@
 		"marketingbasket.updateMarketingBasket"			: 	"../acube-services/marketingbasket/update/",
 		"marketingbasket.addMarketingBasket"			: 	"../acube-services/marketingbasket/add/",
 
-		"estimatemanager.getEstimates"					: 	"../acube-services/estimatemanager/get/",
+		"estimatemanager.getEstimates"					: 	"../acube-services/estimatemanager/get/?action=get_estimates",
+		"estimatemanager.getEstimateMaster"				: 	"../acube-services/estimatemanager/get/?action=get_estimate_master",
+		"estimatemanager.getEstimateBasket"				: 	"../acube-services/estimatemanager/basket/get/?action=get_estimate_basket",
 		"estimatemanager.getEstimateCount"				: 	"../acube-services/estimatemanager/get/?action=get_estimate_count",
-		"estimatemanager.generateEstimate"				: 	"../acube-services/estimatemanager/generate/"
+		"estimatemanager.generateEstimate"				: 	"../acube-services/estimatemanager/generate/",
+		"estimatemanager.addEstimateBasket"				: 	"../acube-services/estimatemanager/basket/add/",
+		"estimatemanager.deleteEstimateBasketData"		: 	"../acube-services/estimatemanager/basket/delete/"
 	}
 
 	angular.module('aswa').constant('urlsettings',urlsettings);

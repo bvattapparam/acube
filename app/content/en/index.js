@@ -41,6 +41,7 @@ Messages = {
 	"placeholder.selectcustomer"	: 	"Select customer",
 	"placeholder.comment"			: 	"Comment",
 	"placeholder.address"			: 	"Address",
+	"placeholder.selectlocation"	: 	"Select Location",
 
 	"validation.status"				: 	"Status is mandatory",
 	"validation.userid"				: 	"User ID is mandatory.",
@@ -54,6 +55,13 @@ Messages = {
 	"validation.address"			: 	"Address is mandatory",
 	"validation.email"				: 	"Email is mandatory",
 	"validation.selectcustomer"		: 	"Please select a Customer",
+	"validation.description"		: 	"Description is mandatory",
+	"validation.qty"				: 	"Quantity is mandatory",
+	"validation.unit"				: 	"Unit is mandatory",
+	"validation.percost"			: 	"Per cost is mandatory",
+	"validation.amount"				: 	"Amount is mandatory",
+	"validation.location"			: 	"Location is mandatory",
+	"validation.email.format"		:	"Email format is wrong",
 
 
 	"edit.form.confirmation.title"		: 	"Edit confirmation check",
@@ -69,6 +77,9 @@ Messages = {
 	"modal.update.message"		:	"Data updated successfully!",
 	"modal.add.title" 			: 	"added",
 	"modal.add.message"			:	"Data added successfully!",
+	"modal.delete.title"		: 	"deleted",
+	"modal.delete.message"		:	"Data deleted successfully!",
+
 
 	"cnt.rows"								:	"Record : ",
 	"cnt.total"								:  	"Total Amount : ",
@@ -79,6 +90,13 @@ Messages = {
 	"tooltip.trash" 		: 	"Trash",
 	"tooltip.comment"		: 	"Comment",
 	"tooltip.refresh"		:	"Refresh",
+	"tooltip.additem"		: 	"Add Item",
+	"tooltip.view"			:	"View",
+	"tooltip.filldesc"		:	"Fill Description",
+	"tooltip.addcustomer"	:	"Add Customer",
+	"tooltip.trashcustomer"	:	"Trash Customer",
+	"tooltip.viewcustomer"	:	"View Customer",
+	"tooltip.editcustomer"	:	"Edit Customer",
 
 	"setting.language.malayalam"				: 	"Malayalam",
 	"setting.language.english"					: 	"English",
@@ -118,12 +136,22 @@ Messages = {
 	"label.units"							: 	"Units",
 	"label.price"							: 	"Price",
 	"label.rate"							: 	"Rate",
+	"label.percost"							: 	"PEr Cost",
 	"label.amount"							: 	"Amount",
 	"label.total"							: 	"Total",
+	"label.customer"						: 	"Customer",
+	"label.customername"					: 	"Customer Name",
+	"label.generatepdf"						: 	"Generate PDF",
+	"label.cloneestimate"					: 	"Clone Estimate",
+	"label.generatequotation"				: 	"Generate Quotation",
+	"label.location"						: 	"Location",
+	"label.preparedby"						: 	"Prepared by",
 
 	"label.userid"							: 	"User ID",
 	"label.password"						: 	"Password",
 	"label.nodatafound"						: 	"No Record Found.",
+	"label.subtotal"						: 	"Sub Total",
+	"label.backtoestimate"					: 	"Back to Estimate",
 
 
 	// DASHBOARD .....
@@ -146,10 +174,12 @@ Messages = {
 
 	// CUSTOMER MANAGER ...
 
-	"customermanager.pageheader"			: 	"Customer Manager",
-	"customermanager.customers"				: 	"Customers",
-	"customermanager.add"					: 	"Add Customer",
-	"customermanager.edit"					: 	"Edit Customer",
+	"customermanager.pageheader"				: 	"Customer Manager",
+	"customermanager.customerview.pageheader"	: 	"Customer",
+	"customermanager.customerview"				: 	"Customer",
+	"customermanager.customers"					: 	"Customers",
+	"customermanager.add"						: 	"Add Customer",
+	"customermanager.edit"						: 	"Edit Customer",
 	// MARKETING BASKET....
 
 	"marketingbasket.pageheader"			: 	"Marketing Basket",
@@ -164,8 +194,22 @@ Messages = {
 	"estimatemanager.add"							: 	"Add Estimate",
 	"estimatemanager.edit"							: 	"Edit Estimate",
 	"estimatemanager.estimate"						: 	"Estimate",
-	"estimatemanager.estimategenerate.pageheader"	: 	"Estimate Generate"
-
+	"estimatemanager.estimategenerate.pageheader"	: 	"Estimate Generate",
+	"estimatemanager.estimatebasket.pageheader"		: 	"Estimate Basket",
+	"estimatebasket.description.prefill"			: 	"Suppy and installation of Customized Base Unit with Shutter and Shelves in 18mm thk Branded Ply including all necessory materials for fixing. As per drawing details and specs. Location: Living Room",
+	"estimatebasket.generatepdf.estimate"			: 	"Estimate",
+	"estimatebasket.pdfnote"						: 	"Note",
+	"estimatebasket.pdfnote.one"					: 	"Tax as applicable",
+	"estimatebasket.pdfnote.two"					: 	"Actual Measurement in Feet system (3',6',9')",
+	"estimatebasket.pdfnote.three"					: 	"Wallpaper pricing on confirmation of sample",
+	"estimatebasket.pdfnote.four"					: 	"Plywood Branded Brand or Greenply or Marinolam or Equivalent",
+	"estimatebasket.pdfnote.five"					: 	"Laminate Merino or Asis or Suntek or Greenlam laminate",
+	"estimatebasket.pdfnote.six"					: 	"Civil and Electrical and plumbing works on actuals",
+	"estimatebasket.pdfnote.seven"					: 	"False Ceiling Cove light is included, spot lights (panel lights) pricing will be on actuals",
+	"estimatebasket.pdffooter.one"					: 	"Please Revert for any Clarification. Looking forward to serving you.",
+	"estimatebasket.pdffooter.two"					: 	"If you have any questions concerning this quotation, contact Sangeetha, +919047474350, sangi@inagham.com.",
+	"estimatebasket.deleteitem"						: 	"Do you want to delete the estimate item ? Click YES to delete the item, Click NO to cancel the action."
+	
 	
 
 

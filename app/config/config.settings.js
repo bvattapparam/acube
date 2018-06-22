@@ -45,7 +45,7 @@
 			"CARMODULE_SERVICE" : "CM2",
 			"CARMODULE_INSURANCE" : "CM4",
 			"date":"dd-MMM-yyyy",
-			"currency":"₹ ",
+			"currency":"₹",
 			"appURL" : "http://localhost/acube/app/",
 			"build": " Build : V1.0 on 01-JUNE-2018"
 		};

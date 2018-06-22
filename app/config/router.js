@@ -18,19 +18,29 @@
             controller : 'userManagerController',
             requiresAuthentication: true
         })
-         .when('/estimate',{
+         .when('/estimatemanager',{
             templateUrl : 'estimatemanager/view/estimatemanager.html',
             controller : 'estimateManagerController',
             requiresAuthentication: true
         })
-         .when('/estimategenerate/:CUSTOMERID',{
-            templateUrl : 'estimatemanager/view/estimategenerate.html',
-            controller : 'estimateGenerateController',
+        .when('/estimatemanager/:CUSTOMERID',{
+            templateUrl : 'estimatemanager/view/estimatemanager.html',
+            controller : 'estimateManagerController',
+            requiresAuthentication: true
+        })
+         .when('/estimatemanager/estimatebasket/:ESTIMATEID',{
+            templateUrl : 'estimatemanager/view/estimatebasket.html',
+            controller : 'estimateBasketController',
             requiresAuthentication: true
         })
         .when('/customer',{
             templateUrl : 'customermanager/view/customermanager.html',
             controller : 'customerManagerController',
+            requiresAuthentication: true
+        })
+        .when('/customer/customerview/:CUSTOMERID',{
+            templateUrl : 'customermanager/view/customerview.html',
+            controller : 'customerViewController',
             requiresAuthentication: true
         })
         .when('/myaccount',{

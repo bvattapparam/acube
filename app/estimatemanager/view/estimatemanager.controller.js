@@ -1,30 +1,35 @@
 (function(){
 
-	function estimateManagerController($location, $window, $scope, $rootScope, $modal, $filter, settings, customerManagerServices, estimateManagerServices, utilityServices, storageServices, getreferences,$http, mainServices){
+	function estimateManagerController($location, $routeParams, $window, $scope, $rootScope, $modal, $filter, settings, customerManagerServices, estimateManagerServices, utilityServices, storageServices, getreferences,$http, mainServices){
 
 		$scope.estimateManager 					=	{};
+		$scope.estimateManagerBO	=	[];
+
 		$scope.customerManager 					=	{};
 		$scope.reference						=	{};
 		$scope.referenceData					=	{};
 		$scope.showAddBtn						= 	true;
+		$scope.dataBO = {};
+
+		$scope.reference.CUSTOMER 	=	[];
 		$scope.referenceData.referencesDataMap 	= {
 			"CUSTOMERTYPE" 	: getreferences.referencesData.CUSTOMERTYPE
 		};
 
+		
 		$scope.getCustomers = function(){
 			$rootScope.showSpinner();
 			customerManagerServices.getCustomers().then(function(data){
 				if(data.msg!=''){
 					$scope.customerManagerBO	=	[];
 					$scope.customerManagerBO 	= 	data;
-					$scope.reference.CUSTOMER 	=	[];
 
 					// CREATE NEW REFERENCE FOR CUSTOMER..
 						for(var i=0; i<data.length; i++){
 							var node 	=	{};
 							node.code 	= 	data[i].CUSTOMERID;
 							node.name	=	data[i].CUSTOMERID + " ( " + data[i].FULLNAME + " )";
-							$scope.reference.CUSTOMER.push(node);;
+							$scope.reference.CUSTOMER.push(node);
 						}
 
 					$rootScope.hideSpinner();
@@ -37,14 +42,23 @@
 		};
 		$scope.getCustomers();
 
-		$scope.getEstimates = function(){
+		$scope.getEstimates = function(param){
 			$rootScope.showSpinner();
 			var pushData = {};
-			pushData.CUSTOMERID = $scope.dataBO.CUSTOMERID;
+			if(typeof param != 'undefined'){
+				pushData.CUSTOMERID = $scope.dataBO.CUSTOMERID;
+			}else{
+				if($routeParams.CUSTOMERID){
+					pushData.CUSTOMERID = $routeParams.CUSTOMERID;
+					$scope.dataBO.CUSTOMERID = $routeParams.CUSTOMERID;
+				}else{
+					pushData.CUSTOMERID = $scope.dataBO.CUSTOMERID;
+				}
+			}
 			
 			estimateManagerServices.getEstimates(pushData).then(function(data){
 				if(data.msg!=''){
-					$scope.estimateManagerBO	=	[];
+					console.log("ddd", data)
 					$scope.estimateManagerBO 	= 	data;
 					if(data!=''){
 						$scope.showAddBtn 		=	false;
@@ -57,6 +71,9 @@
 					$rootScope.showErrorBox('Error', data.error);
 				}
 			});
+		}
+		if($routeParams.CUSTOMERID){
+			$scope.getEstimates();
 		}
 
 		$scope.getCustomer = function(customerid){
@@ -132,6 +149,7 @@
 
 		$scope.generatenewest = function(){
 			var customerid = $scope.dataBO.CUSTOMERID;
+			console.log("customerid", customerid)
 			if(customerid){
 				// GET CUSTOMER DETAILS
 				$scope.getCustomer(customerid);
@@ -142,6 +160,11 @@
 			}
 
 		};
+		$scope.estimateBasket = function(record){
+			var estimateid = record.ESTIMATEID;
+			$window.location.href = settings.rootScope.appURL + "#/estimatemanager/estimatebasket/" + estimateid;
+
+		}
 
 		$scope.editUser = function (data) {
 			console.log("yes", data);
@@ -191,5 +214,5 @@
 
 	}
 
-	angular.module('aswa').controller('estimateManagerController',['$location', '$window', '$scope', '$rootScope', '$modal', '$filter', 'settings', 'customerManagerServices', 'estimateManagerServices', 'utilityServices', 'storageServices', 'getreferences', '$http', 'mainServices', estimateManagerController]);
+	angular.module('aswa').controller('estimateManagerController',['$location', '$routeParams', '$window', '$scope', '$rootScope', '$modal', '$filter', 'settings', 'customerManagerServices', 'estimateManagerServices', 'utilityServices', 'storageServices', 'getreferences', '$http', 'mainServices', estimateManagerController]);
 })();

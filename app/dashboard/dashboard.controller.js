@@ -288,7 +288,15 @@ Highcharts.chart('container3', {
 			$scope.getBR();
 			$scope.getIowe();
 			$scope.getGrandTotal();
-		};
+        };
+        
+        $scope.players = [
+			{name: 'Gene', team: 'alpha'},
+			{name: 'George', team: 'beta'},
+			{name: 'Steve', team: 'gamma'},
+			{name: 'Paula', team: 'beta'},
+			{name: 'Scruath', team: 'gamma'}
+		  ];
 	}
 	angular.module('aswa').controller('dashboardController',['$scope', '$rootScope', '$filter', 'utilityServices', '$modal', 'mainServices', 'dashboardServices', 'getreferences', 'storageServices', dashboardController]);
 })();

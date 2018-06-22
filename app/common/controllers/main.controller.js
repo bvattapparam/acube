@@ -194,7 +194,7 @@
 				title 			: 	title || 'Info',
 				image 			: 	'../img/confirm.png',
 				text			: 	text || 'Information',
-				sticky			: 	false,
+				sticky			: 	sticky || false,
 				time			: 	time || 2000
 			})
 		};

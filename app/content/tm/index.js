@@ -85,6 +85,8 @@ Messages = {
 	"tooltip.trash" 		: 	"Trash",
 	"tooltip.comment"		: 	"Comment",
 	"tooltip.refresh"		:	"Refresh",
+	"tooltip.additem"		:	"Add Item",
+	"tooltip.view"			: 	"View",
 
 	"setting.language.malayalam"				: 	"Malayalam",
 	"setting.language.english"					: 	"English",

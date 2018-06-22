@@ -134,6 +134,11 @@
 						"type":"required",
 						"value":"true",
 						"errCode":"validation.email"
+					},
+					{
+						"type":"email",
+						"value":"true",
+						"errCode":"validation.email.format"
 					}
 				]
 			},
@@ -154,6 +159,68 @@
 						"type":"required",
 						"value":"true",
 						"errCode":"validation.address"
+					}
+				]
+			}
+		],
+		"estimatebasket":[
+			{
+				"key":"DESCRIPTION",
+				"validations":[
+					{
+						"type":"required",
+						"value":"true",
+						"errCode":"validation.description"
+					}
+				]
+			},
+			{
+				"key":"LOCATION",
+				"validations":[
+					{
+						"type":"required",
+						"value":"true",
+						"errCode":"validation.location"
+					}
+				]
+			},
+			{
+				"key":"QTY",
+				"validations":[
+					{
+						"type":"required",
+						"value":"true",
+						"errCode":"validation.qty"
+					}
+				]
+			},
+			{
+				"key":"UNIT",
+				"validations":[
+					{
+						"type":"required",
+						"value":"true",
+						"errCode":"validation.unit"
+					}
+				]
+			},
+			{
+				"key":"PERCOST",
+				"validations":[
+					{
+						"type":"required",
+						"value":"true",
+						"errCode":"validation.percost"
+					}
+				]
+			},
+			{
+				"key":"AMOUNT",
+				"validations":[
+					{
+						"type":"required",
+						"value":"true",
+						"errCode":"validation.amount"
 					}
 				]
 			}

@@ -109,6 +109,13 @@
               return config.errCode;
             }
           }
+        },
+        email:function(key, config, reqBO){
+          if(reqBO[key]){
+            if(!(/^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$/.test(reqBO[key]))){
+              return config.errCode;
+            }
+          }
         }
       }
     }

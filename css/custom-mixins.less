@@ -94,6 +94,19 @@
 }
 
 
+.action-icon-table-variant(@actFontSize; @actFontColor; @actTextAlign){
+  font-size       : @actFontSize !important;
+  color           : @actFontColor;
+  text-align      : @actTextAlign;
+    &:hover,
+    &:focus,
+    &:active{
+      color     : lighten(@actFontColor, 20%);
+    }
+  
+}
+
+
 .action-icon-variant(@width; @height; @lHeight; @fontSize; @textAlign; @bgColor; @border-radius; @fontColor){
   width               :   @width;
   height              :   @height;

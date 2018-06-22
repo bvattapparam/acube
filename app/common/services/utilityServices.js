@@ -30,13 +30,27 @@
               config.title  = title || "confirmation Check";
               config.size = "md";
               config.body = message || "There are some changes in the form. Do you want to close..?";
-              config.buttonHandler = function(index){
-                if(index === 0){
-                  modalInstance.dismiss();
-                }
+              config.buttonHandler = function(index){;
+                // if(index === 0){
+                //   modalInstance.dismiss();
+                // }
               };
              $rootScope.showConfirmationBox(config);
       }
+    };
+
+    // model with configuaration for form data handling
+    this.confirmModelConfiguration = function(paramConfig){
+      
+        var config = {};
+          config.title  = paramConfig.title || "confirmation Check";
+          config.size = "md";
+          config.body = paramConfig.message || "There are some changes in the form. Do you want to close..?";
+          
+          paramConfig.title = config.title;
+          paramConfig.size=config.size;
+          paramConfig.body= config.body;
+      return paramConfig;
     };
 
     // model window with configuration

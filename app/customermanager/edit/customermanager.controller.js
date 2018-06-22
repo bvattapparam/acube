@@ -17,7 +17,6 @@
 		
 		
 		$scope.save = function (record) {
-
 			var pushData = {};
 			pushData = record;
 			pushData.MODIFIEDBY = $rootScope.user.USERID;

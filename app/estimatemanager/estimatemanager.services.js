@@ -73,7 +73,67 @@
             deferred.reject(data, status, headers, config);
           });
             return deferred.promise;
+        };
+
+        this.getEstimateMaster = function(pushdata){
+          console.log("pushdata", pushdata)
+          var deferred = $q.defer();
+          $http({
+            method  : "POST",
+            url     : urlsettings['estimatemanager.getEstimateMaster'],
+            data    : pushdata
+          }).success(function(data, status, headers, config){
+            deferred.resolve(data);
+          }).error(function(data, status, headers, config){
+            deferred.reject(data, status, headers, config);
+          });
+            return deferred.promise;
+        };
+
+        this.getEstimateBasket = function(pushdata){
+          console.log("pushdata", pushdata)
+          var deferred = $q.defer();
+          $http({
+            method  : "POST",
+            url     : urlsettings['estimatemanager.getEstimateBasket'],
+            data    : pushdata
+          }).success(function(data, status, headers, config){
+            deferred.resolve(data);
+          }).error(function(data, status, headers, config){
+            deferred.reject(data, status, headers, config);
+          });
+            return deferred.promise;
+        };
+
+        // ADD NEW ROW IN THE ESTIMATE BASKET.
+        this.addEstimateBasketData = function(pushdata){
+          var deferred = $q.defer();
+          $http({
+            method  : "POST",
+            url     : urlsettings['estimatemanager.addEstimateBasket'],
+            data    : pushdata
+          }).success(function(data, status, headers, config){
+            deferred.resolve(status);
+          }).error(function(data, status, headers, config){
+            deferred.reject(data, status, headers, config);
+          });
+            return deferred.promise;
+        };
+        
+        this.deleteEstimateBasketData = function(pushdata){
+          var deferred = $q.defer();
+          $http({
+            method  : "POST",
+            url     : urlsettings['estimatemanager.deleteEstimateBasketData'],
+            data    : pushdata
+          }).success(function(data, status, headers, config){
+            deferred.resolve(status);
+          }).error(function(data, status, headers, config){
+            deferred.reject(data, status, headers, config);
+          });
+            return deferred.promise;
         }
+        
 
   }
   angular.module("aswa").service('estimateManagerServices',['$rootScope', '$q', '$http', 'storageServices', 'urlsettings', estimateManagerServices]);
