@@ -37,12 +37,8 @@
 						}
 					})
 				}else{
-					var CUSTOMER_TYPE = record.TYPE;
-					var CUSTOMERNAME = record.FULLNAME;
-					var COMPANY = "AGM";
-					var D = new Date();
-					var NDATE = D.getMonth()+1 + "" + D.getDate() + "" + D.getFullYear() + "" + D.getHours() + "" + D.getMinutes();
-					var CUSTOMERID = COMPANY + "-" + CUSTOMER_TYPE + "-" + CUSTOMERNAME.substr(0,2).toUpperCase() + "-" + NDATE;
+					
+					var CUSTOMERID = customerManagerServices.customerIDCreation(record);
 					record.CUSTOMERID = CUSTOMERID;
 
 					customerManagerServices.addCustomerData(record).then(function(status){

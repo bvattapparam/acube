@@ -7,7 +7,7 @@
             var deferred = $q.defer();
               $http({
                 method  : "GET",
-                url     : urlsettings['marketingbasket.getCustomers'],
+                url     : urlsettings['customermanager.getCustomers'],
                 headers :   {'Content-Type' : 'application/json'}
               }).success(function(data){
                 deferred.resolve(data);
@@ -22,7 +22,7 @@
           var deferred = $q.defer();
           $http({
             method  : "POST",
-            url     : urlsettings['marketingbasket.updateMarketingBasket'],
+            url     : urlsettings['customermanager.updateCustomer'],
             data    : pushdata
           }).success(function(data, status, headers, config){
             deferred.resolve(status);

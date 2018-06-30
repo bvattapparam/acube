@@ -61,13 +61,13 @@
               </thead>
               <tbody>
               <tr ng-repeat ="rel in estimateManagerBO">
-                <td class="f20 part1"></td>
+                <td class="f20 part1"><i ng-class="lockIcon(rel.STATUS, rel.ESTIMATESTATUS)" class="fa fa-lg" tooltip={{tooltipContent}} tooltip-placement='right'></i></td>
                 <td data-ng-bind="rel.ESTIMATEID"></td>
                 <td data-ng-bind="rel.CUSTOMERID"></td>
-                <td data-ng-bind="rel.MODIFIEDDATE | aswaDate"></td>
-                <td data-ng-bind="rel.MODIFIEDBY"></td>
-                <td data-ng-bind="rel.MODIFIEDDATE | aswaDate"></td>
-                <td data-ng-bind="rel.MODIFIEDBY"></td>
+                <td data-ng-bind="rel.MODIFIEDDATE | aswaDate" class="text-uppercase"></td>
+                <td data-ng-bind="rel.MODIFIEDBY" class="text-uppercase"></td>
+                <td data-ng-bind="rel.MODIFIEDDATE | aswaDate" class="text-uppercase"></td>
+                <td data-ng-bind="rel.MODIFIEDBY" class="text-uppercase"></td>
                 <td class="f20 ng-binding action comment-content"> 
                   <i class="action-icon-md-primary fa fa-edit icon-link"  tooltip="{{'tooltip.edit'|i18n}}" ng-click="estimateBasket(rel)"></i>
                   <i class="action-icon-md-primary fa fa-trash icon-link" tooltip="{{'tooltip.trash'|i18n}}" ng-click="showInfoBox('Info', 'generalinfoone', 'sm')"></i>

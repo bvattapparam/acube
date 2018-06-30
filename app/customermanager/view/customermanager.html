@@ -34,12 +34,13 @@
                 <th data-ng-bind-html="'label.customerid' | i18n"></th>
                 <th data-ng-bind-html="'label.customertype' | i18n"></th>
                 <th data-ng-bind-html="'label.fullname' | i18n"></th>
-                <th data-ng-bind-html="'label.mobile' | i18n"></th>
-                <th data-ng-bind-html="'label.email' | i18n"></th>
+                <!-- <th data-ng-bind-html="'label.mobile' | i18n"></th>
+                <th data-ng-bind-html="'label.email' | i18n"></th> -->
                 <th data-ng-bind-html="'label.modifieddate' | i18n"></th>
                 <th data-ng-bind-html="'label.modifiedby' | i18n"></th>
                 <th data-ng-bind-html="'label.createddate' | i18n"></th>
                 <th data-ng-bind-html="'label.createdby' | i18n"></th>
+                <th data-ng-bind-html="'label.status' | i18n"></th>
                 <th data-ng-bind-html="'label.actions' | i18n"></th>
                 
               </tr>
@@ -49,13 +50,14 @@
                 <td class="f20 part1"></td>
                 <td data-ng-bind="rel.CUSTOMERID"></td>
                 <td data-ng-bind="referenceData.referencesDataMap.CUSTOMERTYPE[rel.TYPE]"></td>
-                <td data-ng-bind="rel.FULLNAME"></td>
-                <td data-ng-bind="rel.MOBILE"></td>
-                <td data-ng-bind="rel.EMAIL"></td>
-                <td data-ng-bind="rel.MODIFIEDDATE | aswaDate"></td>
-                <td data-ng-bind="rel.MODIFIEDBY"></td>
-                <td data-ng-bind="rel.MODIFIEDDATE | aswaDate"></td>
-                <td data-ng-bind="rel.MODIFIEDBY"></td>
+                <td data-ng-bind="rel.FULLNAME" class="text-uppercase"></td>
+                <!-- <td data-ng-bind="rel.MOBILE"></td>
+                <td data-ng-bind="rel.EMAIL"></td> -->
+                <td data-ng-bind="rel.MODIFIEDDATE | aswaDate" class="text-uppercase"></td>
+                <td data-ng-bind="rel.MODIFIEDBY" class="text-uppercase"></td>
+                <td data-ng-bind="rel.CREATEDDATE | aswaDate" class="text-uppercase"></td>
+                <td data-ng-bind="rel.CREATEDBY" class="text-uppercase"></td>
+                <td data-ng-bind="referenceData.referencesDataMap.GENERICSTATUS[rel.STATUS]" class="text-uppercase"></td>
                 <td class="f20 ng-binding action comment-content">
                   <i class="action-icon-md-primary fa fa-edit icon-link"  ng-click="editUser(rel)" tooltip="{{'tooltip.editcustomer'|i18n}}"></i>
                   <i class="action-icon-md-primary fa fa-trash icon-link" ng-click="showInfoBox('Info', 'generalinfoone', 'sm')" tooltip="{{'tooltip.trashcustomer'|i18n}}"></i>

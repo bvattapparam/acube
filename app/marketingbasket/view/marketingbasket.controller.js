@@ -7,7 +7,8 @@
 		$scope.reference.referenceBO		= 	getreferences.references;
 		$scope.referenceData					=	{};
 		$scope.referenceData.referencesDataMap 	= {
-			"genericstatus" 	: getreferences.referencesData.GENERICSTATUS
+			"GENERICSTATUS" 	: getreferences.referencesData.GENERICSTATUS,
+			"CUSTOMERTYPE" 	: getreferences.referencesData.CUSTOMERTYPE
 		};
 
 
@@ -32,7 +33,7 @@
 			var config= {};
 				config.templateUrl = '../app/marketingbasket/edit/marketingbasket.html';
 				config.controller = 'marketingBasketEditController';
-				config.size		= 'm';
+				config.size		= 'lg';
 				config.backdrop	= 'static';
 				config.passingValues = {};
 				config.passingValues.title = Messages['marketingbasket.edit'];
@@ -50,7 +51,7 @@
 			var config= {};
 				config.templateUrl = '../app/marketingbasket/edit/marketingbasket.html';
 				config.controller = 'marketingBasketEditController';
-				config.size		= 'm';
+				config.size		= 'lg';
 				config.backdrop	= 'static';
 				config.passingValues = {};
 				config.passingValues.title = Messages['marketingbasket.add'];

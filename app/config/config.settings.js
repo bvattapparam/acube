@@ -3,6 +3,7 @@
 		Settings.rootScope={
 			"EXCLUDE_GENERIC_STATUS_TWO_PENDING"	: 0,
 			"EXCLUDE_GENERIC_STATUS_TWO_PAID"	: 1,
+			"NOCUSTOMERMANAGERSTATUS"	:	0,
 			travel_status:{
 				"1":"status-active-bg",
 				"2":"status-pending-bg",

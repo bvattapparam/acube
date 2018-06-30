@@ -1,7 +1,7 @@
 
 <div class="row pageheader non-printable">
   <div class="col-xs-11">
-    <h1><span ng-bind ="'estimatemanager.estimatebasket.pageheader' | i18n"></span></h1>
+    <h1><span ng-bind ="'estimatemanager.estimatebasket.pageheader' | i18n"></span> <span data-ng-if="cloned" class="text-gray">[ <span data-ng-bind="'clone.success' | i18n"></span> ]</span></h1>
   </div>
   <div class="col-xs-1">
     <button type="button" class="btn btn-xs btn-primary pull-right" ng-click="refresh();" tooltip="{{'tooltip.refresh' | i18n}}">
@@ -20,6 +20,7 @@
           <div class="">
             <label class="label-width text-strong" data-ng-bind="'label.estimateid' | i18n"></label> : 
             <label data-ng-bind="estimateManagerBO[0].ESTIMATEID"></label>
+            <i ng-class="{'fa-lock green-lock': softLock && !hardLock, 'fa-lock red-lock': hardLock}" class="fa fa-lg"></i>
           </div> 
           <div class="">
             <label class="label-width text-strong" data-ng-bind="'label.customerid' | i18n"></label> : 
@@ -46,10 +47,14 @@
               <i class="fa fa-file-pdf-o"></i><label class="label-width-md text-strong btn-link" data-ng-bind="'label.generatepdf' | i18n" data-ng-click="generatePDF(estimateManagerBO)"></label>
             </div> 
             <div class="">
-              <i class="fa fa-code-fork"></i><label class="label-width-md text-strong" data-ng-bind="'label.cloneestimate' | i18n"></label> 
+              <i class="fa fa-code-fork"></i>
+              <label class="label-width-md text-strong btn-link" data-ng-bind="'label.cloneestimate' | i18n" data-ng-if="!softLock" data-ng-click="cloneEstimate()"></label> 
+              <label class="label-width-md text-strong " data-ng-bind="'label.cloneestimate' | i18n" data-ng-if="softLock"></label> 
             </div> 
             <div class="">
-              <i class="fa fa-file-pdf-o"></i><label class="label-width-md text-strong" data-ng-bind="'label.generatequotation' | i18n"></label> 
+              <i class="fa fa-file-pdf-o"></i>
+              <label class="label-width-md text-strong btn-link" data-ng-bind="'label.generatequotation' | i18n" data-ng-click="generateQuote()" data-ng-if="!hardLock"></label> 
+              <label class="label-width-md text-strong " data-ng-bind="'label.generatequotation' | i18n" data-ng-if="hardLock"></label> 
             </div> 
             <div class="">
               <i class="fa fa-mail-reply"></i><a ng-href="#/estimatemanager/{{estimateManagerBO[0].CUSTOMERID}}"><label class="label-width-md text-strong btn-link" data-ng-bind="'label.backtoestimate' | i18n"></label></a>
@@ -76,17 +81,17 @@
               <thead class="table-bg text-uppercase">
               <tr>
                 <th></th>
-                <th width="400px" data-ng-bind-html="'label.description' | i18n"></th>
-                <th data-ng-bind-html="'label.location' | i18n"></th>
-                <th width="100px" data-ng-bind-html="'label.quantity' | i18n"></th>
-                <th width="100px" data-ng-bind-html="'label.units' | i18n"></th>
+                <th width = "400px" data-ng-bind-html="'label.description' | i18n"></th>
+                <th width = "100px" data-ng-bind-html="'label.location' | i18n"></th>
+                <th width = "100px" data-ng-bind-html="'label.quantity' | i18n"></th>
+                <th width = "100px" data-ng-bind-html="'label.units' | i18n"></th>
                 <th data-ng-bind-html="'label.percost' | i18n"></th>
-                <th data-ng-bind-html="'label.amount' | i18n"></th>
-                <th data-ng-bind-html="'label.actions' | i18n"></th>
+                <th data-ng-bind-html="'label.amount' | i18n" class="text-right"></th>
+                <th width = "70px" data-ng-bind-html="'label.actions' | i18n"></th>
               </tr>
               </thead>
               <tbody>
-              <tr>
+              <tr data-ng-class="{'soft-lock-container': softLock}">
                 <td class="f20 part1"></td>
                 <td>
                   <div class="input-group">
@@ -108,13 +113,13 @@
                   <input tabindex="1" type="text" class="form-control" tabindex="1" data-ng-model="dataBO.QTY" data-ng-change="amountCal(dataBO.QTY, dataBO.PERCOST)" acube-number maxlength="5">
                 </td>
                 <td>
-                  <input tabindex="1" type="text" class="form-control" tabindex="1" data-ng-model="dataBO.UNIT">
+                  <input tabindex="1" type="text" class="form-control text-uppercase" tabindex="1" data-ng-model="dataBO.UNIT">
                 </td>
                 <td>
                   <input tabindex="1" type="text" class="form-control" tabindex="1" data-ng-model="dataBO.PERCOST" acube-currency data-ng-change="amountCal(dataBO.QTY, dataBO.PERCOST)">
                 </td>
                 <td>
-                  <input tabindex="1" type="text" class="form-control" tabindex="1" data-ng-model="dataBO.AMOUNT" readonly="true">
+                  <input tabindex="1" type="text" class="form-control" tabindex="1" data-ng-model="dataBO.AMOUNT" readonly="true" acube-currency>
                 </td>
                 <td>
                   <button class="btn btn-sm camelcase btn-primary" tooltip="{{'tooltip.additem' | i18n}}" ng-click="save(dataBO)"><i class="fa fa-save"></i></button>
@@ -128,17 +133,17 @@
                       <td data-ng-bind="rel.DESCRIPTION"></td>
                       <td data-ng-bind="referenceData.referencesDataMap.LOCATION[rel.LOCATION]"></td>
                       <td data-ng-bind="rel.QTY"></td>
-                      <td data-ng-bind="rel.UNIT"></td>
+                      <td data-ng-bind="rel.UNIT" class="text-uppercase"></td>
                       <td data-ng-bind="rel.PERCOST"></td>
                       <td data-ng-bind="rel.AMOUNT | aswaCurrency" class="text-right"></td>
-                      <td class="f20 ng-binding action comment-content"> 
-                        <i class="action-icon-md-primary fa fa-edit icon-link"  tooltip="{{'tooltip.edit' | i18n}}" ng-click="editUser(rel)"></i>
+                      <td class="f20 ng-binding action comment-content" data-ng-class="{'soft-lock-container': softLock}"> 
+                        <i class="action-icon-md-primary fa fa-edit icon-link"  tooltip="{{'tooltip.edit' | i18n}}" ng-click="editEstimateBasket(rel)"></i>
                         <i class="action-icon-md-primary fa fa-trash icon-link" tooltip="{{'tooltip.trash' | i18n}}" ng-click="deleteBasket(rel)"></i>
                       </td>
                     </tr>
               </tbody>  
               <tbody>
-              <tr class="highlight-bg1">
+              <tr class="highlight-bg1 text-totalvalue">
                 <td colspan="3" class="text-right"><label class="text-uppercase text-strong" data-ng-bind="'label.subtotal' | i18n"></label></td>
                 <td><span data-ng-bind="TOTALQTY" class="text-strong"></span></td><td></td>
                  <td></td> 
@@ -159,23 +164,8 @@
       </div>
     </div>
     <div class="row"></div>
-  <div class="section-container">
-    <div class="col-xs-12 section-box">
-      <div class="row">
-          <div class="col-lg-12">
-            <ul class="bottom-menu">
-              <li><button class="btn btn-primary fa fa-file-pdf-o" tooltip="Generate PDF" tooltip-placement="bottom" ng-click="generatePDF(estimateManagerBO)"></button></li>
-              <li><button class="btn btn-primary fa fa-server" tooltip="Clone Estimate" tooltip-placement="bottom"></button></li>
-              <li><button class="btn btn-primary fa fa-cubes" tooltip="Generate Quotation" tooltip-placement="bottom"></button></li>
-            </ul>
-          </div>
-      </div>
-     
-    </div>
-  </div>
+  
   <p>&nbsp;</p>
       <p>&nbsp;</p>
-      <p>&nbsp;</p>
-      <p>&nbsp;</p>
-      <p>&nbsp;</p>
+     
 </div>

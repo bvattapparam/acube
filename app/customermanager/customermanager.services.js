@@ -59,6 +59,31 @@
               });
             
               return deferred.promise;
+        };
+        this.updateCustomerEstimateStatus = function(pushdata){
+          var deferred = $q.defer();
+          $http({
+            method  : "POST",
+            url     : urlsettings['customermanager.updateEstimateStatus'],
+            data    : pushdata
+          }).success(function(data, status, headers, config){
+            deferred.resolve(status);
+          }).error(function(data, status, headers, config){
+            deferred.reject(data, status, headers, config);
+          });
+            return deferred.promise;
+        };
+
+        this.customerIDCreation = function(record){
+          var CUSTOMER_TYPE = record.TYPE;
+          var CUSTOMERNAMETMP = record.FULLNAME;
+          var CUSTOMERNAME = CUSTOMERNAMETMP.replace(/\s/g,'');;
+					var COMPANY = "AGM";
+					var D = new Date();
+					var NDATE = D.getMonth()+1 + "" + D.getDate() + "" + D.getFullYear() + "" + D.getHours() + "" + D.getMinutes();
+					var CUSTOMERID = COMPANY + "-" + CUSTOMER_TYPE + "-" + CUSTOMERNAME.substr(0,3).toUpperCase() + "-" + NDATE;
+         
+          return CUSTOMERID;
         }
 
   }

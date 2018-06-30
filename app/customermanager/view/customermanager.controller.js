@@ -1,12 +1,13 @@
 (function(){
 
-	function customerManagerController($scope, $rootScope, $modal, $filter, customerManagerServices, utilityServices, storageServices, getreferences,$http, mainServices){
+	function customerManagerController($scope, $rootScope, $modal, $filter, customerManagerServices, utilityServices, storageServices, getreferences,$http, settings, mainServices){
 
 		$scope.customerManager 						=	{};
 		$scope.reference						=	{};
 		$scope.referenceData					=	{};
 		$scope.referenceData.referencesDataMap 	= {
-			"CUSTOMERTYPE" 	: getreferences.referencesData.CUSTOMERTYPE
+			"CUSTOMERTYPE" 	: getreferences.referencesData.CUSTOMERTYPE,
+			"GENERICSTATUS" 	: getreferences.referencesData.GENERICSTATUS
 		};
 
 
@@ -14,9 +15,14 @@
 			$rootScope.showSpinner();
 			customerManagerServices.getCustomers().then(function(data){
 				if(data.msg!=''){
+
 					$scope.customerManagerBO	=	[];
-					$scope.customerManagerBO 	= 	data;
-					console.log("date", data)
+					
+					angular.forEach(data, function(item,key){
+						if(item.STATUS != settings.rootScope.NOCUSTOMERMANAGERSTATUS){
+							$scope.customerManagerBO.push(item)
+						}
+					});
 					$rootScope.hideSpinner();
 				}else{
 					$rootScope.hideSpinner();
@@ -76,5 +82,5 @@
 
 	}
 
-	angular.module('aswa').controller('customerManagerController',['$scope', '$rootScope', '$modal', '$filter', 'customerManagerServices', 'utilityServices', 'storageServices', 'getreferences', '$http', 'mainServices', customerManagerController]);
+	angular.module('aswa').controller('customerManagerController',['$scope', '$rootScope', '$modal', '$filter', 'customerManagerServices', 'utilityServices', 'storageServices', 'getreferences', '$http', 'settings', 'mainServices', customerManagerController]);
 })();

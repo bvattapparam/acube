@@ -31,9 +31,9 @@
               config.size = "md";
               config.body = message || "There are some changes in the form. Do you want to close..?";
               config.buttonHandler = function(index){;
-                // if(index === 0){
-                //   modalInstance.dismiss();
-                // }
+                if(index === 0){
+                  modalInstance.dismiss();
+                }
               };
              $rootScope.showConfirmationBox(config);
       }

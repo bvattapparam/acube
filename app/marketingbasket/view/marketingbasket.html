@@ -20,47 +20,56 @@
       <div class="row">
         <div class="col-xs-12">
           <div class="section-box-header">
-           <h2 class="text-uppercase"><i class="fa fa-users"></i> {{'marketingbasket.customers' | i18n}} </h2>
+           <h2 class="text-uppercase"><i class="fa fa-users"></i> {{'customermanager.customers' | i18n}} </h2>
           </div>
         </div>
         <div class="col-xs-12 section-box-body table-responsive">
-          <table class="table table-hover table-full ">
+          <table class="table table-hover">
               <colgroup>
                 <col class="auto-cell-size p-r-20">
               </colgroup>
               <thead class="table-bg">
               <tr>
                 <th></th>
+                <th data-ng-bind-html="'label.customerid' | i18n"></th>
+                <th data-ng-bind-html="'label.customertype' | i18n"></th>
                 <th data-ng-bind-html="'label.fullname' | i18n"></th>
-                <th data-ng-bind-html="'label.mobile' | i18n"></th>
-                <th data-ng-bind-html="'label.status' | i18n"></th>
-                <th data-ng-bind-html="'label.createddate' | i18n"></th>
-                <th data-ng-bind-html="'label.createdby' | i18n"></th>
+                <!-- <th data-ng-bind-html="'label.mobile' | i18n"></th>
+                <th data-ng-bind-html="'label.email' | i18n"></th> -->
                 <th data-ng-bind-html="'label.modifieddate' | i18n"></th>
                 <th data-ng-bind-html="'label.modifiedby' | i18n"></th>
-                <th></th>
+                <th data-ng-bind-html="'label.createddate' | i18n"></th>
+                <th data-ng-bind-html="'label.createdby' | i18n"></th>
+                <th data-ng-bind-html="'label.status' | i18n"></th>
+                <th data-ng-bind-html="'label.actions' | i18n"></th>
+                
               </tr>
               </thead>
               <tbody>
               <tr ng-repeat ="rel in dataBO">
                 <td class="f20 part1"></td>
-                <td data-ng-bind="rel.NAME"></td>
-                <td data-ng-bind="rel.MOBILE"></td>
-                <td data-ng-bind="referenceData.referencesDataMap.genericstatus[rel.STATUS]"></td>
-                 <td data-ng-bind="rel.CREATEDDATE | aswaDate"></td>
-                <td data-ng-bind="rel.CREATEDBY"></td>
-                <td data-ng-bind="rel.MODIFIEDDATE | aswaDate"></td>
-                <td data-ng-bind="rel.MODIFIEDBY"></td>
+                <td data-ng-bind="rel.CUSTOMERID"></td>
+                <td data-ng-bind="referenceData.referencesDataMap.CUSTOMERTYPE[rel.TYPE]"></td>
+                <td data-ng-bind="rel.FULLNAME" class="text-uppercase"></td>
+                <!-- <td data-ng-bind="rel.MOBILE"></td>
+                <td data-ng-bind="rel.EMAIL"></td> -->
+                <td data-ng-bind="rel.MODIFIEDDATE | aswaDate" class="text-uppercase"></td>
+                <td data-ng-bind="rel.MODIFIEDBY" class="text-uppercase"></td>
+                <td data-ng-bind="rel.CREATEDDATE | aswaDate" class="text-uppercase"></td>
+                <td data-ng-bind="rel.CREATEDBY" class="text-uppercase"></td>
+                <td data-ng-bind="referenceData.referencesDataMap.GENERICSTATUS[rel.STATUS]" class="text-uppercase"></td>
                 <td class="f20 ng-binding action comment-content">
-                  <i class="action-icon-small-primary fa fa-edit"  ng-click="editCustomer(rel)"></i>
-                  <i class="action-icon-small-primary fa fa-trash" ng-click="showInfoBox('Info', 'generalinfoone', 'sm')"></i>
+                  <i class="action-icon-md-primary fa fa-edit icon-link"  ng-click="editCustomer(rel)" tooltip="{{'tooltip.editcustomer'|i18n}}"></i>
+                  <i class="action-icon-md-primary fa fa-trash icon-link" ng-click="showInfoBox('Info', 'generalinfoone', 'sm')" tooltip="{{'tooltip.trashcustomer'|i18n}}"></i>
+                  
                 </td>
               </tr>
               </tbody>
             </table>
         </div>
+
         <div class="menu pmd-floating-action" role="navigation"> 
-          <a href="javascript:void(0);" ng-click="addCustomer('sm')" class="pmd-floating-action-btn btn btn-sm pmd-btn-fab pmd-btn-raised pmd-ripple-effect btn-default" data-title="{{'btn.addnew' | i18n}}"> 
+          <a href="javascript:void(0);" ng-click="addCustomer()" class="pmd-floating-action-btn btn btn-sm pmd-btn-fab pmd-btn-raised pmd-ripple-effect btn-default" data-title="{{'btn.addnew' | i18n}}"> 
             <span class="pmd-floating-hidden">{{'btn.addnew' | i18n}}</span> 
             <i class="fa fa-plus"></i> 
          </a> 
@@ -69,6 +78,8 @@
             <i class="fa fa-th pmd-sm"></i> 
           </a> 
         </div>
+
+
         <div class="col-xs-12">
           <div class="audit-box">&nbsp;
           </div>

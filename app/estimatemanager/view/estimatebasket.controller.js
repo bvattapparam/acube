@@ -1,6 +1,6 @@
 (function(){
 
-	function estimateBasketController($location, $window, $routeParams, $scope, $rootScope, $modal, $filter, settings, customerManagerServices, estimateManagerServices, aswaValidationService, utilityServices, storageServices, getreferences,$http, mainServices){
+	function estimateBasketController($location, $window, $routeParams, $scope, $rootScope, $modal, $filter, settings, customerManagerServices, estimateManagerServices, quoteManagerServices, aswaValidationService, utilityServices, storageServices, getreferences,$http, mainServices){
 
 		$scope.estimateBasket				=	{};
 		$scope.dataBO = {};
@@ -8,12 +8,19 @@
 		$scope.reference						=	{};
 		$scope.referenceData					=	{};
 		$scope.showAddBtn						= 	true;
+		$scope.softLock							= 	false;
+		$scope.hardLock							= 	false;
+		$scope.cloned 							= 	false;
 		$scope.referenceData.referencesDataMap 	= {
 			"CUSTOMERTYPE" 	:	getreferences.referencesData.CUSTOMERTYPE,
 			"LOCATION"		:	getreferences.referencesData.LOCATION
 		};
 
 		$scope.reference = 	getreferences.references;
+
+		if($routeParams.cloned){
+			$scope.cloned = true;
+		}
 			
 		$scope.getEstimateMaster = function(){
 			var pushData	=	{};
@@ -22,6 +29,13 @@
 				if(data.msg!=''){
 					$scope.estimateManagerBO	=	[];
 					$scope.estimateManagerBO 	= 	data;
+					
+					if($scope.estimateManagerBO[0].STATUS == 1){
+						$scope.softLock	= true;
+					}
+					if($scope.estimateManagerBO[0].ESTIMATESTATUS == 1){
+						$scope.hardLock = true;
+					}
 					$scope.getEstimateBasket();
 					$rootScope.hideSpinner();
 				}else{
@@ -163,11 +177,248 @@
 				config.passingValues.isEdit = true;
 				config.callback = function(status, item){
 					if(status === 'success') {
-						$scope.getCustomers();
+						$scope.getEstimateBasket();
 					}
 				}
 				utilityServices.openConfigModal($modal, config);
 		};
+
+		$scope.editEstimateBasket = function (data) {
+			var config= {};
+				config.templateUrl = '../app/estimatemanager/edit/estimatebasket.html';
+				config.controller = 'estimateBasketEditController';
+				config.size		= 'lg';
+				config.backdrop	= 'static';
+				config.passingValues = {};
+				config.passingValues.title = Messages['estimatebasket.editestimatebasketitem'];
+				config.passingValues.dataBO = data;
+				config.passingValues.isEdit = true;
+				config.callback = function(status, item){
+					if(status === 'success') {
+						$scope.getEstimateBasket();
+					}
+				}
+				utilityServices.openConfigModal($modal, config);
+		};
+
+		// CLONE THE ESTIMATE ....
+		$scope.cloneEstimate = function(){
+			// FIND THE CURRENT COUNT OF ESTIMATES FROM MASTER TABLE...
+			$scope.getEstimateCount();
+		}
+
+		$scope.getEstimateCount = function(){
+			$rootScope.showSpinner();
+			var pushData = {};
+			pushData.CUSTOMERID = $scope.estimateManagerBO[0].CUSTOMERID;
+			estimateManagerServices.getEstimateCount(pushData).then(function(data){
+				if(data.msg!=''){
+					$scope.estimateManagerCount	=	[];
+					$scope.estimateManagerCount 	= 	data;
+
+					// GENERATE A NEW ESTIMATE. IF THE COUNT IS 0 THEN VERSION IS 0, IF COUNT IS 1 THEN VERSION IS 2.
+					var totalCount = $scope.estimateManagerCount[0].total;
+					if(typeof totalCount == 'undefined' || totalCount === 0){
+						$scope.version = "V0";
+					}else{
+						$scope.version = "V" + totalCount;
+					}
+					$scope.cloneEstimateMaster($scope.version);
+					$rootScope.hideSpinner();
+				}else{
+					$rootScope.hideSpinner();
+					$rootScope.showErrorBox('Error', data.error);
+				}
+			});
+		};
+
+		$scope.cloneEstimateMaster = function(version){
+			// AGM-ESTI-R-BI-V0-41720182123;
+			var CUSTOMERID = $scope.estimateManagerBO[0].CUSTOMERID;
+			var VERSION = version;
+			var CUSTOMER_TYPE = $scope.estimateManagerBO[0].TYPE;
+			var CUSTOMERNAME = $scope.estimateManagerBO[0].FULLNAME;
+			var COMPANY = "AGM";
+			var ENTITY = "ESTI";
+			var D = new Date();
+			var NDATE = D.getMonth()+1 + "" + D.getDate() + "" + D.getFullYear() + "" + D.getHours() + "" + D.getMinutes();
+			var ESTIMATEID = COMPANY + "-" + ENTITY + "-" + CUSTOMER_TYPE + "-" + CUSTOMERNAME.substr(0,2).toUpperCase() + "-" + VERSION + "-" + NDATE;
+
+			var pushData = {};
+			pushData.ESTIMATEID = ESTIMATEID;
+			pushData.CUSTOMERID = CUSTOMERID;
+			pushData.MODIFIEDBY = $rootScope.user.USERID;
+			pushData.CLONE 		=	true;
+			pushData.CLNESTIMATEID 		=	$routeParams.ESTIMATEID;
+			pushData.CLNBASKET 			=	$scope.estimateBasketBO;
+			console.log("PUSH DATA - CLONE ESTIMATE MASTER ", pushData);
+
+			estimateManagerServices.cloneEstimateMaster(pushData).then(function(status){
+				if(status==200){
+					$rootScope.hideSpinner();
+					
+					$rootScope.addnotification(Messages['modal.update.title'], Messages['modal.update.message']);
+					$scope.cloneUpdateEstimateMaster(ESTIMATEID,'E'); // UPDATE STATUS HERE FOR THE OLD ESTIMATE...
+
+				}else {
+					$rootScope.hideSpinner();
+					$rootScope.showErrorBox('error', 'error');
+				}
+			});
+		};
+
+		$scope.cloneUpdateEstimateMaster = function(ESTIMATEID, paramEntity, QUOTEID, CUSTOMERID){
+			var pushData = {};
+			pushData.CLONE 		=	true;
+			pushData.CLNESTIMATEID 		=	$routeParams.ESTIMATEID;
+			console.log("PUSH DATA -  EDIT STATUS ", pushData);
+
+			estimateManagerServices.cloneUpdateEstimateMaster(pushData).then(function(status){
+				if(status==200){
+					$rootScope.hideSpinner();
+					
+					$rootScope.addnotification(Messages['modal.update.title'], Messages['modal.update.message']);
+					
+					if(paramEntity === "Q"){
+						$scope.cloneQuoteBasket(QUOTEID, CUSTOMERID); // UPDATE STATUS HERE FOR THE OLD ESTIMATE...
+					}
+					if(paramEntity === "E"){
+						$scope.cloneEstimateBasket(ESTIMATEID); // UPDATE STATUS HERE FOR THE OLD ESTIMATE...
+					}
+
+				}else {
+					$rootScope.hideSpinner();
+					$rootScope.showErrorBox('error', 'error');
+				}
+			});
+		}
+		$scope.cloneEstimateBasket = function(ESTIMATEID){
+			var pushData = {};
+			pushData.ESTIMATEID 		= 	ESTIMATEID;
+			pushData.MODIFIEDBY 		= 	$rootScope.user.USERID;;
+			pushData.CLONEBASKET 		=	$scope.estimateBasketBO;
+			console.log("PUSH DATA - CLONE BASKET ", pushData);
+			
+			estimateManagerServices.cloneEstimateBasket(pushData).then(function(status){
+				if(status==200){
+					$rootScope.hideSpinner();
+					
+					$rootScope.addnotification(Messages['modal.update.title'], Messages['modal.update.message']);
+					//$scope.cloneEstimateBasket(); // UPDATE STATUS HERE FOR THE OLD ESTIMATE...
+					$window.location.href = settings.rootScope.appURL + "#/estimatemanager/estimatebasket/" + pushData.ESTIMATEID + "/cloned";
+				}else {
+					$rootScope.hideSpinner();
+					$rootScope.showErrorBox('error', 'error');
+				}
+			});
+			
+		}
+
+		
+
+		// QUOTE MANAGER SECTION. 
+
+		// FIND QUOTE COUNT...
+
+		$scope.generateQuote = function(){
+			// FIND THE CURRENT COUNT OF ESTIMATES FROM MASTER TABLE...
+			$scope.getQuoteCount();
+		}
+
+		$scope.getQuoteCount = function(){
+			$rootScope.showSpinner();
+			var pushData = {};
+			pushData.CUSTOMERID = $scope.estimateManagerBO[0].CUSTOMERID;
+			quoteManagerServices.getQuoteCount(pushData).then(function(data){
+				if(data.msg!=''){
+					$scope.quoteManagerCount	=	[];
+					$scope.quoteManagerCount 	= 	data;
+
+					// GENERATE A NEW ESTIMATE. IF THE COUNT IS 0 THEN VERSION IS 0, IF COUNT IS 1 THEN VERSION IS 2.
+					var totalCount = $scope.quoteManagerCount[0].total;
+					if(typeof totalCount == 'undefined' || totalCount === 0){
+						$scope.version = "V0";
+					}else{
+						$scope.version = "V" + totalCount;
+					}
+					$scope.cloneQuoteMaster($scope.version);
+					$rootScope.hideSpinner();
+				}else{
+					$rootScope.hideSpinner();
+					$rootScope.showErrorBox('Error', data.error);
+				}
+			});
+		};
+
+		$scope.cloneQuoteMaster = function(version){
+			// AGM-QUOTE-R-BI-V0-41720182123;
+
+			var QUOTEID = quoteManagerServices.cloneQuoteVersion($scope.estimateManagerBO[0], version);
+			
+			
+			var pushData 				= 	{};
+			pushData.QUOTEID 			=	QUOTEID;
+			pushData.CUSTOMERID 		= 	$scope.estimateManagerBO[0].CUSTOMERID;
+			pushData.MODIFIEDBY 		= 	$rootScope.user.USERID;
+			//pushData.CLNESTIMATEID 		=	$routeParams.ESTIMATEID;
+			//pushData.CLNBASKET 			=	$scope.estimateBasketBO;
+			console.log("PUSH DATA - CLONE QUOTE MASTER ", pushData);
+
+			quoteManagerServices.cloneQuoteMaster(pushData).then(function(status){
+				if(status==200){
+					$rootScope.hideSpinner();
+					
+					$rootScope.addnotification(Messages['modal.update.title'], Messages['modal.update.message']);
+					$scope.cloneUpdateEstimateMaster($routeParams.ESTIMATEID, 'Q', pushData.QUOTEID,pushData.CUSTOMERID); // UPDATE STATUS HERE FOR THE OLD ESTIMATE...
+					//$scope.cloneUpdateEstimateMaster(ESTIMATEID); // UPDATE STATUS HERE FOR THE OLD ESTIMATE...
+
+				}else {
+					$rootScope.hideSpinner();
+					$rootScope.showErrorBox('error', 'error');
+				}
+			});
+		};
+
+		$scope.cloneQuoteBasket = function(QUOTEID, CUSTOMERID){
+			var pushData = {};
+			pushData.QUOTEID 			= 	QUOTEID;
+			pushData.MODIFIEDBY 		= 	$rootScope.user.USERID;
+			pushData.CLONEBASKET 		=	$scope.estimateBasketBO;
+			console.log("PUSH DATA - CLONE BASKET ", pushData);
+			
+			quoteManagerServices.cloneQuoteBasket(pushData).then(function(status){
+				if(status==200){
+					$rootScope.hideSpinner();
+					
+					$rootScope.addnotification(Messages['modal.update.title'], Messages['modal.update.message']);
+					//$scope.cloneEstimateBasket(); // UPDATE STATUS HERE FOR THE OLD ESTIMATE...
+					$scope.updateCustomerEstimateStatus(CUSTOMERID);
+					//$window.location.href = settings.rootScope.appURL + "#/quotemanager/" + CUSTOMERID;
+				}else {
+					$rootScope.hideSpinner();
+					$rootScope.showErrorBox('error', 'error');
+				}
+			});
+			
+		};
+
+		$scope.updateCustomerEstimateStatus = function(CUSTOMERID){
+			var pushData = {};
+			pushData.CUSTOMERID 		=	CUSTOMERID;
+			console.log("PUSH DATA -  EDIT CUSTOMER ESTIMATE STATUS ", pushData);
+
+			customerManagerServices.updateCustomerEstimateStatus(pushData).then(function(status){
+				if(status==200){
+					$rootScope.hideSpinner();
+					
+					$rootScope.addnotification(Messages['modal.update.title'], Messages['modal.update.message']);
+					$window.location.href = settings.rootScope.appURL + "#/quotemanager/" + CUSTOMERID;
+				}else {
+					$rootScope.hideSpinner();
+					$rootScope.showErrorBox('error', 'error');
+				}
+			});
+		}
 
 		$scope.refresh	=	function(){
 			$scope.getEstimateBasket();
@@ -179,5 +430,5 @@
 		
 	}
 
-	angular.module('aswa').controller('estimateBasketController',['$location', '$window', '$routeParams', '$scope', '$rootScope', '$modal', '$filter', 'settings', 'customerManagerServices', 'estimateManagerServices','aswaValidationService', 'utilityServices', 'storageServices', 'getreferences', '$http', 'mainServices', estimateBasketController]);
+	angular.module('aswa').controller('estimateBasketController',['$location', '$window', '$routeParams', '$scope', '$rootScope', '$modal', '$filter', 'settings', 'customerManagerServices', 'estimateManagerServices', 'quoteManagerServices', 'aswaValidationService', 'utilityServices', 'storageServices', 'getreferences', '$http', 'mainServices', estimateBasketController]);
 })();

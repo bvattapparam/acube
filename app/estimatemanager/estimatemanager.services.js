@@ -119,6 +119,20 @@
           });
             return deferred.promise;
         };
+
+        this.updateEstimateBasketData = function(pushdata){
+          var deferred = $q.defer();
+          $http({
+            method  : "POST",
+            url     : urlsettings['estimatemanager.updateEstimateBasket'],
+            data    : pushdata
+          }).success(function(data, status, headers, config){
+            deferred.resolve(status);
+          }).error(function(data, status, headers, config){
+            deferred.reject(data, status, headers, config);
+          });
+            return deferred.promise;
+        };
         
         this.deleteEstimateBasketData = function(pushdata){
           var deferred = $q.defer();
@@ -133,6 +147,50 @@
           });
             return deferred.promise;
         }
+
+        this.cloneEstimateMaster =  function(pushdata){
+          var deferred = $q.defer();
+          $http({
+            method  : "POST",
+            url     : urlsettings['estimatemanager.cloneEstimateMaster'],
+            data    : pushdata
+          }).success(function(data, status, headers, config){
+            deferred.resolve(status);
+          }).error(function(data, status, headers, config){
+            deferred.reject(data, status, headers, config);
+          });
+            return deferred.promise;
+        };
+
+        this.cloneUpdateEstimateMaster =  function(pushdata){
+          var deferred = $q.defer();
+          $http({
+            method  : "POST",
+            url     : urlsettings['estimatemanager.cloneUpdateEstimateMaster'],
+            data    : pushdata
+          }).success(function(data, status, headers, config){
+            deferred.resolve(status);
+          }).error(function(data, status, headers, config){
+            deferred.reject(data, status, headers, config);
+          });
+            return deferred.promise;
+        };
+
+        this.cloneEstimateBasket =  function(pushdata){
+          var deferred = $q.defer();
+          $http({
+            method  : "POST",
+            url     : urlsettings['estimatemanager.cloneEstimateBasket'],
+            data    : pushdata
+          }).success(function(data, status, headers, config){
+            deferred.resolve(status);
+          }).error(function(data, status, headers, config){
+            deferred.reject(data, status, headers, config);
+          });
+            return deferred.promise;
+        };
+
+      
         
 
   }

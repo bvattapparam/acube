@@ -23,30 +23,38 @@ Messages = {
 	"copyright"						: 	"&copy; 2018-2019 to aCUBE",
 
 	"help.estimatemanager.selectcustomer"		: 	"To view existing ESTIMATES or create a new ESTIMATE, then please select a CUSTOMER from the dropdown box. If no ESTIMATE, then please Generate one using the Add New button.",
+	"help.quotemanager.selectcustomer"			: 	"To view existing QUOTATIONS or create a new QUOTATION, then please select a CUSTOMER from the dropdown box. If no QUOTATION, then please Generate one using the Add New button.",
 
 
 	
 
-	"menu.customer"					: 	"Customer Details",
-	"menu.estimate"				: 	"Estimate",
-	"menu.quote"				: 	"Quote",
+	"menu.customer"					: 	"Customer Manager",
+	"menu.estimate"					: 	"Estimate Manager",
+	"menu.quote"					: 	"Quotation Manager",
 	"menu.cashreceipt"				: 	"Cash Receipt",
-	"menu.invoice"				: 	"Invoice",
+	"menu.invoice"					: 	"Invoice",
 	"menu.myaccount"				: 	"My Account",
 	"menu.logout"					: 	"Logout",
-	"menu.users"					: "Users",
+	"menu.users"					:	"Users",
 	"menu.marketingbasket"			: 	"Marketing Basket",
+	"menu.labour"					:	"Labour Manager",
+	"menu.payment"					:	"Payment Manager",
+	"menu.vendor"					:	"Vendor Manager",
+	"menu.po"						:	"Purchase Order",
+
 
 	"placeholder.selectone"			: 	"Select One",
 	"placeholder.selectcustomer"	: 	"Select customer",
 	"placeholder.comment"			: 	"Comment",
 	"placeholder.address"			: 	"Address",
 	"placeholder.selectlocation"	: 	"Select Location",
+	"placeholder.selectuser"		:	"Select User",
 
 	"validation.status"				: 	"Status is mandatory",
 	"validation.userid"				: 	"User ID is mandatory.",
 	"validation.password"			: 	"Password is mandatory.",
 	"validation.fullname"			: 	"Fullname is mandatory",
+	"validation.name"				: 	"Name is mandatory",
 	"validation.mobile"				: 	"Mobile is mandatory",
 	"validation.password"			: 	"Password is mandatory",
 	"validation.role"				: 	"Role is mandatory",
@@ -62,6 +70,7 @@ Messages = {
 	"validation.amount"				: 	"Amount is mandatory",
 	"validation.location"			: 	"Location is mandatory",
 	"validation.email.format"		:	"Email format is wrong",
+	"validation.contactperson"		:	"Contact Person is mandatory",
 
 
 	"edit.form.confirmation.title"		: 	"Edit confirmation check",
@@ -111,6 +120,7 @@ Messages = {
 // ------------------------------------------------------------------------------------------
 
 	"label.fullname"						: 	"Full name",
+	"label.name"							:	"Name",
 	"label.userid"							: 	"User id",
 	"label.password"						: 	"Password",
 	"label.mobile"							: 	"Mobile",
@@ -146,12 +156,27 @@ Messages = {
 	"label.generatequotation"				: 	"Generate Quotation",
 	"label.location"						: 	"Location",
 	"label.preparedby"						: 	"Prepared by",
-
-	"label.userid"							: 	"User ID",
+	"label.quoteid"							:	"QuoteID",
+	"label.fromdate"						:	"From date",
+	"label.todate"							:	"To Date",
+	"label.softlock"						:	"Soft Locked: Since the Estimate is cloned, not able to clone / update the current estimate.",
+	"label.hardlock"						:	"Hard Locked :  Customer is locked from generating / updating Estimates",
+	
+	"label.user"							: 	"User",
 	"label.password"						: 	"Password",
 	"label.nodatafound"						: 	"No Record Found.",
 	"label.subtotal"						: 	"Sub Total",
 	"label.backtoestimate"					: 	"Back to Estimate",
+	"label.backtoquote"						: 	"Back to Quotation",
+	"label.clonequote"						:	"Clone Quotation",
+	"label.approvequote"					:	"Approve Quotation",
+	"label.approved"						:	"Approved Quotation",
+	"label.whopaid"							:	"Who Paid",
+	"label.whomepaid"						:	"Whome Paid",
+	"label.vendorid"						:	"Vendor ID",
+	"label.contactperson"					:	"Contact Person",
+
+	"clone.success"							:	"Cloned Version",
 
 
 	// DASHBOARD .....
@@ -208,9 +233,21 @@ Messages = {
 	"estimatebasket.pdfnote.seven"					: 	"False Ceiling Cove light is included, spot lights (panel lights) pricing will be on actuals",
 	"estimatebasket.pdffooter.one"					: 	"Please Revert for any Clarification. Looking forward to serving you.",
 	"estimatebasket.pdffooter.two"					: 	"If you have any questions concerning this quotation, contact Sangeetha, +919047474350, sangi@inagham.com.",
-	"estimatebasket.deleteitem"						: 	"Do you want to delete the estimate item ? Click YES to delete the item, Click NO to cancel the action."
+	"estimatebasket.deleteitem"						: 	"Do you want to delete the estimate item ? Click YES to delete the item, Click NO to cancel the action.",
+	"estimatebasket.editestimatebasketitem"			:	"Edit Estimate Basket Item",
 	
+
+	"quotemanager.pageheader"					: 	"Quotation Manager",
+	"quotemanager.quotes"						:	"Quotations",
+	"quotemanager.quotebasket.pageheader"		: 	"Quote Basket",
+	"quotebasket.editquotebasketitem"			:	"Edit Quote Basket item",
+	"quotebasket.deleteitem"					:	"Do you want to delete the quotation item ? Click YES to delete the item, Click NO to cancel the action.",
 	
+	"paymentmanager.pageheader"					:	"Payment Manager",
+
+	"vendormanager.pageheader"					:	"Vendor Manager",
+	"vendormanager.vendors"						:	"Vendors",
+	'vendormanager.add'							:	"Add Vendor"
 
 
 

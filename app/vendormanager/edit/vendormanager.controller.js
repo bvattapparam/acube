@@ -1,6 +1,6 @@
 (function(){
 
-	estimateManagerEditController = function($scope, $q, $rootScope, $filter, $modalInstance, passingValues, estimateManagerServices, aswaValidationService, storageServices, getreferences, utilityServices){
+	vendorManagerEditController = function($scope, $q, $rootScope, $filter, $modalInstance, passingValues, vendorManagerServices, aswaValidationService, storageServices, getreferences, utilityServices){
 		$scope.passingValues 				= 	{};
 		$scope.isEdit 						= 	passingValues.isEdit;
 		$scope.passingValues.title 			= 	passingValues.title;
@@ -17,17 +17,16 @@
 		
 		
 		$scope.save = function (record) {
-
 			var pushData = {};
 			pushData = record;
 			pushData.MODIFIEDBY = $rootScope.user.USERID;
-			var error =	aswaValidationService.isCustomerManagerValid(record);
+			var error =	aswaValidationService.isVendorManagerValid(record);
 			if(error){
 				$rootScope.showErrorBox('Error', error);
 			}else{
 				$rootScope.showSpinner();
 				if($scope.isEdit){
-					customerManagerServices.updateCustomerData(record).then(function(status){
+					vendorManagerServices.updateVendor(record).then(function(status){
 						if(status==200){
 							$rootScope.hideSpinner();
 							$rootScope.addnotification(Messages['modal.update.title'], Messages['modal.update.message'])
@@ -38,15 +37,11 @@
 						}
 					})
 				}else{
-					var CUSTOMER_TYPE = record.TYPE;
-					var CUSTOMERNAME = record.FULLNAME;
-					var COMPANY = "AGM";
-					var D = new Date();
-					var NDATE = D.getMonth()+1 + "" + D.getDate() + "" + D.getFullYear() + "" + D.getHours() + "" + D.getMinutes();
-					var CUSTOMERID = COMPANY + "-" + CUSTOMER_TYPE + "-" + CUSTOMERNAME.substr(0,2).toUpperCase() + "-" + NDATE;
-					record.CUSTOMERID = CUSTOMERID;
+					
+					var VENDORID = vendorManagerServices.vendorIDCreation(record);
+					record.VENDORID = VENDORID;
 
-					customerManagerServices.addCustomerData(record).then(function(status){
+					vendorManagerServices.addVendor(record).then(function(status){
 					if(status==200){
 						$rootScope.hideSpinner();
 						$rootScope.addnotification(Messages['modal.add.title'], Messages['modal.add.message'])
@@ -68,7 +63,7 @@
 		};
 	}
 
-	angular.module('aswa').controller('estimateManagerEditController', ['$scope', '$q', '$rootScope', '$filter', '$modalInstance', 'passingValues', 'estimateManagerServices', 'aswaValidationService', 'storageServices', 'getreferences', 'utilityServices', estimateManagerEditController]);
+	angular.module('aswa').controller('vendorManagerEditController', ['$scope', '$q', '$rootScope', '$filter', '$modalInstance', 'passingValues', 'vendorManagerServices', 'aswaValidationService', 'storageServices', 'getreferences', 'utilityServices', vendorManagerEditController]);
 
 
 

@@ -10,20 +10,20 @@
               <div class ="row">
                   <div class="col-xs-12 col-sm-4 col-md-4" ng-if="isEdit">
                     <div class="form-group">
-                    <label ng-bind="'label.customerid' | i18n"></label>
-                        <input tabindex="1" type="text" class="form-control" tabindex="1" data-ng-model="dataBO.CUSTOMERID" ng-disabled="true">
+                    <label ng-bind="'label.vendorid' | i18n"></label>
+                        <input tabindex="1" type="text" class="form-control" tabindex="1" data-ng-model="dataBO.VENDORID" ng-disabled="true">
                     </div>
                   </div>
                   <div class="col-xs-12 col-sm-4 col-md-4">
                     <div class="form-group">
-                    <label ng-bind="'label.fullname' | i18n"></label>
-                        <input tabindex="1" type="text" class="form-control" tabindex="1" data-ng-model="dataBO.FULLNAME" maxlength="200">
+                    <label ng-bind="'label.name' | i18n"></label>
+                        <input tabindex="1" type="text" class="form-control text-uppercase" tabindex="1" data-ng-model="dataBO.NAME" maxlength="200">
                     </div>
                   </div>
                   <div class="col-xs-12 col-sm-4 col-md-4">
                     <div class="form-group">
                     <label ng-bind="'label.mobile' | i18n"></label>
-                        <input tabindex="1" type="text" class="form-control" tabindex="1" data-ng-model="dataBO.MOBILE" maxlength="100">
+                        <input tabindex="1" type="text" class="form-control" tabindex="1" data-ng-model="dataBO.MOBILE" maxlength="20" acube-number>
                     </div>
                   </div> 
                   <div class="col-xs-12 col-sm-4 col-md-4">
@@ -34,11 +34,18 @@
                   </div> 
                   <div class="col-xs-12 col-sm-4 col-md-4">
                     <div class="form-group">
-                      <label ng-bind="'label.customertype' | i18n"></label>
-                      <select tabindex="7" class="form-control" ui-select2="common.select2ClearWithoutSearch" ng-model="dataBO.TYPE" placeholder="{{'placeholder.selectone' | i18n}}">
-                        <option></option>
-                        <option data-ng-repeat="item in reference.referenceBO.CUSTOMERTYPE" value="{{item.code}}">{{item.name}}</option>
-                      </select>
+                    <label ng-bind="'label.contactperson' | i18n"></label>
+                        <input tabindex="1" type="text" class="form-control text-uppercase" tabindex="1" data-ng-model="dataBO.CONTACTPERSON" maxlength="200">
+                    </div>
+                  </div> 
+                  
+                  <div class="col-xs-12 col-sm-4 col-md-4">
+                    <div class="form-group">
+                    <label ng-bind="'label.status' | i18n"></label>
+                    <select tabindex="7" class="form-control" ui-select2="common.select2ClearWithoutSearch" ng-model="dataBO.STATUS" placeholder="{{'placeholder.selectone' | i18n}}">
+                    <option></option>
+                      <option data-ng-repeat="item in reference.referenceBO.GENERICSTATUS" value="{{item.code}}">{{item.name}}</option>
+                    </select>
                     </div>
                   </div>  
                   

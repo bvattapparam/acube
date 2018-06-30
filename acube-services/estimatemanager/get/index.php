@@ -15,7 +15,7 @@ switch($_GET['action']) {
   
 }
 
-get_estimate();
+//get_estimate();
 function get_estimate_count(){
   $data = json_decode(file_get_contents("php://input"));
   $CUSTOMERID = $data->CUSTOMERID;
@@ -40,7 +40,20 @@ function get_estimates() {
   $data = json_decode(file_get_contents("php://input"));
   $CUSTOMERID = $data->CUSTOMERID;
   
-  $qry = "SELECT * FROM VIEW_ESTIMATE_MASTER WHERE CUSTOMERID = '$CUSTOMERID' ORDER BY MODIFIEDDATE DESC";
+  $qry = "SELECT 
+  EST.ID,
+  EST.ESTIMATEID,
+  EST.CUSTOMERID,
+  EST.CREATEDBY,
+  EST.CREATEDDATE,
+  EST.MODIFIEDBY,
+  EST.MODIFIEDDATE,
+  EST.STATUS,
+  CUST.CUSTOMERID,
+  CUST.ESTIMATESTATUS 
+  FROM VIEW_ESTIMATE_MASTER EST, VIEW_CUSTOMER_MASTER CUST 
+  WHERE EST.CUSTOMERID = '$CUSTOMERID' AND EST.CUSTOMERID = CUST.CUSTOMERID 
+  ORDER BY MODIFIEDDATE DESC";
   
 
   $result = mysql_query($qry);
@@ -61,7 +74,9 @@ function get_estimates() {
         "CREATEDBY"     =>  $rows['CREATEDBY'],
         "CREATEDDATE"   =>  $rows['CREATEDDATE'],
         "MODIFIEDBY"    =>  $rows['MODIFIEDBY'],
-        "MODIFIEDDATE"  =>  $rows['MODIFIEDDATE']
+        "MODIFIEDDATE"  =>  $rows['MODIFIEDDATE'],
+        "STATUS"        =>  $rows['STATUS'],
+        "ESTIMATESTATUS"  =>  $rows['ESTIMATESTATUS']
       );
     }
     
@@ -71,19 +86,20 @@ function get_estimates() {
 
 
 function get_estimate_master() {
-  
     $data = json_decode(file_get_contents("php://input"));
     $ESTIMATEID = $data->ESTIMATEID;
     $qry = "SELECT 
     EST.ID, 
     EST.ESTIMATEID,
+    EST.STATUS,
     EST.MODIFIEDBY,
     EST.MODIFIEDDATE,
     EST.CREATEDBY,
     EST.CREATEDDATE,
     CUST.CUSTOMERID, 
     CUST.FULLNAME,
-    CUST.TYPE
+    CUST.TYPE,
+    CUST.ESTIMATESTATUS
     FROM VIEW_ESTIMATE_MASTER EST, VIEW_CUSTOMER_MASTER CUST 
     WHERE EST.ESTIMATEID = '$ESTIMATEID' AND EST.CUSTOMERID = CUST.CUSTOMERID";
     
@@ -99,15 +115,17 @@ function get_estimate_master() {
       while($rows = mysql_fetch_array($result))
       {
         $data[] = array(
-          "ID"            =>  $rows['ID'],
-          "ESTIMATEID"    =>  $rows['ESTIMATEID'],
-          "MODIFIEDBY"    =>  $rows['MODIFIEDBY'],
-          "MODIFIEDDATE"  =>  $rows['MODIFIEDDATE'],
-          "CREATEDBY"     =>  $rows['CREATEDBY'],
-          "CREATEDDATE"   =>  $rows['CREATEDDATE'],
-          "CUSTOMERID"    =>  $rows['CUSTOMERID'],
-          "FULLNAME"      =>  $rows['FULLNAME'],
-          "TYPE"          =>  $rows['TYPE']
+          "ID"                =>  $rows['ID'],
+          "ESTIMATEID"        =>  $rows['ESTIMATEID'],
+          "STATUS"            =>  $rows['STATUS'],
+          "MODIFIEDBY"        =>  $rows['MODIFIEDBY'],
+          "MODIFIEDDATE"      =>  $rows['MODIFIEDDATE'],
+          "CREATEDBY"         =>  $rows['CREATEDBY'],
+          "CREATEDDATE"       =>  $rows['CREATEDDATE'],
+          "CUSTOMERID"        =>  $rows['CUSTOMERID'],
+          "FULLNAME"          =>  $rows['FULLNAME'],
+          "TYPE"              =>  $rows['TYPE'],
+          "ESTIMATESTATUS"    =>  $rows['ESTIMATESTATUS']
         );
       }
       

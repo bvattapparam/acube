@@ -22,13 +22,19 @@
 			customerManagerServices.getCustomers().then(function(data){
 				if(data.msg!=''){
 					$scope.customerManagerBO	=	[];
-					$scope.customerManagerBO 	= 	data;
+					
+					angular.forEach(data, function(item,key){
+						if(item.STATUS != settings.rootScope.NOCUSTOMERMANAGERSTATUS){
+							$scope.customerManagerBO.push(item)
+						}
+					});
+
 
 					// CREATE NEW REFERENCE FOR CUSTOMER..
-						for(var i=0; i<data.length; i++){
+						for(var i=0; i<$scope.customerManagerBO.length; i++){
 							var node 	=	{};
-							node.code 	= 	data[i].CUSTOMERID;
-							node.name	=	data[i].CUSTOMERID + " ( " + data[i].FULLNAME + " )";
+							node.code 	= 	$scope.customerManagerBO[i].CUSTOMERID;
+							node.name	=	$scope.customerManagerBO[i].CUSTOMERID + " ( " + $scope.customerManagerBO[i].FULLNAME + " )";
 							$scope.reference.CUSTOMER.push(node);
 						}
 
@@ -58,7 +64,6 @@
 			
 			estimateManagerServices.getEstimates(pushData).then(function(data){
 				if(data.msg!=''){
-					console.log("ddd", data)
 					$scope.estimateManagerBO 	= 	data;
 					if(data!=''){
 						$scope.showAddBtn 		=	false;
@@ -133,6 +138,7 @@
 			pushData.ESTIMATEID = ESTIMATEID;
 			pushData.CUSTOMERID = CUSTOMERID;
 			pushData.MODIFIEDBY = $rootScope.user.USERID;
+			console.log("pdata ", pushData)
 
 			estimateManagerServices.generateEstimate(pushData).then(function(status){
 				if(status==200){
@@ -204,7 +210,18 @@
 		};
 
 		
-
+		$scope.lockIcon = function(softlock,hardlock){
+			var iconClass;
+			if(softlock == 1 && hardlock == 0){
+				iconClass =  "fa-lock green-lock";
+				$scope.tooltipContent = Messages['label.softlock'];
+			}
+			if(softlock == 1 && hardlock == 1){
+				iconClass = "fa-lock red-lock";
+				$scope.tooltipContent = Messages['label.hardlock'];
+			}
+			return iconClass;
+		};
 		$scope.refresh	=	function(){
 			$scope.getCustomers();
 		};

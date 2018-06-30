@@ -18,6 +18,26 @@
             controller : 'userManagerController',
             requiresAuthentication: true
         })
+        .when('/quotemanager',{
+            templateUrl : 'quotemanager/view/quotemanager.html',
+            controller : 'quoteManagerController',
+            requiresAuthentication: true
+        })
+        .when('/quotemanager/:CUSTOMERID',{
+            templateUrl : 'quotemanager/view/quotemanager.html',
+            controller : 'quoteManagerController',
+            requiresAuthentication: true
+        })
+        .when('/quotemanager/quotebasket/:QUOTEID',{
+            templateUrl : 'quotemanager/view/quotebasket.html',
+            controller : 'quoteBasketController',
+            requiresAuthentication: true
+        })
+        .when('/quotemanager/quotebasket/:QUOTEID/:cloned',{
+            templateUrl : 'quotemanager/view/quotebasket.html',
+            controller : 'quoteBasketController',
+            requiresAuthentication: true
+        })
          .when('/estimatemanager',{
             templateUrl : 'estimatemanager/view/estimatemanager.html',
             controller : 'estimateManagerController',
@@ -33,6 +53,16 @@
             controller : 'estimateBasketController',
             requiresAuthentication: true
         })
+        .when('/estimatemanager/estimatebasket/:ESTIMATEID/:cloned',{
+            templateUrl : 'estimatemanager/view/estimatebasket.html',
+            controller : 'estimateBasketController',
+            requiresAuthentication: true
+        })
+        .when('/paymentmanager',{
+            templateUrl : 'paymentmanager/view/paymentmanager.html',
+            controller : 'paymentManagerController',
+            requiresAuthentication: true
+        })
         .when('/customer',{
             templateUrl : 'customermanager/view/customermanager.html',
             controller : 'customerManagerController',
@@ -41,6 +71,11 @@
         .when('/customer/customerview/:CUSTOMERID',{
             templateUrl : 'customermanager/view/customerview.html',
             controller : 'customerViewController',
+            requiresAuthentication: true
+        })
+        .when('/vendor',{
+            templateUrl : 'vendormanager/view/vendormanager.html',
+            controller : 'vendorManagerController',
             requiresAuthentication: true
         })
         .when('/myaccount',{

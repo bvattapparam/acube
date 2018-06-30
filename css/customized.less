@@ -999,7 +999,7 @@ textarea{
   left: 0;
   bottom: 0;
   right: 0;
-  z-index: 20000;
+  z-index: 100000;
   display: block;
 }
 
@@ -1549,6 +1549,15 @@ height: 80px;
   text-transform:uppercase;
   font-size:12px;
   color: @brand-primary !important;
+  font-weight: 800;
+  }
+}
+.search-box{
+  label {
+    text-transform:uppercase;
+    font-size:12px;
+    color: @brand-primary !important;
+    font-weight:800;
   }
 }
 .confirmationbox-title{
@@ -1577,10 +1586,10 @@ height: 80px;
  * Licensed under MIT (http://propeller.in/LICENSE)
  */
 .pmd-floating-action {
-  bottom: 1rem;
+  bottom: 5rem;
   position: fixed;
   right: 1rem;
-  z-index: 1100;
+  z-index: 100;
 }
 
 .pmd-floating-action:hover .pmd-floating-action-btn,
@@ -1767,5 +1776,25 @@ text.highcharts-title{
     width:20px;
     font-weight:800;
   }
+}
+
+.red-lock {
+  color:#e70a12;
+}
+.green-lock {
+  color:#1cc995;
+}
+.approved-icon {
+  color:#dd8706;
+}
+.soft-lock-container, .hard-lock-container {
+  pointer-events: none; 
+  opacity: 0.3
+}
+.text-totalvalue {
+  font-size: 15px;
+}
+.text-gray {
+  color: #999999;
 }
   
