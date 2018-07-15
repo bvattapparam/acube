@@ -18,6 +18,22 @@
               return deferred.promise;
           };
 
+          this.getStatusCount = function(){
+            var deferred = $q.defer();
+              $http({
+                method  : "GET",
+                url     : urlsettings['customermanager.getStatusCount'],
+                headers :   {'Content-Type' : 'application/json'}
+              }).success(function(data){
+                deferred.resolve(data);
+              }).error(function(data){
+                deferred.reject(data);
+              });
+            
+              return deferred.promise;
+          };
+          
+
         this.updateCustomerData = function(pushdata){
           var deferred = $q.defer();
           $http({
@@ -26,6 +42,20 @@
             data    : pushdata
           }).success(function(data, status, headers, config){
             deferred.resolve(status);
+          }).error(function(data, status, headers, config){
+            deferred.reject(data, status, headers, config);
+          });
+            return deferred.promise;
+        };
+
+        this.getTotals = function(pushdata){
+          var deferred = $q.defer();
+          $http({
+            method  : "POST",
+            url     : urlsettings['customermanager.getTotals'],
+            data    : pushdata
+          }).success(function(data, status, headers, config){
+            deferred.resolve(data);
           }).error(function(data, status, headers, config){
             deferred.reject(data, status, headers, config);
           });

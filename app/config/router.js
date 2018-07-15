@@ -38,6 +38,21 @@
             controller : 'quoteBasketController',
             requiresAuthentication: true
         })
+        .when('/pomanager',{
+            templateUrl : 'pomanager/view/pomanager.html',
+            controller : 'poManagerController',
+            requiresAuthentication: true
+        })
+        .when('/pomanager/:CUSTOMERID',{
+            templateUrl : 'pomanager/view/pomanager.html',
+            controller : 'poManagerController',
+            requiresAuthentication: true
+        })
+        .when('/pomanager/pobasket/:POID',{
+            templateUrl : 'pomanager/view/pobasket.html',
+            controller : 'poBasketController',
+            requiresAuthentication: true
+        })
          .when('/estimatemanager',{
             templateUrl : 'estimatemanager/view/estimatemanager.html',
             controller : 'estimateManagerController',

@@ -115,6 +115,27 @@
     }
     return message;
   };
+  
+  this.isPaymentValid  = function(reqBO){
+    var message   = "<p class='uppercase'>" + Messages['validation.header'] + "</p> <ul>";
+    var flag      = false;
+
+    var errorMessages = validationConfigService.validateReqBO(reqBO, validationConfigService.cache.getValidationConfig.acube.paymentmanager, form);
+
+    if(errorMessages.length > 0){
+      flag  = true;
+      for(var i=0; i < errorMessages.length; i++){
+        message   = message + "<li><i class='fa "+ icon +"'></i> " + errorMessages[i] + "</li>";
+      }
+    }
+    message   = message + "</ul>";
+    if(flag){
+      return message;
+    }else {
+      return false;
+    }
+    return message;
+  };
 
   
   this.isEstimateBasketValid  = function(reqBO){
@@ -181,9 +202,26 @@
     return message;
   };
 
+  this.isPOBasketValid  = function(reqBO){
+    var message   = "<p class='uppercase'>" + Messages['validation.header'] + "</p> <ul>";
+    var flag      = false;
 
-  // VALIDATE THE ESTIMATE BASKET DURING DELETE THE DATA
+    var errorMessages = validationConfigService.validateReqBO(reqBO, validationConfigService.cache.getValidationConfig.acube.pobasket, form);
 
+    if(errorMessages.length > 0){
+      flag  = true;
+      for(var i=0; i < errorMessages.length; i++){
+        message   = message + "<li><i class='fa "+ icon +"'></i> " + errorMessages[i] + "</li>";
+      }
+    }
+    message   = message + "</ul>";
+    if(flag){
+      return message;
+    }else {
+      return false;
+    }
+    return message;
+  };
   
   // VALIDATE INSURANCE TRANSACTION MODULE ...
 

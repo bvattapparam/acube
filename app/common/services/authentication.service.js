@@ -17,6 +17,9 @@
           if(data.length > 0){
             storageServices.set(data[0], "userdata","user");
             $rootScope.user = storageServices.get("userdata","user");
+            if(storageServices.get("userdata","user").PERMISSIONS == 'undefined'){
+                $location.path('/logout');
+            }
             $location.path('/dashboard');
           }else{
             var errordetails   =   Messages['login.failure.message'];

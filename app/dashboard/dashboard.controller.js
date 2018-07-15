@@ -1,175 +1,138 @@
 (function(){
 
-	function dashboardController($scope, $rootScope, $filter, utilityServices, $modal, mainServices, dashboardServices, getreferences, storageServices){
+	function dashboardController($scope, $rootScope, $filter, utilityServices, $modal, mainServices, dashboardServices, customerManagerServices, paymentManagerServices, marketingBasketServices, getreferences, storageServices){
 		$rootScope.title = "dashboard";
 		$scope.pageHeader = "Dashboard for aswa";
+		$scope.LIMIT_PAYMENT = 80;
 		$scope.sval=5;
 		$scope.refData	={};
 		$scope.refData.referencesDataMap = {
-			"genericStatus" 	: getreferences.referencesData.genericStatus,
+			"CUSTOMERSTATUS" 	: getreferences.referencesData.CUSTOMERSTATUS,
 			"genericStatusTwo" 	: getreferences.referencesData.genericStatusTwo
 		};
 
+        $scope.reference					=	{};
+		$scope.reference.referenceBO		= 	getreferences.references;
+        
 
-	Highcharts.chart('container', {
-    chart: {
-        type: 'bar'
-    },
-    title: {
-        text: 'Top 5 Customers Instrumental'
-    },
-    xAxis: {
-        categories: ['Bijeshkumar', 'Maruthi', 'Rao', 'Kissinger', 'Manju']
-    },
-    yAxis: {
-        min: 0,
-        title: {
-            text: 'Total fruit consumption'
-        }
-    },
-    legend: {
-        reversed: true
-    },
-    plotOptions: {
-        series: {
-            stacking: 'normal'
-        }
-    },
-    series: [{
-        name: 'Labour',
-        data: [5000, 4500, 4000, 7000, 2000],
-         marker: {
-            symbol: 'triangle'
-        }
-    }, {
-        name: 'Wood',
-        data: [2000, 2000, 3000, 2000, 10000],
-         marker: {
-            symbol: 'triangle'
-        }
-    }, {
-        name: 'Others',
-        data: [3000, 4000, 4000, 2000, 5000],
-         marker: {
-            symbol: 'triangle'
-        }
-    }]
-});
+        $scope.getCustomerStatusCount = function(){
+			$rootScope.showSpinner();
+			customerManagerServices.getStatusCount().then(function(data){
+				if(data.msg!=''){
+					$scope.customerStatusBO = [];
+                    $scope.customerStatusBO = data;
+                    $scope.chart = [];
+                    console.log("COUNT ", $scope.customerStatusBO);
 
+                    $scope.chartValue(data);
+                   
+					$rootScope.hideSpinner();
+				}else{
+					$rootScope.hideSpinner();
+					$rootScope.showErrorBox('Error', data.error);
+				}
+				
+			});
+        };
+		$scope.getCustomerStatusCount();
+		
+		// PAYMENT DETAILS FOR SUPERVISOR AND ADMIN...
+		$scope.getPayment = function(){
+			$rootScope.showSpinner();
+			paymentManagerServices.getPayment().then(function(data){
+				if(data.msg!=''){
+					$scope.paymentManagerBO	=	[];
+					if($rootScope.user.PERMISSIONS[0] != 'JRD_ADMIN'){
+						angular.forEach(data, function(val,key){
+							if(val.PAYTO == $rootScope.user.USERID){
+								$scope.paymentManagerBO.push(val)
+							}
+						});
+					}else{
+						$scope.paymentManagerBO	= data;
+						$scope.adminPaymentBO = data;
+					}
 
-Highcharts.chart('containerpie', {
-    chart: {
-        plotBackgroundColor: null,
-        plotBorderWidth: null,
-        plotShadow: false,
-        type: 'pie'
-    },
-    title: {
-        text: 'Top 10 Customers'
-    },
-    tooltip: {
-        pointFormat: '{series.name}: <b>{point.y:.1f}</b>'
-    },
-    plotOptions: {
-        pie: {
-            allowPointSelect: true,
-            cursor: 'pointer',
-            dataLabels: {
-                enabled: false
+					if($rootScope.user.PERMISSIONS[0] === 'JRD_ADMIN'){
+						$scope.paymentManagerBO	= $scope.paymentManagerBO.slice(0,6);
+					}
+					
+					var totalamount = 0;
+					for(var i = 0; i< $scope.adminPaymentBO.length;i++){
+						var amount 	=	$scope.adminPaymentBO[i].AMOUNT;
+						totalamount += Number(amount);
+					}
+					$scope.TOTALAMOUNT 	=	totalamount;
+					$rootScope.hideSpinner();
+				}else{
+					$rootScope.hideSpinner();
+					$rootScope.showErrorBox('Error', data.error);
+				}
+				
+			});
+		};
+		$scope.getPayment();
+		
+		//	MARKETING BASKET / TOP 10 CUSTOMERS.
+		$scope.getCustomers = function(){
+			$rootScope.showSpinner();
+			marketingBasketServices.getCustomers().then(function(data){
+				if(data.msg!=''){
+					$scope.customerManagerBO	=	[];
+					$scope.customerManagerBO 	= 	data;
+					$rootScope.hideSpinner();
+				}else{
+					$rootScope.hideSpinner();
+					$rootScope.showErrorBox('Error', data.error);
+				}
+				
+			});
+		};
+
+		$scope.getCustomers();
+           
+        $scope.chartValue = function(data){
+			
+            angular.forEach(data, function(val, key){
+                var node 	=	{};
+                node.name = $scope.refData.referencesDataMap.CUSTOMERSTATUS[val.STATUS];
+                node.y = val.VALUE;
+                $scope.chart.push(node);
+            
+            });
+            $scope.options.series[0].data = $scope.chart;
+			var chart = new Highcharts.Chart($scope.options);
+        };
+
+        $scope.options = {
+            chart: {
+                renderTo: 'container',
+                plotBackgroundColor: null,
+                plotBorderWidth: null,
+                plotShadow: false,
+                type: 'pie'
             },
-            showInLegend: true
-        }
-    },
-    series: [{
-        name: 'Brands',
-        colorByPoint: true,
-        data: [{
-            name: 'Manju',
-            y: 6000000,
-            sliced: true,
-            selected: true
-        }, {
-            name: 'Bijeshkumar',
-            y: 500000
-        }, {
-            name: 'Maruthi',
-            y: 1000000
-        }, {
-            name: 'Lavanya',
-            y: 400000
-        }, {
-            name: 'Kissinger',
-            y: 418000
-        }, {
-            name: 'Rao',
-            y: 700000
-        }]
-    }]
-});
+            title: {
+                text: ''
+            },
+            tooltip: {
+                pointFormat: '<b>{point.y:.1f}</b>'
+            },
+            plotOptions: {
+                pie: {
+                    allowPointSelect: true,
+                    cursor: 'pointer',
+                    dataLabels: {
+                        enabled:false
+                    },
+                    showInLegend: true
+                }
+            },
+            series: [{
+            }]
+        };
+        
 
-Highcharts.chart('container3', {
-    chart: {
-        type: 'spline'
-    },
-    title: {
-        text: 'Monthly Average Revenue'
-    },
-    subtitle: {
-        text: ''
-    },
-    xAxis: {
-        categories: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun',
-            'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
-    },
-    yAxis: {
-        title: {
-            text: ''
-        },
-        labels: {
-            formatter: function () {
-                return this.value + '%';
-            }
-        }
-    },
-    tooltip: {
-        crosshairs: true,
-        shared: true
-    },
-    plotOptions: {
-        spline: {
-            marker: {
-                radius: 4,
-                lineColor: '#666666',
-                lineWidth: 1
-            }
-        }
-    },
-    series: [{
-        name: 'Income',
-        marker: {
-            symbol: 'square'
-        },
-        data: [7.0, 6.9, 9.5, 14.5, 18.2, 21.5, 25.2, {
-            y: 26.5,
-            marker: {
-                symbol: 'square'
-            }
-        }, 23.3, 18.3, 13.9, 9.6]
-
-    }, {
-        name: 'Expense',
-        marker: {
-            symbol: 'square'
-        },
-        data: [{
-            y: 3.9,
-            marker: {
-                symbol: 'square'
-            }
-        }, 4.2, 5.7, 8.5, 11.9, 15.2, 17.0, 16.6, 14.2, 10.3, 6.6, 4.8]
-    }]
-});
-	
 
 		$scope.currentMonth	=	$filter('date')(new Date(), "MMMM");
 		$scope.emptyRowCount = 5;
@@ -281,13 +244,8 @@ Highcharts.chart('container3', {
 		};
 
 		$scope.refresh	=	function(){
-			console.log("refresh");
-			storageServices.remove("dashboard_", "getIowe");
-			storageServices.remove("dashboard_", "getBR");
-			storageServices.remove("dashboard_", "getGrandTotal");
-			$scope.getBR();
-			$scope.getIowe();
-			$scope.getGrandTotal();
+			$scope.getCustomerStatusCount();
+			$scope.getPayment();
         };
         
         $scope.players = [
@@ -298,5 +256,5 @@ Highcharts.chart('container3', {
 			{name: 'Scruath', team: 'gamma'}
 		  ];
 	}
-	angular.module('aswa').controller('dashboardController',['$scope', '$rootScope', '$filter', 'utilityServices', '$modal', 'mainServices', 'dashboardServices', 'getreferences', 'storageServices', dashboardController]);
+	angular.module('aswa').controller('dashboardController',['$scope', '$rootScope', '$filter', 'utilityServices', '$modal', 'mainServices', 'dashboardServices', 'customerManagerServices', 'paymentManagerServices', 'marketingBasketServices', 'getreferences', 'storageServices', dashboardController]);
 })();

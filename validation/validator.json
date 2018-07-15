@@ -240,6 +240,48 @@
 				]
 			}
 		],
+		"paymentmanager":[
+			{
+				"key":"PAYFROM",
+				"validations":[
+					{
+						"type":"required",
+						"value":"true",
+						"errCode":"validation.payfrom"
+					}
+				]
+			},
+			{
+				"key":"PAYTO",
+				"validations":[
+					{
+						"type":"required",
+						"value":"true",
+						"errCode":"validation.payto"
+					}
+				]
+			},
+			{
+				"key":"DATE",
+				"validations":[
+					{
+						"type":"required",
+						"value":"true",
+						"errCode":"validation.date"
+					}
+				]
+			},
+			{
+				"key":"AMOUNT",
+				"validations":[
+					{
+						"type":"required",
+						"value":"true",
+						"errCode":"validation.amount"
+					}
+				]
+			}
+		],
 		"estimatebasket":[
 			{
 				"key":"DESCRIPTION",
@@ -258,6 +300,68 @@
 						"type":"required",
 						"value":"true",
 						"errCode":"validation.location"
+					}
+				]
+			},
+			{
+				"key":"QTY",
+				"validations":[
+					{
+						"type":"required",
+						"value":"true",
+						"errCode":"validation.qty"
+					}
+				]
+			},
+			{
+				"key":"UNIT",
+				"validations":[
+					{
+						"type":"required",
+						"value":"true",
+						"errCode":"validation.unit"
+					}
+				]
+			},
+			{
+				"key":"PERCOST",
+				"validations":[
+					{
+						"type":"required",
+						"value":"true",
+						"errCode":"validation.percost"
+					}
+				]
+			},
+			{
+				"key":"AMOUNT",
+				"validations":[
+					{
+						"type":"required",
+						"value":"true",
+						"errCode":"validation.amount"
+					}
+				]
+			}
+		],
+		"pobasket":[
+			{
+				"key":"DESCRIPTION",
+				"validations":[
+					{
+						"type":"required",
+						"value":"true",
+						"errCode":"validation.description"
+					}
+				]
+			},
+			{
+				"key":"VENDORID",
+				"validations":[
+					{
+						"type":"required",
+						"value":"true",
+						"errCode":"validation.vendorid"
 					}
 				]
 			},

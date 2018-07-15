@@ -51,7 +51,8 @@ function get_quotes() {
   QUT.MODIFIEDDATE,
   QUT.STATUS,
   QUT.APPROVED,
-  CUST.CUSTOMERID  
+  CUST.CUSTOMERID,
+  CUST.QUOTEAPPROVED   
   FROM VIEW_QUOTE_MASTER QUT, VIEW_CUSTOMER_MASTER CUST 
   WHERE QUT.CUSTOMERID = '$CUSTOMERID' AND QUT.CUSTOMERID = CUST.CUSTOMERID 
   ORDER BY MODIFIEDDATE DESC";
@@ -69,15 +70,16 @@ function get_quotes() {
     while($rows = mysql_fetch_array($result))
     {
       $data[] = array(
-        "ID"            =>  $rows['ID'],
-        "QUOTEID"       =>  $rows['QUOTEID'],
-        "CUSTOMERID"    =>  $rows['CUSTOMERID'],
-        "CREATEDBY"     =>  $rows['CREATEDBY'],
-        "CREATEDDATE"   =>  $rows['CREATEDDATE'],
-        "MODIFIEDBY"    =>  $rows['MODIFIEDBY'],
-        "MODIFIEDDATE"  =>  $rows['MODIFIEDDATE'],
-        "STATUS"        =>  $rows['STATUS'],
-        "APPROVED"        =>  $rows['APPROVED']
+        "ID"              =>  $rows['ID'],
+        "QUOTEID"         =>  $rows['QUOTEID'],
+        "CUSTOMERID"      =>  $rows['CUSTOMERID'],
+        "CREATEDBY"       =>  $rows['CREATEDBY'],
+        "CREATEDDATE"     =>  $rows['CREATEDDATE'],
+        "MODIFIEDBY"      =>  $rows['MODIFIEDBY'],
+        "MODIFIEDDATE"    =>  $rows['MODIFIEDDATE'],
+        "STATUS"          =>  $rows['STATUS'],
+        "APPROVED"        =>  $rows['APPROVED'],
+        "QUOTEAPPROVED"   =>  $rows['QUOTEAPPROVED']
       );
     }
     
@@ -100,7 +102,8 @@ function get_quote_master() {
     QST.CREATEDDATE,
     CUST.CUSTOMERID, 
     CUST.FULLNAME,
-    CUST.TYPE 
+    CUST.TYPE,
+    CUST.QUOTEAPPROVED   
     FROM VIEW_QUOTE_MASTER QST, VIEW_CUSTOMER_MASTER CUST 
     WHERE QST.QUOTEID = '$QUOTEID' AND QST.CUSTOMERID = CUST.CUSTOMERID";
     
@@ -126,7 +129,8 @@ function get_quote_master() {
           "CREATEDDATE"       =>  $rows['CREATEDDATE'],
           "CUSTOMERID"        =>  $rows['CUSTOMERID'],
           "FULLNAME"          =>  $rows['FULLNAME'],
-          "TYPE"              =>  $rows['TYPE']
+          "TYPE"              =>  $rows['TYPE'],
+          "QUOTEAPPROVED"     =>  $rows['QUOTEAPPROVED']
         );
       }
       

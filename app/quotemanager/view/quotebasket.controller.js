@@ -11,6 +11,7 @@
 		$scope.softLock							= 	false;
 		$scope.hardLock							= 	false;
 		$scope.cloned 							= 	false;
+		$scope.allowEdit						=	false;
 		$scope.referenceData.referencesDataMap 	= {
 			"CUSTOMERTYPE" 	:	getreferences.referencesData.CUSTOMERTYPE,
 			"LOCATION"		:	getreferences.referencesData.LOCATION
@@ -43,10 +44,14 @@
 					if($scope.quoteManagerBO[0].STATUS == 1){
 						$scope.softLock	= true;
 					}
-					if($scope.quoteManagerBO[0].APPROVED == 1){
-						$scope.softLock	= true;
+					if($scope.quoteManagerBO[0].QUOTEAPPROVED == 1){
+						$scope.hardLock	= true;
 					}
-					
+					if($scope.quoteManagerBO[0].STATUS == 1 && $scope.quoteManagerBO[0].QUOTEAPPROVED == 1 && $scope.quoteManagerBO[0].APPROVED == 1){
+						$scope.allowEdit = false;
+					} else if ($scope.quoteManagerBO[0].STATUS == 1 &&  $scope.quoteManagerBO[0].APPROVED == 0){
+						$scope.allowEdit = true;
+					}
 					$scope.getQuoteBasket();
 					$rootScope.hideSpinner();
 				}else{
@@ -297,15 +302,17 @@
 			var pushData = {};
 			pushData.QUOTEID 		=	$routeParams.QUOTEID;
 			pushData.MODIFIEDBY		=	$rootScope.user.USERID;
-			quoteManagerServices.approveQuoteMaster(pushData).then(function(status){
-				if(status==200){
+			pushData.CUSTOMERID		=	$scope.quoteManagerBO[0].CUSTOMERID;
+			quoteManagerServices.approveQuoteMaster(pushData).then(function(data){
+				if(data.msg!=''){
 					$rootScope.hideSpinner();
 					
+					console.log("Success", data.msg)
 					$rootScope.addnotification(Messages['modal.update.title'], Messages['modal.update.message']);
 					$scope.getQuoteMaster(); // UPDATE STATUS HERE FOR THE OLD ESTIMATE...
-					}else {
+				}else {
 					$rootScope.hideSpinner();
-					$rootScope.showErrorBox('error', 'error');
+					$rootScope.showErrorBox('error', data.error);
 				}
 			});
 		};

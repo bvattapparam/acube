@@ -54,8 +54,8 @@
             </div> 
             <div class="">
               <i class="fa fa-code-fork"></i>
-              <label class="label-width-md text-strong btn-link" data-ng-bind="'label.approvequote' | i18n" data-ng-if="!softLock" data-ng-click="approveQuote(quoteManagerBO[0].QUOTEID)"></label> 
-              <label class="label-width-md text-strong " data-ng-bind="'label.approvequote' | i18n" data-ng-if="softLock"></label> 
+              <label class="label-width-md text-strong btn-link" data-ng-bind="'label.approvequote' | i18n" data-ng-if="!hardLock" data-ng-click="approveQuote(quoteManagerBO[0].QUOTEID)"></label> 
+              <label class="label-width-md text-strong " data-ng-bind="'label.approvequote' | i18n" data-ng-if="hardLock"></label> 
             </div> 
             
             <div class="">
@@ -94,7 +94,7 @@
               </tr>
               </thead>
               <tbody>
-              <tr data-ng-class="lockIcon(quoteManagerBO[0].STATUS, quoteManagerBO[0].APPROVED);">
+              <tr data-ng-class="{'soft-lock-container': allowEdit}">
                 <td class="f20 part1"></td>
                 <td>
                   <div class="input-group">
@@ -139,7 +139,7 @@
                       <td data-ng-bind="rel.UNIT" class="text-uppercase"></td>
                       <td data-ng-bind="rel.PERCOST"></td>
                       <td data-ng-bind="rel.AMOUNT | aswaCurrency" class="text-right"></td>
-                      <td class="f20 ng-binding action comment-content" data-ng-class="{'soft-lock-container': softLock}"> 
+                      <td data-ng-class="{'soft-lock-container': allowEdit}" class="f20 ng-binding action comment-content" data-ng-class="lockIcon(quoteManagerBO[0].STATUS, quoteManagerBO[0].quoteManagerBO[0].QUOTEAPPROVED);"> 
                         <i class="action-icon-md-primary fa fa-edit icon-link"  tooltip="{{'tooltip.edit' | i18n}}" ng-click="editQuoteBasket(rel)"></i>
                         <i class="action-icon-md-primary fa fa-trash icon-link" tooltip="{{'tooltip.trash' | i18n}}" ng-click="deleteBasket(rel)"></i>
                       </td>

@@ -41,6 +41,9 @@
 				"1":"status-active-text",
 				"0":"status-cancel-text"
 			},
+			"SHOW_CUSTOMER_STATUS":['1','3'],
+			"SHOW_PO_CUSTOMER_STATUS":['3'],
+
 			"CARMODULE_FUEL" : "CM1",
 			"CARMODULE_OTHERS" : "CM3",
 			"CARMODULE_SERVICE" : "CM2",

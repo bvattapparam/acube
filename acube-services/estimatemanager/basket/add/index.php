@@ -16,7 +16,7 @@ include('../../../config/log_handler.php');
     $QTY                =   $data->QTY;
     $UNIT               =   $data->UNIT;
     $PERCOST            =   $data->PERCOST;
-    $AMOUNT             =   $data->AMOUNT;;
+    $AMOUNT             =   $data->AMOUNT;
 
     $MODIFIEDBY         =   $data->MODIFIEDBY;
     $MODIFIEDDATE       =   date("Y-m-d");

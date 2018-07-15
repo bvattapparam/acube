@@ -57,11 +57,11 @@
                 <td data-ng-bind="rel.MODIFIEDBY" class="text-uppercase"></td>
                 <td data-ng-bind="rel.CREATEDDATE | aswaDate" class="text-uppercase"></td>
                 <td data-ng-bind="rel.CREATEDBY" class="text-uppercase"></td>
-                <td data-ng-bind="referenceData.referencesDataMap.GENERICSTATUS[rel.STATUS]" class="text-uppercase"></td>
+                <td data-ng-bind="referenceData.referencesDataMap.CUSTOMERSTATUS[rel.STATUS]" class="text-uppercase status-txt-{{rel.STATUS}}"></td>
                 <td class="f20 ng-binding action comment-content">
                   <i class="action-icon-md-primary fa fa-edit icon-link"  ng-click="editUser(rel)" tooltip="{{'tooltip.editcustomer'|i18n}}"></i>
                   <i class="action-icon-md-primary fa fa-trash icon-link" ng-click="showInfoBox('Info', 'generalinfoone', 'sm')" tooltip="{{'tooltip.trashcustomer'|i18n}}"></i>
-                  <a ng-href="#/customer/customerview/{{rel.CUSTOMERID}}"><i class="action-icon-md-primary fa fa-eye icon-link" tooltip="{{'tooltip.viewcustomer'|i18n}}"></i></a>
+                  <a data-ng-if="rel.STATUS === '3'" ng-href="#/customer/customerview/{{rel.CUSTOMERID}}"><i class="action-icon-md-primary fa fa-eye icon-link" tooltip="{{'tooltip.viewcustomer'|i18n}}"></i></a>
                 </td>
               </tr>
               </tbody>

@@ -10,10 +10,12 @@
 		"usermanager.addUser"							: 	"../acube-services/usermanager/add/",
 
 		"customermanager.getCustomers"					: 	"../acube-services/customermanager/get/?action=get_customers",
+		"customermanager.getStatusCount"				: 	"../acube-services/customermanager/get/?action=get_status_count",
 		"customermanager.getCustomer"					: 	"../acube-services/customermanager/get/?action=get_customer",
 		"customermanager.updateCustomer"				: 	"../acube-services/customermanager/update/?action=put_customer_data",
 		"customermanager.updateEstimateStatus"			: 	"../acube-services/customermanager/update/?action=update_estimate_status",
 		"customermanager.addCustomer"					: 	"../acube-services/customermanager/add/",
+		"customermanager.getTotals"						: 	"../acube-services/customermanager/get/?action=get_totals",
 		
 		"marketingbasket.getCustomers"					: 	"../acube-services/marketingbasket/get/",
 		"marketingbasket.updateMarketingBasket"			: 	"../acube-services/marketingbasket/update/",
@@ -45,7 +47,20 @@
 		
 		"vendormanager.addVendor"						:	"../acube-services/vendormanager/add/",
 		"vendormanager.getVendors"						:	"../acube-services/vendormanager/get/?action=get_vendors",
-		"vendormanager.updateVendor"					: 	"../acube-services/vendormanager/update/?action=update_vendor"
+		"vendormanager.updateVendor"					: 	"../acube-services/vendormanager/update/?action=update_vendor",
+		
+		"paymentmanager.addPayment"						:	"../acube-services/paymentmanager/add/",
+		"paymentmanager.updatePayment"					:	"../acube-services/paymentmanager/update/",
+		"paymentmanager.getPayment"						:	"../acube-services/paymentmanager/get/?action=get_payment",
+		
+		"pomanager.getPOMasters"						:	"../acube-services/pomanager/get/?action=get_po_masters",
+		"pomanager.getPOMaster"							:	"../acube-services/pomanager/get/?action=get_po_master",
+		"pomanager.getPOCount"							:	"../acube-services/pomanager/get/?action=get_po_count",
+		"pomanager.generatePOMaster"					: 	"../acube-services/pomanager/generate/?action=generate_po_master",
+		"pomanager.addPOBasket"							: 	"../acube-services/pomanager/basket/add/",
+		"pomanager.updatePOBasket"						: 	"../acube-services/pomanager/basket/update/",
+		"pomanager.getPOBasket"							: 	"../acube-services/pomanager/basket/get/?action=get_po_basket",
+		"pomanager.deletePOBasket"						: 	"../acube-services/pomanager/basket/delete/"
 	}
 
 	angular.module('aswa').constant('urlsettings',urlsettings);

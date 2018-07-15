@@ -1,48 +1,39 @@
 (function(){
 
-	function customerViewController($scope, $rootScope, $modal, $filter, customerManagerServices, utilityServices, storageServices, getreferences,$http, mainServices){
+	function customerViewController($scope, $routeParams, $rootScope, $modal, $filter, customerManagerServices, utilityServices, storageServices, getreferences,$http, mainServices){
 
 		$scope.customerManager 						=	{};
 		$scope.reference						=	{};
 		$scope.referenceData					=	{};
 		$scope.referenceData.referencesDataMap 	= {
-			"CUSTOMERTYPE" 	: getreferences.referencesData.CUSTOMERTYPE
+			"CUSTOMERTYPE" 	: getreferences.referencesData.CUSTOMERTYPE,
+			"CUSTOMERSTATUS" 	: getreferences.referencesData.CUSTOMERSTATUS
 		};
 
-		$scope.oneAtATime = true;
+		
+		$scope.quoteStatus = function(param){
+			if (param === '1') {
+				return "Yes";
+			} else if (param === '0') {
+				return "No";
+			}
+		}
+		$scope.estimateStatus = function(param){
+			if (param === '1') {
+				return "Yes";
+			} else if (param === '0') {
+				return "No";
+			}
+		}
 
-		$scope.groups = [
-		  {
-			title: 'Dynamic Group Header - 1',
-			content: 'Dynamic Group Body - 1'
-		  },
-		  {
-			title: 'Dynamic Group Header - 2',
-			content: 'Dynamic Group Body - 2'
-		  }
-		];
-	  
-		$scope.items = ['Item 1', 'Item 2', 'Item 3'];
-	  
-		$scope.addItem = function() {
-		  var newItemNo = $scope.items.length + 1;
-		  $scope.items.push('Item ' + newItemNo);
-		};
-	  
-		$scope.status = {
-		  isFirstOpen: true,
-		  isFirstDisabled: false
-		};
-
-
-
-		$scope.getCustomers = function(){
+		$scope.getCustomer = function(){
 			$rootScope.showSpinner();
-			customerManagerServices.getCustomers().then(function(data){
+			customerManagerServices.getCustomer($routeParams.CUSTOMERID).then(function(data){
 				if(data.msg!=''){
 					$scope.customerManagerBO	=	[];
 					$scope.customerManagerBO 	= 	data;
-					console.log("date", data)
+					$scope.chart = [];
+					$scope.chartValue(data);
 					$rootScope.hideSpinner();
 				}else{
 					$rootScope.hideSpinner();
@@ -52,7 +43,25 @@
 			});
 		};
 
-		$scope.getCustomers();
+		$scope.getCustomer();
+
+		$scope.getTotals = function(){
+			$rootScope.showSpinner();
+			customerManagerServices.getTotals($routeParams.CUSTOMERID).then(function(data){
+				if(data.msg!=''){
+					$scope.totalsBO	=	[];
+					$scope.totalsBO 	= 	data;
+
+					console.log('TOTALs ', data)
+					$rootScope.hideSpinner();
+				}else{
+					$rootScope.hideSpinner();
+					$rootScope.showErrorBox('Error', data.error);
+				}
+				
+			});
+		};
+		$scope.getTotals();
 
 		$scope.editUser = function (data) {
 			console.log("yes", data);
@@ -91,16 +100,53 @@
 				utilityServices.openConfigModal($modal, config);
 		};
 
-		
+		$scope.chartValue = function(data){
+			console.log('data1 ', data)
 
-		$scope.refresh	=	function(){
-			$scope.getCustomers();
-		};
+			var varry = [{name:'estimates',y:3},{name:'quotations',y:4},{name:'materials',y:4}];
+            angular.forEach(varry, function(val, key){
+                var node 	=	{};
+                node.name = val.name;
+                node.y = val.y;
+                $scope.chart.push(node);
+            
+            });
+            $scope.options.series[0].data = $scope.chart;
+			//var chart = new Highcharts.Chart($scope.options);
+        };
+
+        $scope.options = {
+            chart: {
+                renderTo: 'container',
+                plotBackgroundColor: null,
+                plotBorderWidth: null,
+                plotShadow: false,
+                type: 'pie'
+            },
+            title: {
+                text: ''
+            },
+            tooltip: {
+                pointFormat: '<b>{point.y:.1f}</b>'
+            },
+            plotOptions: {
+                pie: {
+                    allowPointSelect: true,
+                    cursor: 'pointer',
+                    dataLabels: {
+                        enabled:false
+                    },
+                    showInLegend: true
+                }
+            },
+            series: [{
+            }]
+        };
 
 		
 
 
 	}
 
-	angular.module('aswa').controller('customerViewController',['$scope', '$rootScope', '$modal', '$filter', 'customerManagerServices', 'utilityServices', 'storageServices', 'getreferences', '$http', 'mainServices', customerViewController]);
+	angular.module('aswa').controller('customerViewController',['$scope', '$routeParams', '$rootScope', '$modal', '$filter', 'customerManagerServices', 'utilityServices', 'storageServices', 'getreferences', '$http', 'mainServices', customerViewController]);
 })();

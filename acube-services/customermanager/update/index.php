@@ -54,6 +54,8 @@ function update_estimate_status() {
     $MODIFIEDBY         =   $data->MODIFIEDBY;
     $MODIFIEDDATE       =   date("Y-m-d");
 
+    $COMMENT            =   str_replace("'","''",$COMMENT);
+
 
     $qry = "UPDATE VIEW_CUSTOMER_MASTER SET TYPE = '$TYPE', FULLNAME = '$FULLNAME', MOBILE = '$MOBILE', EMAIL = '$EMAIL', ADDRESS = '$ADDRESS', COMMENT = '$COMMENT', MODIFIEDBY = '$MODIFIEDBY', MODIFIEDDATE = '$MODIFIEDDATE', STATUS = '$STATUS' WHERE CUSTOMERID = '$CUSTOMERID'";
 

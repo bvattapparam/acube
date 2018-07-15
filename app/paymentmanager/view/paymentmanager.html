@@ -43,7 +43,7 @@
           <label ng-bind="'label.whopaid' | i18n" class="text-uppercase"></label>
           <select tabindex="7" class="form-control" ui-select2="common.select2ClearWithoutSearch" ng-model="dataBO.CUSTOMERID" placeholder="{{'placeholder.selectuser' | i18n}}">
             <option></option>
-            <option data-ng-repeat="item in reference.CUSTOMER" value="{{item.code}}">{{item.name}}</option>
+            <option data-ng-repeat="item in reference.USER" value="{{item.code}}">{{item.name}}</option>
           </select>
         </div>    
       </div>
@@ -52,7 +52,7 @@
             <label ng-bind="'label.whomepaid' | i18n" class="text-uppercase"></label>
             <select tabindex="7" class="form-control" ui-select2="common.select2ClearWithoutSearch" ng-model="dataBO.CUSTOMERID" placeholder="{{'placeholder.selectuser' | i18n}}">
               <option></option>
-              <option data-ng-repeat="item in reference.CUSTOMER" value="{{item.code}}">{{item.name}}</option>
+              <option data-ng-repeat="item in reference.USER" value="{{item.code}}">{{item.name}}</option>
             </select>
           </div>    
         </div>
@@ -87,27 +87,33 @@
               <thead class="table-bg">
               <tr>
                 <th></th>
-                <th data-ng-bind-html="'label.quoteid' | i18n"></th>
+                <th data-ng-bind-html="'label.payfrom' | i18n"></th>
+                <th data-ng-bind-html="'label.payto' | i18n"></th>
+                <th data-ng-bind-html="'label.date' | i18n"></th>
+                <th data-ng-bind-html="'label.amount' | i18n"></th>
                 <th data-ng-bind-html="'label.customerid' | i18n"></th>
+                <!-- <th data-ng-bind-html="'label.modifiedby' | i18n"></th>
                 <th data-ng-bind-html="'label.modifieddate' | i18n"></th>
-                <th data-ng-bind-html="'label.modifiedby' | i18n"></th>
                 <th data-ng-bind-html="'label.createddate' | i18n"></th>
-                <th data-ng-bind-html="'label.createdby' | i18n"></th>
+                <th data-ng-bind-html="'label.createdby' | i18n"></th> -->
                 <th data-ng-bind-html="'label.actions' | i18n"></th>
                 
               </tr>
               </thead>
               <tbody>
-              <tr ng-repeat ="rel in quoteManagerBO">
-                <td class="f20 part1"><i ng-class="lockIcon(rel.STATUS, rel.APPROVED)" class="fa fa-lg" tooltip="{{tooltipContent}}"; tooltip-placement='right'></i></td>
-                <td data-ng-bind="rel.QUOTEID"></td>
-                <td data-ng-bind="rel.CUSTOMERID"></td>
+              <tr ng-repeat ="rel in paymentManagerBO" class="text-uppercase">
+                <td class="f20 part1"></td>
+                <td data-ng-bind="rel.PAYFROM"></td>
+                <td data-ng-bind="rel.PAYTO"></td>
+                <td data-ng-bind="rel.DATE | aswaDate"></td>
+                <td data-ng-bind="rel.AMOUNT | aswaCurrency"></td>
+                <td data-ng-bind="rel.CUSTOMERID | reverseCode : reference.CUSTOMER"></td>
+                <!-- <td data-ng-bind="rel.MODIFIEDBY"></td>
                 <td data-ng-bind="rel.MODIFIEDDATE | aswaDate"></td>
-                <td data-ng-bind="rel.MODIFIEDBY"></td>
                 <td data-ng-bind="rel.MODIFIEDDATE | aswaDate"></td>
-                <td data-ng-bind="rel.MODIFIEDBY"></td>
+                <td data-ng-bind="rel.CREATEDBY"></td> -->
                 <td class="f20 ng-binding action comment-content"> 
-                  <i class="action-icon-md-primary fa fa-edit icon-link"  tooltip="{{'tooltip.edit'|i18n}}" ng-click="quoteBasket(rel)"></i>
+                  <i class="action-icon-md-primary fa fa-edit icon-link"  tooltip="{{'tooltip.edit'|i18n}}" ng-click="editPay(rel)"></i>
                   <i class="action-icon-md-primary fa fa-trash icon-link" tooltip="{{'tooltip.trash'|i18n}}" ng-click="showInfoBox('Info', 'generalinfoone', 'sm')"></i>
                 </td>
               </tr>
@@ -118,7 +124,7 @@
             </table>
         </div>
         <div class="menu pmd-floating-action" role="navigation" data-ng-if="showAddBtn"> 
-            <a href="javascript:void(0);" ng-click="generatenewest();" class="pmd-floating-action-btn btn btn-sm pmd-btn-fab pmd-btn-raised pmd-ripple-effect btn-default" data-title="{{'btn.addnew' | i18n}}"> 
+            <a href="javascript:void(0);" ng-click="newPay();" class="pmd-floating-action-btn btn btn-sm pmd-btn-fab pmd-btn-raised pmd-ripple-effect btn-default" data-title="{{'btn.addnew' | i18n}}"> 
               <span class="pmd-floating-hidden">{{'btn.addnew' | i18n}}</span> 
               <i class="fa fa-plus"></i> 
            </a> 

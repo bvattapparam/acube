@@ -22,13 +22,13 @@
 			customerManagerServices.getCustomers().then(function(data){
 				if(data.msg!=''){
 					$scope.customerManagerBO	=	[];
-					
 					angular.forEach(data, function(item,key){
-						if(item.STATUS != settings.rootScope.NOCUSTOMERMANAGERSTATUS){
-							$scope.customerManagerBO.push(item)
-						}
+						angular.forEach($rootScope.settings.SHOW_CUSTOMER_STATUS, function(citem,ckey){
+							if(item.STATUS == citem){
+								$scope.customerManagerBO.push(item)
+							}
+						});
 					});
-
 
 					// CREATE NEW REFERENCE FOR CUSTOMER..
 						for(var i=0; i<$scope.customerManagerBO.length; i++){

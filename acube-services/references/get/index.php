@@ -8,7 +8,7 @@ get_reference_data();
   /** Main function to get the reference static data from reference tables **/
  function get_reference_data() {
 
-$QRY_GENERICSTATUS        =   "SELECT * FROM VIEW_REF_GENERICSTATUS";
+$QRY_CUSTOMERSTATUS       =   "SELECT * FROM VIEW_REF_CUSTOMERSTATUS";
 $QRY_PAYMENTMODE          =   "SELECT * FROM VIEW_REF_PAYMENTMODE";
 $QRY_JURISDICTION         =   "SELECT * FROM VIEW_REF_JURISDICTION";
 $QRY_AVATAR               =   "SELECT * FROM VIEW_REF_AVATAR";
@@ -16,7 +16,7 @@ $QRY_CUSTOMERTYPE         =   "SELECT * FROM VIEW_REF_CUSTOMER_TYPE";
 $QRY_LOCATION             =   "SELECT * FROM VIEW_REF_LOCATION";
 
 	
-$RESULT_GENERICSTATUS               =		mysql_query($QRY_GENERICSTATUS); 
+$RESULT_CUSTOMERSTATUS              =		mysql_query($QRY_CUSTOMERSTATUS); 
 $RESULT_PAYMENTMODE                 =   mysql_query($QRY_PAYMENTMODE); 
 $RESULT_JURISDICTION                =   mysql_query($QRY_JURISDICTION); 
 $RESULT_AVATAR                      =   mysql_query($QRY_AVATAR); 
@@ -25,12 +25,12 @@ $RESULT_LOCATION                    =   mysql_query($QRY_LOCATION);
 
 $DATA  = array();
   // Generic Status reference data
-  while($ROWS_GENERICSTATUS	=	mysql_fetch_array($RESULT_GENERICSTATUS)){
-    $DATA_GENERICSTATUS[]	=	array(
-      "id"          	=>  $ROWS_GENERICSTATUS['ID'],
-      "code"   		    =>  $ROWS_GENERICSTATUS['CODE'],
-      "name"      	  =>  $ROWS_GENERICSTATUS['NAME'],
-      "status"    	  =>  $ROWS_GENERICSTATUS['STATUS']
+  while($ROWS_CUSTOMERSTATUS	=	mysql_fetch_array($RESULT_CUSTOMERSTATUS)){
+    $DATA_CUSTOMERSTATUS[]	=	array(
+      "id"          	=>  $ROWS_CUSTOMERSTATUS['ID'],
+      "code"   		    =>  $ROWS_CUSTOMERSTATUS['CODE'],
+      "name"      	  =>  $ROWS_CUSTOMERSTATUS['NAME'],
+      "status"    	  =>  $ROWS_CUSTOMERSTATUS['STATUS']
       );
   };
 
@@ -84,7 +84,7 @@ $DATA  = array();
 
   //echo json_encode($data_travelstatus);
 
-  $DATA["GENERICSTATUS"]         =	  $DATA_GENERICSTATUS;
+  $DATA["CUSTOMERSTATUS"]        =	  $DATA_CUSTOMERSTATUS;
   $DATA["PAYMENTMODE"]           =    $DATA_PAYMENTMODE;
   $DATA["JURISDICTION"]          =    $DATA_JURISDICTION;
   $DATA["AVATAR"]                =    $DATA_AVATAR;

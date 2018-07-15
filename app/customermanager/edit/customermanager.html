@@ -46,7 +46,7 @@
                     <label ng-bind="'label.status' | i18n"></label>
                     <select tabindex="7" class="form-control" ui-select2="common.select2ClearWithoutSearch" ng-model="dataBO.STATUS" placeholder="{{'placeholder.selectone' | i18n}}">
                     <option></option>
-                      <option data-ng-repeat="item in reference.referenceBO.GENERICSTATUS" value="{{item.code}}">{{item.name}}</option>
+                      <option data-ng-repeat="item in reference.referenceBO.CUSTOMERSTATUS" value="{{item.code}}">{{item.name}}</option>
                     </select>
                     </div>
                   </div>  

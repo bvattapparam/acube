@@ -41,6 +41,7 @@ Messages = {
 	"menu.payment"					:	"Payment Manager",
 	"menu.vendor"					:	"Vendor Manager",
 	"menu.po"						:	"Purchase Order",
+	"menu.dashboard"				:	"Dashboard",
 
 
 	"placeholder.selectone"			: 	"Select One",
@@ -49,6 +50,7 @@ Messages = {
 	"placeholder.address"			: 	"Address",
 	"placeholder.selectlocation"	: 	"Select Location",
 	"placeholder.selectuser"		:	"Select User",
+	"placeholder.selectvendor"		:	"Select Vendor",
 
 	"validation.status"				: 	"Status is mandatory",
 	"validation.userid"				: 	"User ID is mandatory.",
@@ -71,6 +73,10 @@ Messages = {
 	"validation.location"			: 	"Location is mandatory",
 	"validation.email.format"		:	"Email format is wrong",
 	"validation.contactperson"		:	"Contact Person is mandatory",
+	"validation.payfrom"			:	"Pay from is mandatory",
+	"validation.payto"				:	"Pay To is mandatory",
+	"validation.date"				:	"Date is mandatory",
+	"validation.vendorid"			:	"Vendor is mandatory",
 
 
 	"edit.form.confirmation.title"		: 	"Edit confirmation check",
@@ -106,6 +112,8 @@ Messages = {
 	"tooltip.trashcustomer"	:	"Trash Customer",
 	"tooltip.viewcustomer"	:	"View Customer",
 	"tooltip.editcustomer"	:	"Edit Customer",
+	"tooltip.dashboard.marketingbasket"			:	"Click to view Marketing Basket",
+	"tooltip.dashboard.paymenttransactions"			:	"Click to view Payment Manager",
 
 	"setting.language.malayalam"				: 	"Malayalam",
 	"setting.language.english"					: 	"English",
@@ -174,9 +182,30 @@ Messages = {
 	"label.whopaid"							:	"Who Paid",
 	"label.whomepaid"						:	"Whome Paid",
 	"label.vendorid"						:	"Vendor ID",
+	"label.vendor"							:	"Vendor",
 	"label.contactperson"					:	"Contact Person",
+	"label.towhome"							:	"To Whome",
+	"label.date"							:	"Date",
+	"label.payfrom"							:	"Pay From",
+	"label.payto"							:	"Pay To",
+	"label.cashonhand"						:	"Cash on Hand",
+	"label.transactions"					:	"Transactions",
+	"label.latest10customers"				:	"Latest 10 Customers",
+	"label.customerstatus"					:	"Customer Status",
+	"label.payment.transactions"			:	"Payment Transaction",
+	"label.payment.paidamount"				:	"Payment Total Paid",
+	"label.dashboard.noaccess"				:	"You do not have Privillige to access anything. <br>Please contact Administrator.",
+	//"label.dashboard.noaccess"				:	"எதையும் அணுகுவதற்கு உங்களுக்கு உரிமை இல்லை. <br>நிர்வாகியைத் தொடர்புகொள்ளவும்",
 
 	"clone.success"							:	"Cloned Version",
+	"label.correcterrors"					:	"Please correct the below listed errors",
+	"label.poid"							:	"POID",
+	"label.estimatestatus"					:	"Estimate Status",
+	"label.quoteapproved"					:	"Quote Approved",
+	"label.projectcost"						:	"Project Cost",
+	"label.paidsofar"						:	"Paid So Far",
+	"label.balance"							:	"Balance",
+	"label.backtopo"						:	"Back to Purchase Order",
 
 
 	// DASHBOARD .....
@@ -202,9 +231,15 @@ Messages = {
 	"customermanager.pageheader"				: 	"Customer Manager",
 	"customermanager.customerview.pageheader"	: 	"Customer",
 	"customermanager.customerview"				: 	"Customer",
+	"customermanager.basicdetails"				:	"Basic Info",
+	"customermanager.expensedetails"			:	"Expense Info",
+	"customermanager.paymentdetails"			:	"Payment Info",
 	"customermanager.customers"					: 	"Customers",
 	"customermanager.add"						: 	"Add Customer",
 	"customermanager.edit"						: 	"Edit Customer",
+	"customermanager.pos"						:	"Purchase Orders",
+	"customermanager.quotes"					:	"Quotations",
+	"customermanager.estimates"					:	"Estimates",
 	// MARKETING BASKET....
 
 	"marketingbasket.pageheader"			: 	"Marketing Basket",
@@ -244,10 +279,17 @@ Messages = {
 	"quotebasket.deleteitem"					:	"Do you want to delete the quotation item ? Click YES to delete the item, Click NO to cancel the action.",
 	
 	"paymentmanager.pageheader"					:	"Payment Manager",
+	"paymentmanager.newpay"						:	"New Payment",
+	"paymentmanager.edit"						:	"Edit Payment",
 
 	"vendormanager.pageheader"					:	"Vendor Manager",
 	"vendormanager.vendors"						:	"Vendors",
-	'vendormanager.add'							:	"Add Vendor"
+	'vendormanager.add'							:	"Add Vendor",
+
+	// PO MANAGER
+	"pomanager.pageheader"						:	"Purchase Order Manager",
+	"pomanager.pos"								:	"Purchase Orders",
+	"pobasket.deleteitem"						: 	"Do you want to delete the PO item ? Click YES to delete the item, Click NO to cancel the action.",
 
 
 

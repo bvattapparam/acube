@@ -72,8 +72,11 @@ display: block;
 }
 .section-box-body {
   margin-top:10px;
-  padding-bottom:20px;
   min-height:268px;
+}
+.section-box-body-small {
+  margin-top:10px;
+  min-height:50px;
 }
 
 .center {
@@ -1797,4 +1800,64 @@ text.highcharts-title{
 .text-gray {
   color: #999999;
 }
-  
+.dashboard-total {
+  font-size:50px;
+}
+.customerview-total {
+  font-size:45px;
+}
+.txt-success {
+  color:#8dc63f;
+}
+.txt-warning{
+  color: #ffba00
+}
+.txt-info{
+  color: #40bbea;
+}
+.backto{
+  position: relative;
+  margin-top:15px;
+  background-color: @brand-primary;
+  margin-bottom:100px;
+  text-transform: uppercase;
+  text-align: center;
+  font-size: 15px;
+  font-weight: 800;
+  color: #fff;
+  padding:10px;
+  cursor: pointer;
+  transition: all .25s ease;
+  &:hover{
+    color: #ffffff;
+    transition: all .75s ease-out;
+    background-color: darken(@brand-primary,20);
+  }
+  span{
+    display: block;
+  }
+  a{
+    color: #ffffff;
+  }
+}
+
+/* CUSTOMER STATUS FONT COLORS */
+
+  .status-txt-0{
+    color:#000000;
+  }
+  .status-txt-1{
+    color:#19c289;
+  }
+  .status-txt-2{
+    color:#FF0000;
+  }
+  .status-txt-3{
+    color:#dd8706;
+  }
+  .status-txt-4{
+    color:#0e62c7;
+  }
+  .status-txt-5{
+    color:#FF0000;
+  }

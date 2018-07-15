@@ -7,7 +7,7 @@
 		$scope.reference.referenceBO		= 	getreferences.references;
 		$scope.referenceData					=	{};
 		$scope.referenceData.referencesDataMap 	= {
-			"GENERICSTATUS" 	: getreferences.referencesData.GENERICSTATUS,
+			"CUSTOMERSTATUS" 	: getreferences.referencesData.CUSTOMERSTATUS,
 			"CUSTOMERTYPE" 	: getreferences.referencesData.CUSTOMERTYPE
 		};
 

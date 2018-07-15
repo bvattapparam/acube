@@ -23,11 +23,12 @@
 				if(data.msg!=''){
 					
 					$scope.customerManagerBO	=	[];
-					
 					angular.forEach(data, function(item,key){
-						if(item.STATUS != settings.rootScope.NOCUSTOMERMANAGERSTATUS){
-							$scope.customerManagerBO.push(item)
-						}
+						angular.forEach($rootScope.settings.SHOW_CUSTOMER_STATUS, function(citem,ckey){
+							if(item.STATUS == citem){
+								$scope.customerManagerBO.push(item)
+							}
+						});
 					});
 
 					// CREATE NEW REFERENCE FOR CUSTOMER..
@@ -210,17 +211,36 @@
 		};
 
 		
-		$scope.lockIcon = function(status,approved){
+		$scope.lockIcon = function(status,quoteapproved, approved){
 			var iconClass;
 			$scope.tooltipContent = "";
-			if(status == 1 && approved == 0){
+			if(status == 1 && quoteapproved == 0){
 				iconClass =  "fa-lock green-lock";
 				$scope.tooltipContent = "";
 				$scope.tooltipContent = Messages['label.softlock'];
-			}else if(status == 1 && approved == 1){
+			}else if(status == 1 && quoteapproved == 1){
 				iconClass = "fa-thumbs-up approved-icon";
+				if(approved == 1){
+					iconClass = "fa-thumbs-up approved-icon";
+				}else{
+					iconClass = "fa-lock red-lock";
+				}
 				$scope.tooltipContent = "";
 				$scope.tooltipContent = Messages['label.approved'];
+			}
+			return iconClass;
+		};
+
+
+		$scope.lockIcon1 = function(softlock,hardlock){
+			var iconClass;
+			if(softlock == 1 && hardlock == 0){
+				iconClass =  "fa-lock green-lock";
+				$scope.tooltipContent = Messages['label.softlock'];
+			}
+			if(softlock == 1 && hardlock == 1){
+				iconClass = "fa-lock red-lock";
+				$scope.tooltipContent = Messages['label.hardlock'];
 			}
 			return iconClass;
 		};
