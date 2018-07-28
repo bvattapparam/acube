@@ -15,9 +15,9 @@
 
 
 <div permission="['JRD_ADMIN','JRD_MARKETING']">
-  
+
   <div class="row section-container">
-    <div class="col-xs-4" permission="['JRD_ADMIN','JRD_MARKETING']">
+    <div class="col-xs-12 col-md-4">
       <div class="col-xs-12 section-box">
         <div class="section-box-header">
           <h2 class="text-uppercase"><i class="fa fa-money"></i> {{'label.customerstatus' | i18n}} </h2>
@@ -27,8 +27,8 @@
         </div>
       </div>
     </div>
-
-    <div class="col-xs-8" permission="['JRD_ADMIN','JRD_MARKETING']">
+    <div class="col-xs-12 m-t-m hidden-lg hidden-md"></div>
+    <div class="col-xs-12 col-md-8" permission="['JRD_ADMIN','JRD_MARKETING']">
       <div class="col-xs-12 section-box">
         <div class="section-box-header">
           <h2 class="text-uppercase"><i class="fa fa-database"></i> {{'label.latest10customers' | i18n}} <a ng-href="#/marketingbasket" ><i class="fa fa-ellipsis-h pull-right" tooltip="{{'tooltip.dashboard.marketingbasket' | i18n}}" tooltip-placement="left"></i></a></h2>
@@ -61,63 +61,12 @@
         </div>
       </div>
     </div>
-
   </div>
+  <div ng-include src = "'dashboard/containers/adm-payment-section.html'"></div>
 </div>
 
 
-<div permission="['JRD_ADMIN', 'JRD_SUPERVISOR']">
-  
-  <div class="row section-container">
-    <div class="col-xs-4">
-      <div class="col-xs-12 section-box">
-        <div class="section-box-header">
-          <h2 permission="['JRD_ADMIN']" class="text-uppercase"><i class="fa fa-money"></i> {{'label.payment.paidamount' | i18n}} </h2>
-          <h2 permission="['JRD_SUPERVISOR']" class="text-uppercase"><i class="fa fa-money"></i> {{'label.cashonhand' | i18n}} </h2>
-        </div>
-        <div class="col-xs-12 section-box-body text-right">
-          <span class="dashboard-total" style="font-size:50px" data-ng-bind="TOTALAMOUNT | aswaCurrency">25,00,00,000.00</span>
-        </div>
-      </div>
-    </div>
-
-    <div class="col-xs-8">
-      <div class="col-xs-12 section-box">
-        <div class="section-box-header">
-          <h2 permission="['JRD_ADMIN']" class="text-uppercase"><i class="fa fa-database"></i> {{'label.payment.transactions' | i18n}} <a ng-href="#/paymentmanager" ><i class="fa fa-ellipsis-h pull-right" tooltip="{{'tooltip.dashboard.paymenttransactions' | i18n}}" tooltip-placement="left"></i></a></h2>
-          <h2 permission="['JRD_SUPERVISOR']" class="text-uppercase"><i class="fa fa-database"></i> {{'label.transactions' | i18n}} </h2>
-        </div>
-        <div class="col-xs-12 section-box-body table-responsive">
-          <table class="table table-hover">
-            <colgroup>
-              <col class="auto-cell-size p-r-20">
-            </colgroup>
-            <thead class="table-bg">
-            <tr>
-              <th></th>
-              <th data-ng-bind-html="'label.payfrom' | i18n"></th>
-              <th data-ng-bind-html="'label.payto' | i18n"></th>
-              <th data-ng-bind-html="'label.amount' | i18n"></th>
-              <th data-ng-bind-html="'label.date' | i18n"></th>
-              <th data-ng-bind-html="'label.comment' | i18n"></th>
-            </tr>
-            </thead>
-            <tbody>
-            <tr data-ng-repeat="rel in paymentManagerBO">
-              <td class="f20 part1"></td>
-              <td data-ng-bind="rel.PAYFROM"></td>
-              <td data-ng-bind="rel.PAYTO"></td>
-              <td data-ng-bind="rel.AMOUNT | aswaCurrency"></td>
-              <td data-ng-bind="rel.DATE | aswaDate">Active</td>
-              <td><i class="fa fa-eye icon-link fa-lg" tooltip="{{rel.COMMENT}}" tooltip-placement="left"></i></td>
-            </tr>
-            </tbody>
-          </table>
-        </div>
-      </div>
-    </div>
-
-  </div>
+<div permission="['JRD_SUPERVISOR']" ng-include src = "'dashboard/containers/se-section.html'">
 </div>
 
 <div permission="['JRD_NOACCESS']">

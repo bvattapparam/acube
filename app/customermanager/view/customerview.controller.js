@@ -7,6 +7,7 @@
 		$scope.referenceData					=	{};
 		$scope.referenceData.referencesDataMap 	= {
 			"CUSTOMERTYPE" 	: getreferences.referencesData.CUSTOMERTYPE,
+			"PAYMENTMODE" 	: getreferences.referencesData.PAYMENTMODE,
 			"CUSTOMERSTATUS" 	: getreferences.referencesData.CUSTOMERSTATUS
 		};
 
@@ -42,17 +43,61 @@
 				
 			});
 		};
-
 		$scope.getCustomer();
 
-		$scope.getTotals = function(){
+		$scope.getCustomerPay = function(){
+			var pushdata			=	{};
+			pushdata.CUSTOMERID		=	$routeParams.CUSTOMERID;
 			$rootScope.showSpinner();
-			customerManagerServices.getTotals($routeParams.CUSTOMERID).then(function(data){
+			customerManagerServices.getCustomerPay(pushdata).then(function(data){
 				if(data.msg!=''){
-					$scope.totalsBO	=	[];
-					$scope.totalsBO 	= 	data;
+					$scope.customerPayManagerBO	=	[];
+					$scope.customerPayManagerBO 	= 	data;
+					$rootScope.hideSpinner();
+				}else{
+					$rootScope.hideSpinner();
+					$rootScope.showErrorBox('Error', data.error);
+				}
+			});
+		};
+		$scope.getCustomerPay();
+		
+		$scope.getTotals = function(){
+			var pushdata		=	{};
+			pushdata.CUSTOMERID	=	$routeParams.CUSTOMERID;
+			$rootScope.showSpinner();
+			customerManagerServices.getTotals(pushdata).then(function(data){
+				if(data.msg!=''){
+					console.log('DATA ... ', data)
+					$scope.totalsBO			=	[];
+					$scope.totalsBO 		= 	data;
+					if(data[0].QUOTEAMOUNT.length > 0){
+						$scope.PROJECTCOST 		= 	data[0].QUOTEAMOUNT[0].QUOTEAMOUNT;
+					}
+					if(data[1].PAIDAMOUNT.length > 0){
+						$scope.PAIDAMOUNT		= 	data[1].PAIDAMOUNT[0].PAIDAMOUNT;
+					}
+					if(data[2].POAMOUNT.length > 0){
+						$scope.POAMOUNT			= 	data[2].POAMOUNT[0].POAMOUNT;
+					}
+					
+					$scope.LBRAMOUNT		=	30000;
 
-					console.log('TOTALs ', data)
+					if(typeof $scope.PROJECTCOST !== 'undefined' && typeof $scope.PAIDAMOUNT !== 'undefined'){
+						const balance =  Number($scope.PROJECTCOST) - Number($scope.PAIDAMOUNT);
+						$scope.BALANCEAMOUNT = $rootScope.negativeFilterReplacer(balance);
+					}
+					if(typeof $scope.POAMOUNT !== 'undefined' && typeof $scope.LBRAMOUNT !== 'undefined'){
+						const balance =  Number($scope.POAMOUNT) + Number($scope.LBRAMOUNT);
+						$scope.TOTALEXPAMOUNT = $rootScope.negativeFilterReplacer(balance);
+						var diff		=	Number($scope.PAIDAMOUNT) - Number(balance);
+						$scope.POTOTALDIFF  = $rootScope.negativeFilterReplacer(diff);
+						if(diff < 0){
+							$scope.getClass =  'red-text';
+						}else{
+							$scope.getClass =  '';
+						}
+					};
 					$rootScope.hideSpinner();
 				}else{
 					$rootScope.hideSpinner();
@@ -63,46 +108,48 @@
 		};
 		$scope.getTotals();
 
-		$scope.editUser = function (data) {
-			console.log("yes", data);
+		$scope.customerPay = function () {
 			var config= {};
-				config.templateUrl = '../app/customermanager/edit/customermanager.html';
-				config.controller = 'customerManagerEditController';
+				config.templateUrl = '../app/customermanager/edit/customer-pay.html';
+				config.controller = 'customerPayManagerEditController';
 				config.size		= 'lg';
 				config.backdrop	= 'static';
 				config.passingValues = {};
-				config.passingValues.title = Messages['customermanager.edit'];
-				config.passingValues.dataBO = data;
-				config.passingValues.isEdit = true;
+				config.passingValues.title = Messages['customermanager.customerpay'];
+				config.passingValues.isEdit = false;
+				config.passingValues.CUSTOMERID = $routeParams.CUSTOMERID;
 				config.callback = function(status, item){
 					if(status === 'success') {
-						$scope.getCustomers();
+						$scope.getCustomer();
+						$scope.getCustomerPay();
+						$scope.getTotals();
+					}
+				}
+				utilityServices.openConfigModal($modal, config);
+		};
+		$scope.editCustomerPay = function (data) {
+			var config= {};
+				config.templateUrl = '../app/customermanager/edit/customer-pay.html';
+				config.controller = 'customerPayManagerEditController';
+				config.size		= 'lg';
+				config.backdrop	= 'static';
+				config.passingValues = {};
+				config.passingValues.title = Messages['customermanager.customerpay'];
+				config.passingValues.isEdit = true;
+				config.passingValues.CUSTOMERID = $routeParams.CUSTOMERID;
+				config.passingValues.dataBO = data;
+				config.callback = function(status, item){
+					if(status === 'success') {
+						$scope.getCustomerPay();
+						$scope.getTotals();
 					}
 				}
 				utilityServices.openConfigModal($modal, config);
 		};
 
-		$scope.addUser = function () {
-			var config= {};
-				config.templateUrl = '../app/customermanager/edit/customermanager.html';
-				config.controller = 'customerManagerEditController';
-				config.size		= 'lg';
-				config.backdrop	= 'static';
-				config.passingValues = {};
-				config.passingValues.title = Messages['customermanager.add'];
-				//config.passingValues.dataBO = data;
-				config.passingValues.isEdit = false;
-				config.callback = function(status, item){
-					if(status === 'success') {
-						$scope.getCustomers();
-					}
-				}
-				utilityServices.openConfigModal($modal, config);
-		};
+		
 
 		$scope.chartValue = function(data){
-			console.log('data1 ', data)
-
 			var varry = [{name:'estimates',y:3},{name:'quotations',y:4},{name:'materials',y:4}];
             angular.forEach(varry, function(val, key){
                 var node 	=	{};
@@ -143,7 +190,17 @@
             }]
         };
 
-		
+		$scope.getClass = function(val){
+			console.log('va', val)
+			if(val < 0){
+				return 'red-text';
+			}
+		};	
+		$scope.refresh	=	function(){
+			$scope.getCustomerPay();
+			$scope.getTotals();
+			$scope.getCustomer();
+		};	
 
 
 	}

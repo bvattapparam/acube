@@ -61,7 +61,7 @@
               </thead>
               <tbody>
               <tr ng-repeat ="rel in quoteManagerBO">
-                <td class="f20 part1"><i ng-class="lockIcon(rel.STATUS, rel.QUOTEAPPROVED, rel.APPROVED)" class="fa fa-lg" tooltip="{{tooltipContent}}"; tooltip-placement='right'></i></td>
+                <td class="f20 part1"><i ng-class="lockIcon(rel.STATUS, rel.QUOTEAPPROVED, rel.APPROVED);" class="fa fa-lg" ng-mouseenter="getTooltipText(rel.APPROVED,rel.STATUS)" tooltip="{{tooltip}}"; tooltip-placement='right'></i></td>
                 <td data-ng-bind="rel.QUOTEID"></td>
                 <td data-ng-bind="rel.CUSTOMERID"></td>
                 <td data-ng-bind="rel.MODIFIEDDATE | aswaDate" class="text-uppercase"></td>

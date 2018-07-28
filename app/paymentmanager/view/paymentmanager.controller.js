@@ -18,12 +18,28 @@
 			"CUSTOMERTYPE" 	: getreferences.referencesData.CUSTOMERTYPE
 		};
 
+		// Pagination section is here.
+		$scope.pagination_payment = {
+			currentPage : 1,
+	 		limit: 50,
+	 		maxSize : 5
+		};
+		$scope.pageChanged_payment = function() {
+	    	$scope.getPayment();
+		};
 		$scope.getPayment = function(){
 			$rootScope.showSpinner();
-			paymentManagerServices.getPayment().then(function(data){
+			var pushdata = {};
+			pushdata.limit 				= 	$scope.pagination_payment.limit;
+			pushdata.currentPage		=	$scope.pagination_payment.currentPage;
+			pushdata.pagenation			=	true;
+			paymentManagerServices.getPayment(pushdata).then(function(data){
 				if(data.msg!=''){
 					$scope.paymentManagerBO	=	[];
-					$scope.paymentManagerBO 	= 	data;
+					$scope.paymentManagerBO = data[0].ITEM;
+					$scope.TOTALITEMS = data[1].TOTAL.TOTAL;
+					$scope.PRTOTALAMOUNT = data[2].PRTOTALAMOUNT[0].PRAMOUNT;
+					$scope.OPEXPTOTALAMOUNT = data[3].OPEXPTOTALAMOUNT[0].OPEXPAMOUNT;
 					$rootScope.hideSpinner();
 				}else{
 					$rootScope.hideSpinner();
@@ -35,8 +51,10 @@
 		$scope.getPayment();
 		
 		$scope.getCustomers = function(){
+			var pushdata 		= 	{};
+			pushdata.pagenation		=	false;
 			$rootScope.showSpinner();
-			customerManagerServices.getCustomers().then(function(data){
+			customerManagerServices.getCustomers(pushdata).then(function(data){
 				if(data.msg!=''){
 
 					$scope.customerManagerBO	=	[];
@@ -94,8 +112,6 @@
 		};
 		$scope.getUsers();
 
-		
-
 		$scope.editPay = function (data) {
 			var config= {};
 				config.templateUrl 					= '../app/paymentmanager/edit/paymentmanager.html';
@@ -132,7 +148,7 @@
 						$scope.getPayment();
 					}
 				}
-				utilityServices.openConfigModal($modal, config);
+			utilityServices.openConfigModal($modal, config);
 		};
 
 		

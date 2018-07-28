@@ -3,12 +3,15 @@
   function customerManagerServices($rootScope, $q, $http, storageServices, urlsettings){
 
         // to get the user details
-        this.getCustomers = function(){
+        this.getCustomers = function(pushdata){
+          if(pushdata.limit){
+            pushdata.offset = (pushdata.currentPage-1) * pushdata.limit;
+          }
             var deferred = $q.defer();
               $http({
-                method  : "GET",
+                method  : "POST",
                 url     : urlsettings['customermanager.getCustomers'],
-                headers :   {'Content-Type' : 'application/json'}
+                data    : pushdata
               }).success(function(data){
                 deferred.resolve(data);
               }).error(function(data){
@@ -17,6 +20,20 @@
             
               return deferred.promise;
           };
+          this.getCustomerPay = function(pushdata){
+              var deferred = $q.defer();
+                $http({
+                  method  : "POST",
+                  url     : urlsettings['customermanager.getCustomerPay'],
+                  data    : pushdata
+                }).success(function(data){
+                  deferred.resolve(data);
+                }).error(function(data){
+                  deferred.reject(data);
+                });
+              
+                return deferred.promise;
+            };
 
           this.getStatusCount = function(){
             var deferred = $q.defer();
@@ -29,7 +46,6 @@
               }).error(function(data){
                 deferred.reject(data);
               });
-            
               return deferred.promise;
           };
           
@@ -42,6 +58,19 @@
             data    : pushdata
           }).success(function(data, status, headers, config){
             deferred.resolve(status);
+          }).error(function(data, status, headers, config){
+            deferred.reject(data, status, headers, config);
+          });
+            return deferred.promise;
+        };
+        this.updateCustomerPay = function(pushdata){
+          var deferred = $q.defer();
+          $http({
+            method  : "POST",
+            url     : urlsettings['customermanager.updateCustomerPay'],
+            data    : pushdata
+          }).success(function(data, status, headers, config){
+            deferred.resolve(data);
           }).error(function(data, status, headers, config){
             deferred.reject(data, status, headers, config);
           });
@@ -70,6 +99,19 @@
             data    : pushdata
           }).success(function(data, status, headers, config){
             deferred.resolve(status);
+          }).error(function(data, status, headers, config){
+            deferred.reject(data, status, headers, config);
+          });
+            return deferred.promise;
+        };
+        this.addCustomerPay = function(pushdata){
+          var deferred = $q.defer();
+          $http({
+            method  : "POST",
+            url     : urlsettings['customermanager.addCustomerPay'],
+            data    : pushdata
+          }).success(function(data, status, headers, config){
+            deferred.resolve(data);
           }).error(function(data, status, headers, config){
             deferred.reject(data, status, headers, config);
           });

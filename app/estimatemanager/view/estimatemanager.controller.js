@@ -18,17 +18,15 @@
 
 		
 		$scope.getCustomers = function(){
+			var pushdata				=	{};
+			pushdata.statusfilters		=	$rootScope.settings.SHOW_CUSTOMER_STATUS;
+			pushdata.filterstatus		=	true;
+			pushdata.pagenation			=	false;
 			$rootScope.showSpinner();
-			customerManagerServices.getCustomers().then(function(data){
+			customerManagerServices.getCustomers(pushdata).then(function(data){
 				if(data.msg!=''){
 					$scope.customerManagerBO	=	[];
-					angular.forEach(data, function(item,key){
-						angular.forEach($rootScope.settings.SHOW_CUSTOMER_STATUS, function(citem,ckey){
-							if(item.STATUS == citem){
-								$scope.customerManagerBO.push(item)
-							}
-						});
-					});
+					$scope.customerManagerBO	=	data[0].ITEM;
 
 					// CREATE NEW REFERENCE FOR CUSTOMER..
 						for(var i=0; i<$scope.customerManagerBO.length; i++){

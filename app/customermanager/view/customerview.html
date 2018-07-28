@@ -23,62 +23,62 @@
           <div class="col-sm-6 col-xs-12x p-t-s text-uppercase">
             <div class="">
               <label class="label-width text-strong" data-ng-bind="'label.customerid' | i18n"></label> : 
-              <label data-ng-bind="customerManagerBO[0].CUSTOMERID"></label>
+              <label data-ng-bind="customerManagerBO.CUSTOMERID"></label>
               <i ng-class="{'fa-lock green-lock': softLock && !hardLock, 'fa-lock red-lock': hardLock}" class="fa fa-lg"></i>
             </div> 
             <div class="">
               <label class="label-width text-strong" data-ng-bind="'label.customertype' | i18n"></label> : 
-              <label data-ng-bind="referenceData.referencesDataMap.CUSTOMERTYPE[customerManagerBO[0].TYPE]"></label>
+              <label data-ng-bind="referenceData.referencesDataMap.CUSTOMERTYPE[customerManagerBO.TYPE]"></label>
             </div> 
             <div class="">
               <label class="label-width text-strong" data-ng-bind="'label.fullname' | i18n"></label> : 
-              <label data-ng-bind="customerManagerBO[0].FULLNAME"></label>
+              <label data-ng-bind="customerManagerBO.FULLNAME"></label>
             </div> 
             <div class="">
               <label class="label-width text-strong" data-ng-bind="'label.mobile' | i18n"></label> : 
-              <label data-ng-bind="customerManagerBO[0].MOBILE"></label>
+              <label data-ng-bind="customerManagerBO.MOBILE"></label>
             </div> 
             <div class="">
               <label class="label-width text-strong" data-ng-bind="'label.email' | i18n"></label> : 
-              <label data-ng-bind="customerManagerBO[0].EMAIL"></label>
+              <label data-ng-bind="customerManagerBO.EMAIL"></label>
             </div> 
             <div class="">
               <label class="label-width text-strong" data-ng-bind="'label.createddate' | i18n"></label> : 
-              <label data-ng-bind="customerManagerBO[0].CREATEDDATE | aswaDate"></label>
+              <label data-ng-bind="customerManagerBO.CREATEDDATE | aswaDate"></label>
             </div> 
             <div class="">
               <label class="label-width text-strong" data-ng-bind="'label.createdby' | i18n"></label> : 
-              <label data-ng-bind="customerManagerBO[0].CREATEDBY"></label>
+              <label data-ng-bind="customerManagerBO.CREATEDBY"></label>
             </div>
             <div class="">
               <label class="label-width text-strong" data-ng-bind="'label.modifieddate' | i18n"></label> : 
-              <label data-ng-bind="customerManagerBO[0].MODIFIEDDATE | aswaDate"></label>
+              <label data-ng-bind="customerManagerBO.MODIFIEDDATE | aswaDate"></label>
             </div>
             <div class="">
               <label class="label-width text-strong" data-ng-bind="'label.modifiedby' | i18n"></label> : 
-              <label data-ng-bind="customerManagerBO[0].MODIFIEDBY"></label>
+              <label data-ng-bind="customerManagerBO.MODIFIEDBY"></label>
             </div>
             <div class="">
               <label class="label-width text-strong" data-ng-bind="'label.estimatestatus' | i18n"></label> : 
-              <label data-ng-bind="estimateStatus(customerManagerBO[0].ESTIMATESTATUS)"></label>
+              <label data-ng-bind="estimateStatus(customerManagerBO.ESTIMATESTATUS)"></label>
             </div> 
             <div class="">
               <label class="label-width text-strong" data-ng-bind="'label.quoteapproved' | i18n"></label> : 
-              <label data-ng-bind="quoteStatus(customerManagerBO[0].QUOTEAPPROVED)"></label>
+              <label data-ng-bind="quoteStatus(customerManagerBO.QUOTEAPPROVED)"></label>
             </div>
             <div class="">
               <label class="label-width text-strong" data-ng-bind="'label.status' | i18n"></label> :
-              <label class="status-txt-{{customerManagerBO[0].STATUS}}" data-ng-bind="referenceData.referencesDataMap.CUSTOMERSTATUS[customerManagerBO[0].STATUS]"></label>
+              <label class="status-txt-{{customerManagerBO.STATUS}}" data-ng-bind="referenceData.referencesDataMap.CUSTOMERSTATUS[customerManagerBO.STATUS]"></label>
             </div>
           </div>
           <div class="col-sm-6 col-xs-12x p-t-s text-uppercase">
             <div class="">
               <label class="label-width text-strong" data-ng-bind="'label.address' | i18n"></label> : <BR>
-              <span data-ng-bind-html="customerManagerBO[0].ADDRESS | formatString"></span>
+              <span data-ng-bind-html="customerManagerBO.ADDRESS | formatString"></span>
             </div> 
             <div class="p-t-m">
               <label class="label-width text-strong" data-ng-bind="'label.comment' | i18n"></label> : <BR>
-              <span data-ng-bind-html="customerManagerBO[0].COMMENT | formatString"></span>
+              <span data-ng-bind-html="customerManagerBO.COMMENT | formatString"></span>
             </div> 
           </div>
       </div>
@@ -90,7 +90,7 @@
         <h2 class="text-uppercase"><i class="fa fa-bookmark"></i> {{'label.projectcost' | i18n}} </h2>
       </div>
       <div class="col-xs-12 section-box-body-small table-responsive text-right">
-          <span class="customerview-total txt-info">25,00,00,000.00</span>
+          <span class="customerview-total txt-info" data-ng-bind="(PROJECTCOST | aswaCurrency) || '&mdash;'"></span>
       </div>
     </div>
     <div class="row"></div>
@@ -99,7 +99,7 @@
         <h2 class="text-uppercase"><i class="fa fa-bookmark"></i> {{'label.paidsofar' | i18n}} </h2>
       </div>
       <div class="col-xs-12 section-box-body-small table-responsive text-right">
-        <span class="customerview-total txt-success" data-ng-bind="'20,00,00,000.00'"></span>
+        <span class="customerview-total txt-success" data-ng-bind="(PAIDAMOUNT | aswaCurrency) || '&mdash;'"></span>
       </div>
     </div>
     <div class="col-xs-12 section-box ">
@@ -107,7 +107,7 @@
         <h2 class="text-uppercase"><i class="fa fa-bookmark"></i> {{'label.balance' | i18n}} </h2>
       </div>
       <div class="col-xs-12 section-box-body-small table-responsive text-right">
-        <span class="customerview-total txt-warning">5,00,000.00</span>
+        <span class="customerview-total txt-warning" data-ng-bind="BALANCEAMOUNT"></span>
       </div>
     </div>
   </div>
@@ -127,10 +127,10 @@
   <div class="col-xs-12">
     <div class="col-xs-12 section-box">
       <div class="section-box-header">
-        <h2 class="text-uppercase"><i class="fa fa-bookmark"></i> {{'customermanager.paymentdetails' | i18n}} </h2>
+        <h2 class="text-uppercase"><i class="fa fa-bookmark"></i> {{'customermanager.paymentdetails' | i18n}} <i class="pull-right icon-link fa fa-plus-circle action-icon" ng-click="customerPay('lg')" title ="Add New User"></i></h2>
        </div>
-       <div class="col-xs-12 section-box-body table-responsive">
-        Placeholder for labour expenses
+       <div class="col-xs-12 section-box-body table-responsive" ng-include src = "'customermanager/view/customer-pay-view.html'">
+         
       </div>
     </div>
   </div>
@@ -142,8 +142,35 @@
       <div class="section-box-header">
         <h2 class="text-uppercase"><i class="fa fa-bookmark"></i> {{'customermanager.expensedetails' | i18n}} </h2>
        </div>
-       <div class="col-xs-12 section-box-body table-responsive">
-        Placeholder for labour expenses
+       <div class="col-xs-12 section-box-body m-b-l">
+         <div class="col-lg-6">
+           <h2 class="text-uppercase"><i class="fa fa-arrows-v"></i> {{'label.materialexpenses' | i18n}}</h2>
+           <div class="expense-total text-right">
+              <span class="customerview-total txt-success" data-ng-bind="POAMOUNT | aswaCurrency"></span>
+           </div>
+         </div>
+         <div class="col-lg-6">
+            <h2 class="text-uppercase"><i class="fa fa-arrows-v"></i> {{'label.labourexpenses' | i18n}}</h2>
+            <div class="expense-total text-right">
+                <span class="customerview-total txt-success" data-ng-bind="(LBRAMOUNT | aswaCurrency) || '&mdash;'"></span>
+             </div>
+         </div>
+        <div class="col-lg-6">
+          <h2 class="text-uppercase"><i class="fa fa-arrows-v"></i> {{'label.totalexpenses' | i18n}}</h2>
+          <div class="expense-total text-right">
+              <span class="customerview-total txt-success" data-ng-bind="(TOTALEXPAMOUNT) || '&mdash;'"></span>
+           </div>
+        </div>
+        <div class="col-lg-6">
+          <h2 class="text-uppercase"><i class="fa fa-arrows-v"></i> {{'label.difference' | i18n}}</h2>
+          <div class="expense-total text-right">
+              <span class="customerview-total txt-success " ng-class="getClass" data-ng-bind="(POTOTALDIFF) || '&mdash;'"></span>
+           </div>
+        </div>
+        <div class="row"></div>
+        <div class="loadRunner_modules" ng-show="spinnerShow">
+          <div class="lds-ellipsis"><div></div><div></div><div></div><div></div></div>
+        </div>
       </div>
     </div>
   </div>
@@ -158,7 +185,9 @@
         <h2 class="text-uppercase"><i class="fa fa-bookmark"></i> {{'customermanager.pos' | i18n}} </h2>
        </div>
        <div class="col-xs-12 section-box-body table-responsive">
-        Placeholder for labour expenses
+        <div class="loadRunner_modules" ng-show="!spinnerShow">
+          <div class="lds-ellipsis"><div></div><div></div><div></div><div></div></div>
+        </div>
       </div>
     </div>
   </div>
@@ -169,7 +198,9 @@
         <h2 class="text-uppercase"><i class="fa fa-bookmark"></i> {{'customermanager.quotes' | i18n}} </h2>
        </div>
        <div class="col-xs-12 section-box-body table-responsive">
-        Placeholder for labour expenses
+        <div class="loadRunner_modules" ng-show="!spinnerShow">
+          <div class="lds-ellipsis"><div></div><div></div><div></div><div></div></div>
+        </div>
       </div>
     </div>
   </div>
@@ -180,7 +211,9 @@
         <h2 class="text-uppercase"><i class="fa fa-bookmark"></i> {{'customermanager.estimates' | i18n}} </h2>
        </div>
        <div class="col-xs-12 section-box-body table-responsive">
-        Placeholder for labour expenses
+        <div class="loadRunner_modules" ng-show="!spinnerShow">
+          <div class="lds-ellipsis"><div></div><div></div><div></div><div></div></div>
+        </div>
       </div>
     </div>
   </div>

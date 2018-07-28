@@ -59,7 +59,7 @@
                 <td data-ng-bind="rel.CREATEDBY" class="text-uppercase"></td>
                 <td data-ng-bind="referenceData.referencesDataMap.CUSTOMERSTATUS[rel.STATUS]" class="text-uppercase status-txt-{{rel.STATUS}}"></td>
                 <td class="f20 ng-binding action comment-content">
-                  <i class="action-icon-md-primary fa fa-edit icon-link"  ng-click="editUser(rel)" tooltip="{{'tooltip.editcustomer'|i18n}}"></i>
+                  <i class="action-icon-md-primary fa fa-edit icon-link"  ng-click="editCustomer(rel)" tooltip="{{'tooltip.editcustomer'|i18n}}"></i>
                   <i class="action-icon-md-primary fa fa-trash icon-link" ng-click="showInfoBox('Info', 'generalinfoone', 'sm')" tooltip="{{'tooltip.trashcustomer'|i18n}}"></i>
                   <a data-ng-if="rel.STATUS === '3'" ng-href="#/customer/customerview/{{rel.CUSTOMERID}}"><i class="action-icon-md-primary fa fa-eye icon-link" tooltip="{{'tooltip.viewcustomer'|i18n}}"></i></a>
                 </td>
@@ -69,7 +69,7 @@
         </div>
 
         <div class="menu pmd-floating-action" role="navigation"> 
-          <a href="javascript:void(0);" ng-click="addUser('sm')" class="pmd-floating-action-btn btn btn-sm pmd-btn-fab pmd-btn-raised pmd-ripple-effect btn-default" data-title="{{'btn.addnew' | i18n}}"> 
+          <a href="javascript:void(0);" ng-click="addCustomer('sm')" class="pmd-floating-action-btn btn btn-sm pmd-btn-fab pmd-btn-raised pmd-ripple-effect btn-default" data-title="{{'btn.addnew' | i18n}}"> 
             <span class="pmd-floating-hidden">{{'btn.addnew' | i18n}}</span> 
             <i class="fa fa-plus"></i> 
          </a> 
@@ -78,13 +78,14 @@
             <i class="fa fa-th pmd-sm"></i> 
           </a> 
         </div>
-
-
-        <div class="col-xs-12">
-          <div class="audit-box">&nbsp;
-          </div>
-        </div>
       </div>
+    </div>
+    <div class="row">
+      <pagination total-items="TOTALITEMS" ng-model="pagination_payment.currentPage"  num-pages="numPages" max-size="pagination_payment.maxSize" class="pagination-sm pull-right" boundary-links="true" rotate="false" ng-change="pageChanged_payment()" items-per-page="pagination_payment.limit" first-text="<<" last-text=">>" next-text=">" previous-text="<"></pagination>
+      <ul class="pagination-sm pagination pull-right">
+        <li class="ng-scope disabled"><a href="" ng-click="selectPage(1, $event)" class="ng-binding">Page</a></li>
+        <li class="ng-scope disabled"><span class="ng-binding">{{pagination_payment.currentPage}} / {{numPages}}</span></li>
+      </ul>
     </div>
 
 </div>

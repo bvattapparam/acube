@@ -42,6 +42,7 @@ Messages = {
 	"menu.vendor"					:	"Vendor Manager",
 	"menu.po"						:	"Purchase Order",
 	"menu.dashboard"				:	"Dashboard",
+	"menu.opexp"					:	"Operational Expense",
 
 
 	"placeholder.selectone"			: 	"Select One",
@@ -77,6 +78,14 @@ Messages = {
 	"validation.payto"				:	"Pay To is mandatory",
 	"validation.date"				:	"Date is mandatory",
 	"validation.vendorid"			:	"Vendor is mandatory",
+	"validation.paytype"			:	"Payment Type is mandatory",
+	"validation.expenseitem"		:	"Expense Item is mandatory",
+	"validation.comment"			:	"Comment is mandatory",
+	"validation.mode"				:	"Payment Mode is mandatory",
+	"validation.purpose"			:	"Purpose is mandatory",
+	"validation.refnumber"			:	"Reference Number is mandatory",
+
+	"validation.customerstatus.confimred"	:	"Can not change the status as CONFIRMED with out QUOTATION approved. Please follow the flow and ensure the QUOTATION is approved",
 
 
 	"edit.form.confirmation.title"		: 	"Edit confirmation check",
@@ -114,6 +123,7 @@ Messages = {
 	"tooltip.editcustomer"	:	"Edit Customer",
 	"tooltip.dashboard.marketingbasket"			:	"Click to view Marketing Basket",
 	"tooltip.dashboard.paymenttransactions"			:	"Click to view Payment Manager",
+	"tooltip.refnumber-help"				:	"Cheque#, DD#, Wire Transfer#, NA if its Cash etc.",
 
 	"setting.language.malayalam"				: 	"Malayalam",
 	"setting.language.english"					: 	"English",
@@ -169,7 +179,7 @@ Messages = {
 	"label.todate"							:	"To Date",
 	"label.softlock"						:	"Soft Locked: Since the Estimate is cloned, not able to clone / update the current estimate.",
 	"label.hardlock"						:	"Hard Locked :  Customer is locked from generating / updating Estimates",
-	
+	"label.expenseitem"						:	"Expense Item",							
 	"label.user"							: 	"User",
 	"label.password"						: 	"Password",
 	"label.nodatafound"						: 	"No Record Found.",
@@ -195,8 +205,8 @@ Messages = {
 	"label.payment.transactions"			:	"Payment Transaction",
 	"label.payment.paidamount"				:	"Payment Total Paid",
 	"label.dashboard.noaccess"				:	"You do not have Privillige to access anything. <br>Please contact Administrator.",
-	//"label.dashboard.noaccess"				:	"எதையும் அணுகுவதற்கு உங்களுக்கு உரிமை இல்லை. <br>நிர்வாகியைத் தொடர்புகொள்ளவும்",
-
+	"label.typeofpayment"					:	"Type of Payment",
+	"label.amountdebitedfrom"				:	"Amount will be debited from created by user account...",
 	"clone.success"							:	"Cloned Version",
 	"label.correcterrors"					:	"Please correct the below listed errors",
 	"label.poid"							:	"POID",
@@ -206,6 +216,26 @@ Messages = {
 	"label.paidsofar"						:	"Paid So Far",
 	"label.balance"							:	"Balance",
 	"label.backtopo"						:	"Back to Purchase Order",
+	"label.materialexpenses"				:	"Material Expenses",
+	"label.labourexpenses"					:	"Labour Expenses",
+	"label.projectcash"						:	"Project Cash",
+	"label.operationalcash"					:	"Operational Cash",
+	"label.spent"							:	"Spent",
+	"label.balance"							:	"Balance",
+	"label.opexpid"							:	"OPEXPID",
+	"label.backtoopexp"						:	"Back to Operational Expense Manager",
+	"label.latest10payments"				:	"Latest 10 Payment Transactions",
+	"label.paidpo"							:	"Paid for Purchase order",
+	"label.paidopexp"						:	"Paid for Operational Expense",
+	"label.purpose"							:	"Purpose",
+	"label.refnumber"						:	"Reference Number",
+	"label.mode"							:	"Mode of Payment",
+	"label.totalexpenses"					:	"Total Expenses",
+	"label.difference"						:	"Difference (Profit / Loss)",
+	
+
+	"prompt.info.title"						:	"Info",
+	"prompt.label.referencenotloaded"		:	"Reference not loaded successfully, Please refresh the page once again...",
 
 
 	// DASHBOARD .....
@@ -240,7 +270,8 @@ Messages = {
 	"customermanager.pos"						:	"Purchase Orders",
 	"customermanager.quotes"					:	"Quotations",
 	"customermanager.estimates"					:	"Estimates",
-	// MARKETING BASKET....
+	"customermanager.customerpay"				:	"Customer Pay",
+		// MARKETING BASKET....
 
 	"marketingbasket.pageheader"			: 	"Marketing Basket",
 	"marketingbasket.customers"				: 	"Customers",
@@ -290,7 +321,12 @@ Messages = {
 	"pomanager.pageheader"						:	"Purchase Order Manager",
 	"pomanager.pos"								:	"Purchase Orders",
 	"pobasket.deleteitem"						: 	"Do you want to delete the PO item ? Click YES to delete the item, Click NO to cancel the action.",
-
+	"pobasket.editpobasketitem"					:	"PO Basket Edit Item",
+	"opexpmanager.pageheader"					:	"Operational Expense Manager",
+	"opexpmanager.opexps"						:	"Operational Expenses",
+	"opexpbasket.editopexpbasketitem"			:	"Edit Operation Expense Basket Item",
+	"opexpmanager.opexpbasket.pageheader"		:	"Operational Expenses Basket",
+	"opexpbasket.deleteitem"					:	"Do you want to delete the Operational Expense item ? Click YES to delete the item, Click NO to cancel the action."
 
 
 

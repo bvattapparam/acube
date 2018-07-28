@@ -19,17 +19,14 @@
 		
 		$scope.getCustomers = function(){
 			$rootScope.showSpinner();
-			customerManagerServices.getCustomers().then(function(data){
+			var pushdata				=	{};
+			pushdata.statusfilters		=	$rootScope.settings.SHOW_PO_CUSTOMER_STATUS;
+			pushdata.filterstatus		=	true;
+			pushdata.pagenation			=	false;
+			customerManagerServices.getCustomers(pushdata).then(function(data){
 				if(data.msg!=''){
 					$scope.customerManagerBO	=	[];
-					angular.forEach(data, function(item,key){
-						angular.forEach($rootScope.settings.SHOW_PO_CUSTOMER_STATUS, function(citem,ckey){
-							if(item.STATUS == citem){
-								$scope.customerManagerBO.push(item)
-							}
-						});
-					});
-
+					$scope.customerManagerBO	=	data[0].ITEM;
 					// CREATE NEW REFERENCE FOR CUSTOMER..
 						for(var i=0; i<$scope.customerManagerBO.length; i++){
 							var node 	=	{};
@@ -65,7 +62,6 @@
 			poManagerServices.getPOMasters(pushData).then(function(data){
 				if(data.msg!=''){
 					$scope.poManagerBO 	= 	data;
-					console.log("PO MASTER ", data)
 					if(data!=''){
 						$scope.showAddBtn 		=	false;
 					}else{
@@ -123,7 +119,9 @@
 				if(data.msg!= ''){
 					$rootScope.hideSpinner();
 					$rootScope.addnotification(Messages['modal.update.title'], Messages['modal.update.message']);
-					$scope.getPOMasters();
+					//$scope.getPOMasters();
+					$window.location.href = settings.rootScope.appURL + "#/pomanager/pobasket/" + POID;
+					console.log(1)
 				}else {
 					$rootScope.hideSpinner();
 					$rootScope.showErrorBox('error', data.error);
@@ -137,71 +135,18 @@
 			if(customerid){
 				// GET CUSTOMER DETAILS
 				$scope.getPOCount(customerid);
-				//$window.location.href = settings.rootScope.appURL + "#/estimategenerate/" + customerid;
-			
 			}else{
 				$rootScope.showErrorBox('Error', Messages['validation.selectcustomer']);
 			}
-
 		};
 		$scope.poBasket = function(record){
 			var poid = record.POID;
 			$window.location.href = settings.rootScope.appURL + "#/pomanager/pobasket/" + poid;
-
-		}
-
-		$scope.editUser = function (data) {
-			console.log("yes", data);
-			var config= {};
-				config.templateUrl = '../app/customermanager/edit/customermanager.html';
-				config.controller = 'customerManagerEditController';
-				config.size		= 'lg';
-				config.backdrop	= 'static';
-				config.passingValues = {};
-				config.passingValues.title = Messages['customermanager.edit'];
-				config.passingValues.dataBO = data;
-				config.passingValues.isEdit = true;
-				config.callback = function(status, item){
-					if(status === 'success') {
-						$scope.getCustomers();
-					}
-				}
-				utilityServices.openConfigModal($modal, config);
 		};
 
-		$scope.addUser = function () {
-			var config= {};
-				config.templateUrl = '../app/customermanager/edit/customermanager.html';
-				config.controller = 'customerManagerEditController';
-				config.size		= 'lg';
-				config.backdrop	= 'static';
-				config.passingValues = {};
-				config.passingValues.title = Messages['customermanager.add'];
-				//config.passingValues.dataBO = data;
-				config.passingValues.isEdit = false;
-				config.callback = function(status, item){
-					if(status === 'success') {
-						$scope.getCustomers();
-					}
-				}
-				utilityServices.openConfigModal($modal, config);
-		};
-
-		
-		$scope.lockIcon = function(softlock,hardlock){
-			var iconClass;
-			if(softlock == 1 && hardlock == 0){
-				iconClass =  "fa-lock green-lock";
-				$scope.tooltipContent = Messages['label.softlock'];
-			}
-			if(softlock == 1 && hardlock == 1){
-				iconClass = "fa-lock red-lock";
-				$scope.tooltipContent = Messages['label.hardlock'];
-			}
-			return iconClass;
-		};
 		$scope.refresh	=	function(){
 			$scope.getCustomers();
+			$scope.getPOMasters();
 		};
 
 		

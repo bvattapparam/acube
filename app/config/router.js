@@ -53,6 +53,16 @@
             controller : 'poBasketController',
             requiresAuthentication: true
         })
+        .when('/opexpmanager',{
+            templateUrl : 'opexpmanager/view/opexpmanager.html',
+            controller : 'opexpManagerController',
+            requiresAuthentication: true
+        })
+        .when('/opexpmanager/opexpbasket/:OPEXPID',{
+            templateUrl : 'opexpmanager/view/opexpbasket.html',
+            controller : 'opexpBasketController',
+            requiresAuthentication: true
+        })
          .when('/estimatemanager',{
             templateUrl : 'estimatemanager/view/estimatemanager.html',
             controller : 'estimateManagerController',

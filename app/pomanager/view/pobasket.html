@@ -85,11 +85,8 @@
               <tr data-ng-class="{'soft-lock-container': softLock}">
                 <td class="f20 part1"></td>
                 <td>
-                  <div class="input-group">
+                  <div class="form-group">
                     <input tabindex="1" type="text" class="form-control" tabindex="1" data-ng-model="dataBO.DESCRIPTION">
-                    <span class="input-group-btn">
-                        <button type="button" class="date-input btn btn-default" ng-click="fillContent()"><i class="fa fa-keyboard-o" tooltip="{{'tooltip.filldesc'|i18n}}"></i></button>
-                    </span>
                   </div>
                 </td>
                 <td>
@@ -127,7 +124,7 @@
                       <td data-ng-bind="rel.PERCOST"></td>
                       <td data-ng-bind="rel.AMOUNT | aswaCurrency" class="text-right"></td>
                       <td class="f20 ng-binding action comment-content" data-ng-class="{'soft-lock-container': softLock}"> 
-                        <i class="action-icon-md-primary fa fa-edit icon-link"  tooltip="{{'tooltip.edit' | i18n}}" ng-click="editPOBasket(rel)"></i>
+                        <i class="action-icon-md-primary fa fa-edit icon-link"  tooltip="{{'tooltip.edit' | i18n}}" ng-click="editBasket(rel)"></i>
                         <i class="action-icon-md-primary fa fa-trash icon-link" tooltip="{{'tooltip.trash' | i18n}}" ng-click="deleteBasket(rel)"></i>
                       </td>
                     </tr>

@@ -14,6 +14,8 @@ include('../../config/log_handler.php');
     $PAYTO              =   $data->PAYTO;
     $DATE               =   $data->DATE;
     $AMOUNT             =   $data->AMOUNT;
+    $POTYPE             =   $data->POTYPE;
+    $EXPITEM            =   $data->EXPITEM;
     $CUSTOMERID         =   $data->CUSTOMERID;
     $COMMENT            =   $data->COMMENT;
     $MODIFIEDBY         =   $data->MODIFIEDBY;
@@ -29,6 +31,8 @@ include('../../config/log_handler.php');
     AMOUNT = '$AMOUNT',
     CUSTOMERID = '$CUSTOMERID', 
     COMMENT = '$COMMENT', 
+    POTYPE = '$POTYPE', 
+    EXPITEM = '$EXPITEM',  
     MODIFIEDBY = '$MODIFIEDBY', 
     MODIFIEDDATE = '$MODIFIEDDATE' 
     WHERE ID = '$ID'";

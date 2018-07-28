@@ -5,10 +5,31 @@
         // BASED ON THE SEARCH VALUE, FETCH THE LIST OF ESTIMATES FROM THE MASTER TABLE
 
           this.getPayment = function(pushdata){
+            if(pushdata.limit){
+              pushdata.offset = (pushdata.currentPage-1) * pushdata.limit;
+            }
           var deferred = $q.defer();
           $http({
             method  : "POST",
             url     : urlsettings['paymentmanager.getPayment'],
+            data    : pushdata
+          }).success(function(data, status, headers, config){
+            deferred.resolve(data);
+          }).error(function(data, status, headers, config){
+            deferred.reject(data, status, headers, config);
+          });
+            return deferred.promise;
+        };
+        //var URLs = "../aswa-services/travel/index.php?action=get_travel_data&offset="+(currentpage-1)*limit+"&limit="+limit;
+        this.getPaymentByUser = function(pushdata){
+          if(pushdata.limit){
+            pushdata.offset = (pushdata.currentPage-1) * pushdata.limit;
+          }
+          console.log('pushdata', pushdata);
+          var deferred = $q.defer();
+          $http({
+            method  : "POST",
+            url     : urlsettings['paymentmanager.getPaymentByUser'],
             data    : pushdata
           }).success(function(data, status, headers, config){
             deferred.resolve(data);
@@ -58,6 +79,22 @@
             data    : pushdata
           }).success(function(data, status, headers, config){
             deferred.resolve(status);
+          }).error(function(data, status, headers, config){
+            deferred.reject(data, status, headers, config);
+          });
+            return deferred.promise;
+        }
+
+        
+        this.getCashDetails = function(pushdata){
+          console.log('push data', pushdata)
+          var deferred = $q.defer();
+          $http({
+            method  : "POST",
+            url     : urlsettings['paymentmanager.getCashDetails'],
+            data    : pushdata
+          }).success(function(data, status, headers, config){
+            deferred.resolve(data);
           }).error(function(data, status, headers, config){
             deferred.reject(data, status, headers, config);
           });

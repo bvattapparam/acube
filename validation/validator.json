@@ -262,6 +262,16 @@
 				]
 			},
 			{
+				"key":"POTYPE",
+				"validations":[
+					{
+						"type":"required",
+						"value":"true",
+						"errCode":"validation.paytype"
+					}
+				]
+			},
+			{
 				"key":"DATE",
 				"validations":[
 					{
@@ -278,6 +288,16 @@
 						"type":"required",
 						"value":"true",
 						"errCode":"validation.amount"
+					}
+				]
+			},
+			{
+				"key":"COMMENT",
+				"validations":[
+					{
+						"type":"required",
+						"value":"true",
+						"errCode":"validation.comment"
 					}
 				]
 			}
@@ -402,6 +422,130 @@
 						"type":"required",
 						"value":"true",
 						"errCode":"validation.amount"
+					}
+				]
+			}
+		],
+		"opexpbasket":[
+			{
+				"key":"DESCRIPTION",
+				"validations":[
+					{
+						"type":"required",
+						"value":"true",
+						"errCode":"validation.description"
+					}
+				]
+			},
+			{
+				"key":"VENDORID",
+				"validations":[
+					{
+						"type":"required",
+						"value":"true",
+						"errCode":"validation.vendorid"
+					}
+				]
+			},
+			{
+				"key":"QTY",
+				"validations":[
+					{
+						"type":"required",
+						"value":"true",
+						"errCode":"validation.qty"
+					}
+				]
+			},
+			{
+				"key":"UNIT",
+				"validations":[
+					{
+						"type":"required",
+						"value":"true",
+						"errCode":"validation.unit"
+					}
+				]
+			},
+			{
+				"key":"PERCOST",
+				"validations":[
+					{
+						"type":"required",
+						"value":"true",
+						"errCode":"validation.percost"
+					}
+				]
+			},
+			{
+				"key":"AMOUNT",
+				"validations":[
+					{
+						"type":"required",
+						"value":"true",
+						"errCode":"validation.amount"
+					}
+				]
+			}
+		],
+		"customerpay":[
+			{
+				"key":"DATE",
+				"validations":[
+					{
+						"type":"required",
+						"value":"true",
+						"errCode":"validation.date"
+					}
+				]
+			},
+			{
+				"key":"PURPOSE",
+				"validations":[
+					{
+						"type":"required",
+						"value":"true",
+						"errCode":"validation.purpose"
+					}
+				]
+			},
+			{
+				"key":"AMOUNT",
+				"validations":[
+					{
+						"type":"required",
+						"value":"true",
+						"errCode":"validation.amount"
+					}
+				]
+			},
+			{
+				"key":"MODE",
+				"validations":[
+					{
+						"type":"required",
+						"value":"true",
+						"errCode":"validation.mode"
+					}
+				]
+			},
+			{
+				"key":"REFNUMBER",
+				"validations":[
+					{
+						"type":"required",
+						"value":"true",
+						"errCode":"validation.refnumber"
+					}
+				]
+			},
+			{
+				"key":"COMMENT",
+				"validations":[
+					{
+						"type":"required",
+						"value":"true",
+						"errCode":"validation.comment"
 					}
 				]
 			}

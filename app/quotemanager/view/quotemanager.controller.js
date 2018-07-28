@@ -15,22 +15,27 @@
 		$scope.referenceData.referencesDataMap 	= {
 			"CUSTOMERTYPE" 	: getreferences.referencesData.CUSTOMERTYPE
 		};
-
+		$scope.getTooltipText = function(approved,status){
+			 if(approved === "1" && status === "1"){
+				 $scope.tooltip = Messages['label.approved'];
+			}
+			  if(approved === "0" && status === "1"){
+				 $scope.tooltip = "";
+			  }
+			
+		 }  
 		
 		$scope.getCustomers = function(){
 			$rootScope.showSpinner();
-			customerManagerServices.getCustomers().then(function(data){
+			var pushdata				=	{};
+			pushdata.statusfilters		=	$rootScope.settings.SHOW_CUSTOMER_STATUS;
+			pushdata.filterstatus		=	true;
+			pushdata.pagenation			=	false;
+			customerManagerServices.getCustomers(pushdata).then(function(data){
 				if(data.msg!=''){
 					
 					$scope.customerManagerBO	=	[];
-					angular.forEach(data, function(item,key){
-						angular.forEach($rootScope.settings.SHOW_CUSTOMER_STATUS, function(citem,ckey){
-							if(item.STATUS == citem){
-								$scope.customerManagerBO.push(item)
-							}
-						});
-					});
-
+					$scope.customerManagerBO	=	data[0].ITEM;
 					// CREATE NEW REFERENCE FOR CUSTOMER..
 						for(var i = 0; i < $scope.customerManagerBO.length; i++){
 							var node 	=	{};
@@ -220,6 +225,8 @@
 				$scope.tooltipContent = Messages['label.softlock'];
 			}else if(status == 1 && quoteapproved == 1){
 				iconClass = "fa-thumbs-up approved-icon";
+				$scope.tooltipContent = "";
+				$scope.tooltipContent = "approved"
 				if(approved == 1){
 					iconClass = "fa-thumbs-up approved-icon";
 				}else{
@@ -231,26 +238,10 @@
 			return iconClass;
 		};
 
-
-		$scope.lockIcon1 = function(softlock,hardlock){
-			var iconClass;
-			if(softlock == 1 && hardlock == 0){
-				iconClass =  "fa-lock green-lock";
-				$scope.tooltipContent = Messages['label.softlock'];
-			}
-			if(softlock == 1 && hardlock == 1){
-				iconClass = "fa-lock red-lock";
-				$scope.tooltipContent = Messages['label.hardlock'];
-			}
-			return iconClass;
-		};
-
 		$scope.refresh	=	function(){
 			$scope.getCustomers();
+			$scope.getQuotes();
 		};
-
-		
-
 
 	}
 

@@ -15,6 +15,9 @@
 		"customermanager.updateCustomer"				: 	"../acube-services/customermanager/update/?action=put_customer_data",
 		"customermanager.updateEstimateStatus"			: 	"../acube-services/customermanager/update/?action=update_estimate_status",
 		"customermanager.addCustomer"					: 	"../acube-services/customermanager/add/",
+		"customermanager.addCustomerPay"				: 	"../acube-services/customermanager/customerpay/add/",
+		"customermanager.updateCustomerPay"				: 	"../acube-services/customermanager/customerpay/update/",
+		"customermanager.getCustomerPay"				: 	"../acube-services/customermanager/customerpay/get/",
 		"customermanager.getTotals"						: 	"../acube-services/customermanager/get/?action=get_totals",
 		
 		"marketingbasket.getCustomers"					: 	"../acube-services/marketingbasket/get/",
@@ -52,6 +55,8 @@
 		"paymentmanager.addPayment"						:	"../acube-services/paymentmanager/add/",
 		"paymentmanager.updatePayment"					:	"../acube-services/paymentmanager/update/",
 		"paymentmanager.getPayment"						:	"../acube-services/paymentmanager/get/?action=get_payment",
+		"paymentmanager.getPaymentByUser"				:	"../acube-services/paymentmanager/get/?action=get_paymentbyuser",
+		"paymentmanager.getCashDetails"					:	"../acube-services/paymentmanager/get/?action=get_cashdetails",
 		
 		"pomanager.getPOMasters"						:	"../acube-services/pomanager/get/?action=get_po_masters",
 		"pomanager.getPOMaster"							:	"../acube-services/pomanager/get/?action=get_po_master",
@@ -60,7 +65,17 @@
 		"pomanager.addPOBasket"							: 	"../acube-services/pomanager/basket/add/",
 		"pomanager.updatePOBasket"						: 	"../acube-services/pomanager/basket/update/",
 		"pomanager.getPOBasket"							: 	"../acube-services/pomanager/basket/get/?action=get_po_basket",
-		"pomanager.deletePOBasket"						: 	"../acube-services/pomanager/basket/delete/"
+		"pomanager.deletePOBasket"						: 	"../acube-services/pomanager/basket/delete/",
+
+		"opexpmanager.getOPEXPCount"					:	"../acube-services/opexpmanager/get/?action=get_opexp_count",
+		"opexpmanager.generateOPEXPMaster"				: 	"../acube-services/opexpmanager/generate/?action=generate_opexp_master",
+		"opexpmanager.getOPEXPMasters"					:	"../acube-services/opexpmanager/get/?action=get_opexp_masters",
+		"opexpmanager.getOPEXPMaster"					:	"../acube-services/opexpmanager/get/?action=get_opexp_master",
+		"opexpmanager.addOPEXPBasket"					: 	"../acube-services/opexpmanager/basket/add/",
+		"opexpmanager.updateOPEXPBasket"				: 	"../acube-services/opexpmanager/basket/update/",
+		"opexpmanager.deleteOPEXPBasket"				: 	"../acube-services/opexpmanager/basket/delete/",
+		"opexpmanager.getOPEXPBasket"					: 	"../acube-services/opexpmanager/basket/get/?action=get_opexp_basket"
+
 	}
 
 	angular.module('aswa').constant('urlsettings',urlsettings);

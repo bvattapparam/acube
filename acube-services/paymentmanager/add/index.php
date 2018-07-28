@@ -16,7 +16,8 @@ include('../../config/log_handler.php');
     $AMOUNT             =   $data->AMOUNT;
     $CUSTOMERID         =   $data->CUSTOMERID;
     $COMMENT            =   $data->COMMENT;
-
+    $EXPITEM            =   $data->EXPITEM;
+    $POTYPE             =   $data->POTYPE;
     $MODIFIEDBY         =   $data->MODIFIEDBY;
     $MODIFIEDDATE       =   date("Y-m-d");
     $CREATEDDATE        =   date("Y-m-d");
@@ -25,8 +26,8 @@ include('../../config/log_handler.php');
     $COMMENT = str_replace("'","''",$COMMENT);
     
     $qry = "INSERT INTO VIEW_PAYMENT  
-    (PAYFROM, PAYTO, DATE, AMOUNT, CUSTOMERID, COMMENT, CREATEDBY, CREATEDDATE, MODIFIEDDATE, MODIFIEDBY) 
-    VALUES ('$PAYFROM', '$PAYTO', '$DATE', '$AMOUNT', '$CUSTOMERID', '$COMMENT', '$CREATEDBY', '$CREATEDDATE', '$MODIFIEDDATE', '$MODIFIEDBY')";
+    (PAYFROM, PAYTO, DATE, AMOUNT, CUSTOMERID, COMMENT, POTYPE, EXPITEM, CREATEDBY, CREATEDDATE, MODIFIEDDATE, MODIFIEDBY) 
+    VALUES ('$PAYFROM', '$PAYTO', '$DATE', '$AMOUNT', '$CUSTOMERID', '$COMMENT', '$POTYPE', '$EXPITEM', '$CREATEDBY', '$CREATEDDATE', '$MODIFIEDDATE', '$MODIFIEDBY')";
 
 
      $result = mysql_query($qry);

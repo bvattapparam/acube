@@ -478,6 +478,10 @@ main {
     .main-content-view{
       padding-top: 60px;
     }
+    .main-section {
+      overflow: auto;
+      margin-bottom:150px;
+    }
   }
 }
 .authenticated-cls{
@@ -1005,6 +1009,16 @@ textarea{
   z-index: 100000;
   display: block;
 }
+.loadRunner_modules{
+  background-color: rgba(255,255,255,0.6);
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  z-index: 100000;
+  display: block;
+}
 
 /*-----*/
 
@@ -1087,8 +1101,8 @@ textarea{
   position: absolute;
   width: 32px;
   height: 32px;
-  left: 50%;
-  top: 50%;
+  left: 45%;
+  top: 40%;
   margin-left: -16px;
   margin-top: -16px;
 }
@@ -1724,8 +1738,6 @@ position: absolute;
 bottom: 0;
 }
 
-/*# sourceMappingURL=floating-action-button.css.map */
-
 .input-fontsize-m {
   font-size:15px;
 }
@@ -1801,7 +1813,8 @@ text.highcharts-title{
   color: #999999;
 }
 .dashboard-total {
-  font-size:50px;
+  font-size:25px;
+  border-bottom: 1px solid #ccc;
 }
 .customerview-total {
   font-size:45px;
@@ -1832,6 +1845,7 @@ text.highcharts-title{
     color: #ffffff;
     transition: all .75s ease-out;
     background-color: darken(@brand-primary,20);
+    background-position: fixed 0 90%;
   }
   span{
     display: block;
@@ -1840,7 +1854,17 @@ text.highcharts-title{
     color: #ffffff;
   }
 }
-
+.expense-total{
+  min-height: 135px;
+  padding:25px;
+  background-color: #edeff2;
+}
+.minh-180 {
+  min-height: 180px !important;
+}
+.red-text {
+  color: red;
+}
 /* CUSTOMER STATUS FONT COLORS */
 
   .status-txt-0{

@@ -1,20 +1,21 @@
 (function(){
 
-	estimateBasketEditController = function($scope, $q, $rootScope, $filter, $modalInstance, passingValues, estimateManagerServices, aswaValidationService, storageServices, getreferences, utilityServices){
+	poBasketEditController = function($scope, $q, $rootScope, $filter, $modalInstance, passingValues, poManagerServices, aswaValidationService, storageServices, getreferences, utilityServices){
+		
 		$scope.passingValues 				= 	{};
 		$scope.isEdit 						= 	passingValues.isEdit;
 		$scope.passingValues.title 			= 	passingValues.title;
 		$scope.dataBO  						= 	{};
 		$scope.reference					=	{};
 		$scope.reference.referenceBO		= 	getreferences.references;
-		
+		$scope.reference.referenceBO.VENDOR 	=	passingValues.vendorBO;
 		if(passingValues.dataBO)
 		{
 			$scope.dataBO	 					= 	passingValues.dataBO;
 		}
 
 		$scope.amountCal = function(qty, percost){
-			var totalAmount = qty*percost;
+			var totalAmount = (qty * percost).toFixed(2);
 			$scope.dataBO.AMOUNT = totalAmount;
 		};
 		
@@ -22,13 +23,13 @@
 			var pushData = {};
 			pushData = record;
 			pushData.MODIFIEDBY = $rootScope.user.USERID;
-			var error =	aswaValidationService.isEstimateBasketValid(record);
+			var error =	aswaValidationService.isPOBasketValid(record);
 			if(error){
 				$rootScope.showErrorBox('Error', error);
 			}else{
 				$rootScope.showSpinner();
-					estimateManagerServices.updateEstimateBasketData(record).then(function(status){
-						if(status==200){
+					poManagerServices.updatePOBasket(record).then(function(data){
+						if(data.msg!=''){
 							$rootScope.hideSpinner();
 							$rootScope.addnotification(Messages['modal.update.title'], Messages['modal.update.message'])
 							$modalInstance.close();
@@ -47,7 +48,7 @@
 		};
 	}
 
-	angular.module('aswa').controller('estimateBasketEditController', ['$scope', '$q', '$rootScope', '$filter', '$modalInstance', 'passingValues', 'estimateManagerServices', 'aswaValidationService', 'storageServices', 'getreferences', 'utilityServices', estimateBasketEditController]);
+	angular.module('aswa').controller('poBasketEditController', ['$scope', '$q', '$rootScope', '$filter', '$modalInstance', 'passingValues', 'poManagerServices', 'aswaValidationService', 'storageServices', 'getreferences', 'utilityServices', poBasketEditController]);
 
 
 

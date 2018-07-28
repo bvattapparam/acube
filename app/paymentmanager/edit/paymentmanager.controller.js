@@ -7,13 +7,25 @@
 		$scope.dataBO  						= 	{};
 		$scope.reference					=	{};
 		$scope.reference.referenceBO		= 	getreferences.references;
+		$scope.PREXP						=	false;
+		$scope.OPEXP						=	false;
 
 		$scope.reference.USER				=	passingValues.userBO;
 		$scope.reference.CUSTOMER			=	passingValues.customerBO;
 		
+		$scope.potype = function(param){
+			if(param === 'OPEXP'){
+				$scope.OPEXP = true;
+				$scope.PREXP = false;
+			} else if (param === 'PREXP'){
+				$scope.OPEXP = false;
+				$scope.PREXP = true;
+			}
+		}
 		if(passingValues.dataBO)
 		{
 			$scope.dataBO	= 	passingValues.dataBO;
+			$scope.potype($scope.dataBO.POTYPE);
 		}
 
 		

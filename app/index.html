@@ -16,7 +16,6 @@
 
     <link rel="icon" href="../img/fav-icon.png" />
     <title>PAAP - Personal Accounts Application Programme</title>
-    <link href="https://fonts.googleapis.com/css?family=Roboto+Condensed:400,700" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="../css/metro-icons.css">
     <link rel="stylesheet" type="text/css" href="../css/app.css">
     <link rel="stylesheet" href="../css/_lib/select2/select2.css">
@@ -44,7 +43,7 @@
     
     <script src="../js/libs/fusionchart/angular-fusioncharts.js"></script>
 
-    <script src="https://code.highcharts.com/highcharts.js"></script>
+    <script src="../js/libs/chart/high-chart.min.js"></script>
 
     
 <script>
@@ -56,7 +55,7 @@
 <main>
   <div class="main-container">
   <div class="row" ng-if="user" ng-include src="'common/tpl/common.tpl.topnav.html'"  data-ng-controller='headerController'></div>
-  <div class="main-section">
+  <div class="main-section" style="margin-bottom:100px;">
       <div class="col-sm-12 main-content" ng-class="{'main-content-view': user}" ng-view></div>
   </div>
   
@@ -99,9 +98,6 @@
     <script src="dashboard/dashboard.services.js"></script>
     <script src="dashboard/dashboard.controller.js"></script>
 
-    <script src="dashboard/containers/edit/br.edit.controller.js"></script>
-    <script src="dashboard/containers/edit/iowe.edit.controller.js"></script>
-
     <script src="myaccount/myaccount.services.js"></script>
     <script src="myaccount/view/myaccount.controller.js"></script>
     <script src="myaccount/edit/myaccount.controller.js"></script>
@@ -114,6 +110,7 @@
     <script src="customermanager/view/customermanager.controller.js"></script>
     <script src="customermanager/view/customerview.controller.js"></script>
     <script src="customermanager/edit/customermanager.controller.js"></script>
+    <script src="customermanager/edit/customer-pay.controller.js"></script>
     
     <script src="vendormanager/vendormanager.services.js"></script>
     <script src="vendormanager/view/vendormanager.controller.js"></script>
@@ -123,7 +120,7 @@
     <script src="estimatemanager/estimatemanager.services.js"></script>
     <script src="estimatemanager/view/estimatemanager.controller.js"></script>
     <script src="estimatemanager/view/estimatebasket.controller.js"></script>
-    <script src="estimatemanager/edit/estimatemanager.controller.js"></script>
+    <!-- <script src="estimatemanager/edit/estimatemanager.controller.js"></script> -->
     <script src="estimatemanager/edit/estimatebasket.controller.js"></script>
 
 
@@ -141,6 +138,12 @@
     <script src="pomanager/pomanager.services.js"></script>
     <script src="pomanager/view/pomanager.controller.js"></script>
     <script src="pomanager/view/pobasket.controller.js"></script>
+    <script src="pomanager/edit/pobasket.controller.js"></script>
+
+    <script src="opexpmanager/opexpmanager.services.js"></script>
+    <script src="opexpmanager/view/opexpmanager.controller.js"></script>
+    <script src="opexpmanager/view/opexpbasket.controller.js"></script>
+    <script src="opexpmanager/edit/opexpbasket.controller.js"></script>
 
     <script src="marketingbasket/marketingbasket.services.js"></script>
     <script src="marketingbasket/view/marketingbasket.controller.js"></script>

@@ -3,20 +3,26 @@
   function marketingBasketServices($rootScope, $q, $http, storageServices, urlsettings){
 
         // to get the user details
-        this.getCustomers = function(){
-            var deferred = $q.defer();
-              $http({
-                method  : "GET",
-                url     : urlsettings['customermanager.getCustomers'],
-                headers :   {'Content-Type' : 'application/json'}
-              }).success(function(data){
-                deferred.resolve(data);
-              }).error(function(data){
-                deferred.reject(data);
-              });
-            
-              return deferred.promise;
-          };
+        
+
+          this.getCustomers = function(pushdata){
+            if(pushdata.limit){
+              pushdata.offset           =   (pushdata.currentPage-1) * pushdata.limit;
+            }
+              var deferred = $q.defer();
+                $http({
+                  method  : "POST",
+                  url     : urlsettings['customermanager.getCustomers'],
+                  data    : pushdata
+                }).success(function(data){
+                  deferred.resolve(data);
+                }).error(function(data){
+                  deferred.reject(data);
+                });
+              
+                return deferred.promise;
+            };
+
 
         this.updateMarketingBasket = function(pushdata){
           var deferred = $q.defer();

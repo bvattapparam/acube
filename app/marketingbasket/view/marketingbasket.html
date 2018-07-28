@@ -78,13 +78,13 @@
             <i class="fa fa-th pmd-sm"></i> 
           </a> 
         </div>
-
-
-        <div class="col-xs-12">
-          <div class="audit-box">&nbsp;
-          </div>
-        </div>
       </div>
     </div>
-
+    <div class="row">
+      <pagination total-items="TOTALITEMS" ng-model="pagination_payment.currentPage"  num-pages="numPages" max-size="pagination_payment.maxSize" class="pagination-sm pull-right" boundary-links="true" rotate="false" ng-change="pageChanged_payment()" items-per-page="pagination_payment.limit" first-text="<<" last-text=">>" next-text=">" previous-text="<"></pagination>
+      <ul class="pagination-sm pagination pull-right">
+        <li class="ng-scope disabled"><a href="" ng-click="selectPage(1, $event)" class="ng-binding">Page</a></li>
+        <li class="ng-scope disabled"><span class="ng-binding">{{pagination_payment.currentPage}} / {{numPages}}</span></li>
+      </ul>
+    </div>
 </div>

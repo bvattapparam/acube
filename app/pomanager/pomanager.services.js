@@ -72,23 +72,8 @@
             return deferred.promise;
         };
 
-        this.getEstimateMaster = function(pushdata){
-          console.log("pushdata", pushdata)
-          var deferred = $q.defer();
-          $http({
-            method  : "POST",
-            url     : urlsettings['estimatemanager.getEstimateMaster'],
-            data    : pushdata
-          }).success(function(data, status, headers, config){
-            deferred.resolve(data);
-          }).error(function(data, status, headers, config){
-            deferred.reject(data, status, headers, config);
-          });
-            return deferred.promise;
-        };
 
         this.getPOBasket = function(pushdata){
-          console.log("pushdata", pushdata)
           var deferred = $q.defer();
           $http({
             method  : "POST",
@@ -145,49 +130,6 @@
             return deferred.promise;
         }
 
-        this.cloneEstimateMaster =  function(pushdata){
-          var deferred = $q.defer();
-          $http({
-            method  : "POST",
-            url     : urlsettings['estimatemanager.cloneEstimateMaster'],
-            data    : pushdata
-          }).success(function(data, status, headers, config){
-            deferred.resolve(status);
-          }).error(function(data, status, headers, config){
-            deferred.reject(data, status, headers, config);
-          });
-            return deferred.promise;
-        };
-
-        this.cloneUpdateEstimateMaster =  function(pushdata){
-          var deferred = $q.defer();
-          $http({
-            method  : "POST",
-            url     : urlsettings['estimatemanager.cloneUpdateEstimateMaster'],
-            data    : pushdata
-          }).success(function(data, status, headers, config){
-            deferred.resolve(status);
-          }).error(function(data, status, headers, config){
-            deferred.reject(data, status, headers, config);
-          });
-            return deferred.promise;
-        };
-
-        this.cloneEstimateBasket =  function(pushdata){
-          var deferred = $q.defer();
-          $http({
-            method  : "POST",
-            url     : urlsettings['estimatemanager.cloneEstimateBasket'],
-            data    : pushdata
-          }).success(function(data, status, headers, config){
-            deferred.resolve(status);
-          }).error(function(data, status, headers, config){
-            deferred.reject(data, status, headers, config);
-          });
-            return deferred.promise;
-        };
-
-      
         
 
   }

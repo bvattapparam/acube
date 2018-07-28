@@ -9,21 +9,38 @@
 			"CUSTOMERTYPE" 	: getreferences.referencesData.CUSTOMERTYPE,
 			"CUSTOMERSTATUS" 	: getreferences.referencesData.CUSTOMERSTATUS
 		};
-
+		// Pagination section is here.
+		$scope.pagination_payment = {
+			currentPage : 1,
+	 		limit: 50,
+	 		maxSize : 5
+		};
+		$scope.pageChanged_payment = function() {
+	    	$scope.getCustomers();
+		};
 
 		$scope.getCustomers = function(){
+			var pushdata				=	{};
+			pushdata.limit				=	$scope.pagination_payment.limit;
+			pushdata.currentPage		=	$scope.pagination_payment.currentPage;
+			pushdata.statusfilters		=	$rootScope.settings.SHOW_CUSTOMER_STATUS;
+			pushdata.filterstatus		=	true;
+			pushdata.pagenation			=	true;
+			//statusfilters,limit, currentpage, filterstatus
 			$rootScope.showSpinner();
-			customerManagerServices.getCustomers().then(function(data){
+			customerManagerServices.getCustomers(pushdata).then(function(data){
+				console.log("data", data)
 				if(data.msg!=''){
-
 					$scope.customerManagerBO	=	[];
-					angular.forEach(data, function(item,key){
-						angular.forEach($rootScope.settings.SHOW_CUSTOMER_STATUS, function(citem,ckey){
-							if(item.STATUS == citem){
-								$scope.customerManagerBO.push(item)
-							}
-						});
-					});
+					$scope.TOTALITEMS 			= 	data[1].TOTAL.TOTAL;
+					$scope.customerManagerBO	=	data[0].ITEM;
+					// angular.forEach(data_item, function(item,key){
+					// 	angular.forEach($rootScope.settings.SHOW_CUSTOMER_STATUS, function(citem,ckey){
+					// 		if(item.STATUS == citem){
+					// 			$scope.customerManagerBO.push(item)
+					// 		}
+					// 	});
+					// });
 					$rootScope.hideSpinner();
 				}else{
 					$rootScope.hideSpinner();
@@ -35,7 +52,7 @@
 
 		$scope.getCustomers();
 
-		$scope.editUser = function (data) {
+		$scope.editCustomer = function (data) {
 			console.log("yes", data);
 			var config= {};
 				config.templateUrl = '../app/customermanager/edit/customermanager.html';
@@ -54,7 +71,7 @@
 				utilityServices.openConfigModal($modal, config);
 		};
 
-		$scope.addUser = function () {
+		$scope.addCustomer = function () {
 			var config= {};
 				config.templateUrl = '../app/customermanager/edit/customermanager.html';
 				config.controller = 'customerManagerEditController';
@@ -71,9 +88,6 @@
 				}
 				utilityServices.openConfigModal($modal, config);
 		};
-
-		
-		
 		
 		$scope.refresh	=	function(){
 			$scope.getCustomers();

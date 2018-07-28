@@ -11,10 +11,7 @@
 		if(passingValues.dataBO)
 		{
 			$scope.dataBO	 					= 	passingValues.dataBO;
-			
-		}
-
-		
+		};
 		
 		$scope.save = function (record) {
 			var pushData = {};
