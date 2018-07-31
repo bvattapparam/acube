@@ -241,8 +241,7 @@
 		
 		$scope.orderByField = 'POTYPE';
 		$scope.reverseSort = false;
-	
-		  
+  
         $scope.players = [
 			{name: 'Gene', team: 'alpha'},
 			{name: 'George', team: 'beta'},

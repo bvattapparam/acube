@@ -14,10 +14,35 @@
 			$scope.dataBO	 					= 	passingValues.dataBO;
 		};
 		
+// MONTH AND YEAR ONLY
+		$scope.today = function() {
+			$scope.dt = new Date();
+		  };
+		  $scope.today();
+		
+		  $scope.showWeeks = false;
+		
+		
+		  $scope.open = function($event) {
+			$event.preventDefault();
+			$event.stopPropagation();
+		
+			$scope.opened = true;
+		  };
+		
+		  $scope.dateOptions = {
+			'year-format': "'yy'",
+			'starting-day': 1,
+			'datepicker-mode':"'month'",
+			'min-mode':"month"
+		  };
+// END HERE...
+
 		$scope.save = function (record) {
 			var pushData = {};
 			pushData = record;
 			pushData.MODIFIEDBY = $rootScope.user.USERID;
+			console.log('DATE ', pushData.DATE.getFullYear());
 			var error =	aswaValidationService.isCustomerPayManagerValid(record);
 			if(error){
 				$rootScope.showErrorBox('Error', error);

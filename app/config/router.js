@@ -88,6 +88,11 @@
             controller : 'paymentManagerController',
             requiresAuthentication: true
         })
+        .when('/labourmanager/:CUSTOMERID',{
+            templateUrl : 'labourmanager/view/labourmanager.html',
+            controller : 'labourManagerController',
+            requiresAuthentication: true
+        })
         .when('/customer',{
             templateUrl : 'customermanager/view/customermanager.html',
             controller : 'customerManagerController',

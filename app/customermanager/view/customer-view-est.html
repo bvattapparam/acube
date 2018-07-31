@@ -1,0 +1,30 @@
+<div class="col-xs-12 section-box" style="padding-bottom:20px">
+        <div class="section-box-header">
+          <h2 class="text-uppercase"><i class="fa fa-bookmark"></i> {{'customermanager.estimates' | i18n}} <span data-ng-if="dataPQE[2].ESTITEM.length > 0">({{dataPQE[2].ESTITEM.length}})</span> </h2>
+        </div>
+        <div class="section-box-body table-responsive" style="overflow: scroll; height:170px">
+          <table class="table table-hover">
+              <colgroup>
+                <col class="auto-cell-size p-r-20">
+              </colgroup>
+              <thead class="table-bg">
+              <tr>
+                <th></th>
+                <th data-ng-bind-html="'label.purpose' | i18n"></th>
+                <th data-ng-bind-html="'label.amount' | i18n"></th>
+                
+              </tr>
+              </thead>
+              <tbody>
+              <tr ng-repeat ="rel in dataPQE[2].ESTITEM">
+                <td class="f20 part1"></td>
+                <td data-ng-bind="(rel.ESTIMATEID) || '&mdash;'"></td>
+                <td data-ng-bind="(rel.AMOUNT | aswaCurrency) || '&mdash;'" class="text-uppercase"></td>
+              </tr>
+              </tbody>
+            </table>
+            <div class="loadRunner_modules" ng-show="spinnerShow">
+              <div class="lds-ellipsis"><div></div><div></div><div></div><div></div></div>
+            </div>  
+        </div>
+      </div>

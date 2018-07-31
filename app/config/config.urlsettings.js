@@ -19,6 +19,7 @@
 		"customermanager.updateCustomerPay"				: 	"../acube-services/customermanager/customerpay/update/",
 		"customermanager.getCustomerPay"				: 	"../acube-services/customermanager/customerpay/get/",
 		"customermanager.getTotals"						: 	"../acube-services/customermanager/get/?action=get_totals",
+		"customermanager.getPQE"						: 	"../acube-services/customermanager/get/?action=get_pqe",
 		
 		"marketingbasket.getCustomers"					: 	"../acube-services/marketingbasket/get/",
 		"marketingbasket.updateMarketingBasket"			: 	"../acube-services/marketingbasket/update/",

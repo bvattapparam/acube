@@ -14,6 +14,9 @@ switch($_GET['action']) {
   case 'get_totals' :
         get_totals();
     break;
+    case 'get_pqe' :
+    get_pqe();
+    break;
 }
 
 /** Function to Get Product **/
@@ -247,6 +250,69 @@ GROUP BY CUSTOMERID
   $data[]->PAIDAMOUNT       = $data_total_paidamount;
   $data[]->POAMOUNT         = $data_total_poamount;
 
+
+  echo(json_encode($data));
+  return json_encode($data);
+}
+
+function get_pqe(){
+  $data = json_decode(file_get_contents("php://input"));
+
+  $CUSTOMERID = $data->CUSTOMERID;
+  $data = array();
+
+  $qry_po = "SELECT SUM(AMOUNT) AS AMOUNT, POID FROM
+    (SELECT CUSTOMERID, AMOUNT,POID FROM 
+    (SELECT VIEW_PO_BASKET.AMOUNT, VIEW_PO_MASTER.CUSTOMERID, VIEW_PO_MASTER.POID FROM
+     VIEW_PO_BASKET JOIN VIEW_PO_MASTER ON VIEW_PO_MASTER.POID = VIEW_PO_BASKET.POID 
+     WHERE VIEW_PO_MASTER.CUSTOMERID = '$CUSTOMERID') AS FIRSTT) AS SECONDT GROUP BY POID";
+  
+  $qry_res_po = mysql_query($qry_po);
+  $data_po = array();
+  while($rows = mysql_fetch_array($qry_res_po))
+  {
+    $data_po[]  = array(
+      "AMOUNT"        =>  $rows['AMOUNT'],
+      "POID"          =>  $rows['POID']
+    );
+  };
+
+  $qry_q = "SELECT SUM(AMOUNT) AS AMOUNT, QUOTEID FROM
+    (SELECT CUSTOMERID, AMOUNT,QUOTEID FROM 
+    (SELECT VIEW_QUOTE_BASKET.AMOUNT, VIEW_QUOTE_MASTER.CUSTOMERID, VIEW_QUOTE_MASTER.QUOTEID FROM
+     VIEW_QUOTE_BASKET JOIN VIEW_QUOTE_MASTER ON VIEW_QUOTE_MASTER.QUOTEID = VIEW_QUOTE_BASKET.QUOTEID 
+     WHERE VIEW_QUOTE_MASTER.CUSTOMERID = '$CUSTOMERID') AS FIRSTT) AS SECONDT GROUP BY QUOTEID";
+  
+  $qry_res_q = mysql_query($qry_q);
+  $data_q = array();
+  while($rows = mysql_fetch_array($qry_res_q))
+  {
+    $data_q[]  = array(
+      "AMOUNT"        =>  $rows['AMOUNT'],
+      "QUOTEID"       =>  $rows['QUOTEID']
+    );
+  };
+
+  $qry_est = "SELECT SUM(AMOUNT) AS AMOUNT, ESTIMATEID FROM
+    (SELECT CUSTOMERID, AMOUNT,ESTIMATEID FROM 
+    (SELECT VIEW_ESTIMATE_BASKET.AMOUNT, VIEW_ESTIMATE_MASTER.CUSTOMERID, VIEW_ESTIMATE_MASTER.ESTIMATEID FROM
+     VIEW_ESTIMATE_BASKET JOIN VIEW_ESTIMATE_MASTER ON VIEW_ESTIMATE_MASTER.ESTIMATEID = VIEW_ESTIMATE_BASKET.ESTIMATEID 
+     WHERE VIEW_ESTIMATE_MASTER.CUSTOMERID = '$CUSTOMERID') AS FIRSTT) AS SECONDT GROUP BY ESTIMATEID";
+  
+  $qry_res_est = mysql_query($qry_est);
+  $data_est = array();
+  while($rows = mysql_fetch_array($qry_res_est))
+  {
+    $data_est[]  = array(
+      "AMOUNT"        =>  $rows['AMOUNT'],
+      "ESTIMATEID"    =>  $rows['ESTIMATEID']
+    );
+  };
+
+
+  $data[]->POITEM           = $data_po;
+  $data[]->QITEM            = $data_q;
+  $data[]->ESTITEM          = $data_est;
 
   echo(json_encode($data));
   return json_encode($data);

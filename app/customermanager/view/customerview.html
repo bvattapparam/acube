@@ -146,7 +146,7 @@
          <div class="col-lg-6">
            <h2 class="text-uppercase"><i class="fa fa-arrows-v"></i> {{'label.materialexpenses' | i18n}}</h2>
            <div class="expense-total text-right">
-              <span class="customerview-total txt-success" data-ng-bind="POAMOUNT | aswaCurrency"></span>
+              <span class="customerview-total txt-success" data-ng-bind="(POAMOUNT | aswaCurrency) || '&mdash;'"></span>
            </div>
          </div>
          <div class="col-lg-6">
@@ -179,45 +179,13 @@
 
 
 <div class="row section-container">
-  <div class="col-xs-4">
-    <div class="col-xs-12 section-box">
-      <div class="section-box-header">
-        <h2 class="text-uppercase"><i class="fa fa-bookmark"></i> {{'customermanager.pos' | i18n}} </h2>
-       </div>
-       <div class="col-xs-12 section-box-body table-responsive">
-        <div class="loadRunner_modules" ng-show="!spinnerShow">
-          <div class="lds-ellipsis"><div></div><div></div><div></div><div></div></div>
-        </div>
-      </div>
-    </div>
-  </div>
+  <div class="col-xs-4" ng-include src = "'customermanager/view/customer-view-po.html'"></div>
+  <div class="col-xs-4" ng-include src = "'customermanager/view/customer-view-qt.html'"></div>
+  <div class="col-xs-4" ng-include src = "'customermanager/view/customer-view-est.html'"></div>
+</div>
 
-  <div class="col-xs-4">
-    <div class="col-xs-12 section-box">
-      <div class="section-box-header">
-        <h2 class="text-uppercase"><i class="fa fa-bookmark"></i> {{'customermanager.quotes' | i18n}} </h2>
-       </div>
-       <div class="col-xs-12 section-box-body table-responsive">
-        <div class="loadRunner_modules" ng-show="!spinnerShow">
-          <div class="lds-ellipsis"><div></div><div></div><div></div><div></div></div>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <div class="col-xs-4">
-    <div class="col-xs-12 section-box">
-      <div class="section-box-header">
-        <h2 class="text-uppercase"><i class="fa fa-bookmark"></i> {{'customermanager.estimates' | i18n}} </h2>
-       </div>
-       <div class="col-xs-12 section-box-body table-responsive">
-        <div class="loadRunner_modules" ng-show="!spinnerShow">
-          <div class="lds-ellipsis"><div></div><div></div><div></div><div></div></div>
-        </div>
-      </div>
-    </div>
-  </div>
-
+<div class="backto">
+  <a ng-href="#/labourmanager/{{CUSTOMERID}}"><span>Labour Manager</span></a>
 </div>
 
 <div class="backto">

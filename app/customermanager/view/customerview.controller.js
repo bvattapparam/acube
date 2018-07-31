@@ -11,6 +11,7 @@
 			"CUSTOMERSTATUS" 	: getreferences.referencesData.CUSTOMERSTATUS
 		};
 
+		$scope.CUSTOMERID		=	$routeParams.CUSTOMERID;
 		
 		$scope.quoteStatus = function(param){
 			if (param === '1') {
@@ -195,7 +196,26 @@
 			if(val < 0){
 				return 'red-text';
 			}
-		};	
+		};
+		
+		$scope.getPQE = function(){
+			$rootScope.showSpinner();
+			var pushdata = {};
+			pushdata.CUSTOMERID = $routeParams.CUSTOMERID;
+			customerManagerServices.getPQE(pushdata).then(function(data){
+				if(data.msg!=''){
+					$scope.dataPQE	=	[];
+					$scope.dataPQE 	= 	data;
+					$rootScope.hideSpinner();
+				}else{
+					$rootScope.hideSpinner();
+					$rootScope.showErrorBox('Error', data.error);
+				}
+				
+			});
+		};
+		$scope.getPQE();
+
 		$scope.refresh	=	function(){
 			$scope.getCustomerPay();
 			$scope.getTotals();

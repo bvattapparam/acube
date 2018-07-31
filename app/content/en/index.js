@@ -317,6 +317,8 @@ Messages = {
 	"vendormanager.vendors"						:	"Vendors",
 	'vendormanager.add'							:	"Add Vendor",
 
+	"labourmanager.pageheader"					:	"Labour Manager",
+
 	// PO MANAGER
 	"pomanager.pageheader"						:	"Purchase Order Manager",
 	"pomanager.pos"								:	"Purchase Orders",
