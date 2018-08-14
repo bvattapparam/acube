@@ -59,6 +59,7 @@
 				if(data.msg!=''){
 					$scope.estimateBasketBO	=	[];
 					$scope.estimateBasketBO 	= 	data;
+					console.log('EST: ', data)
 					//$scope.groubedByTeam=groupBy(data, 'LOCATION')
 					var totalamount = 0;
 					var totalqty = 0;
@@ -70,6 +71,11 @@
 					}
 					$scope.TOTALAMOUNT 	=	totalamount;
 					$scope.TOTALQTY		=	totalqty;
+
+					$scope.estimatePDF = {};
+					$scope.estimatePDF.dataBO = data;
+					$scope.estimatePDF.TOTALAMOUNT = totalamount;
+					$scope.estimatePDF.TOTALQTY = totalqty;
 					$rootScope.hideSpinner();
 				}else{
 					$rootScope.hideSpinner();
@@ -168,16 +174,19 @@
 		$scope.generatePDF = function (data) {
 			var config= {};
 				config.templateUrl = '../app/estimatemanager/generate/estimatebasketpdf.html';
-				config.controller = 'estimateBasketController';
+				//config.controller = 'estimateBasketController';
+				config.controller = 'estimatePDFController';
 				config.size		= 'lg';
 				config.backdrop	= 'static';
 				config.passingValues = {};
 				config.passingValues.title = Messages['estimatebasket.generatepdf.estimate'];
 				config.passingValues.dataBO = data;
+				config.passingValues.PDFBO = $scope.estimatePDF;
+				config.passingValues.estMaster = $scope.estimateManagerBO;
 				config.passingValues.isEdit = true;
 				config.callback = function(status, item){
 					if(status === 'success') {
-						$scope.getEstimateBasket();
+						//$scope.getEstimateBasket();
 					}
 				}
 				utilityServices.openConfigModal($modal, config);

@@ -147,6 +147,20 @@
             
               return deferred.promise;
         };
+        this.getNote = function(customerid) {
+          var deferred = $q.defer();
+              $http({
+                method  : "GET",
+                url     : urlsettings['customermanager.getNote'] + "&customerid=" + customerid,
+                headers :   {'Content-Type' : 'application/json'}
+              }).success(function(data){
+                deferred.resolve(data);
+              }).error(function(data){
+                deferred.reject(data);
+              });
+            
+              return deferred.promise;
+        };
         this.updateCustomerEstimateStatus = function(pushdata){
           var deferred = $q.defer();
           $http({
@@ -155,6 +169,32 @@
             data    : pushdata
           }).success(function(data, status, headers, config){
             deferred.resolve(status);
+          }).error(function(data, status, headers, config){
+            deferred.reject(data, status, headers, config);
+          });
+            return deferred.promise;
+        };
+        this.updateCustomerNote = function(pushdata){
+          var deferred = $q.defer();
+          $http({
+            method  : "POST",
+            url     : urlsettings['customermanager.updateCustomerNote'],
+            data    : pushdata
+          }).success(function(data, status, headers, config){
+            deferred.resolve(data);
+          }).error(function(data, status, headers, config){
+            deferred.reject(data, status, headers, config);
+          });
+            return deferred.promise;
+        };
+        this.addCustomerNote = function(pushdata){
+          var deferred = $q.defer();
+          $http({
+            method  : "POST",
+            url     : urlsettings['customermanager.addCustomerNote'],
+            data    : pushdata
+          }).success(function(data, status, headers, config){
+            deferred.resolve(data);
           }).error(function(data, status, headers, config){
             deferred.reject(data, status, headers, config);
           });

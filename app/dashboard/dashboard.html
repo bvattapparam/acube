@@ -14,7 +14,85 @@
 </div>
 
 
+
 <div permission="['JRD_ADMIN','JRD_MARKETING']">
+
+    <div class="row section-container">
+      <div class="col-lg-3 col-md-6">
+        <div class="panel">
+          <div class="panel-heading">
+            <div class="row">
+              <div class="col-xs-3">
+                  <i class="fa fa-tasks"></i>
+              </div>
+              <div class="col-xs-9 text-right">
+                  <div>20</div>
+              </div>
+            </div>
+          </div>
+            <div class="panel-footer green-footer">
+                <span class="pull-left text-uppercase">completed projects</span>
+                <div class="clearfix"></div>
+            </div>
+        </div>
+      </div>
+
+      <div class="col-lg-3 col-md-6">
+          <div class="panel">
+            <div class="panel-heading">
+              <div class="row">
+                <div class="col-xs-3">
+                    <i class="fa fa-tasks"></i>
+                </div>
+                <div class="col-xs-9 text-right">
+                    <div>0</div>
+                </div>
+              </div>
+            </div>
+              <div class="panel-footer red-footer">
+                  <span class="pull-left text-uppercase">outstanding money</span>
+                  <div class="clearfix"></div>
+              </div>
+          </div>
+        </div>
+        <div class="col-lg-3 col-md-6">
+            <div class="panel">
+              <div class="panel-heading">
+                <div class="row">
+                  <div class="col-xs-3">
+                      <i class="fa fa-money"></i>
+                  </div>
+                  <div class="col-xs-9 text-right">
+                      <div>{{'50000000' | aswaCurrency}}</div>
+                  </div>
+                </div>
+              </div>
+                <div class="panel-footer blue-footer">
+                    <span class="pull-left text-uppercase">Total Project cost</span>
+                    <div class="clearfix"></div>
+                </div>
+            </div>
+          </div>
+
+          <div class="col-lg-3 col-md-6">
+              <div class="panel">
+                <div class="panel-heading">
+                  <div class="row">
+                    <div class="col-xs-3">
+                        <i class="fa fa-support"></i>
+                    </div>
+                    <div class="col-xs-9 text-right">
+                        <div>5</div>
+                    </div>
+                  </div>
+                </div>
+                  <div class="panel-footer yellow-footer">
+                      <span class="pull-left text-uppercase">Running Projects</span>
+                      <div class="clearfix"></div>
+                  </div>
+              </div>
+            </div>
+    </div>
 
   <div class="row section-container">
     <div class="col-xs-12 col-md-4">
@@ -62,11 +140,13 @@
       </div>
     </div>
   </div>
-  <div ng-include src = "'dashboard/containers/adm-payment-section.html'"></div>
+  <div permission="['JRD_ADMIN']" ng-include src = "'dashboard/containers/adm-payment-section.html'"></div>
 </div>
 
 
 <div permission="['JRD_SUPERVISOR']" ng-include src = "'dashboard/containers/se-section.html'">
+</div>
+<div permission="['JRD_MARKETING']" ng-include src = "'dashboard/containers/mktg-section.html'">
 </div>
 
 <div permission="['JRD_NOACCESS']">

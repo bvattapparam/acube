@@ -98,6 +98,7 @@ function get_estimate_master() {
     EST.CREATEDDATE,
     CUST.CUSTOMERID, 
     CUST.FULLNAME,
+    CUST.ADDRESS, 
     CUST.TYPE,
     CUST.ESTIMATESTATUS
     FROM VIEW_ESTIMATE_MASTER EST, VIEW_CUSTOMER_MASTER CUST 
@@ -124,6 +125,7 @@ function get_estimate_master() {
           "CREATEDDATE"       =>  $rows['CREATEDDATE'],
           "CUSTOMERID"        =>  $rows['CUSTOMERID'],
           "FULLNAME"          =>  $rows['FULLNAME'],
+          "ADDRESS"           =>  $rows['ADDRESS'],
           "TYPE"              =>  $rows['TYPE'],
           "ESTIMATESTATUS"    =>  $rows['ESTIMATESTATUS']
         );

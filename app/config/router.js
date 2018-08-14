@@ -88,7 +88,17 @@
             controller : 'paymentManagerController',
             requiresAuthentication: true
         })
+        .when('/labourmanager/',{
+            templateUrl : 'labourmanager/view/labourmanager.html',
+            controller : 'labourManagerController',
+            requiresAuthentication: true
+        })
         .when('/labourmanager/:CUSTOMERID',{
+            templateUrl : 'labourmanager/view/labourmanager.html',
+            controller : 'labourManagerController',
+            requiresAuthentication: true
+        })
+        .when('/labourmanager/:CUSTOMERID/:CVIEW',{
             templateUrl : 'labourmanager/view/labourmanager.html',
             controller : 'labourManagerController',
             requiresAuthentication: true
@@ -101,6 +111,10 @@
         .when('/customer/customerview/:CUSTOMERID',{
             templateUrl : 'customermanager/view/customerview.html',
             controller : 'customerViewController',
+            requiresAuthentication: true
+        }).when('/customer/customerview/customernote/:CUSTOMERID',{
+            templateUrl : 'customermanager/view/customernoteview.html',
+            controller : 'customerNoteViewController',
             requiresAuthentication: true
         })
         .when('/vendor',{

@@ -1,6 +1,7 @@
 <?php
 include('../../users/config.php');
 include('../../config/log_handler.php');
+
 switch($_GET['action']) {
   case 'get_customer' :
     get_customer();
@@ -16,6 +17,9 @@ switch($_GET['action']) {
     break;
     case 'get_pqe' :
     get_pqe();
+    break;
+    case 'get_note':
+    get_note();
     break;
 }
 
@@ -47,6 +51,32 @@ function get_customer() {
       "MODIFIEDDATE"  =>  $rows['MODIFIEDDATE'],
       "ESTIMATESTATUS"  =>  $rows['ESTIMATESTATUS'],
       "QUOTEAPPROVED"  =>  $rows['QUOTEAPPROVED']
+    );
+  }
+  
+  
+echo(json_encode($data));
+return json_encode($data);
+}
+/** Function to Get Product **/
+function get_note() {
+
+  $CUSTOMERID = $_GET['customerid'];
+  
+  $qry = "SELECT * FROM VIEW_CUSTOMER_NOTE WHERE CUSTOMERID = '$CUSTOMERID' ORDER BY MODIFIEDDATE DESC";
+  $qry_res = mysql_query($qry);
+  $data = array();
+  while($rows = mysql_fetch_array($qry_res))
+  {
+    $data[] = array(
+      "ID"            =>  $rows['ID'],
+      "CUSTOMERID"    =>  $rows['CUSTOMERID'],
+      "TITLE"         =>  $rows['TITLE'],
+      "NOTE"          =>  $rows['NOTE'],
+      "CREATEDBY"     =>  $rows['CREATEDBY'],
+      "CREATEDDATE"   =>  $rows['CREATEDDATE'],
+      "MODIFIEDBY"    =>  $rows['MODIFIEDBY'],
+      "MODIFIEDDATE"  =>  $rows['MODIFIEDDATE']
     );
   }
   
@@ -189,6 +219,9 @@ ON tbl_PO_master.POID = tbl_PO_basket.POID
 WHERE tbl_PO_master.CUSTOMERID='AGM-R-BI-41620182010') AS T 
 GROUP BY CUSTOMERID
 */
+/*
+SELECT LABOURID,WEEKID,CUSTOMERID, SUM(SHIFT) AS SHIFTSUM FROM (SELECT tbl_labourtms_basket.weekID, tbl_labourtms_master.CUSTOMERID, tbl_labourtms_basket.SHIFT, tbl_labourtms_master.LABOURID FROM tbl_labourtms_basket JOIN tbl_labourtms_master ON tbl_labourtms_master.WEEKID = tbl_labourtms_basket.WEEKID where tbl_labourtms_master.CUSTOMERID = tbl_labourtms_basket.CUSTOMERID and tbl_labourtms_master.LABOURID = tbl_labourtms_basket.LABOURID) AS T where weekid = 'WEEK1_AUG_2018' and labourid = 'L1' and customerid = 'AGM-R-BI-41620182010' GROUP BY CUSTOMERID
+*/
   $data = array();
 
   //  QUOTE TOTAL..
@@ -245,10 +278,39 @@ GROUP BY CUSTOMERID
     );
   }
 
+  // LABOUR TOTAL...
+  $qry_labour_total = "SELECT SUM(SALARY) AS SALARYAMOUNT 
+  FROM VIEW_LABOURTMS_MASTER WHERE CUSTOMERID = '$CUSTOMERID'";
+
+  $qry_res_labour = mysql_query($qry_labour_total);
+  
+  $data_total_salaryamount = array();
+  while($rows = mysql_fetch_array($qry_res_labour))
+  {
+    $data_total_salaryamount[]  = array(
+      "SALARYAMOUNT"  => $rows['SALARYAMOUNT']
+    );
+  }
+
+  // LABOUR TOTAL...
+  $qry_mds_total = "SELECT COUNT(SHIFT) AS MANDAYS 
+  FROM VIEW_LABOURTMS_BASKET WHERE CUSTOMERID = '$CUSTOMERID'";
+
+  $qry_res_mds = mysql_query($qry_mds_total);
+  
+  $data_total_mds = array();
+  while($rows = mysql_fetch_array($qry_res_mds))
+  {
+    $data_total_mds[]  = array(
+      "MANDAYS"  => $rows['MANDAYS']
+    );
+  }
 
   $data[]->QUOTEAMOUNT      = $data_total_quoteamount;
   $data[]->PAIDAMOUNT       = $data_total_paidamount;
   $data[]->POAMOUNT         = $data_total_poamount;
+  $data[]->SALARYAMOUNT     = $data_total_salaryamount;
+  $data[]->MANDAYS          = $data_total_mds;
 
 
   echo(json_encode($data));

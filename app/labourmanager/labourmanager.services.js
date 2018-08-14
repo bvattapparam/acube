@@ -4,14 +4,12 @@
 
         // BASED ON THE SEARCH VALUE, FETCH THE LIST OF ESTIMATES FROM THE MASTER TABLE
 
-          this.getPayment = function(pushdata){
-            if(pushdata.limit){
-              pushdata.offset = (pushdata.currentPage-1) * pushdata.limit;
-            }
+          this.getLabours = function(){
+            var pushdata = {};
           var deferred = $q.defer();
           $http({
             method  : "POST",
-            url     : urlsettings['paymentmanager.getPayment'],
+            url     : urlsettings['labourmanager.getLabours'],
             data    : pushdata
           }).success(function(data, status, headers, config){
             deferred.resolve(data);
@@ -21,15 +19,12 @@
             return deferred.promise;
         };
         //var URLs = "../aswa-services/travel/index.php?action=get_travel_data&offset="+(currentpage-1)*limit+"&limit="+limit;
-        this.getPaymentByUser = function(pushdata){
-          if(pushdata.limit){
-            pushdata.offset = (pushdata.currentPage-1) * pushdata.limit;
-          }
-          console.log('pushdata', pushdata);
+        this.getLabourTMSFull = function(pushdata){
+        //  console.log('pushdata', pushdata);
           var deferred = $q.defer();
           $http({
             method  : "POST",
-            url     : urlsettings['paymentmanager.getPaymentByUser'],
+            url     : urlsettings['labourmanager.getLabourTMSFull'],
             data    : pushdata
           }).success(function(data, status, headers, config){
             deferred.resolve(data);
@@ -42,25 +37,52 @@
 
 
         // ADD NEW ROW IN THE ESTIMATE BASKET.
-        this.addPayment = function(pushdata){
+        this.addShift = function(pushdata){
           var deferred = $q.defer();
           $http({
             method  : "POST",
-            url     : urlsettings['paymentmanager.addPayment'],
+            url     : urlsettings['labourmanager.addShift'],
             data    : pushdata
           }).success(function(data, status, headers, config){
-            deferred.resolve(status);
+            deferred.resolve(data);
           }).error(function(data, status, headers, config){
             deferred.reject(data, status, headers, config);
           });
             return deferred.promise;
         };
         // ADD NEW ROW IN THE ESTIMATE BASKET.
-        this.updatePayment = function(pushdata){
+        this.updateShiftPay = function(pushdata){
           var deferred = $q.defer();
           $http({
             method  : "POST",
-            url     : urlsettings['paymentmanager.updatePayment'],
+            url     : urlsettings['labourmanager.updateShiftPay'],
+            data    : pushdata
+          }).success(function(data, status, headers, config){
+            deferred.resolve(data);
+          }).error(function(data, status, headers, config){
+            deferred.reject(data, status, headers, config);
+          });
+            return deferred.promise;
+        };
+        this.updateTMS = function(pushdata){
+          var deferred = $q.defer();
+          $http({
+            method  : "POST",
+            url     : urlsettings['labourmanager.updateTMS'],
+            data    : pushdata
+          }).success(function(data, status, headers, config){
+            deferred.resolve(data);
+          }).error(function(data, status, headers, config){
+            deferred.reject(data, status, headers, config);
+          });
+            return deferred.promise;
+        };
+
+        this.updateLabour = function(pushdata){
+          var deferred = $q.defer();
+          $http({
+            method  : "POST",
+            url     : urlsettings['labourmanager.updateLabour'],
             data    : pushdata
           }).success(function(data, status, headers, config){
             deferred.resolve(data);
@@ -86,12 +108,11 @@
         }
 
         
-        this.getCashDetails = function(pushdata){
-          console.log('push data', pushdata)
+        this.getShiftEditData = function(pushdata){
           var deferred = $q.defer();
           $http({
             method  : "POST",
-            url     : urlsettings['paymentmanager.getCashDetails'],
+            url     : urlsettings['labourmanager.getShiftEditData'],
             data    : pushdata
           }).success(function(data, status, headers, config){
             deferred.resolve(data);

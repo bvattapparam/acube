@@ -1,0 +1,254 @@
+<div class="row pageheader">
+    <div class="col-xs-11">
+      <h1><span ng-bind ="'customermanager.pageheader' | i18n"></span></h1>
+    </div>
+    <div class="col-xs-1">
+      <button type="button" class="btn btn-xs btn-primary pull-right" ng-click="refresh();" tooltip="{{'tooltip.refresh' | i18n}}">
+        <span class="fa fa-refresh fa-spin"></span>
+      </button>
+    </div>
+    <div class="col-xs-12">
+      <span class="bottomliner"></span>
+    </div>
+  </div>
+
+  <div class="row section-container">
+    <div class="col-xs-12">
+        <div class="col-xs-12 section-box">
+            <div class="section-box-header">
+                <h2 class="text-uppercase"><i class="fa fa-bookmark"></i> {{'customermanager.notes' | i18n}} </h2>
+            </div>
+            <ul class="timeline">
+                <li ng-repeat = "rel in noteBO" ng-class-odd="'timeline-inverted'">
+                    <div class="timeline-badge">
+                        <a><i class="fa fa-circle" id=""></i></a>
+                    </div>
+                    <div class="timeline-panel">
+                        <div class="timeline-heading">
+                            <h4 data-ng-bind="rel.TITLE" class="text-uppercase"></h4>
+                        </div>
+                        <div class="timeline-body">
+                            <p data-ng-bind="rel.NOTE"></p>
+                        </div>
+                        <div class="timeline-footer">
+                                <p class="pull-left"><i class="action-icon-md-primary fa fa-edit icon-link"  ng-click="editNote(rel)" tooltip="{{'tooltip.edit'|i18n}}"></i></p>
+                            <p class="text-right text-uppercase"><span data-ng-bind="rel.MODIFIEDBY | aswaDate"></span> on <span data-ng-bind="rel.MODIFIEDDATE | aswaDate"></span></p> 
+                        </div>
+                    </div>
+                </li>
+                <li class="clearfix no-float"></li>
+            </ul>
+            <div ng-if = "noteBO.length < 1" colspan="10" class="text-center error-orange-text"><i class="fa fa-frown-o"></i> <span data-ng-bind = "'label.errorcontent' | i18n"></span></div>
+        </div>
+    </div>
+  </div>
+     <div class="backto">
+        <a ng-href="#/customer/customerview/{{CUSTOMERID}}"><span>{{'label.backto.customerview' | i18n}}</span></a>
+    </div>
+  <div class="menu pmd-floating-action" role="navigation"> 
+        <a href="javascript:void(0);" ng-click="addNote('md')" class="pmd-floating-action-btn btn btn-sm pmd-btn-fab pmd-btn-raised pmd-ripple-effect btn-default" data-title="{{'btn.addnew' | i18n}}"> 
+          <span class="pmd-floating-hidden">{{'btn.addnew' | i18n}}</span> 
+          <i class="fa fa-plus"></i> 
+       </a> 
+        <a href="javascript:void(0);" class="pmd-floating-action-btn btn pmd-btn-fab pmd-btn-raised pmd-ripple-effect btn-primary" data-title="Select Action"> 
+          <span class="pmd-floating-hidden">M</span>
+          <i class="fa fa-th pmd-sm"></i> 
+        </a> 
+      </div>
+  
+
+
+
+<style>
+/* -----------------------------------------------
+ * Timeline
+ * --------------------------------------------- */
+ .timeline {
+    list-style: none;
+    padding: 10px 0;
+    position: relative;
+    font-weight: 300;
+    font-size:14px;
+    line-height: 20px;
+}
+.timeline:before {
+    top: 0;
+    bottom: 0;
+    position: absolute;
+    content:" ";
+    width: 2px;
+    background: #39a3b7;
+    left: 50%;
+    margin-left: -1.5px;
+}
+.timeline > li {
+    margin-bottom: 20px;
+    position: relative;
+    width: 50%;
+    float: left;
+    clear: left;
+}
+.timeline > li:before, .timeline > li:after {
+    content:" ";
+    display: table;
+}
+.timeline > li:after {
+    clear: both;
+}
+.timeline > li:before, .timeline > li:after {
+    content:" ";
+    display: table;
+}
+.timeline > li:after {
+    clear: both;
+}
+.timeline > li > .timeline-panel {
+    width: calc(100% - 25px);
+    width: -moz-calc(100% - 25px);
+    width: -webkit-calc(100% - 25px);
+    float: left;
+    border: 1px solid #39a3b7;
+    background: #ffffff;
+    position: relative;
+}
+.timeline > li > .timeline-panel:before {
+    position: absolute;
+    top: 26px;
+    right: -15px;
+    display: inline-block;
+    border-top: 15px solid transparent;
+    border-left: 15px solid #39a3b7;
+    border-right: 0 solid #39a3b7;
+    border-bottom: 15px solid transparent;
+    content:" ";
+}
+.timeline > li > .timeline-panel:after {
+    position: absolute;
+    top: 27px;
+    right: -14px;
+    display: inline-block;
+    border-top: 14px solid transparent;
+    border-left: 14px solid #ffffff;
+    border-right: 0 solid #ffffff;
+    border-bottom: 14px solid transparent;
+    content:" ";
+}
+.timeline > li > .timeline-badge {
+    color: #ffffff;
+    width: 24px;
+    height: 24px;
+   
+    text-align: center;
+    position: absolute;
+    top: 16px;
+    right: -12px;
+    z-index: 100;
+}
+.timeline > li.timeline-inverted > .timeline-panel {
+    float: right;
+}
+.timeline > li.timeline-inverted > .timeline-panel:before {
+    border-left-width: 0;
+    border-right-width: 15px;
+    left: -15px;
+    right: auto;
+}
+.timeline > li.timeline-inverted > .timeline-panel:after {
+    border-left-width: 0;
+    border-right-width: 14px;
+    left: -14px;
+    right: auto;
+}
+.timeline-badge > a {
+    color: #39a3b7 !important;
+}
+.timeline-badge a:hover {
+    color: #dcdcdc !important;
+}
+.timeline-title {
+    margin-top: 0;
+    color: inherit;
+}
+.timeline-heading h4 {
+    font-weight: 600;
+    padding: 0 15px;
+    color: #39a3b7;
+    font-size: 14px;
+    margin:10px 0 5px;
+
+}
+.timeline-body > p, .timeline-body > ul {
+    padding: 0 15px;
+    margin-bottom: 0;
+    font-size:14px;
+}
+.timeline-footer {
+    margin-top:5px;
+    padding: 5px 15px;
+    background-color:#c3e3e9;
+    font-size:13px;
+}
+.timeline-footer p { margin-bottom: 0; }
+.timeline-footer > a {
+    cursor: pointer;
+    text-decoration: none;
+}
+.timeline > li.timeline-inverted {
+    float: right;
+    clear: right;
+}
+.timeline > li:nth-child(2) {
+    margin-top: 60px;
+}
+.timeline > li.timeline-inverted > .timeline-badge {
+    left: -12px;
+}
+.no-float {
+    float: none !important;
+}
+@media (max-width: 767px) {
+    ul.timeline:before {
+        left: 40px;
+    }
+    ul.timeline > li {
+        margin-bottom: 0px;
+        position: relative;
+        width:100%;
+        float: left;
+        clear: left;
+    }
+    ul.timeline > li > .timeline-panel {
+        width: calc(100% - 65px);
+        width: -moz-calc(100% - 65px);
+        width: -webkit-calc(100% - 65px);
+    }
+    ul.timeline > li > .timeline-badge {
+        left: 28px;
+        margin-left: 0;
+        top: 16px;
+    }
+    ul.timeline > li > .timeline-panel {
+        float: right;
+    }
+    ul.timeline > li > .timeline-panel:before {
+        border-left-width: 0;
+        border-right-width: 15px;
+        left: -15px;
+        right: auto;
+    }
+    ul.timeline > li > .timeline-panel:after {
+        border-left-width: 0;
+        border-right-width: 14px;
+        left: -14px;
+        right: auto;
+    }
+    .timeline > li.timeline-inverted {
+        float: left;
+        clear: left;
+        margin-top: 30px;
+        margin-bottom: 30px;
+    }
+    .timeline > li.timeline-inverted > .timeline-badge {
+        left: 28px;
+    }
+</style>

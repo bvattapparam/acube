@@ -23,9 +23,12 @@
           self.references = data;
           
           angular.forEach(data, function(item,key){
+            
             var length  = item.length-1;
+           // console.log('VAL ', item)
             self.referencesData[key]  = {};
             for(var i=length; i>=0;i--){
+              //console.log('self ', item[i]["name"])
               self.referencesData[key][item[i]["code"]] = item[i]["name"];
             }
            

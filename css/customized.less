@@ -880,7 +880,10 @@ tr:hover .round-icon{
   padding-left:5px;
   padding-right:5px;
 }
-
+.error-orange-text {
+  font-size : 15px;
+  color:orange;
+}
 /* status color */
 
 .status-active-bg{
@@ -1864,6 +1867,94 @@ text.highcharts-title{
 }
 .red-text {
   color: red;
+}
+:focus {outline:0 !important;}
+
+.button {
+  display: block;
+  width: 115px;
+  height: 25px;
+  background: #39a3b7;
+  padding: 10px;
+  text-align: center;
+  border-radius: 5px;
+  color: white;
+  font-weight: bold;
+}
+
+.actionbox a.btn{
+  min-width: 250px;
+  
+}
+.cview-img{
+  background-image: url('../img/customer_note.png');
+  background-repeat: no-repeat;
+  background-size: cover;
+  height:130px;
+}
+.overlay {
+  cursor: pointer;
+  position: absolute;
+bottom: 100%;
+left: 0;
+right: 0;
+background-color: #39a3b7;
+overflow: hidden;
+width: 100%;
+height:0;
+transition: .3s ease;
+}
+
+.text {
+color: white;
+font-size: 50px;
+position: absolute;
+top: 50%;
+left: 50%;
+-webkit-transform: translate(-50%, -50%);
+-ms-transform: translate(-50%, -50%);
+transform: translate(-50%, -50%);
+text-align: center;
+}
+
+.container:hover .overlay {
+bottom: 0;
+height: 100%;
+}
+
+
+
+.panel {
+  margin-bottom: 22px;
+  background-color: #ffffff;
+  border: 1px solid transparent;
+  border-radius: 0px;
+  -webkit-box-shadow: none;
+  box-shadow: none;
+  .panel-heading{
+    color:#39a3b7;
+    font-size:30px;
+  }
+  .panel-footer {
+    font-weight: 400;
+    color:#ffffff;
+    font-size: 15px;
+    border-bottom-right-radius: 0px;
+    border-bottom-left-radius: 0px;
+  }
+  .green-footer{
+    background-color:#5cb85c;
+  }
+  .red-footer{
+    background-color:#d9534f;
+  }
+  .blue-footer{
+    background-color: #337ab7;
+  }
+  .yellow-footer{
+    background-color:#f0ad4e;
+  }
+//#
 }
 /* CUSTOMER STATUS FONT COLORS */
 

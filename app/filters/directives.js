@@ -64,6 +64,42 @@ function acubeCurrency(){
     };
 };
 
+
+// ACCEPT NUMBERS OLY...
+function acubeNum(){
+    return {
+        require: 'ngModel',
+        restrict: 'A',
+        link: function (scope, element, attrs, ctrl) {
+            ctrl.$parsers.push(function (input) {
+                if (input == undefined) 
+                return '';
+                var shiftvalues = [1,1.5,0,0.5,2];
+                var inputNumber;
+                var breaker = false;
+                    angular.forEach(shiftvalues, function(val, key){
+                        if(!breaker){
+                            if(input == val){
+                                breaker = true;
+                                inputNumber = input;
+                            }else{
+                                inputNumber = '0';
+                            }
+                        }
+                    });
+                    if(inputNumber =='01'){
+                        inputNumber = '0';
+                    }
+                   
+                if (inputNumber != input) {
+                    ctrl.$setViewValue(inputNumber);
+                    ctrl.$render();
+                }
+                return inputNumber;
+            });
+        }
+    };
+}
 // ACCEPT NUMBERS OLY...
 function acubeNumber(){
     return {
@@ -121,4 +157,5 @@ function acubeMobile($filter, $browser){
 
 acubeDirectives.directive('acubeCurrency',['$filter','settings',acubeCurrency]);
 acubeDirectives.directive('acubeNumber',['$filter','settings',acubeNumber]);
+acubeDirectives.directive('acubeNum',['$filter','settings',acubeNum]);
 acubeDirectives.directive('acubeMobile',['$filter','settings',acubeMobile]);

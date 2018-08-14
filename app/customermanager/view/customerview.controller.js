@@ -1,10 +1,11 @@
 (function(){
 
-	function customerViewController($scope, $routeParams, $rootScope, $modal, $filter, customerManagerServices, utilityServices, storageServices, getreferences,$http, mainServices){
+	function customerViewController($location, $scope, $routeParams, $rootScope, $modal, $filter, customerManagerServices, utilityServices, storageServices, getreferences,$http, mainServices){
 
-		$scope.customerManager 						=	{};
+		$scope.customerManager 					=	{};
 		$scope.reference						=	{};
 		$scope.referenceData					=	{};
+		$scope.showModuleSpinner				=	false;
 		$scope.referenceData.referencesDataMap 	= {
 			"CUSTOMERTYPE" 	: getreferences.referencesData.CUSTOMERTYPE,
 			"PAYMENTMODE" 	: getreferences.referencesData.PAYMENTMODE,
@@ -12,6 +13,7 @@
 		};
 
 		$scope.CUSTOMERID		=	$routeParams.CUSTOMERID;
+		$scope.pathFlag			=	'cview';
 		
 		$scope.quoteStatus = function(param){
 			if (param === '1') {
@@ -66,7 +68,8 @@
 		$scope.getTotals = function(){
 			var pushdata		=	{};
 			pushdata.CUSTOMERID	=	$routeParams.CUSTOMERID;
-			$rootScope.showSpinner();
+			//$rootScope.showSpinner();
+			$scope.showModuleSpinner = true;
 			customerManagerServices.getTotals(pushdata).then(function(data){
 				if(data.msg!=''){
 					console.log('DATA ... ', data)
@@ -81,8 +84,17 @@
 					if(data[2].POAMOUNT.length > 0){
 						$scope.POAMOUNT			= 	data[2].POAMOUNT[0].POAMOUNT;
 					}
+					if(data[3].SALARYAMOUNT.length > 0){
+						$scope.LBRAMOUNT			= 	data[3].SALARYAMOUNT[0].SALARYAMOUNT;
+					}
+					if(data[4].MANDAYS.length > 0){
+						$scope.MANDAYS			= 	data[4].MANDAYS[0].MANDAYS;
+						if($scope.MANDAYS != ''){
+							$scope.MANDAYS = $scope.MANDAYS + ' ' + Messages['label.mandays'];
+						}
+					}
 					
-					$scope.LBRAMOUNT		=	30000;
+					//$scope.LBRAMOUNT		=	30000;
 
 					if(typeof $scope.PROJECTCOST !== 'undefined' && typeof $scope.PAIDAMOUNT !== 'undefined'){
 						const balance =  Number($scope.PROJECTCOST) - Number($scope.PAIDAMOUNT);
@@ -99,9 +111,11 @@
 							$scope.getClass =  '';
 						}
 					};
-					$rootScope.hideSpinner();
+					//$rootScope.hideSpinner();
+					$scope.showModuleSpinner = false;
 				}else{
-					$rootScope.hideSpinner();
+					//$rootScope.hideSpinner();
+					$scope.showModuleSpinner = false;
 					$rootScope.showErrorBox('Error', data.error);
 				}
 				
@@ -199,7 +213,7 @@
 		};
 		
 		$scope.getPQE = function(){
-			$rootScope.showSpinner();
+			//$rootScope.showSpinner();
 			var pushdata = {};
 			pushdata.CUSTOMERID = $routeParams.CUSTOMERID;
 			customerManagerServices.getPQE(pushdata).then(function(data){
@@ -216,6 +230,28 @@
 		};
 		$scope.getPQE();
 
+		$scope.viewLabourTMS = function () {
+			var config= {};
+				config.templateUrl = '../app/labourmanager/view/labour_shift_view.html';
+				config.controller = 'labourManagerShiftViewController';
+				config.size		= 'lg';
+				config.backdrop	= 'static';
+				config.passingValues = {};
+				config.passingValues.title = Messages['labourmanager.view'];
+				config.passingValues.CUSTOMERID = $routeParams.CUSTOMERID;;
+				config.passingValues.isEdit = false;
+				config.callback = function(status, item){
+					if(status === 'success') {
+						//$scope.getCustomers();
+					}
+				}
+				utilityServices.openConfigModal($modal, config);
+		};
+		
+		$scope.viewNotes = function(){
+			$location.path('/customer/customerview/customernote/' + $scope.CUSTOMERID);
+		}
+
 		$scope.refresh	=	function(){
 			$scope.getCustomerPay();
 			$scope.getTotals();
@@ -225,5 +261,5 @@
 
 	}
 
-	angular.module('aswa').controller('customerViewController',['$scope', '$routeParams', '$rootScope', '$modal', '$filter', 'customerManagerServices', 'utilityServices', 'storageServices', 'getreferences', '$http', 'mainServices', customerViewController]);
+	angular.module('aswa').controller('customerViewController',['$location', '$scope', '$routeParams', '$rootScope', '$modal', '$filter', 'customerManagerServices', 'utilityServices', 'storageServices', 'getreferences', '$http', 'mainServices', customerViewController]);
 })();

@@ -216,6 +216,10 @@
 		} else if ($rootScope.user.PERMISSIONS[0] === 'JRD_SUPERVISOR') {
 			$scope.getCashDetails();
 			$scope.getPaymentByUser();
+		}else if ($rootScope.user.PERMISSIONS[0] === 'JRD_MARKETING') {
+			$scope.getCustomerStatusCount();
+			$scope.getPaymentByUser();
+			$scope.getCustomers();
 		};
 		
 		$scope.poBalanceCal = function(val1, val2){
@@ -249,6 +253,37 @@
 			{name: 'Paula', team: 'beta'},
 			{name: 'Scruath', team: 'gamma'}
 		  ];
+		  $scope.todocount = 1;
+		 
+
+		  $scope.todoClient = function (data) {
+			var config= {};
+				config.templateUrl = '../app/todo/edit/todo.client.html';
+				config.controller = 'todoClientController';
+				config.size		= 'lg';
+				config.backdrop	= 'static';
+				config.passingValues = {};
+				config.passingValues.title = Messages['todo.todoclient.todolist'];
+				config.passingValues.dataBO = data;
+				config.passingValues.isEdit = true;
+				config.callback = function(status, item){
+					if(status === 'success') {
+						//$scope.getPOBasket();
+					}
+				}
+				utilityServices.openConfigModal($modal, config);
+		};
+		if($scope.todocount > 0){
+		//	$scope.todoClient();
+		}
+		
+
+		//$scope.dd();
+		
+
+
+		
+		
 	}
 	angular.module('aswa').controller('dashboardController',['$scope', '$rootScope', '$filter', 'utilityServices', '$modal', 'mainServices', 'dashboardServices', 'customerManagerServices', 'paymentManagerServices', 'marketingBasketServices', 'getreferences', 'storageServices', dashboardController]);
 })();

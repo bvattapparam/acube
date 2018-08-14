@@ -1,14 +1,4 @@
-<button onclick="javascript:demoFromHTML();">PDF</button>
-
-
-<div id="content">
-  <h3>Sample h3 tag</h3>
-  <p>Sample pararaph</p>
-</div>
-<div id="editor"></div>
-<button id="cmd">Generate PDF</button>
-
-
+{{itemList | json}}--
 <form name="frm">
 <div id="confirmationmodal">
   <div class="col-xs-12 modal-container" id="printThis" >
@@ -119,7 +109,7 @@
             <div class="col-xs-12">
               <div class="modal-footer">
                 <button class="btn camelcase btn-default" ng-click="cancel(frm)">Cancel</button>
-                <button class="btn camelcase btn-primary" ng-click="save(dataBO)">Save</button>
+                <button class="btn camelcase btn-primary" ng-click="generatePDF()">Save</button>
 
                 <button id="btnPrint" type="button" class="btn btn-default">Print</button>
               </div>
@@ -143,27 +133,4 @@
 
 </style>
 
-
-  <script>
-function demoFromHTML() {
-var doc = new jsPDF('p', 'in', 'letter');
-var source = $('#testcase').first();
-var specialElementHandlers = {
-'#bypassme': function(element, renderer) {
-return true;
-}
-};
-
-doc.fromHTML(
-source, // HTML string or DOM elem ref.
-0.5, // x coord
-0.5, // y coord
-{
-'width': 7.5, // max width of content on PDF
-'elementHandlers': specialElementHandlers
-});
-
-doc.output('dataurl');
-}
-</script>
 

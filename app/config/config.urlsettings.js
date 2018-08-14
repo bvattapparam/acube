@@ -20,6 +20,9 @@
 		"customermanager.getCustomerPay"				: 	"../acube-services/customermanager/customerpay/get/",
 		"customermanager.getTotals"						: 	"../acube-services/customermanager/get/?action=get_totals",
 		"customermanager.getPQE"						: 	"../acube-services/customermanager/get/?action=get_pqe",
+		"customermanager.getNote"						: 	"../acube-services/customermanager/get/?action=get_note",
+		"customermanager.updateCustomerNote"			: 	"../acube-services/customermanager/update/?action=update_customer_note",
+		"customermanager.addCustomerNote"				: 	"../acube-services/customermanager/add/?action=add_customer_note",
 		
 		"marketingbasket.getCustomers"					: 	"../acube-services/marketingbasket/get/",
 		"marketingbasket.updateMarketingBasket"			: 	"../acube-services/marketingbasket/update/",
@@ -75,8 +78,16 @@
 		"opexpmanager.addOPEXPBasket"					: 	"../acube-services/opexpmanager/basket/add/",
 		"opexpmanager.updateOPEXPBasket"				: 	"../acube-services/opexpmanager/basket/update/",
 		"opexpmanager.deleteOPEXPBasket"				: 	"../acube-services/opexpmanager/basket/delete/",
-		"opexpmanager.getOPEXPBasket"					: 	"../acube-services/opexpmanager/basket/get/?action=get_opexp_basket"
-
+		"opexpmanager.getOPEXPBasket"					: 	"../acube-services/opexpmanager/basket/get/?action=get_opexp_basket",
+		
+		"labourmanager.getLabours"						: 	"../acube-services/labourmanager/get/?action=get_labours",
+		"labourmanager.addShift"						: 	"../acube-services/labourmanager/add/?action=add_shift",
+		"labourmanager.getLabourTMSFull"				:	"../acube-services/labourmanager/get/?action=get_labourtms_full",
+		"labourmanager.getShiftEditData"				:	"../acube-services/labourmanager/get/?action=get_shift_edit_data",
+		"labourmanager.updateShiftPay"					:	"../acube-services/labourmanager/update/?action=update_shift_pay",
+		"labourmanager.updateTMS"						:	"../acube-services/labourmanager/update/?action=update_tms",
+		"labourmanager.updateLabour"					:	"../acube-services/labourmanager/update/?action=update_labour"
+		
 	}
 
 	angular.module('aswa').constant('urlsettings',urlsettings);

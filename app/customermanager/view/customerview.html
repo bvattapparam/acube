@@ -107,7 +107,7 @@
         <h2 class="text-uppercase"><i class="fa fa-bookmark"></i> {{'label.balance' | i18n}} </h2>
       </div>
       <div class="col-xs-12 section-box-body-small table-responsive text-right">
-        <span class="customerview-total txt-warning" data-ng-bind="BALANCEAMOUNT"></span>
+        <span class="customerview-total txt-warning" data-ng-bind="(BALANCEAMOUNT) || '&mdash;'"></span>
       </div>
     </div>
   </div>
@@ -178,16 +178,57 @@
 
 
 
+
+<div class="row section-container">
+    <div class="col-xs-8">
+      <div class="col-xs-12 section-box">
+        <div class="section-box-header">
+          <h2 class="text-uppercase"><i class="fa fa-bookmark"></i> {{'customermanager.labourdetails' | i18n}} </h2>
+         </div>
+         <div class="col-xs-12 section-box-body m-b-m" style="min-height:140px">
+            <div class="row">
+              <div class="col-lg-7 expense-total text-right">
+                  <span class="customerview-total txt-success" data-ng-bind="(MANDAYS) || '&mdash;'"></span>
+               </div>
+               <div class="col-lg-5 text-right actionbox">
+                  <p> <a class="btn camelcase btn-primary" ng-href="#/labourmanager/{{CUSTOMERID}}/{{pathFlag}}" tooltip="{{'tooltip.add' | i18n}}"><i class="fa fa-plus"></i> <span data-ng-bind="'label.addlabourshift' | i18n"></span></a></p>
+                  <p> <a class="btn camelcase btn-primary" ng-href="#/labourmanager/{{CUSTOMERID}}/{{pathFlag}}" tooltip="{{'tooltip.edit' | i18n}}"><i class="fa fa-edit"></i> <span data-ng-bind="'label.editlabourshift' | i18n"></span></a></p>
+                  <p> <a class="btn camelcase btn-primary" ng-href=""  ng-click="viewLabourTMS()" tooltip="{{'tooltip.view' | i18n}}"><i class="fa fa-eye"></i> <span data-ng-bind="'label.viewlabourshift' | i18n"></span></a></p>
+               </div>
+            </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-xs-4">
+        <div class="col-xs-12 section-box">
+          <div class="section-box-header">
+            <h2 class="text-uppercase"><i class="fa fa-bookmark"></i> {{'customermanager.customernote' | i18n}} </h2>
+           </div>
+           <div class="col-xs-12 section-box-body m-b-m container" tooltip="{{'tooltip.viewcustomernote' | i18n}}"  style="min-height:140px">
+              <div class="cview-img icon-link"></div>
+              <div class="overlay" ng-click="viewNotes()">
+                  <div class="text"><i class="fa fa-comments"></i></div>
+              </div>
+          </div>
+        </div>
+      </div>
+  </div>
+
+
+<div class="row"></div>
 <div class="row section-container">
   <div class="col-xs-4" ng-include src = "'customermanager/view/customer-view-po.html'"></div>
   <div class="col-xs-4" ng-include src = "'customermanager/view/customer-view-qt.html'"></div>
   <div class="col-xs-4" ng-include src = "'customermanager/view/customer-view-est.html'"></div>
 </div>
+<div class="row"></div>
 
 <div class="backto">
-  <a ng-href="#/labourmanager/{{CUSTOMERID}}"><span>Labour Manager</span></a>
+    <a ng-href="#/customer"><span>{{'label.backto.customermanager' | i18n}}</span></a>
 </div>
 
-<div class="backto">
-    <a ng-href="#/customer"><span>Back to customer manager</span></a>
-</div>
+<style>
+  
+
+  
+  </style>

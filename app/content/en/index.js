@@ -84,6 +84,13 @@ Messages = {
 	"validation.mode"				:	"Payment Mode is mandatory",
 	"validation.purpose"			:	"Purpose is mandatory",
 	"validation.refnumber"			:	"Reference Number is mandatory",
+	"validation.labour"				:	"Labour is mandatory",
+	"validation.week"				:	"Week is mandatory",
+	"validation.shift"				:	"Shift is mandatory",
+	"validation.pershift"			:	"Shift Amount is mandatory",
+	"validation.salary"				:	"Salary is mandatory",
+	"validation.noteheader"			:	"Note Header is mandatory",
+	"validation.notedescription"	:	"Note Description is mandatory",
 
 	"validation.customerstatus.confimred"	:	"Can not change the status as CONFIRMED with out QUOTATION approved. Please follow the flow and ensure the QUOTATION is approved",
 
@@ -124,6 +131,9 @@ Messages = {
 	"tooltip.dashboard.marketingbasket"			:	"Click to view Marketing Basket",
 	"tooltip.dashboard.paymenttransactions"			:	"Click to view Payment Manager",
 	"tooltip.refnumber-help"				:	"Cheque#, DD#, Wire Transfer#, NA if its Cash etc.",
+	"tooltip.editshift"							:	"Edit Shift",
+	"tooltip.editshiftamount"					:	"Edit Shift Amount",
+	"tooltip.viewcustomernote"						:	"View Customer Note",
 
 	"setting.language.malayalam"				: 	"Malayalam",
 	"setting.language.english"					: 	"English",
@@ -137,6 +147,7 @@ Messages = {
 	
 // ------------------------------------------------------------------------------------------
 
+	"label.savelabour"						:	"Save Labour",
 	"label.fullname"						: 	"Full name",
 	"label.name"							:	"Name",
 	"label.userid"							: 	"User id",
@@ -164,7 +175,7 @@ Messages = {
 	"label.units"							: 	"Units",
 	"label.price"							: 	"Price",
 	"label.rate"							: 	"Rate",
-	"label.percost"							: 	"PEr Cost",
+	"label.percost"							: 	"PerCost",
 	"label.amount"							: 	"Amount",
 	"label.total"							: 	"Total",
 	"label.customer"						: 	"Customer",
@@ -232,7 +243,28 @@ Messages = {
 	"label.mode"							:	"Mode of Payment",
 	"label.totalexpenses"					:	"Total Expenses",
 	"label.difference"						:	"Difference (Profit / Loss)",
-	
+	"label.selectmonth"						:	"Select Month",
+	"label.weeks"							:	"Weeks",
+	"label.labour"							:	"Labour",
+	"label.labourmanager.shiftheading"		:	"Shift Entry",
+	"label.errorcontent"					:	"Sorry! there is no data found..",
+	"label.totalshifts"						:	"Total Shifts",
+	"label.pershift"						:	"Amount Per Shift",
+	"label.salary"							:	"Salary",
+	"label.saveamount"						:	"Save Amount",
+	"label.saveshift"						:	"Save Shift",
+	"label.viewnote"						:	"List of Notes",
+	"label.backto.customerview"				:	"Back to Customer View",
+	"label.backto.customermanager"			:	"Back to Customer Manager",
+	"label.noteheader"						:	"Note Heading",
+	"label.notedescription"					:	"Note Description",
+	"label.addlabourshift"					:	"Add Labour Shift",
+	"label.editlabourshift"					:	"Edit Labour Shift",
+	"label.viewlabourshift"					:	"View Labour Shift",
+	"label.mandays"							:	"Mandays",
+	"label.labourid"						:	"Labour ID",
+
+	"SHIFT001"								:	"Labour is already added for this week for the same customer",
 
 	"prompt.info.title"						:	"Info",
 	"prompt.label.referencenotloaded"		:	"Reference not loaded successfully, Please refresh the page once again...",
@@ -271,6 +303,11 @@ Messages = {
 	"customermanager.quotes"					:	"Quotations",
 	"customermanager.estimates"					:	"Estimates",
 	"customermanager.customerpay"				:	"Customer Pay",
+	"customermanager.notes"						:	"List of Notes",
+	"customermanager.noteedit"					:	"Edit Note",
+	"customermanager.noteadd"					:	"Add Note",
+	"customermanager.labourdetails"				:	"Labour Details",
+	"customermanager.customernote"				:	"Customer Notes",
 		// MARKETING BASKET....
 
 	"marketingbasket.pageheader"			: 	"Marketing Basket",
@@ -318,6 +355,11 @@ Messages = {
 	'vendormanager.add'							:	"Add Vendor",
 
 	"labourmanager.pageheader"					:	"Labour Manager",
+	"labourmanager.view"						:	"Labour Shift View",
+	"labourmanager.editshift"					:	"Labour Shift Edit",
+	"labourmanager.editlabour"					:	"Edit Labour",
+	
+
 
 	// PO MANAGER
 	"pomanager.pageheader"						:	"Purchase Order Manager",
@@ -328,7 +370,9 @@ Messages = {
 	"opexpmanager.opexps"						:	"Operational Expenses",
 	"opexpbasket.editopexpbasketitem"			:	"Edit Operation Expense Basket Item",
 	"opexpmanager.opexpbasket.pageheader"		:	"Operational Expenses Basket",
-	"opexpbasket.deleteitem"					:	"Do you want to delete the Operational Expense item ? Click YES to delete the item, Click NO to cancel the action."
+	"opexpbasket.deleteitem"					:	"Do you want to delete the Operational Expense item ? Click YES to delete the item, Click NO to cancel the action.",
+
+	"todo.todoclient.todolist"					:	"Todo List"
 
 
 
