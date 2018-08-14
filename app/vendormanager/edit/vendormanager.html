@@ -1,0 +1,87 @@
+<form name="frm">
+<div id="confirmationmodal">
+  <div class="col-xs-12 modal-container">
+        <div class="modal-header modal-header-customized">
+          <h2> {{ passingValues.title }}<i class="fa fa-close pull-right" ng-click="cancel(frm);"></i></h2>
+        </div>
+        <div class="row">
+          <div class="col-xs-12">
+            <div class="modal-body confirmationbox-body">
+              <div class ="row">
+                  <div class="col-xs-12 col-sm-4 col-md-4" ng-if="isEdit">
+                    <div class="form-group">
+                    <label ng-bind="'label.vendorid' | i18n"></label>
+                        <input tabindex="1" type="text" class="form-control" tabindex="1" data-ng-model="dataBO.VENDORID" ng-disabled="true">
+                    </div>
+                  </div>
+                  <div class="col-xs-12 col-sm-4 col-md-4">
+                    <div class="form-group">
+                    <label ng-bind="'label.name' | i18n"></label>
+                        <input tabindex="1" type="text" class="form-control text-uppercase" tabindex="1" data-ng-model="dataBO.NAME" maxlength="200">
+                    </div>
+                  </div>
+                  <div class="col-xs-12 col-sm-4 col-md-4">
+                    <div class="form-group">
+                    <label ng-bind="'label.mobile' | i18n"></label>
+                        <input tabindex="1" type="text" class="form-control" tabindex="1" data-ng-model="dataBO.MOBILE" maxlength="20" acube-number>
+                    </div>
+                  </div> 
+                  <div class="col-xs-12 col-sm-4 col-md-4">
+                    <div class="form-group">
+                    <label ng-bind="'label.email' | i18n"></label>
+                        <input tabindex="1" type="text" class="form-control" tabindex="1" data-ng-model="dataBO.EMAIL" maxlength="200">
+                    </div>
+                  </div> 
+                  <div class="col-xs-12 col-sm-4 col-md-4">
+                    <div class="form-group">
+                    <label ng-bind="'label.contactperson' | i18n"></label>
+                        <input tabindex="1" type="text" class="form-control text-uppercase" tabindex="1" data-ng-model="dataBO.CONTACTPERSON" maxlength="200">
+                    </div>
+                  </div> 
+                  
+                  <div class="col-xs-12 col-sm-4 col-md-4">
+                    <div class="form-group">
+                    <label ng-bind="'label.status' | i18n"></label>
+                    <select tabindex="7" class="form-control" ui-select2="common.select2ClearWithoutSearch" ng-model="dataBO.STATUS" placeholder="{{'placeholder.selectone' | i18n}}">
+                    <option></option>
+                      <option data-ng-repeat="item in reference.referenceBO.CUSTOMERSTATUS" value="{{item.code}}">{{item.name}}</option>
+                    </select>
+                    </div>
+                  </div>  
+                  
+              </div>
+               <div class ="row">
+                <div class="col-xs-12 col-sm-6 col-md-6">
+                  <label data-ng-bind-template="{{'label.address' | i18n}} {{':'}}"></label>
+                  <div class="form-group">
+                    <textarea tabindex="9" name="address" id="address" class="form-control" placeholder="{{'placeholder.address'| i18n }}" tabindex="1" data-ng-model="dataBO.ADDRESS"></textarea>
+                  </div>
+                </div>
+
+                <div class="col-xs-12 col-sm-6 col-md-6">
+                  <label data-ng-bind-template="{{'label.comment' | i18n}} {{':'}}"></label>
+                  <div class="form-group">
+                    <textarea tabindex="9" name="comment" id="comment" class="form-control" placeholder="{{'placeholder.comment'| i18n }}" tabindex="1" data-ng-model="dataBO.COMMENT"></textarea>
+                  </div>
+                </div>
+              </div>
+              </div>
+              
+          </div>
+          <div class="row">
+            <div class="col-xs-12">
+              <div class="modal-footer">
+                <button class="btn camelcase btn-default" ng-click="cancel(frm)">Cancel</button>
+                <button class="btn camelcase btn-primary" ng-click="save(dataBO)">Save</button>
+              </div>
+            </div>
+          </div>
+          <div class="col-xs-12">
+          <div class="audit-box" ng-if="isEdit">
+             <span>Created by <strong>{{dataBO.CREATEDBY}} </strong>on <strong>{{dataBO.CREATEDDATE}}</strong>. Modified by <strong>{{dataBO.MODIFIEDBY}}</strong> on <strong>{{dataBO.MODIFIEDDATE}}</strong></span> 
+          </div>
+        </div>
+        </div>
+    </div>
+</div>
+</form>

@@ -87,6 +87,11 @@
         message   = message + "<li><i class='fa "+ icon +"'></i> " + errorMessages[i] + "</li>";
       }
     }
+    if(reqBO.STATUS == "3" && reqBO.QUOTEAPPROVED !== 1) {
+      message   = message + "<li><i class='fa "+ icon +"'></i> " +Messages['validation.customerstatus.confimred'] + "</li>";
+      flag  = true;
+      
+    }
     message   = message + "</ul>";
     if(flag){
       return message;
@@ -95,6 +100,97 @@
     }
     return message;
   };
+  this.isVendorManagerValid  = function(reqBO){
+    var message   = "<p class='uppercase'>" + Messages['validation.header'] + "</p> <ul>";
+    var flag      = false;
+
+    var errorMessages = validationConfigService.validateReqBO(reqBO, validationConfigService.cache.getValidationConfig.acube.vendormanager, form);
+
+    if(errorMessages.length > 0){
+      flag  = true;
+      for(var i=0; i < errorMessages.length; i++){
+        message   = message + "<li><i class='fa "+ icon +"'></i> " + errorMessages[i] + "</li>";
+      }
+    }
+    message   = message + "</ul>";
+    if(flag){
+      return message;
+    }else {
+      return false;
+    }
+    return message;
+  };
+  
+  this.isPaymentValid  = function(reqBO){
+    var message   = "<p class='uppercase'>" + Messages['validation.header'] + "</p> <ul>";
+    var flag      = false;
+
+    var errorMessages = validationConfigService.validateReqBO(reqBO, validationConfigService.cache.getValidationConfig.acube.paymentmanager, form);
+
+    if(errorMessages.length > 0){
+      flag  = true;
+      for(var i=0; i < errorMessages.length; i++){
+        message   = message + "<li><i class='fa "+ icon +"'></i> " + errorMessages[i] + "</li>";
+      }
+    }
+    if(reqBO.POTYPE === 'PREXP'){
+      if(typeof reqBO.CUSTOMERID == 'undefined' || reqBO.CUSTOMERID == ''){
+        message = message + "<li><i class='fa "+ icon +"'></i> Customer is mandatory. </li>";
+      }
+    }
+    message   = message + "</ul>";
+
+    
+    if(flag){
+      return message;
+    }else {
+      return false;
+    }
+    return message;
+  };
+
+  
+  this.isEstimateBasketValid  = function(reqBO){
+    var message   = "<p class='uppercase'>" + Messages['validation.header'] + "</p> <ul>";
+    var flag      = false;
+
+    var errorMessages = validationConfigService.validateReqBO(reqBO, validationConfigService.cache.getValidationConfig.acube.estimatebasket, form);
+
+    if(errorMessages.length > 0){
+      flag  = true;
+      for(var i=0; i < errorMessages.length; i++){
+        message   = message + "<li><i class='fa "+ icon +"'></i> " + errorMessages[i] + "</li>";
+      }
+    }
+    message   = message + "</ul>";
+    if(flag){
+      return message;
+    }else {
+      return false;
+    }
+    return message;
+  };
+  this.isQuoteBasketValid  = function(reqBO){
+    var message   = "<p class='uppercase'>" + Messages['validation.header'] + "</p> <ul>";
+    var flag      = false;
+
+    var errorMessages = validationConfigService.validateReqBO(reqBO, validationConfigService.cache.getValidationConfig.acube.quotebasket, form);
+
+    if(errorMessages.length > 0){
+      flag  = true;
+      for(var i=0; i < errorMessages.length; i++){
+        message   = message + "<li><i class='fa "+ icon +"'></i> " + errorMessages[i] + "</li>";
+      }
+    }
+    message   = message + "</ul>";
+    if(flag){
+      return message;
+    }else {
+      return false;
+    }
+    return message;
+  };
+
 
 
   this.isMarketingBasketValid  = function(reqBO){
@@ -118,6 +214,165 @@
     return message;
   };
 
+  this.isPOBasketValid  = function(reqBO){
+    var message   = "<p class='uppercase'>" + Messages['validation.header'] + "</p> <ul>";
+    var flag      = false;
+
+    var errorMessages = validationConfigService.validateReqBO(reqBO, validationConfigService.cache.getValidationConfig.acube.pobasket, form);
+
+    if(errorMessages.length > 0){
+      flag  = true;
+      for(var i=0; i < errorMessages.length; i++){
+        message   = message + "<li><i class='fa "+ icon +"'></i> " + errorMessages[i] + "</li>";
+      }
+    }
+    message   = message + "</ul>";
+    if(flag){
+      return message;
+    }else {
+      return false;
+    }
+    return message;
+  };
+  
+  this.isOPEXPBasketValid  = function(reqBO){
+    var message   = "<p class='uppercase'>" + Messages['validation.header'] + "</p> <ul>";
+    var flag      = false;
+
+    var errorMessages = validationConfigService.validateReqBO(reqBO, validationConfigService.cache.getValidationConfig.acube.opexpbasket, form);
+
+    if(errorMessages.length > 0){
+      flag  = true;
+      for(var i=0; i < errorMessages.length; i++){
+        message   = message + "<li><i class='fa "+ icon +"'></i> " + errorMessages[i] + "</li>";
+      }
+    }
+    message   = message + "</ul>";
+    if(flag){
+      return message;
+    }else {
+      return false;
+    }
+    return message;
+  };
+  this.isCustomerPayManagerValid  = function(reqBO){
+    var message   = "<p class='uppercase'>" + Messages['validation.header'] + "</p> <ul>";
+    var flag      = false;
+
+    var errorMessages = validationConfigService.validateReqBO(reqBO, validationConfigService.cache.getValidationConfig.acube.customerpay, form);
+
+    if(errorMessages.length > 0){
+      flag  = true;
+      for(var i=0; i < errorMessages.length; i++){
+        message   = message + "<li><i class='fa "+ icon +"'></i> " + errorMessages[i] + "</li>";
+      }
+    }
+    message   = message + "</ul>";
+    if(flag){
+      return message;
+    }else {
+      return false;
+    }
+    return message;
+  };
+
+  this.isCustomerNoteValid  = function(reqBO){
+    var message   = "<p class='uppercase'>" + Messages['validation.header'] + "</p> <ul>";
+    var flag      = false;
+
+    var errorMessages = validationConfigService.validateReqBO(reqBO, validationConfigService.cache.getValidationConfig.acube.customernote, form);
+
+    if(errorMessages.length > 0){
+      flag  = true;
+      for(var i=0; i < errorMessages.length; i++){
+        message   = message + "<li><i class='fa "+ icon +"'></i> " + errorMessages[i] + "</li>";
+      }
+    }
+    message   = message + "</ul>";
+    if(flag){
+      return message;
+    }else {
+      return false;
+    }
+    return message;
+  };
+
+  this.isLabourTMSValid  = function(reqBO){
+    var message   = "<p class='uppercase'>" + Messages['validation.header'] + "</p> <ul>";
+    var flag      = false;
+
+    var errorMessages = validationConfigService.validateReqBO(reqBO, validationConfigService.cache.getValidationConfig.acube.labourtms, form);
+
+    if(errorMessages.length > 0){
+      flag  = true;
+      for(var i=0; i < errorMessages.length; i++){
+        message   = message + "<li><i class='fa "+ icon +"'></i> " + errorMessages[i] + "</li>";
+      }
+    }
+    
+    if(typeof reqBO.ITEMTMS === 'undefined'){
+      flag  = true;
+      message   = message + "<li><i class='fa "+ icon +"'></i> " + Messages['validation.shift'] + "</li>";
+    }
+    message   = message + "</ul>";
+    if(flag){
+      return message;
+    }else {
+      return false;
+    }
+    return message;
+  };
+  
+  this.isShiftPayValid  = function(reqBO){
+    var message   = "<p class='uppercase'>" + Messages['validation.header'] + "</p> <ul>";
+    var flag      = false;
+
+    var errorMessages = validationConfigService.validateReqBO(reqBO, validationConfigService.cache.getValidationConfig.acube.shiftpay, form);
+
+    if(errorMessages.length > 0){
+      flag  = true;
+      for(var i=0; i < errorMessages.length; i++){
+        message   = message + "<li><i class='fa "+ icon +"'></i> " + errorMessages[i] + "</li>";
+      }
+    }
+    if(reqBO.PERSHIFT == '0'){
+      flag  = true;
+      message   = message + "<li><i class='fa "+ icon +"'></i> " + Messages['validation.pershift'] + "</li>";
+    }
+    if(reqBO.SALARY == '0'){
+      flag  = true;
+      message   = message + "<li><i class='fa "+ icon +"'></i> " + Messages['validation.salary'] + "</li>";
+    }
+    message   = message + "</ul>";
+    if(flag){
+      return message;
+    }else {
+      return false;
+    }
+    return message;
+  };
+  
+  this.isLabourValid  = function(reqBO){
+    var message   = "<p class='uppercase'>" + Messages['validation.header'] + "</p> <ul>";
+    var flag      = false;
+
+    var errorMessages = validationConfigService.validateReqBO(reqBO, validationConfigService.cache.getValidationConfig.acube.labour, form);
+
+    if(errorMessages.length > 0){
+      flag  = true;
+      for(var i=0; i < errorMessages.length; i++){
+        message   = message + "<li><i class='fa "+ icon +"'></i> " + errorMessages[i] + "</li>";
+      }
+    }
+    message   = message + "</ul>";
+    if(flag){
+      return message;
+    }else {
+      return false;
+    }
+    return message;
+  };
+  //
   // VALIDATE INSURANCE TRANSACTION MODULE ...
 
   // VALIDATION FOR INSURANCE TRANSACTION

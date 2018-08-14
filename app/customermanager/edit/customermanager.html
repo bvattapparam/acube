@@ -23,7 +23,7 @@
                   <div class="col-xs-12 col-sm-4 col-md-4">
                     <div class="form-group">
                     <label ng-bind="'label.mobile' | i18n"></label>
-                        <input tabindex="1" type="text" class="form-control" tabindex="1" data-ng-model="dataBO.MOBILE" maxlength="100">
+                        <input tabindex="1" type="text" class="form-control" tabindex="1" data-ng-model="dataBO.MOBILE" maxlength="20" acube-number>
                     </div>
                   </div> 
                   <div class="col-xs-12 col-sm-4 col-md-4">
@@ -38,6 +38,15 @@
                     <select tabindex="7" class="form-control" ui-select2="common.select2ClearWithoutSearch" ng-model="dataBO.TYPE" placeholder="{{'placeholder.selectone' | i18n}}">
                     <option></option>
                       <option data-ng-repeat="item in reference.referenceBO.CUSTOMERTYPE" value="{{item.code}}">{{item.name}}</option>
+                    </select>
+                    </div>
+                  </div>
+                  <div class="col-xs-12 col-sm-4 col-md-4">
+                    <div class="form-group">
+                    <label ng-bind="'label.status' | i18n"></label>
+                    <select tabindex="7" class="form-control" ui-select2="common.select2ClearWithoutSearch" ng-model="dataBO.STATUS" placeholder="{{'placeholder.selectone' | i18n}}">
+                    <option></option>
+                      <option data-ng-repeat="item in reference.referenceBO.CUSTOMERSTATUS" value="{{item.code}}">{{item.name}}</option>
                     </select>
                     </div>
                   </div>  

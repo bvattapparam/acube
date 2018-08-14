@@ -1,0 +1,102 @@
+
+<div class="row pageheader">
+  <div class="col-xs-11">
+    <h1><span ng-bind ="'pomanager.pageheader' | i18n"></span></h1>
+  </div>
+  <div class="col-xs-1">
+    <button type="button" class="btn btn-xs btn-primary pull-right" ng-click="refresh();" tooltip="{{'tooltip.refresh' | i18n}}">
+      <span class="fa fa-refresh fa-spin"></span>
+    </button>
+  </div>
+  <div class="col-xs-12">
+    <span class="bottomliner"></span>
+  </div>
+</div>
+
+<div class="col-xs-12 section-container">
+  <form name="frm">
+    <div class="row section-box">
+        <div class="col-sm-6 p-t-m">
+          <div class="form-group">
+            <select ng-change="getPOMasters('main');" tabindex="7" class="form-control" ui-select2="common.select2ClearWithoutSearch" ng-model="dataBO.CUSTOMERID" placeholder="{{'placeholder.selectcustomer' | i18n}}">
+              <option></option>
+              <option data-ng-repeat="item in reference.CUSTOMER" value="{{item.code}}">{{item.name}}</option>
+            </select>
+          </div>    
+        </div>
+        <div class="col-sm-6 m-t-m">
+          <span><i class="fa fa-hand-o-right" style="font-size:16px; color:#39a3b7;"></i> <i>{{'help.estimatemanager.selectcustomer' | i18n}} </i></span>
+        </div>
+    </div>
+  </form>
+</div>
+<div class="row"></div>
+<div class="row section-container">
+  <div class="col-xs-12">
+
+    <div class="col-xs-12 section-box">
+      <div class="row">
+        <div class="col-xs-12">
+          <div class="section-box-header">
+           <h2 class="text-uppercase"><i class="fa fa-users"></i> {{'pomanager.pos' | i18n}} </h2>
+          </div>
+        </div>
+        <div class="col-xs-12 section-box-body table-responsive">
+          <table class="table table-hover">
+              <colgroup>
+                <col class="auto-cell-size p-r-20">
+              </colgroup>
+              <thead class="table-bg">
+              <tr>
+                <th></th>
+                <th data-ng-bind-html="'label.poid' | i18n"></th>
+                <th data-ng-bind-html="'label.customerid' | i18n"></th>
+                <th data-ng-bind-html="'label.modifieddate' | i18n"></th>
+                <th data-ng-bind-html="'label.modifiedby' | i18n"></th>
+                <th data-ng-bind-html="'label.createddate' | i18n"></th>
+                <th data-ng-bind-html="'label.createdby' | i18n"></th>
+                <th data-ng-bind-html="'label.actions' | i18n"></th>
+                
+              </tr>
+              </thead>
+              <tbody>
+              <tr ng-repeat ="rel in poManagerBO">
+                <td class="f20 part1"><i ng-class="lockIcon(rel.STATUS, rel.ESTIMATESTATUS)" class="fa fa-lg" tooltip={{tooltipContent}} tooltip-placement='right'></i></td>
+                <td data-ng-bind="rel.POID"></td>
+                <td data-ng-bind="rel.CUSTOMERID"></td>
+                <td data-ng-bind="rel.MODIFIEDDATE | aswaDate" class="text-uppercase"></td>
+                <td data-ng-bind="rel.MODIFIEDBY" class="text-uppercase"></td>
+                <td data-ng-bind="rel.MODIFIEDDATE | aswaDate" class="text-uppercase"></td>
+                <td data-ng-bind="rel.MODIFIEDBY" class="text-uppercase"></td>
+                <td class="f20 ng-binding action comment-content"> 
+                  <i class="action-icon-md-primary fa fa-edit icon-link"  tooltip="{{'tooltip.edit'|i18n}}" ng-click="poBasket(rel)"></i>
+                  <i class="action-icon-md-primary fa fa-trash icon-link" tooltip="{{'tooltip.trash'|i18n}}" ng-click="showInfoBox('Info', 'generalinfoone', 'sm')"></i>
+                </td>
+              </tr>
+              <tr data-ng-if="estimateManagerBO == ''">
+                <td colspan="3"><b><span data-ng-bind="'label.nodatafound' | i18n"></span></td>
+              </tr>
+              </tbody>
+            </table>
+        </div>
+
+        <div class="menu pmd-floating-action" role="navigation"> 
+          <a href="javascript:void(0);" ng-click="generateNewPO();" class="pmd-floating-action-btn btn btn-sm pmd-btn-fab pmd-btn-raised pmd-ripple-effect btn-default" data-title="{{'btn.addnew' | i18n}}"> 
+            <span class="pmd-floating-hidden">{{'btn.addnew' | i18n}}</span> 
+            <i class="fa fa-plus"></i> 
+         </a> 
+          <a href="javascript:void(0);" class="pmd-floating-action-btn btn pmd-btn-fab pmd-btn-raised pmd-ripple-effect btn-primary" data-title="Select Action"> 
+            <span class="pmd-floating-hidden">M</span>
+            <i class="fa fa-th pmd-sm"></i> 
+          </a> 
+        </div>
+
+
+        <div class="col-xs-12">
+          <div class="audit-box">&nbsp;
+          </div>
+        </div>
+      </div>
+    </div>
+
+</div>

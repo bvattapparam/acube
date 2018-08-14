@@ -10,28 +10,49 @@
              <i class="fa fa-bars"></i> 
             </a> 
             <ul class="text-uppercase dropdown-menu navbar-setting settings-sub-menu profile-settings" role="menu" aria-labelledby="simple-btn-keyboard-nav">
+              <li icon="md md-blur-on">
+                <a href="#/dashboard" >
+                <i class="fa fa-dashboard"></i><span data-ng-bind-html="'menu.dashboard' | i18n"></span></a>
+              </li>
               <li icon="md md-blur-on" permission="['JRD_ADMIN']">
                 <a href="#/customer" >
                 <i class="fa fa-user"></i><span data-ng-bind-html="'menu.customer' | i18n"></span></a>
               </li>
-              <li icon="md md-blur-on">
-                <a href="#/estimate" permission="['JRD_ADMIN']">
+              <li icon="md md-blur-on" permission="['JRD_ADMIN']">
+                <a href="#/estimatemanager">
                 <i class="fa fa-file-text"></i><span data-ng-bind-html="'menu.estimate' | i18n"></span></a>
               </li>
-              <li icon="md md-blur-on">
-                <a href="#/quote" permission="['JRD_ADMIN']">
+              <li icon="md md-blur-on" permission="['JRD_ADMIN']">
+                <a href="#/quotemanager">
                 <i class="fa fa-file-text"></i><span data-ng-bind-html="'menu.quote' | i18n"></span></a>
               </li>
-              <li icon="md md-blur-on">
+              <li icon="md md-blur-on" permission="['JRD_ADMIN', 'JRD_SUPERVISOR']">
+                <a href="#/labourmanager">
+                <i class="fa fa-user"></i><span data-ng-bind-html="'menu.labour' | i18n"></span></a>
+              </li>
+              
+              <!-- <li icon="md md-blur-on">
                 <a href="#/cashreceipt" permission="['JRD_ADMIN']">
                 <i class="fa fa-money"></i><span data-ng-bind-html="'menu.cashreceipt' | i18n"></span></a>
+              </li> -->
+              <li icon="md md-blur-on" permission="['JRD_ADMIN', 'JRD_SUPERVISOR']">
+                <a href="#/vendor">
+                <i class="fa fa-files-o"></i><span data-ng-bind-html="'menu.vendor' | i18n"></span></a>
               </li>
-              <li icon="md md-blur-on">
-                <a href="#/invoice" permission="['JRD_ADMIN']">
-                <i class="fa fa-files-o"></i><span data-ng-bind-html="'menu.invoice' | i18n"></span></a>
+              <li icon="md md-blur-on" permission="['JRD_ADMIN','JRD_SUPERVISOR']">
+                <a href="#/pomanager">
+                <i class="fa fa-files-o"></i><span data-ng-bind-html="'menu.po' | i18n"></span></a>
               </li>
-               <li icon="md md-blur-on">
-                <a href="#/marketingbasket" permission="['JRD_MARKETING','JRD_ADMIN']">
+              <li icon="md md-blur-on" permission="['JRD_ADMIN','JRD_SUPERVISOR']">
+                <a href="#/opexpmanager">
+                <i class="fa fa-files-o"></i><span data-ng-bind-html="'menu.opexp' | i18n"></span></a>
+              </li>
+              <li icon="md md-blur-on" permission="['JRD_ADMIN']">
+                <a href="#/paymentmanager">
+                <i class="fa fa-money"></i><span data-ng-bind-html="'menu.payment' | i18n"></span></a>
+              </li>
+               <li icon="md md-blur-on" permission="['JRD_MARKETING','JRD_ADMIN']">
+                <a href="#/marketingbasket">
                 <i class="fa fa-users"></i><span data-ng-bind-html="'menu.marketingbasket' | i18n"></span></a>
               </li>
               <!-- <li class="divider">d</li> -->

@@ -1,6 +1,6 @@
 (function(){
 
-	marketingBasketEditController = function($scope, $q, $rootScope, $filter, $modalInstance, passingValues, marketingBasketServices, aswaValidationService, storageServices, getreferences, utilityServices){
+	marketingBasketEditController = function($scope, $q, $rootScope, $filter, $modalInstance, passingValues, marketingBasketServices, customerManagerServices, aswaValidationService, storageServices, getreferences, utilityServices){
 		$scope.passingValues 				= 	{};
 		$scope.isEdit 						= 	passingValues.isEdit;
 		$scope.passingValues.title 			= 	passingValues.title;
@@ -18,13 +18,13 @@
 			var pushData = {};
 			pushData = record;
 			pushData.MODIFIEDBY = $rootScope.user.USERID;
-			var error =	aswaValidationService.isMarketingBasketValid(record);
+			var error =	aswaValidationService.isCustomerManagerValid(record);
 			if(error){
 				$rootScope.showErrorBox('Error', error);
 			}else{
 				$rootScope.showSpinner();
 				if($scope.isEdit){
-					marketingBasketServices.updateMarketingBasket(record).then(function(status){
+					customerManagerServices.updateCustomerData(record).then(function(status){
 					if(status==200){
 						$rootScope.hideSpinner();
 						$rootScope.addnotification(Messages['modal.update.title'], Messages['modal.update.message'])
@@ -35,7 +35,9 @@
 					}
 				})
 				}else{
-					marketingBasketServices.addMarketingBasket(record).then(function(status){
+					var CUSTOMERID = customerManagerServices.customerIDCreation(record);
+					record.CUSTOMERID = CUSTOMERID;
+					customerManagerServices.addCustomerData(record).then(function(status){
 					if(status==200){
 						$rootScope.hideSpinner();
 						$rootScope.addnotification(Messages['modal.add.title'], Messages['modal.add.message'])
@@ -57,7 +59,7 @@
 		};
 	}
 
-	angular.module('aswa').controller('marketingBasketEditController', ['$scope', '$q', '$rootScope', '$filter', '$modalInstance', 'passingValues', 'marketingBasketServices', 'aswaValidationService', 'storageServices', 'getreferences', 'utilityServices', marketingBasketEditController]);
+	angular.module('aswa').controller('marketingBasketEditController', ['$scope', '$q', '$rootScope', '$filter', '$modalInstance', 'passingValues', 'marketingBasketServices', 'customerManagerServices', 'aswaValidationService', 'storageServices', 'getreferences', 'utilityServices', marketingBasketEditController]);
 
 
 

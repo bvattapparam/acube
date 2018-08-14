@@ -52,13 +52,12 @@ var confirmationpopupCtrl =function($sce,$scope, $modalInstance, modalPopupconfi
   $scope.body   = $sce.trustAsHtml(modalPopupconfiguration.body); // for HTML value
   //$scope.body   = modalPopupconfiguration.body;
   $scope.buttons  = modalPopupconfiguration.buttons;
-
   $scope.buttonHandler  = function(index){
     if(typeof modalPopupconfiguration.buttonHandler !== 'undefined'){
       modalPopupconfiguration.buttonHandler(index);
     }
     modalPopupconfiguration.showDialog  = false;
-    $modalInstance.dismiss();
+    $modalInstance.dismiss(index);
   };
 };
 

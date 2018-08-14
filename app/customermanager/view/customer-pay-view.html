@@ -1,0 +1,45 @@
+
+<div class="row section-box-body table-responsive">
+  <table class="table table-hover">
+      <colgroup>
+        <col class="auto-cell-size p-r-20">
+      </colgroup>
+      <thead class="table-bg">
+      <tr>
+        <th></th>
+        <!-- <th data-ng-bind-html="'label.customerid' | i18n"></th> -->
+        <th data-ng-bind-html="'label.date' | i18n"></th>
+        <th data-ng-bind-html="'label.purpose' | i18n"></th>
+        <th data-ng-bind-html="'label.amount' | i18n"></th>
+        <th data-ng-bind-html="'label.mode' | i18n"></th>
+        <th data-ng-bind-html="'label.refnumber' | i18n"></th>
+        <th data-ng-bind-html="'label.modifieddate' | i18n"></th>
+        <th data-ng-bind-html="'label.modifiedby' | i18n"></th>
+        <th data-ng-bind-html="'label.createddate' | i18n"></th>
+        <th data-ng-bind-html="'label.createdby' | i18n"></th>
+        <th data-ng-bind-html="'label.actions' | i18n"></th>
+        
+      </tr>
+      </thead>
+      <tbody>
+      <tr ng-repeat ="rel in customerPayManagerBO">
+        <td class="f20 part1"></td>
+        <!-- <td data-ng-bind="rel.CUSTOMERID"></td> -->
+        <td data-ng-bind="(rel.DATE | aswaDate) || '&mdash;'"></td>
+        <td data-ng-bind="(rel.PURPOSE) || '&mdash;'" class="text-uppercase"></td>
+        <td data-ng-bind="(rel.AMOUNT | aswaCurrency) || '&mdash;'"></td>
+        <td data-ng-bind="(referenceData.referencesDataMap.PAYMENTMODE[rel.MODE]) || '&mdash;'"></td>
+        <td data-ng-bind="(rel.REFNUMBER) || '&mdash;'"></td>
+        <td data-ng-bind="(rel.MODIFIEDDATE | aswaDate) || '&mdash;'" class="text-uppercase"></td>
+        <td data-ng-bind="(rel.MODIFIEDBY) || '&mdash;'" class="text-uppercase"></td>
+        <td data-ng-bind="(rel.CREATEDDATE | aswaDate) || '&mdash;'" class="text-uppercase"></td>
+        <td data-ng-bind="(rel.CREATEDBY) || '&mdash;'" class="text-uppercase"></td>
+        <td class="f20 ng-binding action comment-content">
+          <i class="action-icon-md-primary fa fa-edit icon-link"  ng-click="editCustomerPay(rel)" tooltip="{{'tooltip.edit'|i18n}}"></i>
+          <i class="action-icon-md-primary fa fa-trash icon-link" ng-click="showInfoBox('Info', 'generalinfoone', 'sm')" tooltip="{{'tooltip.trash'|i18n}}"></i>
+          <a data-ng-if="rel.STATUS === '3'" ng-href="#/customer/customerview/{{rel.CUSTOMERID}}"><i class="action-icon-md-primary fa fa-eye icon-link" tooltip="{{'tooltip.viewcustomer'|i18n}}"></i></a>
+        </td>
+      </tr>
+      </tbody>
+    </table>
+</div>

@@ -3,6 +3,7 @@
 		Settings.rootScope={
 			"EXCLUDE_GENERIC_STATUS_TWO_PENDING"	: 0,
 			"EXCLUDE_GENERIC_STATUS_TWO_PAID"	: 1,
+			"NOCUSTOMERMANAGERSTATUS"	:	0,
 			travel_status:{
 				"1":"status-active-bg",
 				"2":"status-pending-bg",
@@ -40,12 +41,16 @@
 				"1":"status-active-text",
 				"0":"status-cancel-text"
 			},
+			"SHOW_CUSTOMER_STATUS":['1','3'],
+			"SHOW_PO_CUSTOMER_STATUS":['3'],
+
+			"STATUS_CONFIRMED"	:	3,
 			"CARMODULE_FUEL" : "CM1",
 			"CARMODULE_OTHERS" : "CM3",
 			"CARMODULE_SERVICE" : "CM2",
 			"CARMODULE_INSURANCE" : "CM4",
 			"date":"dd-MMM-yyyy",
-			"currency":"₹ ",
+			"currency":"",
 			"appURL" : "http://localhost/acube/app/",
 			"build": " Build : V1.0 on 01-JUNE-2018"
 		};

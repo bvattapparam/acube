@@ -103,16 +103,25 @@
 			}
 		};
 
+		$rootScope.negativeFilterReplacer =  function(val){
+			if(!isNaN(val)){
+				const filtered_value = $filter('aswaCurrency')(val).replace("(","-").replace(")","");
+				return filtered_value;
+			}
+		};
+
 		var loadReferences = function(){
 			var deferred = $q.defer();
 			$rootScope.showSpinner();
 			getreferences.getReference().then(function(data){
-				console.log("REFERENCE DATA: ", data);
+				if(typeof data !== 'object'){
+					$rootScope.showInfoBox(Messages['prompt.info.title'], Messages['prompt.label.referencenotloaded']);
+				}
 				deferred.resolve();
-			}, function(response){
+			}, function(data){
 				console.log("ERROR ON LOADING REFERENCES...");
 				deferred.reject();
-			})["finally"](function(response){
+			})["finally"](function(data){
 				$rootScope.hideSpinner();
 			});
 			return deferred.promise;
@@ -168,7 +177,7 @@
 			$scope.modalConfig	=	{
 				"title" 		: title || "Error",
 				"body"			:	error || "body text",
-				"backdrop"		:"static",
+				"backdrop"		:	"static",
 				"showDialog"	:	true,
 				"buttons"		:	[{"label":"close","class":"btn-sm btn-primary"}],
 				"size"			:	size || "md",
@@ -194,7 +203,7 @@
 				title 			: 	title || 'Info',
 				image 			: 	'../img/confirm.png',
 				text			: 	text || 'Information',
-				sticky			: 	false,
+				sticky			: 	sticky || false,
 				time			: 	time || 2000
 			})
 		};

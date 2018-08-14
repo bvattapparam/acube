@@ -1,0 +1,90 @@
+<div class="row section-container">
+    <div class="col-xs-6">
+      <div class="col-xs-12 section-box">
+        <div class="section-box-header">
+          <h2 class="text-uppercase"><i class="fa fa-money"></i> {{'label.projectcash' | i18n}} </h2>
+        </div>
+        <div class="col-xs-12 section-box-body text-right minh-180">
+          <div class="col-lg-3 text-left dashboard-total"><label data-ng-bind="'label.total' | i18n"></label></div>
+          <div class="col-lg-9 text-right dashboard-total"><span  data-ng-bind="(PRTOTALAMOUNT | aswaCurrency) || '&mdash;'"></span></div>
+          
+          <div class="col-lg-3 text-left dashboard-total"><label data-ng-bind="'label.spent' | i18n"></label></div>
+          <div class="col-lg-9 text-right dashboard-total"><span  data-ng-bind="(PO_TOTAL | aswaCurrency) || '&mdash;'"></span></div>
+
+          <div class="col-lg-3 text-left dashboard-total"><label data-ng-bind="'label.balance' | i18n"></label></div>
+          <div class="col-lg-9 text-right dashboard-total" ng-class = "getClass(PRTOTALAMOUNT, PO_TOTAL)"><span data-ng-bind="(poBalanceCal(PRTOTALAMOUNT, PO_TOTAL)) || '&mdash;'"></span></div>
+        </div>
+      </div>
+    </div>
+    <div class="col-xs-6">
+      <div class="col-xs-12 section-box">
+        <div class="section-box-header">
+          <h2 class="text-uppercase"><i class="fa fa-money"></i> {{'label.operationalcash' | i18n}} </h2>
+        </div>
+        <div class="col-xs-12 section-box-body text-right minh-180">
+          <div class="col-lg-3 text-left dashboard-total"><label data-ng-bind="'label.total' | i18n"></label></div>
+          <div class="col-lg-9 text-right dashboard-total"><span  data-ng-bind="(OPTOTALAMOUNT | aswaCurrency) || '&mdash;'"></span></div>
+          
+          <div class="col-lg-3 text-left dashboard-total"><label data-ng-bind="'label.spent' | i18n"></label></div>
+          <div class="col-lg-9 text-right dashboard-total"><span  data-ng-bind="(OPEXP_TOTAL | aswaCurrency) || '&mdash;' "></span></div>
+
+          <div class="col-lg-3 text-left dashboard-total"><label data-ng-bind="'label.balance' | i18n"></label></div>
+          <div class="col-lg-9 text-right dashboard-total" ng-class = "getClass(OPTOTALAMOUNT, OPEXP_TOTAL)"><span data-ng-bind="(opexpBalanceCal(OPTOTALAMOUNT, OPEXP_TOTAL)) || '&mdash;'"></span></div>
+        </div>
+      </div>
+    </div>
+    <dic class="row">&nbsp;</dic>
+
+    <div class="col-xs-12">
+      <div class="col-xs-12 section-box">
+        <div class="section-box-header">
+          <h2 class="text-uppercase"><i class="fa fa-database"></i> {{'label.transactions' | i18n}} </h2>
+        </div>
+        <div class="col-xs-12 section-box-body table-responsive">
+          <table class="table table-hover">
+            <colgroup>
+              <col class="auto-cell-size p-r-20">
+            </colgroup>
+            <thead class="table-bg">
+            <tr>
+              <th></th>
+              <th data-ng-bind-html="'label.payfrom' | i18n"></th>
+              <th data-ng-bind-html="'label.payto' | i18n"></th>
+              <th class="icon-link"><span ng-click="orderByField='AMOUNT'; reverseSort = !reverseSort" data-ng-bind-html="'label.amount' | i18n"></span><span ng-show="orderByField == 'AMOUNT'"><i ng-show="!reverseSort" class="fa fa-arrow-up"></i><i ng-show="reverseSort" class="fa fa-arrow-down"></i></span></th>
+              <th data-ng-bind-html="'label.date' | i18n"></th>
+              <th class="icon-link"><span ng-click="orderByField='POTYPE'; reverseSort = !reverseSort" data-ng-bind-html="'label.typeofpayment' | i18n"></span><span ng-show="orderByField == 'POTYPE'"><i ng-show="!reverseSort" class="fa fa-arrow-up"></i><i ng-show="reverseSort" class="fa fa-arrow-down"></i></span></th>
+              <th><span data-ng-bind-html="'label.customer' | i18n"></span> / <span data-ng-bind-html="'label.expenseitem' | i18n"></span></th>
+              <th data-ng-bind-html="'label.comment' | i18n"></th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr data-ng-repeat="rel in paymentManagerBO | orderBy:orderByField:reverseSort">
+              <td class="f20 part1"></td>
+              <td data-ng-bind="rel.PAYFROM"></td>
+              <td data-ng-bind="rel.PAYTO"></td>
+              <td data-ng-bind="rel.AMOUNT | aswaCurrency"></td>
+              <td data-ng-bind="rel.DATE | aswaDate">Active</td>
+              <td data-ng-bind="refData.referencesDataMap.POTYPE[rel.POTYPE]"></td>
+              <td><span data-ng-bind="rel.CUSTOMERID" data-ng-if="rel.CUSTOMERID"></span> <span data-ng-bind="rel.EXPITEM" data-ng-if="rel.EXPITEM"></span></td>
+              <td><i class="fa fa-eye icon-link fa-lg" tooltip="{{rel.COMMENT}}" tooltip-placement="left"></i></td>
+            </tr>
+            </tbody>
+            <tfoot>
+              <tr><td colspan="8">
+                <div class="row">
+                  <pagination total-items="TOTALITEMS" ng-model="pagination_payment.currentPage"  num-pages="numPages" max-size="pagination_payment.maxSize" class="pagination-sm pull-right" boundary-links="true" rotate="false" ng-change="pageChanged_payment()" items-per-page="pagination_payment.limit" first-text="<<" last-text=">>" next-text=">" previous-text="<"></pagination>
+                  <ul class="pagination-sm pagination pull-right">
+                    <li class="ng-scope disabled"><a href="" ng-click="selectPage(1, $event)" class="ng-binding">Page</a></li>
+                    <li class="ng-scope disabled"><span class="ng-binding">{{pagination_payment.currentPage}} / {{numPages}}</span></li>
+                  </ul>
+                </div>
+              </td></tr>
+            </tfoot>
+          </table>
+          <div class="loadRunner_modules" ng-show="spinnerShow_Payment">
+            <div class="lds-ellipsis"><div></div><div></div><div></div><div></div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>

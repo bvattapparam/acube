@@ -9,6 +9,7 @@ Version: 3.4.8 Timestamp: Thu May  1 09:50:32 EDT 2014
     zoom: 1;
     *display: inline;
     vertical-align: middle;
+    font-size: 15px;
 }
 
 .select2-container,
@@ -308,6 +309,7 @@ Version: 3.4.8 Timestamp: Thu May  1 09:50:32 EDT 2014
     overflow-x: hidden;
     overflow-y: auto;
     -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+    font-size: 15px;
 }
 
 .select2-results ul.select2-result-sub {

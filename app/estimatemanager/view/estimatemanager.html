@@ -18,7 +18,7 @@
     <div class="row section-box">
         <div class="col-sm-6 p-t-m">
           <div class="form-group">
-            <select ng-change="getEstimates();" tabindex="7" class="form-control" ui-select2="common.select2ClearWithoutSearch" ng-model="dataBO.CUSTOMERID" placeholder="{{'placeholder.selectcustomer' | i18n}}">
+            <select ng-change="getEstimates('main');" tabindex="7" class="form-control" ui-select2="common.select2ClearWithoutSearch" ng-model="dataBO.CUSTOMERID" placeholder="{{'placeholder.selectcustomer' | i18n}}">
               <option></option>
               <option data-ng-repeat="item in reference.CUSTOMER" value="{{item.code}}">{{item.name}}</option>
             </select>
@@ -42,7 +42,7 @@
           </div>
         </div>
         <div class="col-xs-12 section-box-body table-responsive">
-          <table class="table table-hover text-uppercase">
+          <table class="table table-hover">
               <colgroup>
                 <col class="auto-cell-size p-r-20">
               </colgroup>
@@ -61,16 +61,16 @@
               </thead>
               <tbody>
               <tr ng-repeat ="rel in estimateManagerBO">
-                <td class="f20 part1"></td>
+                <td class="f20 part1"><i ng-class="lockIcon(rel.STATUS, rel.ESTIMATESTATUS)" class="fa fa-lg" tooltip={{tooltipContent}} tooltip-placement='right'></i></td>
                 <td data-ng-bind="rel.ESTIMATEID"></td>
                 <td data-ng-bind="rel.CUSTOMERID"></td>
-                <td data-ng-bind="rel.MODIFIEDDATE | aswaDate"></td>
-                <td data-ng-bind="rel.MODIFIEDBY"></td>
-                <td data-ng-bind="rel.MODIFIEDDATE | aswaDate"></td>
-                <td data-ng-bind="rel.MODIFIEDBY"></td>
+                <td data-ng-bind="rel.MODIFIEDDATE | aswaDate" class="text-uppercase"></td>
+                <td data-ng-bind="rel.MODIFIEDBY" class="text-uppercase"></td>
+                <td data-ng-bind="rel.MODIFIEDDATE | aswaDate" class="text-uppercase"></td>
+                <td data-ng-bind="rel.MODIFIEDBY" class="text-uppercase"></td>
                 <td class="f20 ng-binding action comment-content"> 
-                  <i class="action-icon-small-primary fa fa-edit"  ng-click="editUser(rel)"></i>
-                  <i class="action-icon-small-primary fa fa-trash" ng-click="showInfoBox('Info', 'generalinfoone', 'sm')"></i>
+                  <i class="action-icon-md-primary fa fa-edit icon-link"  tooltip="{{'tooltip.edit'|i18n}}" ng-click="estimateBasket(rel)"></i>
+                  <i class="action-icon-md-primary fa fa-trash icon-link" tooltip="{{'tooltip.trash'|i18n}}" ng-click="showInfoBox('Info', 'generalinfoone', 'sm')"></i>
                 </td>
               </tr>
               <tr data-ng-if="estimateManagerBO == ''">

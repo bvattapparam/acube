@@ -40,7 +40,7 @@
               </tr>
               </thead>
               <tbody>
-              <tr ng-repeat ="rel in userManagerBO">
+              <tr ng-repeat ="rel in userManagerBO" class="text-uppercase">
                 <td class="f20 part1"><img src="../img/{{rel.AVATAR}}.png" width="25"></td>
                 <td data-ng-bind="rel.USERID"></td>
                 <td data-ng-bind="rel.FULLNAME"></td>
@@ -49,12 +49,24 @@
                 <td data-ng-bind="rel.MODIFIEDDATE | aswaDate"></td>
                 <td data-ng-bind="rel.MODIFIEDBY"></td>
                 <td class="f20 ng-binding action comment-content">
-                  <i class="action-icon-small-primary fa fa-edit"  ng-click="editUser(rel)"></i>
-                  <i class="action-icon-small-primary fa fa-trash" ng-click="showInfoBox('Info', 'generalinfoone', 'sm')"></i>
+                  <i class="action-icon-md-primary fa fa-edit icon-link"  ng-click="editUser(rel)" tooltip="{{'tooltip.edit' | i18n}}"></i>
+                  <i class="action-icon-md-primary fa fa-trash icon-link" ng-click="showInfoBox('Info', 'generalinfoone', 'sm')" tooltip="{{'tooltip.trash' | i18n}}"></i>
                 </td>
               </tr>
               </tbody>
             </table>
+
+            <div class="menu pmd-floating-action" role="navigation"> 
+              <a href="javascript:void(0);" ng-click="addUser('sm');" class="pmd-floating-action-btn btn btn-sm pmd-btn-fab pmd-btn-raised pmd-ripple-effect btn-default" data-title="{{'btn.addnew' | i18n}}"> 
+                <span class="pmd-floating-hidden">{{'btn.addnew' | i18n}}</span> 
+                <i class="fa fa-plus"></i> 
+             </a> 
+              <a href="javascript:void(0);" class="pmd-floating-action-btn btn pmd-btn-fab pmd-btn-raised pmd-ripple-effect btn-primary" data-title="Select Action"> 
+                <span class="pmd-floating-hidden">M</span>
+                <i class="fa fa-th pmd-sm"></i> 
+              </a> 
+            </div>
+
         </div>
         <div class="col-xs-12">
           <div class="audit-box">&nbsp;

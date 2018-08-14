@@ -1,294 +1,289 @@
 (function(){
 
-	function dashboardController($scope, $rootScope, $filter, utilityServices, $modal, mainServices, dashboardServices, getreferences, storageServices){
-		$rootScope.title = "dashboard";
-		$scope.pageHeader = "Dashboard for aswa";
+	function dashboardController($scope, $rootScope, $filter, utilityServices, $modal, mainServices, dashboardServices, customerManagerServices, paymentManagerServices, marketingBasketServices, getreferences, storageServices){
+		
+		$scope.LIMIT_PAYMENT = 80;
 		$scope.sval=5;
-		$scope.refData	={};
+		$scope.refData					=		{};
+		$scope.spinnerShow_Payment		=		false;
 		$scope.refData.referencesDataMap = {
-			"genericStatus" 	: getreferences.referencesData.genericStatus,
-			"genericStatusTwo" 	: getreferences.referencesData.genericStatusTwo
+			"CUSTOMERSTATUS" 	: getreferences.referencesData.CUSTOMERSTATUS,
+			"POTYPE" 	: getreferences.referencesData.POTYPE
 		};
 
+        $scope.reference					=	{};
+		$scope.reference.referenceBO		= 	getreferences.references;
+		
+		// Pagination section is here.
+		$scope.pagination_payment = {
+			currentPage : 1,
+	 		limit: 50,
+	 		maxSize : 5
+		};
+		$scope.pageChanged_payment = function() {
+	    	$scope.getPaymentByUser();
+		};
+ 	
+        $scope.getCustomerStatusCount = function(){
+			$rootScope.showSpinner();
+			customerManagerServices.getStatusCount().then(function(data){
+				if(data.msg!=''){
+					$scope.customerStatusBO = [];
+                    $scope.customerStatusBO = data;
+                    $scope.chart = [];
+                    $scope.chartValue(data);
+					$rootScope.hideSpinner();
+				}else{
+					$rootScope.hideSpinner();
+					$rootScope.showErrorBox('Error', data.error);
+				}
+				
+			});
+        };
+		
+		
+		// PAYMENT DETAILS FOR SUPERVISOR AND ADMIN...
+		$scope.getPayment = function(){
+			$rootScope.showSpinner();
+			var pushdata 			=	{}
+			pushdata.pagenation		=	false;
+			paymentManagerServices.getPayment(pushdata).then(function(data){
+				if(data.msg!=''){
+					$scope.paymentManagerBO	=	[];
+					$scope.paymentManagerBO	= data[0].ITEM;
+					//$scope.adminPaymentBO = data;
+					$scope.paymentManagerBO	= $scope.paymentManagerBO.slice(0,10);
+					
+					var totalamount = 0;
+					// for(var i = 0; i< $scope.adminPaymentBO.length;i++){
+					// 	var amount 	=	$scope.adminPaymentBO[i].AMOUNT;
+					// 	totalamount += Number(amount);
+					// }
+					//$scope.TOTALAMOUNT 	=	totalamount;
+					$rootScope.hideSpinner();
+				}else{
+					$rootScope.hideSpinner();
+					$rootScope.showErrorBox('Error', data.error);
+				}
+				
+			});
+		};
+		
+		
+		//	MARKETING BASKET / TOP 10 CUSTOMERS.
+		$scope.getCustomers = function(){
+			var pushdata 		= 	{};
+			pushdata.pagenation		=	false;
+			$rootScope.showSpinner();
+			marketingBasketServices.getCustomers(pushdata).then(function(data){
+				if(data.msg!=''){
+					$scope.customerManagerBO	=	[];
+					$scope.customerManagerBO 	= 	data[0].ITEM;
+					$rootScope.hideSpinner();
+				}else{
+					$rootScope.hideSpinner();
+					$rootScope.showErrorBox('Error', data.error);
+				}
+				
+			});
+		};
+           
+        $scope.chartValue = function(data){
+            angular.forEach(data, function(val, key){
+                var node 	=	{};
+                node.name = $scope.refData.referencesDataMap.CUSTOMERSTATUS[val.STATUS];
+                node.y = val.VALUE;
+                $scope.chart.push(node);
+            });
+            $scope.options.series[0].data = $scope.chart;
+			var chart = new Highcharts.Chart($scope.options);
+        };
 
-	Highcharts.chart('container', {
-    chart: {
-        type: 'bar'
-    },
-    title: {
-        text: 'Top 5 Customers Instrumental'
-    },
-    xAxis: {
-        categories: ['Bijeshkumar', 'Maruthi', 'Rao', 'Kissinger', 'Manju']
-    },
-    yAxis: {
-        min: 0,
-        title: {
-            text: 'Total fruit consumption'
-        }
-    },
-    legend: {
-        reversed: true
-    },
-    plotOptions: {
-        series: {
-            stacking: 'normal'
-        }
-    },
-    series: [{
-        name: 'Labour',
-        data: [5000, 4500, 4000, 7000, 2000],
-         marker: {
-            symbol: 'triangle'
-        }
-    }, {
-        name: 'Wood',
-        data: [2000, 2000, 3000, 2000, 10000],
-         marker: {
-            symbol: 'triangle'
-        }
-    }, {
-        name: 'Others',
-        data: [3000, 4000, 4000, 2000, 5000],
-         marker: {
-            symbol: 'triangle'
-        }
-    }]
-});
-
-
-Highcharts.chart('containerpie', {
-    chart: {
-        plotBackgroundColor: null,
-        plotBorderWidth: null,
-        plotShadow: false,
-        type: 'pie'
-    },
-    title: {
-        text: 'Top 10 Customers'
-    },
-    tooltip: {
-        pointFormat: '{series.name}: <b>{point.y:.1f}</b>'
-    },
-    plotOptions: {
-        pie: {
-            allowPointSelect: true,
-            cursor: 'pointer',
-            dataLabels: {
-                enabled: false
+        $scope.options = {
+            chart: {
+                renderTo: 'container',
+                plotBackgroundColor: null,
+                plotBorderWidth: null,
+                plotShadow: false,
+                type: 'pie'
             },
-            showInLegend: true
-        }
-    },
-    series: [{
-        name: 'Brands',
-        colorByPoint: true,
-        data: [{
-            name: 'Manju',
-            y: 6000000,
-            sliced: true,
-            selected: true
-        }, {
-            name: 'Bijeshkumar',
-            y: 500000
-        }, {
-            name: 'Maruthi',
-            y: 1000000
-        }, {
-            name: 'Lavanya',
-            y: 400000
-        }, {
-            name: 'Kissinger',
-            y: 418000
-        }, {
-            name: 'Rao',
-            y: 700000
-        }]
-    }]
-});
+            title: {
+                text: ''
+            },
+            tooltip: {
+				//pointFormat: '<b>{point.y:.1f}</b>'
+				formatter: function(){
+					return '<div>'+ this.y + '</div>';
+				}
+            },
+            plotOptions: {
+                pie: {
+                    allowPointSelect: true,
+                    cursor: 'pointer',
+                    dataLabels: {
+                        enabled:false
+                    },
+                    showInLegend: true
+                }
+            },
+            series: [{
+            }]
+        };
+        
 
-Highcharts.chart('container3', {
-    chart: {
-        type: 'spline'
-    },
-    title: {
-        text: 'Monthly Average Revenue'
-    },
-    subtitle: {
-        text: ''
-    },
-    xAxis: {
-        categories: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun',
-            'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
-    },
-    yAxis: {
-        title: {
-            text: ''
-        },
-        labels: {
-            formatter: function () {
-                return this.value + '%';
-            }
-        }
-    },
-    tooltip: {
-        crosshairs: true,
-        shared: true
-    },
-    plotOptions: {
-        spline: {
-            marker: {
-                radius: 4,
-                lineColor: '#666666',
-                lineWidth: 1
-            }
-        }
-    },
-    series: [{
-        name: 'Income',
-        marker: {
-            symbol: 'square'
-        },
-        data: [7.0, 6.9, 9.5, 14.5, 18.2, 21.5, 25.2, {
-            y: 26.5,
-            marker: {
-                symbol: 'square'
-            }
-        }, 23.3, 18.3, 13.9, 9.6]
-
-    }, {
-        name: 'Expense',
-        marker: {
-            symbol: 'square'
-        },
-        data: [{
-            y: 3.9,
-            marker: {
-                symbol: 'square'
-            }
-        }, 4.2, 5.7, 8.5, 11.9, 15.2, 17.0, 16.6, 14.2, 10.3, 6.6, 4.8]
-    }]
-});
-	
-
-		$scope.currentMonth	=	$filter('date')(new Date(), "MMMM");
-		$scope.emptyRowCount = 5;
-		$scope.iowe	=	{};
-		$scope.getIowe = function(){
+		// FOR JURI_SUPERVISOR...
+		$scope.getCashDetails =  function(){
+			var pushData 			= {};
+			pushData.USERID 	= $rootScope.user.USERID;
 			$rootScope.showSpinner();
-			dashboardServices.getIowe().then(function(data){
-				$scope.iowe.ioweBO = [];
-					$scope.iowe.ioweBO = data;
+			paymentManagerServices.getCashDetails(pushData).then(function(data){
+				if(data.msg!=''){
+					$scope.dataBO	=	[];
+					$scope.dataBO 	= 	data;
+					$scope.prEXP 	= 	[];
+					$scope.opEXP	=	[];
+					angular.forEach(data, function(val, key){
+						if(val.POTYPE === 'PREXP'){
+							$scope.prEXP.push(val);
+						}
+						if(val.POTYPE === 'OPEXP'){
+							$scope.opEXP.push(val);
+						}
+					});
+
+					var opTotalAmount = 0;
+					for(var i = 0; i< $scope.opEXP.length;i++){
+						var amount 	=	$scope.opEXP[i].AMOUNT;
+						opTotalAmount += Number(amount);
+					}
+					$scope.OPTOTALAMOUNT 	=	opTotalAmount;
+
+					var prTotalAmount = 0;
+					for(var i = 0; i< $scope.prEXP.length;i++){
+						var amount 	=	$scope.prEXP[i].AMOUNT;
+						prTotalAmount += Number(amount);
+					}
+					$scope.PRTOTALAMOUNT 	=	prTotalAmount;
+
 					$rootScope.hideSpinner();
+				}else{
+					$rootScope.hideSpinner();
+					$rootScope.showErrorBox('Error', data.error);
+				}
+				
 			});
 		};
-		//$scope.getIowe();
 
-		// FOR BILL REMINDER MODULE..
-		$scope.br	=	{};
-		$scope.getBR = function(){
-			$rootScope.showSpinner();
-			dashboardServices.getBR().then(function(data){
-				$scope.br.brBO = [];
-					$scope.br.brBO = data;
-					$rootScope.hideSpinner();
+		$scope.getPaymentByUser = function(){
+			$scope.spinnerShow_Payment = true;
+			var pushData 					= 	{};
+			pushData.USERID 				= 	$rootScope.user.USERID;
+			pushData.limit					=	$scope.pagination_payment.limit;
+			pushData.currentPage			=	$scope.pagination_payment.currentPage;
+			pushData.pagenation				=	true;
+			paymentManagerServices.getPaymentByUser(pushData).then(function(data){
+
+				console.log("data", data)
+				if(data.msg!=''){
+					$scope.paymentManagerBO			=	[];
+					$scope.paymentManagerBO 		= 	data[0].ITEM;
+					$scope.TOTALITEMS 				= 	data[1].TOTAL.TOTAL;
+					$scope.PO_TOTAL					= 	data[2].POTOTALAMOUNT[0].POAMOUNT;
+					$scope.OPEXP_TOTAL				= 	data[3].OPEXPTOTALAMOUNT[0].OPEXPAMOUNT;
+					$scope.spinnerShow_Payment 		= 	false;
+				}else{
+					$scope.spinnerShow_Payment = false;
+					$rootScope.showErrorBox('Error', data.error);
+				}
 			});
-		};
-		//$scope.getBR();
-		$scope.getGrandTotal	={};
-
-		$scope.getGrandTotal = function(){
-			$rootScope.showSpinner();
-			mainServices.getGrandTotal().then(function(data){
-				$scope.getGrandTotal.getGrandTotalBO = [];
-					$scope.getGrandTotal.getGrandTotalBO = data;
-					$rootScope.hideSpinner();
-			});
-		};
-		//$scope.getGrandTotal();
-
-		$scope.addBR = function (size) {
-			var config= {};
-			config.templateUrl = '../app/dashboard/containers/edit/br.edit.html';
-			config.controller = 'brEditController';
-			config.size		= 'm';
-			config.backdrop	= 'static';
-			config.passingValues = {};
-			config.passingValues.title = Messages['addbr'];
-			config.callback = function(status, item){
-				if(status === 'success') {
-					storageServices.remove("dashboard_", "getBR");
-					$scope.getBR();
-				}
-			}
-			utilityServices.openConfigModal($modal, config);
-		};
-
-		$scope.editBR = function (data) {
-			var config= {};
-			config.templateUrl = '../app/dashboard/containers/edit/br.edit.html';
-			config.controller = 'brEditController';
-			config.size		= 'm';
-			config.backdrop	= 'static';
-			config.passingValues = {};
-			config.passingValues.title = Messages['editbr'];
-			config.passingValues.brBO = data;
-			config.passingValues.isEdit = true;
-			config.callback = function(status, item){
-				if(status === 'success') {
-					storageServices.remove("dashboard_", "getBR");
-					$scope.getBR();
-				}
-			}
-			utilityServices.openConfigModal($modal, config);
-		};
-
-		// add new IOWE entry
-		$scope.addIOWE = function (size) {
-			var config= {};
-			config.templateUrl = '../app/dashboard/containers/edit/iowe.edit.html';
-			config.controller = 'ioweEditController';
-			config.size		= 'm';
-			config.backdrop	= 'static';
-			config.passingValues = {};
-			config.passingValues.title = Messages['addiowe'];
-			config.callback = function(status, item){
-				if(status === 'success') {
-					storageServices.remove("dashboard_", "getIowe");
-					$scope.getIowe();
-				}
-			}
-			utilityServices.openConfigModal($modal, config);
-		};
-
-		$scope.editIOWE= function (data) {
-			var config= {};
-			config.templateUrl = '../app/dashboard/containers/edit/iowe.edit.html';
-			config.controller = 'ioweEditController';
-			config.size		= 'm';
-			config.backdrop	= 'static';
-			config.passingValues = {};
-			config.passingValues.title = Messages['editiowe'];
-			config.passingValues.ioweBO = data;
-			config.passingValues.isEdit = true;
-			config.callback = function(status, item){
-				if(status === 'success') {
-					storageServices.remove("dashboard_", "getIowe");
-					$scope.getIowe();
-				}
-			}
-			utilityServices.openConfigModal($modal, config);
 		};
 
 		$scope.refresh	=	function(){
-			console.log("refresh");
-			storageServices.remove("dashboard_", "getIowe");
-			storageServices.remove("dashboard_", "getBR");
-			storageServices.remove("dashboard_", "getGrandTotal");
-			$scope.getBR();
-			$scope.getIowe();
-			$scope.getGrandTotal();
+			if($rootScope.user.PERMISSIONS[0] === 'JRD_ADMIN'){
+				$scope.getCustomerStatusCount();
+				$scope.getPayment();
+				$scope.getCustomers();
+			} else if ($rootScope.user.PERMISSIONS[0] === 'JRD_SUPERVISOR') {
+				$scope.getCashDetails();
+				$scope.getPaymentByUser();
+			};
 		};
+		
+		if($rootScope.user.PERMISSIONS[0] === 'JRD_ADMIN'){
+			$scope.getCustomerStatusCount();
+			$scope.getPayment();
+			$scope.getCustomers();
+		} else if ($rootScope.user.PERMISSIONS[0] === 'JRD_SUPERVISOR') {
+			$scope.getCashDetails();
+			$scope.getPaymentByUser();
+		}else if ($rootScope.user.PERMISSIONS[0] === 'JRD_MARKETING') {
+			$scope.getCustomerStatusCount();
+			$scope.getPaymentByUser();
+			$scope.getCustomers();
+		};
+		
+		$scope.poBalanceCal = function(val1, val2){
+			if(typeof val1 !== 'undefined' && typeof val2 !== 'undefined'){
+				const balance =  Number(val1) - Number(val2);
+				const balance_filter = $rootScope.negativeFilterReplacer(balance);
+				return balance_filter;
+			}
+		};
+		$scope.opexpBalanceCal = function(val1, val2){
+			if(typeof val1 !== 'undefined' && typeof val2 !== 'undefined'){
+				const balance =  Number(val1) - Number(val2);
+				const balance_filter = $rootScope.negativeFilterReplacer(balance);
+				return balance_filter;
+			}
+		};
+		$scope.getClass = function(val1, val2){
+			const balance =  Number(val1) - Number(val2);
+			if(balance < 0){
+				return 'red-text';
+			}
+		};
+		
+		$scope.orderByField = 'POTYPE';
+		$scope.reverseSort = false;
+  
+        $scope.players = [
+			{name: 'Gene', team: 'alpha'},
+			{name: 'George', team: 'beta'},
+			{name: 'Steve', team: 'gamma'},
+			{name: 'Paula', team: 'beta'},
+			{name: 'Scruath', team: 'gamma'}
+		  ];
+		  $scope.todocount = 1;
+		 
+
+		  $scope.todoClient = function (data) {
+			var config= {};
+				config.templateUrl = '../app/todo/edit/todo.client.html';
+				config.controller = 'todoClientController';
+				config.size		= 'lg';
+				config.backdrop	= 'static';
+				config.passingValues = {};
+				config.passingValues.title = Messages['todo.todoclient.todolist'];
+				config.passingValues.dataBO = data;
+				config.passingValues.isEdit = true;
+				config.callback = function(status, item){
+					if(status === 'success') {
+						//$scope.getPOBasket();
+					}
+				}
+				utilityServices.openConfigModal($modal, config);
+		};
+		if($scope.todocount > 0){
+		//	$scope.todoClient();
+		}
+		
+
+		//$scope.dd();
+		
+
+
+		
+		
 	}
-	angular.module('aswa').controller('dashboardController',['$scope', '$rootScope', '$filter', 'utilityServices', '$modal', 'mainServices', 'dashboardServices', 'getreferences', 'storageServices', dashboardController]);
+	angular.module('aswa').controller('dashboardController',['$scope', '$rootScope', '$filter', 'utilityServices', '$modal', 'mainServices', 'dashboardServices', 'customerManagerServices', 'paymentManagerServices', 'marketingBasketServices', 'getreferences', 'storageServices', dashboardController]);
 })();

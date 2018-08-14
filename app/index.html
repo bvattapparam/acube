@@ -16,18 +16,19 @@
 
     <link rel="icon" href="../img/fav-icon.png" />
     <title>PAAP - Personal Accounts Application Programme</title>
-    <link href="https://fonts.googleapis.com/css?family=Roboto+Condensed:400,700" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="../css/metro-icons.css">
     <link rel="stylesheet" type="text/css" href="../css/app.css">
     <link rel="stylesheet" href="../css/_lib/select2/select2.css">
     <link rel="stylesheet" href="../css/_lib/select2/select2-bootstrap.css">
 
     <link rel="stylesheet" href="../css/_lib/chart/angular-chart.css">
-
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.3.4/jspdf.min.js"></script>
     <script src="../js/libs/jquery/jquery.min.js"></script>
+    
     <script src="../js/libs/angularjs/1.3.16/angular.min.js"></script>
     <script src="../js/libs/angularjs/angular-route.min.js"></script>
     <script src="../js/libs/angularjs/1.3.17/angular-sanitize.js"></script>
+    <script src="../js/libs/angularjs/angular-filter.min.js"></script>
     <script src="../js/libs/bootstrap/0.13.0/ui-bootstrap-tpls-0.13.0.js"></script>
     <script src="../js/libs/angularjs/datetime-picker.js"></script>
     <script src="../js/libs/select2/select2.js"></script>
@@ -42,7 +43,7 @@
     
     <script src="../js/libs/fusionchart/angular-fusioncharts.js"></script>
 
-    <script src="https://code.highcharts.com/highcharts.js"></script>
+    <script src="../js/libs/chart/high-chart.min.js"></script>
 
     
 <script>
@@ -54,24 +55,15 @@
 <main>
   <div class="main-container">
   <div class="row" ng-if="user" ng-include src="'common/tpl/common.tpl.topnav.html'"  data-ng-controller='headerController'></div>
-  <div class="main-section">
+  <div class="main-section" style="margin-bottom:100px;">
       <div class="col-sm-12 main-content" ng-class="{'main-content-view': user}" ng-view></div>
   </div>
   
-  <div class="row" style="position:fixed; width:100%;bottom:0" ng-include src="'common/footer/view/common.footer.view.footer.html'"></div>
+  <div class="row" ng-include src="'common/footer/view/common.footer.view.footer.html'"></div>
 </div>
 
 <div class="loadRunner" ng-show="spinnerShow">
-  <div style="position: absolute;
-    left: 50%;
-    top: 50%;
-    text-align: center;
-    width:100px;
-    height:100px;
-    margin-left: -100px;
-    margin-top: -50px; ">
-    <div style="width:100px; padding:5px; background-color:#fff; text-align:center; border-radius:10px"><img src="../img/lr1.gif"></div>
-  </div>
+  <div class="lds-hourglass"><div></div><div></div><div></div><div></div></div>
 </div>
 
 
@@ -81,6 +73,7 @@
     <script src="config/router.js"></script>
     <script src="config/config.settings.js"></script>
     <script src="config/config.urlsettings.js"></script>
+    <script src="filters/directives.js"></script>
     <script src="filters/filters.js"></script>
     <script src="filters/i18n.js"></script>
     <script src="common/services/authentication.service.js"></script>
@@ -105,9 +98,6 @@
     <script src="dashboard/dashboard.services.js"></script>
     <script src="dashboard/dashboard.controller.js"></script>
 
-    <script src="dashboard/containers/edit/br.edit.controller.js"></script>
-    <script src="dashboard/containers/edit/iowe.edit.controller.js"></script>
-
     <script src="myaccount/myaccount.services.js"></script>
     <script src="myaccount/view/myaccount.controller.js"></script>
     <script src="myaccount/edit/myaccount.controller.js"></script>
@@ -118,12 +108,50 @@
 
     <script src="customermanager/customermanager.services.js"></script>
     <script src="customermanager/view/customermanager.controller.js"></script>
+    <script src="customermanager/view/customerview.controller.js"></script>
     <script src="customermanager/edit/customermanager.controller.js"></script>
+    <script src="customermanager/edit/customer-pay.controller.js"></script>
+    <script src="customermanager/edit/customer-note.controller.js"></script>
+    <script src="customermanager/view/customernoteview.controller.js"></script>
+    
+    <script src="vendormanager/vendormanager.services.js"></script>
+    <script src="vendormanager/view/vendormanager.controller.js"></script>
+    <script src="vendormanager/edit/vendormanager.controller.js"></script>
+
+    <script src="todo/edit/todo.client.controller.js"></script>
+    
 
     <script src="estimatemanager/estimatemanager.services.js"></script>
     <script src="estimatemanager/view/estimatemanager.controller.js"></script>
-    <script src="estimatemanager/view/estimategenerate.controller.js"></script>
-    <script src="estimatemanager/edit/estimatemanager.controller.js"></script>
+    <script src="estimatemanager/view/estimatebasket.controller.js"></script>
+    <script src="estimatemanager/generate/estimatepdf.controller.js"></script>
+    <script src="estimatemanager/edit/estimatebasket.controller.js"></script>
+
+
+    <script src="quotemanager/quotemanager.services.js"></script>
+    <script src="quotemanager/view/quotemanager.controller.js"></script>
+    <script src="quotemanager/view/quotebasket.controller.js"></script>
+    <script src="quotemanager/edit/quotebasket.controller.js"></script>
+
+    
+    <script src="paymentmanager/paymentmanager.services.js"></script>
+    <script src="paymentmanager/view/paymentmanager.controller.js"></script>
+    <script src="paymentmanager/edit/paymentmanager.controller.js"></script>
+
+    <script src="labourmanager/labourmanager.services.js"></script>
+    <script src="labourmanager/view/labourmanager.controller.js"></script>
+    <script src="labourmanager/view/labourmanager.shiftview.controller.js"></script>
+    <script src="labourmanager/edit/labourshift.controller.js"></script>
+    
+    <script src="pomanager/pomanager.services.js"></script>
+    <script src="pomanager/view/pomanager.controller.js"></script>
+    <script src="pomanager/view/pobasket.controller.js"></script>
+    <script src="pomanager/edit/pobasket.controller.js"></script>
+
+    <script src="opexpmanager/opexpmanager.services.js"></script>
+    <script src="opexpmanager/view/opexpmanager.controller.js"></script>
+    <script src="opexpmanager/view/opexpbasket.controller.js"></script>
+    <script src="opexpmanager/edit/opexpbasket.controller.js"></script>
 
     <script src="marketingbasket/marketingbasket.services.js"></script>
     <script src="marketingbasket/view/marketingbasket.controller.js"></script>
@@ -151,11 +179,8 @@
     });
 </script>
 
-<style>
-.tooltip {
-    position: fixed;
-}
-</style>
 
 </body>
 </html>
+<script src="../js/pdfmaker/build/pdfmake.js"></script>
+<script src="../js/pdfmaker/build/vfs_fonts.js"></script>

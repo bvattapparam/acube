@@ -7,16 +7,32 @@
 		$scope.reference.referenceBO		= 	getreferences.references;
 		$scope.referenceData					=	{};
 		$scope.referenceData.referencesDataMap 	= {
-			"genericstatus" 	: getreferences.referencesData.GENERICSTATUS
+			"CUSTOMERSTATUS" 	: getreferences.referencesData.CUSTOMERSTATUS,
+			"CUSTOMERTYPE" 	: getreferences.referencesData.CUSTOMERTYPE
 		};
 
+		// Pagination section is here.
+		$scope.pagination_payment = {
+			currentPage : 1,
+	 		limit: 100,
+	 		maxSize : 5
+		};
+		$scope.pageChanged_payment = function() {
+	    	$scope.getCustomers();
+		};
 
 		$scope.getCustomers = function(){
+			var pushdata				=	{};
+			pushdata.limit				=	$scope.pagination_payment.limit;
+			pushdata.currentPage		=	$scope.pagination_payment.currentPage;
+			pushdata.filterstatus		=	false;
+			pushdata.pagenation			=	true;
 			$rootScope.showSpinner();
-			marketingBasketServices.getCustomers().then(function(data){
+			marketingBasketServices.getCustomers(pushdata).then(function(data){
 				if(data.msg!=''){
-					$scope.dataBO	=	[];
-					$scope.dataBO 	= 	data;
+					$scope.dataBO				=	[];
+					$scope.dataBO 				= 	data[0].ITEM;
+					$scope.TOTALITEMS 			= 	data[1].TOTAL.TOTAL;
 					$rootScope.hideSpinner();
 				}else{
 					$rootScope.hideSpinner();
@@ -32,7 +48,7 @@
 			var config= {};
 				config.templateUrl = '../app/marketingbasket/edit/marketingbasket.html';
 				config.controller = 'marketingBasketEditController';
-				config.size		= 'm';
+				config.size		= 'lg';
 				config.backdrop	= 'static';
 				config.passingValues = {};
 				config.passingValues.title = Messages['marketingbasket.edit'];
@@ -50,7 +66,7 @@
 			var config= {};
 				config.templateUrl = '../app/marketingbasket/edit/marketingbasket.html';
 				config.controller = 'marketingBasketEditController';
-				config.size		= 'm';
+				config.size		= 'lg';
 				config.backdrop	= 'static';
 				config.passingValues = {};
 				config.passingValues.title = Messages['marketingbasket.add'];

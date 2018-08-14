@@ -1,0 +1,88 @@
+<form name="frm">
+  <div id="confirmationmodal">
+    <div class="col-xs-12 modal-container">
+      <div class="modal-header modal-header-customized">
+        <h2> {{ passingValues.title }}<i class="fa fa-close pull-right icon-link" ng-click="cancel(frm);"></i></h2>
+      </div>
+        <div class="row">
+          <div class="col-xs-12">
+            <div class="modal-body confirmationbox-body">
+              <div class ="row" ng-if="MODE === 'shiftpay'">
+                  <div class="col-xs-12">
+                    <div class="form-group">
+                    <label ng-bind="'label.totalshifts' | i18n"></label>
+                      <input tabindex="1" type="text" class="form-control" tabindex="1" data-ng-model="shiftBO.SHIFT" maxlength="50" ng-disabled="true" data-ng-change="amountCal(shiftBO.SHIFT, shiftBO.PERSHIFT)">
+                    </div>
+                  </div>
+                  <div class="col-xs-12">
+                    <div class="form-group">
+                    <label ng-bind="'label.pershift' | i18n"></label>
+                      <input tabindex="2" type="text" class="form-control" tabindex="1" data-ng-model="shiftBO.PERSHIFT" acube-currency maxlength="50" data-ng-change="amountCal(shiftBO.SHIFT, shiftBO.PERSHIFT)">
+                    </div>
+                  </div>
+                  <div class="col-xs-12">
+                    <div class="form-group">
+                    <label ng-bind="'label.salary' | i18n"></label>
+                      <input tabindex="3" type="text" class="form-control" tabindex="1" data-ng-model="shiftBO.SALARY" acube-currency maxlength="50" ng-disabled="true">
+                    </div>
+                  </div>
+              </div>
+              <div class ="row" ng-if="MODE === 'tms'">
+                <table class="table table-hover">
+                  <colgroup>
+                    <col class="auto-cell-size p-r-20">
+                  </colgroup>
+                  <thead class="table-bg">
+                  <tr>
+                    <th></th>
+                    <th ng-repeat ="rel in dataBO.TMS">{{rel.WORKDATE}}</th>
+                  </tr>
+                  </thead>
+                  <tbody>
+                  <tr class="text-uppercase">
+                    <td></td>
+                    <td ng-repeat ="rel in dataBO.TMS">
+                        <input tabindex="1" type="text" class="form-control" tabindex="1" ng-model="rel.SHIFT" maxlength="10" acube-num>
+                        <input type="hidden" class="form-control" tabindex="1" ng-model="rel.ID" maxlength="10" acube-num>
+                    </td>
+                  </tr>
+                  
+                  </tbody>
+                </table>
+              </div>
+              <div class ="row" ng-if="MODE === 'labour'">
+                <div class="col-xs-12">
+                  <div class="form-group">
+                    <label ng-bind="'label.labourid' | i18n"></label>
+                      <input tabindex="2" type="text" class="form-control" tabindex="1" data-ng-model="dataBO.LABOURID" ng-disabled="true">
+                  </div>
+                </div>
+                <div class="col-xs-12">
+                  <div class="form-group">
+                    <label ng-bind="'label.labour' | i18n"></label>
+                      <input tabindex="2" type="text" class="form-control" tabindex="1" data-ng-model="dataBO.LABOUR" maxlength="50">
+                  </div>
+                </div>  
+              </div>
+            </div>
+              
+          </div>
+          <div class="row">
+            <div class="col-xs-12">
+              <div class="modal-footer">
+                <button tabindex="5" class="btn camelcase btn-default" ng-click="cancel(frm)">Cancel</button>
+                <button tabindex="4" ng-if="MODE === 'shiftpay'" class="btn camelcase btn-primary" ng-click="savePay(shiftBO)">{{'label.saveamount' | i18n}}</button>
+                <button tabindex="4" ng-if="MODE === 'tms'" class="btn camelcase btn-primary" ng-click="saveTMS(dataBO.TMS)">{{'label.saveshift' | i18n}}</button>
+                <button tabindex="4" ng-if="MODE === 'labour'" class="btn camelcase btn-primary" ng-click="saveLabour(dataBO)">{{'label.savelabour' | i18n}}</button>
+              </div>
+            </div>
+          </div>
+          <div class="col-xs-12">
+          <div class="audit-box" ng-if="isEdit">
+             <span ng-if="MODE === 'shiftpay'">{{'label.createdby' | i18n}} <strong>{{shiftBO.CREATEDBY}} </strong> on <strong>{{shiftBO.CREATEDDATE}}</strong>. {{'label.modifiedby' | i18n}} <strong>{{shiftBO.MODIFIEDBY}}</strong> on <strong>{{shiftBO.MODIFIEDDATE}}</strong></span> 
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</form>
