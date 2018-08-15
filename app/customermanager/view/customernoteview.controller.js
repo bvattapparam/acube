@@ -12,7 +12,6 @@
 				if(data.msg!=''){
 					$scope.noteBO	=	[];
                     $scope.noteBO 	= 	data;
-                    console.log('data    ', data)
 					$rootScope.hideSpinner();
 				}else{
 					$rootScope.hideSpinner();
@@ -57,6 +56,10 @@
 					}
 				}
 				utilityServices.openConfigModal($modal, config);
+		};
+
+		$scope.refresh	=	function(){
+			$scope.getNote();
 		};
 
 	}

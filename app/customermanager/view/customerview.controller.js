@@ -72,7 +72,6 @@
 			$scope.showModuleSpinner = true;
 			customerManagerServices.getTotals(pushdata).then(function(data){
 				if(data.msg!=''){
-					console.log('DATA ... ', data)
 					$scope.totalsBO			=	[];
 					$scope.totalsBO 		= 	data;
 					if(data[0].QUOTEAMOUNT.length > 0){
@@ -93,9 +92,6 @@
 							$scope.MANDAYS = $scope.MANDAYS + ' ' + Messages['label.mandays'];
 						}
 					}
-					
-					//$scope.LBRAMOUNT		=	30000;
-
 					if(typeof $scope.PROJECTCOST !== 'undefined' && typeof $scope.PAIDAMOUNT !== 'undefined'){
 						const balance =  Number($scope.PROJECTCOST) - Number($scope.PAIDAMOUNT);
 						$scope.BALANCEAMOUNT = $rootScope.negativeFilterReplacer(balance);
@@ -206,7 +202,6 @@
         };
 
 		$scope.getClass = function(val){
-			console.log('va', val)
 			if(val < 0){
 				return 'red-text';
 			}
@@ -257,7 +252,6 @@
 			$scope.getTotals();
 			$scope.getCustomer();
 		};	
-
 
 	}
 

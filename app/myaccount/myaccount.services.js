@@ -21,7 +21,6 @@
        
 
         this.updateUserData = function(pushdata){
-          console.log("SSSs", pushdata)
           var deferred = $q.defer();
           $http({
             method  : "POST",

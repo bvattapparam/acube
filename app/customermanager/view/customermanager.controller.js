@@ -29,18 +29,10 @@
 			//statusfilters,limit, currentpage, filterstatus
 			$rootScope.showSpinner();
 			customerManagerServices.getCustomers(pushdata).then(function(data){
-				console.log("data", data)
 				if(data.msg!=''){
 					$scope.customerManagerBO	=	[];
 					$scope.TOTALITEMS 			= 	data[1].TOTAL.TOTAL;
 					$scope.customerManagerBO	=	data[0].ITEM;
-					// angular.forEach(data_item, function(item,key){
-					// 	angular.forEach($rootScope.settings.SHOW_CUSTOMER_STATUS, function(citem,ckey){
-					// 		if(item.STATUS == citem){
-					// 			$scope.customerManagerBO.push(item)
-					// 		}
-					// 	});
-					// });
 					$rootScope.hideSpinner();
 				}else{
 					$rootScope.hideSpinner();
@@ -53,7 +45,6 @@
 		$scope.getCustomers();
 
 		$scope.editCustomer = function (data) {
-			console.log("yes", data);
 			var config= {};
 				config.templateUrl = '../app/customermanager/edit/customermanager.html';
 				config.controller = 'customerManagerEditController';
@@ -79,7 +70,6 @@
 				config.backdrop	= 'static';
 				config.passingValues = {};
 				config.passingValues.title = Messages['customermanager.add'];
-				//config.passingValues.dataBO = data;
 				config.passingValues.isEdit = false;
 				config.callback = function(status, item){
 					if(status === 'success') {
@@ -92,9 +82,6 @@
 		$scope.refresh	=	function(){
 			$scope.getCustomers();
 		};
-
-		
-
 
 	}
 

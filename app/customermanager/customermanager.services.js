@@ -97,8 +97,6 @@
             url     : urlsettings['customermanager.getPQE'],
             data    : pushdata
           }).success(function(data, status, headers, config){
-
-            console.log('total data ', data)
             deferred.resolve(data);
           }).error(function(data, status, headers, config){
             deferred.reject(data, status, headers, config);

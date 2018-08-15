@@ -121,22 +121,21 @@
 			});
 		};
 		$scope.generateEstimate = function(version){
-			// AGM-ESTI-R-BI-V0-41720182123;
+			// AGM-ESTI-R-BIJ-V0-41720182123;
 			var CUSTOMERID = $scope.dataBO.CUSTOMERID;
 			var VERSION = version;
-			var CUSTOMER_TYPE = $scope.customerManagerBO[0].TYPE;
-			var CUSTOMERNAME = $scope.customerManagerBO[0].FULLNAME;
+			var CUSTOMER_TYPE = $scope.customerManagerBO.TYPE;
+			var CUSTOMERNAME = $scope.customerManagerBO.FULLNAME;
 			var COMPANY = "AGM";
 			var ENTITY = "ESTI";
 			var D = new Date();
 			var NDATE = D.getMonth()+1 + "" + D.getDate() + "" + D.getFullYear() + "" + D.getHours() + "" + D.getMinutes();
-			var ESTIMATEID = COMPANY + "-" + ENTITY + "-" + CUSTOMER_TYPE + "-" + CUSTOMERNAME.substr(0,2).toUpperCase() + "-" + VERSION + "-" + NDATE;
+			var ESTIMATEID = COMPANY + "-" + ENTITY + "-" + CUSTOMER_TYPE + "-" + CUSTOMERNAME.substr(0,3).toUpperCase() + "-" + VERSION + "-" + NDATE;
 
 			var pushData = {};
 			pushData.ESTIMATEID = ESTIMATEID;
 			pushData.CUSTOMERID = CUSTOMERID;
 			pushData.MODIFIEDBY = $rootScope.user.USERID;
-			console.log("pdata ", pushData)
 
 			estimateManagerServices.generateEstimate(pushData).then(function(status){
 				if(status==200){
@@ -153,7 +152,6 @@
 
 		$scope.generatenewest = function(){
 			var customerid = $scope.dataBO.CUSTOMERID;
-			console.log("customerid", customerid)
 			if(customerid){
 				// GET CUSTOMER DETAILS
 				$scope.getCustomer(customerid);

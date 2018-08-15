@@ -185,7 +185,6 @@
 	$scope.getCustomers();
 
 	$scope.getLabourTMSFull = function(CUSTOMERID){
-		console.log('CUST ', CUSTOMERID);
 		$rootScope.showSpinner();
 		var pushData   = {};
 		pushData.CUSTOMERID		=	CUSTOMERID;//$scope.dataBO.CUSTOMERID;
@@ -193,7 +192,6 @@
 			if(data.msg!=''){
 				$scope.laboursTMSList			=	[];
 				$scope.laboursTMSList			=	data;
-				console.log('reached Data ', data)
 				$rootScope.hideSpinner();
 			}else{
 				$rootScope.hideSpinner();
@@ -204,58 +202,10 @@
 	};
 	$scope.getLabourTMSFull($scope.dataBO.CUSTOMERID);
 
-	$scope.manipulateData = function(data){
-
-	}
-
-		$scope.refresh	=	function(){
-			$scope.getPayment();
-		};
-
-		
-		
-		$scope.save = function(data){
-			console.log("daved data", data)
-			var error =	aswaValidationService.isLabourTMSValid(data);
-			if(error){
-				$rootScope.showErrorBox('Error', error);
-			}else{
-				$rootScope.showSpinner();
-				var WEEK_ID				=		data.WEEKID.substring(0, data.WEEKID.indexOf('DATE'));
-				var pushData 			= 		{};
-				pushData.LABOURID 		=		data.LABOURID;
-				pushData.WEEKID			=		WEEK_ID;
-				pushData.CUSTOMERID		=		$scope.dataBO.CUSTOMERID;
-				pushData.MODIFIEDBY 	= 		$rootScope.user.USERID;
-				pushData.SHIFTS		= 		[];
-				angular.forEach(data.ITEMTMS, function(val,key){
-					var node 		= 	{};
-					node.WORKDATE 	= 	key;
-					node.SHIFT 		= 	val;
-					pushData.SHIFTS.push(node);
-				});
-				labourManagerServices.addShift(pushData).then(function(data){
-					//console.log('ERROR', data)
-					if(data.msg!=''){
-						$rootScope.hideSpinner();
-						$rootScope.addnotification(Messages['modal.add.title'], Messages['modal.add.message'])
-						$scope.getLabourTMSFull($scope.dataBO.CUSTOMERID);
-						//$scope.arrTMS = [];
-						$scope.dataBO = {};
-						$scope.dataBO.CUSTOMERID   = pushData.CUSTOMERID;
-					}else {
-						$rootScope.hideSpinner();
-						$rootScope.showErrorBox('error', Messages[data.errorid]);
-						//$scope.arrTMS = [];
-						$scope.dataBO = {};
-						$scope.dataBO.CUSTOMERID   = pushData.CUSTOMERID;
-					}
-				})
-			}
-			
-			//console.log('TMS ', pushData);
-		}
-	}
+	$scope.refresh	=	function(){
+		$scope.getPayment();
+	};
+}
 
 	angular.module('aswa').controller('labourManagerShiftViewController',['$location', '$routeParams', '$window', '$scope', '$rootScope', '$modalInstance', 'passingValues', '$filter', 'settings', 'labourManagerServices', 'userManagerServices', 'customerManagerServices', 'utilityServices', 'storageServices', 'getreferences', 'aswaValidationService', '$http', 'mainServices', labourManagerShiftViewController]);
 })();

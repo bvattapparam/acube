@@ -22,11 +22,8 @@
 		if($routeParams.cloned){
 			$scope.cloned = true;
 		}
-			
-		
 
 		$scope.lockIcon = function(status, approved){
-
 			var iconClass;
 			if(status == 1 && approved == 0){
 				iconClass =  "soft-lock-container";
@@ -75,7 +72,6 @@
 				if(data.msg!=''){
 					$scope.quoteBasketBO	=	[];
 					$scope.quoteBasketBO 	= 	data;
-					console.log ("QUT BASKET ", $scope.quoteBasketBO)
 					var totalamount = 0;
 					var totalqty = 0;
 					for(var i = 0; i<data.length;i++){
@@ -86,15 +82,17 @@
 					}
 					$scope.TOTALAMOUNT 	=	totalamount;
 					$scope.TOTALQTY		=	totalqty;
+					$scope.quotePDF = {};
+					$scope.quotePDF.dataBO = data;
+					$scope.quotePDF.TOTALAMOUNT = totalamount;
+					$scope.quotePDF.TOTALQTY = totalqty;
 					$rootScope.hideSpinner();
 				}else{
 					$rootScope.hideSpinner();
 					$rootScope.showErrorBox('Error', data.error);
 				}
 			});
-		}
-		
-
+		};
 
 		$scope.save = function (record) {
 			var pushData = {};
@@ -119,12 +117,10 @@
 					})
 				}else{
 					quoteManagerServices.addQuoteBasketData(record).then(function(status){
-						console.log("here");
 						if(status==200){
 							$rootScope.hideSpinner();
 							$rootScope.addnotification(Messages['modal.add.title'], Messages['modal.add.message'])
 							$scope.getQuoteBasket();
-							//$scope.dataBO = ;
 						}else {
 							$rootScope.hideSpinner();
 							$rootScope.showErrorBox('error', error);
@@ -133,7 +129,6 @@
 				}
 			}// check error close here
 		};
-		
 
 		$scope.quoteBasket = function (data) {
 			var config= {};
@@ -168,10 +163,6 @@
 		$scope.deleteQuoteBasket = function(record){
 			var pushData = {}
 			pushData.ID = record.ID;
-			//var error =	aswaValidationService.deleteEstimateBasketValid(record);
-			//if(!error){
-				//$rootScope.showErrorBox('Error', error);
-			//}else{
 				$rootScope.showSpinner();
 				quoteManagerServices.deleteQuoteBasketData(record).then(function(status){
 					if(status==200){
@@ -183,22 +174,23 @@
 						$rootScope.showErrorBox('error', error);
 					}
 				})
-			//}
 		};
 
 		$scope.generatePDF = function (data) {
 			var config= {};
-				config.templateUrl = '../app/estimatemanager/generate/estimatebasketpdf.html';
-				config.controller = 'estimateBasketController';
-				config.size		= 'lg';
+				config.templateUrl = '../app/quotemanager/generate/generatepdf.html';
+				config.controller = 'generateQTPDFController';
+				config.size		= 'md';
 				config.backdrop	= 'static';
 				config.passingValues = {};
-				config.passingValues.title = Messages['estimatebasket.generatepdf.estimate'];
+				config.passingValues.title = Messages['pdf.generatepdf.quote'];
 				config.passingValues.dataBO = data;
+				config.passingValues.PDFBO = $scope.quotePDF;
+				config.passingValues.quoteMaster = $scope.quoteManagerBO;
 				config.passingValues.isEdit = true;
 				config.callback = function(status, item){
 					if(status === 'success') {
-						$scope.getEstimateBasket();
+					//	$scope.getEstimateBasket();
 					}
 				}
 				utilityServices.openConfigModal($modal, config);
@@ -221,8 +213,6 @@
 				}
 				utilityServices.openConfigModal($modal, config);
 		};
-
-		
 
 		$scope.cloneQuote = function(){
 			// FIND THE CURRENT COUNT OF ESTIMATES FROM MASTER TABLE...
@@ -261,10 +251,7 @@
 			pushData.QUOTEID 			=	QUOTEID;
 			pushData.CUSTOMERID 		= 	$scope.quoteManagerBO[0].CUSTOMERID;
 			pushData.MODIFIEDBY 		= 	$rootScope.user.USERID;
-			//pushData.CLNESTIMATEID 		=	$routeParams.ESTIMATEID;
-			//pushData.CLNBASKET 			=	$scope.estimateBasketBO;
-			console.log("PUSH DATA - CLONE QUOTE MASTER ", pushData);
-
+			//console.log("PUSH DATA - CLONE QUOTE MASTER ", pushData);
 			quoteManagerServices.cloneQuoteMaster(pushData).then(function(status){
 				if(status==200){
 					$rootScope.hideSpinner();
@@ -283,7 +270,7 @@
 		$scope.cloneUpdateQuoteMaster = function(QUOTEID){
 			var pushData = {};
 			pushData.CLNQUOTEID 		=	$routeParams.QUOTEID;
-			console.log("PUSH DATA -  EDIT STATUS ", pushData);
+			//console.log("PUSH DATA -  EDIT STATUS ", pushData);
 
 			quoteManagerServices.cloneUpdateQuoteMaster(pushData).then(function(status){
 				if(status==200){
@@ -298,7 +285,8 @@
 			});
 		};
 		$scope.approveQuote = function(QUOTEID){
-			console.log("APPROVED ", QUOTEID);
+			$rootScope.showSpinner();
+			//console.log("APPROVED ", QUOTEID);
 			var pushData = {};
 			pushData.QUOTEID 		=	$routeParams.QUOTEID;
 			pushData.MODIFIEDBY		=	$rootScope.user.USERID;
@@ -306,8 +294,7 @@
 			quoteManagerServices.approveQuoteMaster(pushData).then(function(data){
 				if(data.msg!=''){
 					$rootScope.hideSpinner();
-					
-					console.log("Success", data.msg)
+					//console.log("Success", data.msg)
 					$rootScope.addnotification(Messages['modal.update.title'], Messages['modal.update.message']);
 					$scope.getQuoteMaster(); // UPDATE STATUS HERE FOR THE OLD ESTIMATE...
 				}else {
@@ -322,7 +309,7 @@
 			pushData.QUOTEID 			= 	QUOTEID;
 			pushData.MODIFIEDBY 		= 	$rootScope.user.USERID;
 			pushData.CLONEBASKET 		=	$scope.quoteBasketBO;
-			console.log("PUSH DATA - CLONE BASKET ", pushData);
+			//console.log("PUSH DATA - CLONE BASKET ", pushData);
 			
 			quoteManagerServices.cloneQuoteBasket(pushData).then(function(status){
 				if(status==200){
@@ -338,15 +325,8 @@
 			
 		};
 
-
-
-
-
-
-
-
 		$scope.refresh	=	function(){
-			$scope.getEstimateBasket();
+			$scope.getQuoteBasket();
 		};
 
 		$scope.fillContent= function(){

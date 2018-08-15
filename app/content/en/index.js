@@ -52,6 +52,9 @@ Messages = {
 	"placeholder.selectlocation"	: 	"Select Location",
 	"placeholder.selectuser"		:	"Select User",
 	"placeholder.selectvendor"		:	"Select Vendor",
+	"placeholder.specialnote"		:	"Special notes and Comments",
+	
+	"pdf.generatepdf.estimate"		:	"Generate PDF for Estimate",
 
 	"validation.status"				: 	"Status is mandatory",
 	"validation.userid"				: 	"User ID is mandatory.",
@@ -147,6 +150,9 @@ Messages = {
 	
 // ------------------------------------------------------------------------------------------
 
+	"label.expirydate"						:	"Expiry Date",
+	"label.specialnote"						:	"Special Note",
+	"label.cancel"							:	"Cancel",
 	"label.savelabour"						:	"Save Labour",
 	"label.fullname"						: 	"Full name",
 	"label.name"							:	"Name",
@@ -263,6 +269,7 @@ Messages = {
 	"label.viewlabourshift"					:	"View Labour Shift",
 	"label.mandays"							:	"Mandays",
 	"label.labourid"						:	"Labour ID",
+	"label.save"							:	"Save",
 
 	"SHIFT001"								:	"Labour is already added for this week for the same customer",
 
@@ -363,6 +370,7 @@ Messages = {
 
 	// PO MANAGER
 	"pomanager.pageheader"						:	"Purchase Order Manager",
+	"pomanager.pobasket.pageheader"				:	"Purchase Order Basket",
 	"pomanager.pos"								:	"Purchase Orders",
 	"pobasket.deleteitem"						: 	"Do you want to delete the PO item ? Click YES to delete the item, Click NO to cancel the action.",
 	"pobasket.editpobasketitem"					:	"PO Basket Edit Item",

@@ -1,0 +1,49 @@
+<form name="frm">
+  <div id="confirmationmodal">
+    <div class="col-xs-12 modal-container">
+          <div class="modal-header modal-header-customized">
+            <h2> {{ passingValues.title }}<i class="fa fa-close pull-right icon-link" ng-click="cancel(frm);"></i></h2>
+          </div>
+          <div class="row">
+            <div class="col-xs-12">
+              <div class="modal-body confirmationbox-body">
+                <div class ="row">
+                    <div class="col-xs-12">
+                      <div class="form-group">
+                        <label data-ng-bind="'label.expirydate' | i18n"></label>
+                        <div class="input-group">
+                            <input tabindex="3" type="text" ng-bootstrap-fix class="form-control" readonly datetime-picker="dd-MMM-yyyy" ng-model="dataBO.EXPIRYDATE" is-open="open.date" enable-time="false" datepicker-options="dateOptions" date-disabled="disabled(date, mode)" close-on-date-selection="true" datepicker-append-to-body="true">
+                            <span class="input-group-btn">
+                                <button type="button" class="date-input btn btn-default" ng-click="openCalendar($event, 'date')"><i class="fa fa-calendar"></i></button>
+                            </span>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-xs-12">
+                      <label data-ng-bind-template="{{'label.specialnote' | i18n}} {{':'}}"></label>
+                      <div class="form-group">
+                        <textarea tabindex="9" name="comment" id="comment" class="form-control" placeholder="{{'placeholder.specialnote'| i18n }}" tabindex="1" data-ng-model="dataBO.COMMENT"></textarea>
+                      </div>
+                    </div>
+                </div>
+              </div>
+                
+            </div>
+            <div class="row">
+              <div class="col-xs-12">
+                <div class="modal-footer">
+                  <button class="btn camelcase btn-default" ng-click="cancel(frm)">{{'label.cancel' | i18n}}</button>
+                  <button class="btn camelcase btn-primary" ng-click="generatePDF(dataBO, frm)">{{'label.generatepdf' | i18n}}</button>
+                </div>
+              </div>
+            </div>
+            <div class="col-xs-12">
+            <div class="audit-box" ng-if="isEdit">
+               <span>Created by <strong>{{dataBO.CREATEDBY}} </strong>on <strong>{{dataBO.CREATEDDATE}}</strong>. Modified by <strong>{{dataBO.MODIFIEDBY}}</strong> on <strong>{{dataBO.MODIFIEDDATE}}</strong></span> 
+            </div>
+          </div>
+          </div>
+      </div>
+  </div>
+  </form>
+  

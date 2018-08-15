@@ -42,7 +42,6 @@
 			var pushData = {};
 			pushData = record;
 			pushData.MODIFIEDBY = $rootScope.user.USERID;
-			console.log('DATE ', pushData.DATE.getFullYear());
 			var error =	aswaValidationService.isCustomerPayManagerValid(record);
 			if(error){
 				$rootScope.showErrorBox('Error', error);

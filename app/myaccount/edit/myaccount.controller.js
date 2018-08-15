@@ -10,8 +10,7 @@
 
 		$scope.reference.referenceBO		= 	getreferences.references;
 		
-		$scope.save = function (record) {
-			console.log("record", record);
+		$scope.save = function (record) {;
 			var pushData = {};
 			pushData = record;
 			var error =	aswaValidationService.isUserValid(record);

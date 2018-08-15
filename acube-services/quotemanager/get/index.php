@@ -102,6 +102,7 @@ function get_quote_master() {
     QST.CREATEDDATE,
     CUST.CUSTOMERID, 
     CUST.FULLNAME,
+    CUST.ADDRESS, 
     CUST.TYPE,
     CUST.QUOTEAPPROVED   
     FROM VIEW_QUOTE_MASTER QST, VIEW_CUSTOMER_MASTER CUST 
@@ -129,6 +130,7 @@ function get_quote_master() {
           "CREATEDDATE"       =>  $rows['CREATEDDATE'],
           "CUSTOMERID"        =>  $rows['CUSTOMERID'],
           "FULLNAME"          =>  $rows['FULLNAME'],
+          "ADDRESS"           =>  $rows['ADDRESS'],
           "TYPE"              =>  $rows['TYPE'],
           "QUOTEAPPROVED"     =>  $rows['QUOTEAPPROVED']
         );

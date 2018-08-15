@@ -91,7 +91,6 @@
 	}
 
 	$scope.getDates = function(dates){
-		
 		//console.log('DATES......', dates)
 		var res = dates.split("DATE");
 		const _startDate = res[1];
@@ -294,7 +293,7 @@
 	};
 		
 		$scope.save = function(data, tms){
-			console.log("SAVE SHIFT (MAIN)....", data, tms)
+			//console.log("SAVE SHIFT (MAIN)....", data, tms)
 			var error =	aswaValidationService.isLabourTMSValid(data);
 			if(error){
 				$rootScope.showErrorBox('Error', error);
@@ -332,7 +331,7 @@
 					}
 					pushData.SHIFTS.push(node);
 				});
-				console.log("MAIN SAVE PUSHDATA", pushData)
+				//console.log("MAIN SAVE PUSHDATA", pushData)
 				labourManagerServices.addShift(pushData).then(function(data){
 					if(data.msg!=''){
 						$rootScope.hideSpinner();

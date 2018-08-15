@@ -9,6 +9,12 @@
     }
 
     // model with configuaration for form data handling
+    this.closeModel = function(modalInstance, formName, title, message){
+      if(formName){
+          modalInstance.dismiss();
+        }
+    };
+
     this.closeModelConfiguration = function(modalInstance, formName, title, message){
       if(formName){
         if(formName.$dirty){
