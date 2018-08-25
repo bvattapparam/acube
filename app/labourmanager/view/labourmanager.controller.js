@@ -120,36 +120,7 @@
 		//console.log('DATES......', $scope.arrTMS)
 	};
 		
-	$scope.getLabours = function(){
-		$rootScope.showSpinner();
-		labourManagerServices.getLabours().then(function(data){
-			if(data.msg!=''){
-				$scope.laboursList			=	[];
-				$scope.laboursBO			=	[];
-				$scope.laboursBO			=	data;
-				angular.forEach(data, function(val, key){
-					var node = {};
-					node.name	=	val.LABOUR;
-					node.code	=	val.LABOURID;
-					$scope.laboursList.push(node);
-				});
-				$scope.referencesData  = {};
-				angular.forEach(data, function(val, key){
-					var length  = data.length-1;
-					$scope.referencesData['LABOUR'] = {};
-					for(var i = length; i>=0;i--){
-						$scope.referencesData['LABOUR'][data[i]["LABOURID"]] = data[i]["LABOUR"];
-					}
-				});
-				//console.log('lab', $scope.referencesData)
-				$rootScope.hideSpinner();
-			}else{
-				$rootScope.hideSpinner();
-				$rootScope.showErrorBox('Error', data.error);
-			}
-		});
-	};
-	$scope.getLabours();
+	
 
 	$scope.getCustomers = function(){
 		var pushdata				=	{};
@@ -246,26 +217,7 @@
 		utilityServices.openConfigModal($modal, config);
 	};
 
-	$scope.editLabour = function (data) {
-		//console.log('EDIT BASKED:.... ', data)
-		var config= {};
-		config.templateUrl = '../app/labourmanager/edit/labourshift.pay.html';
-		config.controller = 'labourShiftEditController';
-		config.size		= 'md';
-		config.backdrop	= 'static';
-		config.passingValues = {};
-		config.passingValues.title = Messages['labourmanager.editlabour'];
-		config.passingValues.isEdit = true;
-		config.passingValues.dataBO = data;
-		config.passingValues.mode = 'labour';
-
-		config.callback = function(status, item){
-			if(status === 'success') {
-				$scope.getLabours();
-			}
-		}
-		utilityServices.openConfigModal($modal, config);
-	};
+	
 
 	$scope.refresh	=	function(){
 		$scope.getLabourTMSFull($scope.dataBO.CUSTOMERID);

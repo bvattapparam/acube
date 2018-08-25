@@ -47,7 +47,7 @@
               <i class="fa fa-file-pdf-o"></i><label class="label-width-md text-strong btn-link" data-ng-bind="'label.generatepdf' | i18n" data-ng-click="generatePDF(estimateManagerBO)"></label>
             </div> 
             <div class="">
-              <i class="fa fa-code-fork"></i>
+              <i class="fa fa-clone"></i>
               <label class="label-width-md text-strong btn-link" data-ng-bind="'label.cloneestimate' | i18n" data-ng-if="!softLock" data-ng-click="cloneEstimate()"></label> 
               <label class="label-width-md text-strong " data-ng-bind="'label.cloneestimate' | i18n" data-ng-if="softLock"></label> 
             </div> 
@@ -103,7 +103,7 @@
                 </td>
                 <td>
                   <div class="form-group">
-                    <select tabindex="7" class="form-control" ui-select2="common.select2ClearWithoutSearch" ng-model="dataBO.LOCATION" placeholder="{{'placeholder.selectlocation' | i18n}}">
+                    <select tabindex="7" class="form-control" ui-select2="common.select2ClearWithSearch" ng-model="dataBO.LOCATION" placeholder="{{'placeholder.selectlocation' | i18n}}">
                     <option></option>
                       <option data-ng-repeat="item in reference.LOCATION" value="{{item.code}}">{{item.name}}</option>
                     </select>
@@ -169,5 +169,3 @@
       <p>&nbsp;</p>
      
 </div>
-
-{{estimateBasketBO | json}}

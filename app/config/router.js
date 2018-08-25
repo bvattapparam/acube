@@ -131,6 +131,11 @@
             templateUrl : 'login.html',
             controller : 'loginController'
         })
+        .when('/settings',{
+            templateUrl : 'settings/view/settings.html',
+            controller : 'settingsController',
+            requiresAuthentication: true
+        })
         .when('/logout',{
             templateUrl : 'logout.html',
             controller : 'logoutController'

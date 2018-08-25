@@ -167,63 +167,8 @@ display: block;
   .generic-sticker-variant(@generic-padding; @generic-background-color; @generic-border-bottom);
 }
 
-.panel-main-sticker{
-  .generic-panel-variant(@panel-color-main);
-}
-.panel-one-sticker{
-  .generic-panel-variant(@panel-color-one);
-}
-.panel-two-sticker{
-  .generic-panel-variant(@panel-color-two);
-}
-
-.panel-three-sticker{
-  .generic-panel-variant(@panel-color-three);
-}
-.panel-four-sticker{
-  .generic-panel-variant(@panel-color-four);
-}
-.panel-five-sticker{
-  .generic-panel-variant(@panel-color-five);
-}
-.panel-six-sticker{
-  .generic-panel-variant(@panel-color-six);
-}
-
-.panel-seven-sticker{
-  .generic-panel-variant(@panel-color-seven);
-}
-
-.panel-eight-sticker{
-  .generic-panel-variant(@panel-color-eight);
-}
-
-.panel-nine-sticker{
-  .generic-panel-variant(@panel-color-three);
-}
-
-.panel-ten-sticker{
-  .generic-panel-variant(@panel-color-five);
-}
-
-.panel-eleven-sticker{
-  .generic-panel-variant(@panel-color-two);
-}
-
-
-.panel-twelve-sticker{
-  .generic-panel-variant(@panel-color-one);
-}
-
-
 .selected-row{
   .generic-selected-row(@selected-row-background-color, @selected-row-text-color);
-}
-
-#panel-stickers{
-  div{
-    margin-bottom : 5px;
-  }
 }
 
 .settings-sub-menu{
@@ -1956,6 +1901,24 @@ height: 100%;
   }
 //#
 }
+/* Accordian styles */
+.accordion {
+  margin-top:15px;
+}
+.accordion-customized{
+  border-radius:0 !important;
+  a{
+    &:hover{color:#ffffff !important}
+    &:active{color:@brand-primary !important}
+    &:visited{color:@brand-primary !important}
+    &:link{color:@brand-primary !important}
+  }
+  .panel-heading {
+    background-color: #ffffff;
+    border-bottom: 2px solid;
+  }
+}
+
 /* CUSTOMER STATUS FONT COLORS */
 
   .status-txt-0{

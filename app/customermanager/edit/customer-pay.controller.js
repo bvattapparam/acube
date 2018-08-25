@@ -15,27 +15,27 @@
 		};
 		
 // MONTH AND YEAR ONLY
-		$scope.today = function() {
-			$scope.dt = new Date();
-		  };
-		  $scope.today();
+		// $scope.today = function() {
+		// 	$scope.dt = new Date();
+		//   };
+		//   $scope.today();
 		
-		  $scope.showWeeks = false;
+		//   $scope.showWeeks = false;
 		
 		
-		  $scope.open = function($event) {
-			$event.preventDefault();
-			$event.stopPropagation();
+		//   $scope.open = function($event) {
+		// 	$event.preventDefault();
+		// 	$event.stopPropagation();
 		
-			$scope.opened = true;
-		  };
+		// 	$scope.opened = true;
+		//   };
 		
-		  $scope.dateOptions = {
-			'year-format': "'yy'",
-			'starting-day': 1,
-			'datepicker-mode':"'month'",
-			'min-mode':"month"
-		  };
+		//   $scope.dateOptions = {
+		// 	'year-format': "'yy'",
+		// 	'starting-day': 1,
+		// 	'datepicker-mode':"'month'",
+		// 	'min-mode':"month"
+		//   };
 // END HERE...
 
 		$scope.save = function (record) {

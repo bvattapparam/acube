@@ -86,7 +86,10 @@
 		"labourmanager.getShiftEditData"				:	"../acube-services/labourmanager/get/?action=get_shift_edit_data",
 		"labourmanager.updateShiftPay"					:	"../acube-services/labourmanager/update/?action=update_shift_pay",
 		"labourmanager.updateTMS"						:	"../acube-services/labourmanager/update/?action=update_tms",
-		"labourmanager.updateLabour"					:	"../acube-services/labourmanager/update/?action=update_labour"
+		"labourmanager.updateLabour"					:	"../acube-services/labourmanager/update/?action=update_labour",
+
+		"settings.getLocations"							:	"../acube-services/settings/get/?action=get_locations",
+		"settings.updateLocation"						:	"../acube-services/settings/update/?action=update_location"
 		
 	}
 

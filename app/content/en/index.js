@@ -43,6 +43,7 @@ Messages = {
 	"menu.po"						:	"Purchase Order",
 	"menu.dashboard"				:	"Dashboard",
 	"menu.opexp"					:	"Operational Expense",
+	"menu.settings"					:	"Settings",
 
 
 	"placeholder.selectone"			: 	"Select One",
@@ -151,6 +152,9 @@ Messages = {
 // ------------------------------------------------------------------------------------------
 
 	"label.expirydate"						:	"Expiry Date",
+	"label.settings.locations"				:	"Manage Locations",
+	"label.settings.labours"				:	"Manage Labours",
+	"label.locationid"						:	"Location ID",
 	"label.specialnote"						:	"Special Note",
 	"label.cancel"							:	"Cancel",
 	"label.savelabour"						:	"Save Labour",
@@ -380,7 +384,9 @@ Messages = {
 	"opexpmanager.opexpbasket.pageheader"		:	"Operational Expenses Basket",
 	"opexpbasket.deleteitem"					:	"Do you want to delete the Operational Expense item ? Click YES to delete the item, Click NO to cancel the action.",
 
-	"todo.todoclient.todolist"					:	"Todo List"
+	"todo.todoclient.todolist"					:	"Todo List",
+	"settings.pageheader"						:	"Settings",
+	"settings.editlocation"						:	"Edit Location"
 
 
 

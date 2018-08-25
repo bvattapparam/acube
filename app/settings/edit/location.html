@@ -1,0 +1,43 @@
+<form name="frm">
+  <div id="confirmationmodal">
+    <div class="col-xs-12 modal-container">
+      <div class="modal-header modal-header-customized">
+        <h2> {{ passingValues.title }}<i class="fa fa-close pull-right icon-link" ng-click="cancel(frm);"></i></h2>
+      </div>
+        <div class="row">
+          <div class="col-xs-12">
+            <div class="modal-body confirmationbox-body">
+              <div class ="row" ng-if="MODE === 'location'">
+                  <div class="col-xs-12">
+                    <div class="form-group">
+                    <label ng-bind="'label.locationid' | i18n"></label>
+                      <input tabindex="1" type="text" class="form-control" tabindex="1" data-ng-model="dataBO.CODE" maxlength="10" ng-disabled="true" data-ng-change="amountCal(shiftBO.SHIFT, shiftBO.PERSHIFT)">
+                    </div>
+                  </div>
+                  <div class="col-xs-12">
+                    <div class="form-group">
+                    <label ng-bind="'label.location' | i18n"></label>
+                      <input tabindex="2" type="text" class="form-control" tabindex="1" data-ng-model="dataBO.NAME" maxlength="200">
+                    </div>
+                  </div>
+              </div>
+            </div>
+              
+          </div>
+          <div class="row">
+            <div class="col-xs-12">
+              <div class="modal-footer">
+                <button tabindex="5" class="btn camelcase btn-default" ng-click="cancel(frm)">{{'label.cancel' | i18n}}</button>
+                <button tabindex="4" ng-if="MODE === 'location'" class="btn camelcase btn-primary" ng-click="saveLocation(dataBO)">{{'label.save' | i18n}}</button>
+              </div>
+            </div>
+          </div>
+          <div class="col-xs-12">
+          <div class="audit-box" ng-if="isEdit">
+             <span ng-if="MODE === 'shiftpay'">{{'label.createdby' | i18n}} <strong>{{shiftBO.CREATEDBY}} </strong> on <strong>{{shiftBO.CREATEDDATE}}</strong>. {{'label.modifiedby' | i18n}} <strong>{{shiftBO.MODIFIEDBY}}</strong> on <strong>{{shiftBO.MODIFIEDDATE}}</strong></span> 
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</form>

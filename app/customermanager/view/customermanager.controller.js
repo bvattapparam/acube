@@ -82,6 +82,13 @@
 		$scope.refresh	=	function(){
 			$scope.getCustomers();
 		};
+		
+		$scope.showView = function(status) {
+			if(status == settings.rootScope.STATUS_ACTIVE || status == settings.rootScope.STATUS_CONFIRMED){
+				return true;
+			}
+			return false;
+		}
 
 	}
 

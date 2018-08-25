@@ -45,10 +45,7 @@
 			"SHOW_PO_CUSTOMER_STATUS":['3'],
 
 			"STATUS_CONFIRMED"	:	3,
-			"CARMODULE_FUEL" : "CM1",
-			"CARMODULE_OTHERS" : "CM3",
-			"CARMODULE_SERVICE" : "CM2",
-			"CARMODULE_INSURANCE" : "CM4",
+			"STATUS_ACTIVE"	:	1,
 			"date":"dd-MMM-yyyy",
 			"currency":"",
 			"appURL" : "http://localhost/acube/app/",

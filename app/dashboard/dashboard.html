@@ -17,7 +17,7 @@
 
 <div permission="['JRD_ADMIN','JRD_MARKETING']">
 
-    <div class="row section-container">
+    <div class="row section-container" permission="['JRD_ADMIN']">
       <div class="col-lg-3 col-md-6">
         <div class="panel">
           <div class="panel-heading">
@@ -101,6 +101,9 @@
         <div class="section-box-header">
           <h2 class="text-uppercase"><i class="fa fa-money"></i> {{'label.customerstatus' | i18n}} </h2>
         </div>
+        <div class="loadRunner_modules" ng-show="spinnerShow_StatusCount">
+          <div class="lds-ellipsis"><div></div><div></div><div></div><div></div></div>
+        </div>
         <div class="col-xs-12 section-box-body text-right">
           <div id="container">Placeholder for chart</div>
         </div>
@@ -137,6 +140,9 @@
             </tr>
             </tbody>
           </table>
+          <div class="loadRunner_modules" ng-show="spinner_top10Customers">
+            <div class="lds-ellipsis"><div></div><div></div><div></div><div></div></div>
+          </div>  
         </div>
       </div>
     </div>

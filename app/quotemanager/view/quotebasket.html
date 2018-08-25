@@ -106,7 +106,7 @@
                 </td>
                 <td>
                   <div class="form-group">
-                    <select tabindex="7" class="form-control" ui-select2="common.select2ClearWithoutSearch" ng-model="dataBO.LOCATION" placeholder="{{'placeholder.selectlocation' | i18n}}">
+                    <select tabindex="7" class="form-control" ui-select2="common.select2ClearWithSearch" ng-model="dataBO.LOCATION" placeholder="{{'placeholder.selectlocation' | i18n}}">
                     <option></option>
                       <option data-ng-repeat="item in reference.LOCATION" value="{{item.code}}">{{item.name}}</option>
                     </select>

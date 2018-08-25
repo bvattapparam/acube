@@ -2,10 +2,12 @@
 
 	function dashboardController($scope, $rootScope, $filter, utilityServices, $modal, mainServices, dashboardServices, customerManagerServices, paymentManagerServices, marketingBasketServices, getreferences, storageServices){
 		
-		$scope.LIMIT_PAYMENT = 80;
-		$scope.sval=5;
-		$scope.refData					=		{};
-		$scope.spinnerShow_Payment		=		false;
+		$scope.LIMIT_PAYMENT 			= 	80;
+		$scope.sval						=	5;
+		$scope.refData					=	{};
+		$scope.spinnerShow_Payment		=	false;
+		$scope.spinnerShow_StatusCount		=	false;
+		$scope.spinner_top10Customers			=	false;
 		$scope.refData.referencesDataMap = {
 			"CUSTOMERSTATUS" 	: getreferences.referencesData.CUSTOMERSTATUS,
 			"POTYPE" 	: getreferences.referencesData.POTYPE
@@ -25,63 +27,37 @@
 		};
  	
         $scope.getCustomerStatusCount = function(){
-			$rootScope.showSpinner();
+			$scope.spinnerShow_StatusCount = true
 			customerManagerServices.getStatusCount().then(function(data){
 				if(data.msg!=''){
 					$scope.customerStatusBO = [];
                     $scope.customerStatusBO = data;
                     $scope.chart = [];
                     $scope.chartValue(data);
-					$rootScope.hideSpinner();
+					$scope.spinnerShow_StatusCount = false;
 				}else{
-					$rootScope.hideSpinner();
+					$scope.spinnerShow_StatusCount = false;
 					$rootScope.showErrorBox('Error', data.error);
 				}
 				
 			});
         };
 		
-		
-		// PAYMENT DETAILS FOR SUPERVISOR AND ADMIN...
-		$scope.getPayment = function(){
-			$rootScope.showSpinner();
-			var pushdata 			=	{}
-			pushdata.pagenation		=	false;
-			paymentManagerServices.getPayment(pushdata).then(function(data){
-				if(data.msg!=''){
-					$scope.paymentManagerBO	=	[];
-					$scope.paymentManagerBO	= data[0].ITEM;
-					//$scope.adminPaymentBO = data;
-					$scope.paymentManagerBO	= $scope.paymentManagerBO.slice(0,10);
-					
-					var totalamount = 0;
-					// for(var i = 0; i< $scope.adminPaymentBO.length;i++){
-					// 	var amount 	=	$scope.adminPaymentBO[i].AMOUNT;
-					// 	totalamount += Number(amount);
-					// }
-					//$scope.TOTALAMOUNT 	=	totalamount;
-					$rootScope.hideSpinner();
-				}else{
-					$rootScope.hideSpinner();
-					$rootScope.showErrorBox('Error', data.error);
-				}
-				
-			});
-		};
-		
-		
 		//	MARKETING BASKET / TOP 10 CUSTOMERS.
 		$scope.getCustomers = function(){
 			var pushdata 		= 	{};
 			pushdata.pagenation		=	false;
-			$rootScope.showSpinner();
+			//$rootScope.showSpinner();
+			$scope.spinner_top10Customers = true;
 			marketingBasketServices.getCustomers(pushdata).then(function(data){
 				if(data.msg!=''){
 					$scope.customerManagerBO	=	[];
 					$scope.customerManagerBO 	= 	data[0].ITEM;
-					$rootScope.hideSpinner();
+					//$rootScope.hideSpinner();
+					$scope.spinner_top10Customers = false;
 				}else{
-					$rootScope.hideSpinner();
+					//$rootScope.hideSpinner();
+					$scope.spinner_top10Customers = false;
 					$rootScope.showErrorBox('Error', data.error);
 				}
 				
@@ -129,7 +105,37 @@
             series: [{
             }]
         };
-        
+		
+		// PAYMENT DETAILS FOR SUPERVISOR AND ADMIN...
+		$scope.getPayment = function(){
+			//$rootScope.showSpinner();
+			$scope.spinnerShow_Payment = true;
+			var pushdata 			=	{}
+			pushdata.pagenation		=	false;
+			paymentManagerServices.getPayment(pushdata).then(function(data){
+				if(data.msg!=''){
+					$scope.paymentManagerBO	=	[];
+					$scope.paymentManagerBO	= data[0].ITEM;
+					//$scope.adminPaymentBO = data;
+					$scope.paymentManagerBO	= $scope.paymentManagerBO.slice(0,10);
+					
+					var totalamount = 0;
+					// for(var i = 0; i< $scope.adminPaymentBO.length;i++){
+					// 	var amount 	=	$scope.adminPaymentBO[i].AMOUNT;
+					// 	totalamount += Number(amount);
+					// }
+					//$scope.TOTALAMOUNT 	=	totalamount;
+					//$rootScope.hideSpinner();
+					$scope.spinnerShow_Payment = false;
+				}else{
+					//$rootScope.hideSpinner();
+					$scope.spinnerShow_Payment = false;
+					$rootScope.showErrorBox('Error', data.error);
+				}
+				
+			});
+		};
+		
 
 		// FOR JURI_SUPERVISOR...
 		$scope.getCashDetails =  function(){
@@ -182,8 +188,6 @@
 			pushData.currentPage			=	$scope.pagination_payment.currentPage;
 			pushData.pagenation				=	true;
 			paymentManagerServices.getPaymentByUser(pushData).then(function(data){
-
-				console.log("data", data)
 				if(data.msg!=''){
 					$scope.paymentManagerBO			=	[];
 					$scope.paymentManagerBO 		= 	data[0].ITEM;
@@ -201,8 +205,8 @@
 		$scope.refresh	=	function(){
 			if($rootScope.user.PERMISSIONS[0] === 'JRD_ADMIN'){
 				$scope.getCustomerStatusCount();
-				$scope.getPayment();
 				$scope.getCustomers();
+				$scope.getPayment();
 			} else if ($rootScope.user.PERMISSIONS[0] === 'JRD_SUPERVISOR') {
 				$scope.getCashDetails();
 				$scope.getPaymentByUser();
@@ -211,15 +215,16 @@
 		
 		if($rootScope.user.PERMISSIONS[0] === 'JRD_ADMIN'){
 			$scope.getCustomerStatusCount();
-			$scope.getPayment();
 			$scope.getCustomers();
+			$scope.getPayment();
 		} else if ($rootScope.user.PERMISSIONS[0] === 'JRD_SUPERVISOR') {
 			$scope.getCashDetails();
 			$scope.getPaymentByUser();
 		}else if ($rootScope.user.PERMISSIONS[0] === 'JRD_MARKETING') {
 			$scope.getCustomerStatusCount();
-			$scope.getPaymentByUser();
 			$scope.getCustomers();
+			$scope.getPaymentByUser();
+			
 		};
 		
 		$scope.poBalanceCal = function(val1, val2){
@@ -274,15 +279,8 @@
 				utilityServices.openConfigModal($modal, config);
 		};
 		if($scope.todocount > 0){
-		//	$scope.todoClient();
+			$scope.todoClient();
 		}
-		
-
-		//$scope.dd();
-		
-
-
-		
 		
 	}
 	angular.module('aswa').controller('dashboardController',['$scope', '$rootScope', '$filter', 'utilityServices', '$modal', 'mainServices', 'dashboardServices', 'customerManagerServices', 'paymentManagerServices', 'marketingBasketServices', 'getreferences', 'storageServices', dashboardController]);

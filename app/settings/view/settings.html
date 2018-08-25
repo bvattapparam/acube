@@ -1,0 +1,104 @@
+
+<div class="row pageheader">
+  <div class="col-xs-11">
+    <h1><span ng-bind ="'settings.pageheader' | i18n"></span></h1>
+  </div>
+  <div class="col-xs-1">
+    <button type="button" class="btn btn-xs btn-primary pull-right" ng-click="refresh();" tooltip="{{'tooltip.refresh' | i18n}}">
+      <span class="fa fa-refresh fa-spin"></span>
+    </button>
+  </div>
+  <div class="col-xs-12">
+    <span class="bottomliner"></span>
+  </div>
+</div>
+
+<div class="row section-container">
+  <div class="col-lg-6 col-md-6 col-xs-12">
+    <div class = "accordion">
+      <accordion close-others="oneAtATime">
+        <div accordion-group class="panel-default accordion-customized" is-open="status.location">
+          <accordion-heading>
+            <i class="fa fa-cubes"></i> {{'label.settings.locations' | i18n}} <i class="pull-right glyphicon" ng-class="{'fa fa-angle-double-down': status.location, 'fa fa-angle-double-right': !status.location}"></i>
+          </accordion-heading>
+          <div class="col-lg-12 section-box-body table-responsive">
+            <table class="table table-hover">
+                <colgroup>
+                  <col class="auto-cell-size p-r-20">
+                </colgroup>
+                <thead class="table-bg">
+                <tr>
+                  <th></th>
+                  <th data-ng-bind-html="'label.locationid' | i18n"></th>
+                  <th data-ng-bind-html="'label.location' | i18n"></th>
+                  <th></th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr ng-repeat ="rel in locationsBO" class="text-uppercase">
+                  <td class="f20 part1"></td>
+                  <td data-ng-bind="rel.CODE"></td>
+                  <td data-ng-bind="rel.NAME"></td>
+                  <td class="f20 ng-binding action comment-content">
+                    <i class="action-icon-md-primary fa fa-edit icon-link"  ng-click="editLocation(rel)" tooltip="{{'tooltip.edit' | i18n}}"></i>
+                    <i class="action-icon-md-primary fa fa-trash icon-link" ng-click="showInfoBox('Info', 'generalinfoone', 'sm')" tooltip="{{'tooltip.trash' | i18n}}"></i>
+                  </td>
+                </tr>
+                </tbody>
+              </table> 
+            </div>
+          </div>
+      </accordion>
+    </div>
+  </div>
+
+  <div class="col-xs-12">
+    <div class = "accordion">
+      <accordion close-others="oneAtATime">
+        <div accordion-group class="panel-default accordion-customized" is-open="status.open">
+          <accordion-heading>
+            <i class="fa fa-users"></i> {{'label.settings.labours' | i18n}} <i class="pull-right glyphicon" ng-class="{'fa fa-angle-double-down': status.open, 'fa fa-angle-double-right': !status.open}"></i>
+          </accordion-heading>
+          <div class="col-lg-12 section-box-body table-responsive">
+            <table class="table table-hover">
+              <colgroup>
+                <col class="auto-cell-size p-r-20">
+              </colgroup>
+              <thead class="table-bg">
+              <tr>
+                <th></th>
+                <th data-ng-bind-html="'label.labourid' | i18n"></th>
+                <th data-ng-bind-html="'label.labour' | i18n"></th>
+                <th data-ng-bind-html="'label.modifieddate' | i18n"></th>
+                <th data-ng-bind-html="'label.modifiedby' | i18n"></th>
+                <th data-ng-bind-html="'label.createddate' | i18n"></th>
+                <th data-ng-bind-html="'label.createdby' | i18n"></th>
+                <th></th>
+              </tr>
+              </thead>
+              <tbody>
+              <tr ng-repeat ="rel in laboursBO" class="text-uppercase">
+                <td class="f20 part1"></td>
+                <td data-ng-bind="rel.LABOURID"></td>
+                <td data-ng-bind="rel.LABOUR"></td>
+                <td data-ng-bind="rel.MODIFIEDDATE | aswaDate"></td>
+                <td data-ng-bind="rel.MODIFIEDBY"></td>
+                <td data-ng-bind="rel.CREATEDDATE | aswaDate"></td>
+                <td data-ng-bind="rel.CREATEDBY"></td>
+                <td class="f20 ng-binding action comment-content">
+                  <i class="action-icon-md-primary fa fa-edit icon-link"  ng-click="editLabour(rel)" tooltip="{{'tooltip.edit' | i18n}}"></i>
+                  <i class="action-icon-md-primary fa fa-trash icon-link" ng-click="showInfoBox('Info', 'generalinfoone', 'sm')" tooltip="{{'tooltip.trash' | i18n}}"></i>
+                </td>
+              </tr>
+              </tbody>
+            </table> 
+            </div>
+          </div>
+      </accordion>
+    </div>
+  </div>
+</div>
+
+
+
+

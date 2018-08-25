@@ -61,7 +61,7 @@
                 <td class="f20 ng-binding action comment-content">
                   <i class="action-icon-md-primary fa fa-edit icon-link"  ng-click="editCustomer(rel)" tooltip="{{'tooltip.editcustomer'|i18n}}"></i>
                   <i class="action-icon-md-primary fa fa-trash icon-link" ng-click="showInfoBox('Info', 'generalinfoone', 'sm')" tooltip="{{'tooltip.trashcustomer'|i18n}}"></i>
-                  <a data-ng-if="rel.STATUS === '3'" ng-href="#/customer/customerview/{{rel.CUSTOMERID}}"><i class="action-icon-md-primary fa fa-eye icon-link" tooltip="{{'tooltip.viewcustomer'|i18n}}"></i></a>
+                  <a data-ng-if="showView(rel.STATUS)" ng-href="#/customer/customerview/{{rel.CUSTOMERID}}"><i class="action-icon-md-primary fa fa-eye icon-link" tooltip="{{'tooltip.viewcustomer'|i18n}}"></i></a>
                 </td>
               </tr>
               </tbody>

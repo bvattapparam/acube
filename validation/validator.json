@@ -584,6 +584,18 @@
 				]
 			}
 		],
+		"location":[
+			{
+				"key":"NAME",
+				"validations":[
+					{
+						"type":"required",
+						"value":"true",
+						"errCode":"validation.location"
+					}
+				]
+			}
+		],
 		"customernote":[
 			{
 				"key":"TITLE",

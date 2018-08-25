@@ -25,7 +25,6 @@
           if(pushdata.limit){
             pushdata.offset = (pushdata.currentPage-1) * pushdata.limit;
           }
-          console.log('pushdata', pushdata);
           var deferred = $q.defer();
           $http({
             method  : "POST",
@@ -87,7 +86,6 @@
 
         
         this.getCashDetails = function(pushdata){
-          console.log('push data', pushdata)
           var deferred = $q.defer();
           $http({
             method  : "POST",
