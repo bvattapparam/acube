@@ -8,10 +8,10 @@ get_customer_data();
 function get_customer_data() {
   $data = json_decode(file_get_contents("php://input"));
   $qry = "SELECT * FROM VIEW_MARKETINGBASKET ORDER BY MODIFIEDDATE DESC";
-  $qry_res = mysql_query($qry);
+  $qry_res = mysqli_query($con,$qry);
   $data = array();
     
-  while($rows = mysql_fetch_array($qry_res))
+  while($rows = mysqli_fetch_array($qry_res))
   {
     $data[] = array(
       "ID" => $rows['ID'],

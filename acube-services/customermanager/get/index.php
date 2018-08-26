@@ -25,15 +25,16 @@ switch($_GET['action']) {
 
 /** Function to Get Product **/
 function get_customer() {
+  global $con;
   $data = json_decode(file_get_contents("php://input"));
 
   $CUSTOMERID = $_GET['customerid'];
   
   $qry = "SELECT * FROM VIEW_CUSTOMER_MASTER WHERE CUSTOMERID = '$CUSTOMERID' ORDER BY MODIFIEDDATE DESC";
-  $qry_res = mysql_query($qry);
+  $qry_res = mysqli_query($con,$qry);
   $data = array();
     
-  while($rows = mysql_fetch_array($qry_res))
+  while($rows = mysqli_fetch_array($qry_res))
   {
     $data = array(
       "ID"            =>  $rows['ID'],
@@ -60,13 +61,14 @@ return json_encode($data);
 }
 /** Function to Get Product **/
 function get_note() {
+  global $con;
 
   $CUSTOMERID = $_GET['customerid'];
   
   $qry = "SELECT * FROM VIEW_CUSTOMER_NOTE WHERE CUSTOMERID = '$CUSTOMERID' ORDER BY MODIFIEDDATE DESC";
-  $qry_res = mysql_query($qry);
+  $qry_res = mysqli_query($con,$qry);
   $data = array();
-  while($rows = mysql_fetch_array($qry_res))
+  while($rows = mysqli_fetch_array($qry_res))
   {
     $data[] = array(
       "ID"            =>  $rows['ID'],
@@ -86,6 +88,7 @@ return json_encode($data);
 
 /** Function to Get Product **/
 function get_customer_data() {
+  global $con;
   $data = json_decode(file_get_contents("php://input"));
   $limit              =   $data->limit;
   $offset             =   $data->offset;
@@ -95,36 +98,36 @@ function get_customer_data() {
   
   if($pagenation){
     if($filterstatus){
-      $qry_count = mysql_query("SELECT * FROM VIEW_CUSTOMER_MASTER WHERE STATUS IN (".implode(',',$statusfilters).")");
-      $num_rows = mysql_num_rows($qry_count);
+      $qry_count = mysqli_query($con,"SELECT * FROM VIEW_CUSTOMER_MASTER WHERE STATUS IN (".implode(',',$statusfilters).")");
+      $num_rows = mysqli_num_rows($qry_count);
   
       $qry = "SELECT * FROM VIEW_CUSTOMER_MASTER WHERE STATUS IN (".implode(',',$statusfilters).") ORDER BY MODIFIEDDATE DESC LIMIT $limit OFFSET $offset";
-      $qry_res = mysql_query($qry);
+      $qry_res = mysqli_query($con,$qry);
     } else {
-      $qry_count = mysql_query("SELECT * FROM VIEW_CUSTOMER_MASTER");
-      $num_rows = mysql_num_rows($qry_count);
+      $qry_count = mysqli_query($con,"SELECT * FROM VIEW_CUSTOMER_MASTER");
+      $num_rows = mysqli_num_rows($qry_count);
   
       $qry = "SELECT * FROM VIEW_CUSTOMER_MASTER ORDER BY MODIFIEDDATE DESC LIMIT $limit OFFSET $offset";
-      $qry_res = mysql_query($qry);
+      $qry_res = mysqli_query($con,$qry);
     }
   }else{
     if($filterstatus){
-      $qry_count = mysql_query("SELECT * FROM VIEW_CUSTOMER_MASTER WHERE STATUS IN (".implode(',',$statusfilters).")");
-      $num_rows = mysql_num_rows($qry_count);
+      $qry_count = mysqli_query($con,"SELECT * FROM VIEW_CUSTOMER_MASTER WHERE STATUS IN (".implode(',',$statusfilters).")");
+      $num_rows = mysqli_num_rows($qry_count);
   
       $qry = "SELECT * FROM VIEW_CUSTOMER_MASTER WHERE STATUS IN (".implode(',',$statusfilters).") ORDER BY MODIFIEDDATE DESC";
-      $qry_res = mysql_query($qry);
+      $qry_res = mysqli_query($con,$qry);
     } else {
-      $qry_count = mysql_query("SELECT * FROM VIEW_CUSTOMER_MASTER");
-      $num_rows = mysql_num_rows($qry_count);
+      $qry_count = mysqli_query($con,"SELECT * FROM VIEW_CUSTOMER_MASTER");
+      $num_rows = mysqli_num_rows($qry_count);
   
       $qry = "SELECT * FROM VIEW_CUSTOMER_MASTER ORDER BY MODIFIEDDATE DESC";
-      $qry_res = mysql_query($qry);
+      $qry_res = mysqli_query($con,$qry);
     }
   } 
 
   $data = array();
-  while($rows = mysql_fetch_array($qry_res))
+  while($rows = mysqli_fetch_array($qry_res))
   {
     $data_item[] = array(
       "ID"            =>  $rows['ID'],
@@ -152,15 +155,16 @@ return json_encode($data);
 }
 
 function get_status_count() {
+  global $con;
 
   $data = json_decode(file_get_contents("php://input"));
 
   $qry = "SELECT STATUS, COUNT(*) AS ST FROM VIEW_CUSTOMER_MASTER GROUP BY STATUS ORDER BY COUNT(*) DESC";
 
-  $qry_res = mysql_query($qry);
+  $qry_res = mysqli_query($con,$qry);
   $data = array();
 
-  while($rows = mysql_fetch_array($qry_res))
+  while($rows = mysqli_fetch_array($qry_res))
   {
     $data[] = array(
       "STATUS"  => $rows['STATUS'],
@@ -173,6 +177,7 @@ function get_status_count() {
 }
 
 function get_totals(){
+  global $con;
   $data = json_decode(file_get_contents("php://input"));
 
   $CUSTOMERID = $data->CUSTOMERID;
@@ -233,10 +238,10 @@ SELECT LABOURID,WEEKID,CUSTOMERID, SUM(SHIFT) AS SHIFTSUM FROM (SELECT tbl_labou
   ON tbl_quote_master.QUOTEID = tbl_quote_basket.QUOTEID 
   WHERE tbl_quote_master.CUSTOMERID = '$CUSTOMERID' AND tbl_quote_master.APPROVED = 1) AS T 
   GROUP BY CUSTOMERID";
-  $qry_res_quote = mysql_query($qry_quote_total);
+  $qry_res_quote = mysqli_query($con,$qry_quote_total);
   
   $data_total_quoteamount = array();
-  while($rows = mysql_fetch_array($qry_res_quote))
+  while($rows = mysqli_fetch_array($qry_res_quote))
   {
     $data_total_quoteamount[]  = array(
       "QUOTEAMOUNT"  => $rows['QUOTEAMOUNT']
@@ -252,10 +257,10 @@ SELECT LABOURID,WEEKID,CUSTOMERID, SUM(SHIFT) AS SHIFTSUM FROM (SELECT tbl_labou
   ON tbl_PO_master.POID = tbl_PO_basket.POID 
   WHERE tbl_PO_master.CUSTOMERID='$CUSTOMERID') AS T 
   GROUP BY CUSTOMERID";
-  $qry_res_po = mysql_query($qry_po_total);
+  $qry_res_po = mysqli_query($con,$qry_po_total);
   
   $data_total_poamount = array();
-  while($rows = mysql_fetch_array($qry_res_po))
+  while($rows = mysqli_fetch_array($qry_res_po))
   {
     $data_total_poamount[]  = array(
       "POAMOUNT"  => $rows['POAMOUNT']
@@ -268,10 +273,10 @@ SELECT LABOURID,WEEKID,CUSTOMERID, SUM(SHIFT) AS SHIFTSUM FROM (SELECT tbl_labou
   $qry_paid_total = "SELECT SUM(AMOUNT) AS PAIDAMOUNT 
   FROM VIEW_CUSTOMER_PAY WHERE CUSTOMERID = '$CUSTOMERID'";
 
-  $qry_res_paid = mysql_query($qry_paid_total);
+  $qry_res_paid = mysqli_query($con,$qry_paid_total);
   
   $data_total_paidamount = array();
-  while($rows = mysql_fetch_array($qry_res_paid))
+  while($rows = mysqli_fetch_array($qry_res_paid))
   {
     $data_total_paidamount[]  = array(
       "PAIDAMOUNT"  => $rows['PAIDAMOUNT']
@@ -282,10 +287,10 @@ SELECT LABOURID,WEEKID,CUSTOMERID, SUM(SHIFT) AS SHIFTSUM FROM (SELECT tbl_labou
   $qry_labour_total = "SELECT SUM(SALARY) AS SALARYAMOUNT 
   FROM VIEW_LABOURTMS_MASTER WHERE CUSTOMERID = '$CUSTOMERID'";
 
-  $qry_res_labour = mysql_query($qry_labour_total);
+  $qry_res_labour = mysqli_query($con,$qry_labour_total);
   
   $data_total_salaryamount = array();
-  while($rows = mysql_fetch_array($qry_res_labour))
+  while($rows = mysqli_fetch_array($qry_res_labour))
   {
     $data_total_salaryamount[]  = array(
       "SALARYAMOUNT"  => $rows['SALARYAMOUNT']
@@ -296,10 +301,10 @@ SELECT LABOURID,WEEKID,CUSTOMERID, SUM(SHIFT) AS SHIFTSUM FROM (SELECT tbl_labou
   $qry_mds_total = "SELECT COUNT(SHIFT) AS MANDAYS 
   FROM VIEW_LABOURTMS_BASKET WHERE CUSTOMERID = '$CUSTOMERID'";
 
-  $qry_res_mds = mysql_query($qry_mds_total);
+  $qry_res_mds = mysqli_query($con,$qry_mds_total);
   
   $data_total_mds = array();
-  while($rows = mysql_fetch_array($qry_res_mds))
+  while($rows = mysqli_fetch_array($qry_res_mds))
   {
     $data_total_mds[]  = array(
       "MANDAYS"  => $rows['MANDAYS']
@@ -318,6 +323,7 @@ SELECT LABOURID,WEEKID,CUSTOMERID, SUM(SHIFT) AS SHIFTSUM FROM (SELECT tbl_labou
 }
 
 function get_pqe(){
+  global $con;
   $data = json_decode(file_get_contents("php://input"));
 
   $CUSTOMERID = $data->CUSTOMERID;
@@ -329,9 +335,9 @@ function get_pqe(){
      VIEW_PO_BASKET JOIN VIEW_PO_MASTER ON VIEW_PO_MASTER.POID = VIEW_PO_BASKET.POID 
      WHERE VIEW_PO_MASTER.CUSTOMERID = '$CUSTOMERID') AS FIRSTT) AS SECONDT GROUP BY POID";
   
-  $qry_res_po = mysql_query($qry_po);
+  $qry_res_po = mysqli_query($con,$qry_po);
   $data_po = array();
-  while($rows = mysql_fetch_array($qry_res_po))
+  while($rows = mysqli_fetch_array($qry_res_po))
   {
     $data_po[]  = array(
       "AMOUNT"        =>  $rows['AMOUNT'],
@@ -345,9 +351,9 @@ function get_pqe(){
      VIEW_QUOTE_BASKET JOIN VIEW_QUOTE_MASTER ON VIEW_QUOTE_MASTER.QUOTEID = VIEW_QUOTE_BASKET.QUOTEID 
      WHERE VIEW_QUOTE_MASTER.CUSTOMERID = '$CUSTOMERID') AS FIRSTT) AS SECONDT GROUP BY QUOTEID";
   
-  $qry_res_q = mysql_query($qry_q);
+  $qry_res_q = mysqli_query($con,$qry_q);
   $data_q = array();
-  while($rows = mysql_fetch_array($qry_res_q))
+  while($rows = mysqli_fetch_array($qry_res_q))
   {
     $data_q[]  = array(
       "AMOUNT"        =>  $rows['AMOUNT'],
@@ -361,9 +367,9 @@ function get_pqe(){
      VIEW_ESTIMATE_BASKET JOIN VIEW_ESTIMATE_MASTER ON VIEW_ESTIMATE_MASTER.ESTIMATEID = VIEW_ESTIMATE_BASKET.ESTIMATEID 
      WHERE VIEW_ESTIMATE_MASTER.CUSTOMERID = '$CUSTOMERID') AS FIRSTT) AS SECONDT GROUP BY ESTIMATEID";
   
-  $qry_res_est = mysql_query($qry_est);
+  $qry_res_est = mysqli_query($con,$qry_est);
   $data_est = array();
-  while($rows = mysql_fetch_array($qry_res_est))
+  while($rows = mysqli_fetch_array($qry_res_est))
   {
     $data_est[]  = array(
       "AMOUNT"        =>  $rows['AMOUNT'],

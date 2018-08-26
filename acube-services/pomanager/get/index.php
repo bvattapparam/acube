@@ -16,12 +16,13 @@ switch($_GET['action']) {
 
 //get_estimate();
 function get_po_count(){
+  global $con;
   $data = json_decode(file_get_contents("php://input"));
   $CUSTOMERID = $data->CUSTOMERID;
 
-  $qry_num = mysql_query("SELECT * FROM VIEW_PO_MASTER WHERE CUSTOMERID = '$CUSTOMERID'");
+  $qry_num = mysqli_query($con,"SELECT * FROM VIEW_PO_MASTER WHERE CUSTOMERID = '$CUSTOMERID'");
 
-  $num_rows = mysql_num_rows($qry_num);
+  $num_rows = mysqli_num_rows($qry_num);
   
   $data  = array();
   $data[]->total = $num_rows;
@@ -35,6 +36,7 @@ function get_po_count(){
 
 
 function get_po_masters() {
+  global $con;
     $data = json_decode(file_get_contents("php://input"));
     $CUSTOMERID   = $data->CUSTOMERID;
     $qry = "SELECT 
@@ -51,16 +53,16 @@ function get_po_masters() {
     WHERE PO.CUSTOMERID = CUST.CUSTOMERID AND PO.CUSTOMERID = '$CUSTOMERID' ORDER BY PO.MODIFIEDDATE DESC";
     
     //$qry = "select p.poid, sum(pb.AMOUNT) AS PAMOUNT from VIEW_PO_MASTER AS p left outer join VIEW_PO_BASKET AS pb on p.POID = pb.POID group by p.POID where p.POID='$POID'";
-    $result = mysql_query($qry);
+    $result = mysqli_query($con,$qry);
     if(!$result){
       $arr = array('msg' => "", 'error' => 'Unknown Exception occurred. Please contact Administrator.');
       $jsn = json_encode($arr);
       trigger_error("Issue with mysql_query. Please check the detailed log", E_USER_NOTICE);
-      trigger_error(mysql_error());
+      trigger_error(mysqli_error());
       print_r($jsn);
     }else{
       $data  = array();
-      while($rows = mysql_fetch_array($result))
+      while($rows = mysqli_fetch_array($result))
       {
         $data[] = array(
           "ID"                =>  $rows['ID'],
@@ -80,6 +82,7 @@ function get_po_masters() {
 
 
 function get_po_master() {
+  global $con;
   $data = json_decode(file_get_contents("php://input"));
   $POID   = $data->POID;
   $qry = "SELECT 
@@ -95,16 +98,16 @@ function get_po_master() {
   FROM VIEW_PO_MASTER PO, VIEW_CUSTOMER_MASTER CUST 
   WHERE PO.CUSTOMERID = CUST.CUSTOMERID AND PO.POID = '$POID' ORDER BY MODIFIEDBY DESC";
   
-  $result = mysql_query($qry);
+  $result = mysqli_query($con,$qry);
   if(!$result){
     $arr = array('msg' => "", 'error' => 'Unknown Exception occurred. Please contact Administrator.');
     $jsn = json_encode($arr);
     trigger_error("Issue with mysql_query. Please check the detailed log", E_USER_NOTICE);
-    trigger_error(mysql_error());
+    trigger_error(mysqli_error());
     print_r($jsn);
   }else{
     $data  = array();
-    while($rows = mysql_fetch_array($result))
+    while($rows = mysqli_fetch_array($result))
     {
       $data[] = array(
         "ID"                =>  $rows['ID'],

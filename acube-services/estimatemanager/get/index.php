@@ -17,12 +17,13 @@ switch($_GET['action']) {
 
 //get_estimate();
 function get_estimate_count(){
+  global $con;
   $data = json_decode(file_get_contents("php://input"));
   $CUSTOMERID = $data->CUSTOMERID;
 
-  $qry_num = mysql_query("SELECT * FROM VIEW_ESTIMATE_MASTER WHERE CUSTOMERID = '$CUSTOMERID'");
+  $qry_num = mysqli_query($con,"SELECT * FROM VIEW_ESTIMATE_MASTER WHERE CUSTOMERID = '$CUSTOMERID'");
 
-  $num_rows = mysql_num_rows($qry_num);
+  $num_rows = mysqli_num_rows($qry_num);
   
   $data  = array();
   $data[]->total = $num_rows;
@@ -36,6 +37,7 @@ function get_estimate_count(){
 
 /** Function to Get Product **/
 function get_estimates() {
+  global $con;
 
   $data = json_decode(file_get_contents("php://input"));
   $CUSTOMERID = $data->CUSTOMERID;
@@ -56,16 +58,16 @@ function get_estimates() {
   ORDER BY MODIFIEDDATE DESC";
   
 
-  $result = mysql_query($qry);
+  $result = mysqli_query($con,$qry);
   if(!$result){
     $arr = array('msg' => "", 'error' => 'Unknown Exception occurred.');
     $jsn = json_encode($arr);
     trigger_error("Issue with mysql_query. Please check the detailed log", E_USER_NOTICE);
-    trigger_error(mysql_error());
+    trigger_error(mysqli_error());
     print_r($jsn);
   }else{
     $data  = array();
-    while($rows = mysql_fetch_array($result))
+    while($rows = mysqli_fetch_array($result))
     {
       $data[] = array(
         "ID"            =>  $rows['ID'],
@@ -86,6 +88,7 @@ function get_estimates() {
 
 
 function get_estimate_master() {
+  global $con;
     $data = json_decode(file_get_contents("php://input"));
     $ESTIMATEID = $data->ESTIMATEID;
     $qry = "SELECT 
@@ -104,16 +107,16 @@ function get_estimate_master() {
     FROM VIEW_ESTIMATE_MASTER EST, VIEW_CUSTOMER_MASTER CUST 
     WHERE EST.ESTIMATEID = '$ESTIMATEID' AND EST.CUSTOMERID = CUST.CUSTOMERID";
     
-    $result = mysql_query($qry);
+    $result = mysqli_query($con,$qry);
     if(!$result){
       $arr = array('msg' => "", 'error' => 'Unknown Exception occurred.');
       $jsn = json_encode($arr);
       trigger_error("Issue with mysql_query. Please check the detailed log", E_USER_NOTICE);
-      trigger_error(mysql_error());
+      trigger_error(mysqli_error());
       print_r($jsn);
     }else{
       $data  = array();
-      while($rows = mysql_fetch_array($result))
+      while($rows = mysqli_fetch_array($result))
       {
         $data[] = array(
           "ID"                =>  $rows['ID'],

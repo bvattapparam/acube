@@ -19,6 +19,7 @@
                  // storageServices.remove("userdata", "user");
                  // $rootScope.loggedInFlag = false;
                 }
+                console.log("reacred login service data", data);
                 deferred.resolve(data);
               }).error(function(data, status){
                 deferred.reject(data);

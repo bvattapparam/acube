@@ -121,7 +121,7 @@
                       <td class="text-uppercase" data-ng-bind="rel.VENDORID | reverseCode : reference.vendorManagerBO"></td>
                       <td data-ng-bind="rel.QTY"></td>
                       <td data-ng-bind="rel.UNIT" class="text-uppercase"></td>
-                      <td data-ng-bind="rel.PERCOST"></td>
+                      <td data-ng-bind="rel.PERCOST" class="text-right"></td>
                       <td data-ng-bind="rel.AMOUNT | aswaCurrency" class="text-right"></td>
                       <td class="f20 ng-binding action comment-content" data-ng-class="{'soft-lock-container': softLock}"> 
                         <i class="action-icon-md-primary fa fa-edit icon-link"  tooltip="{{'tooltip.edit' | i18n}}" ng-click="editBasket(rel)"></i>

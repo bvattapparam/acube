@@ -7,6 +7,7 @@ include('../../config/log_handler.php');
 
   /** Function to Push Product **/
   function put_customer_data() {
+    global $con;
 
     $data = json_decode(file_get_contents("php://input"));
 
@@ -23,13 +24,13 @@ include('../../config/log_handler.php');
 
 
     $qry = "UPDATE VIEW_CUSTOMER_MASTER SET TYPE = '$TYPE', FULLNAME = '$FULLNAME', MOBILE = '$MOBILE', EMAIL = '$EMAIL', ADDRESS = '$ADDRESS', COMMENT = '$COMMENT', MODIFIEDBY = '$MODIFIEDBY', MODIFIEDDATE = '$MODIFIEDDATE' WHERE CUSTOMERID = '$CUSTOMERID'";
-    $result = mysql_query($qry);
+    $result = mysqli_query($con,$qry);
     
     if(!$result){
         $arr = array('msg' => "", 'error' => 'Unknown Exception occurred. Please check the application log for more details.');
         $jsn = json_encode($arr);
         trigger_error("Issue with mysql_query. Please check the detailed log", E_USER_NOTICE);
-        trigger_error(mysql_error());
+        trigger_error(mysqli_error());
         print_r($jsn);
     }else{
         $arr = array('msg' => "Updated recored Successfully!!!", 'error' => '');

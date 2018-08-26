@@ -11,6 +11,7 @@ include('../../config/log_handler.php');
    
 
 function approve_quote_master(){
+    global $con;
     
 $data = json_decode(file_get_contents("php://input"));
 
@@ -24,17 +25,17 @@ $data = json_decode(file_get_contents("php://input"));
 
   
   $qry_clone = "UPDATE VIEW_QUOTE_MASTER SET APPROVED = '$APPROVED', STATUS = '$STATUS', MODIFIEDBY = '$MODIFIEDBY', MODIFIEDDATE = '$MODIFIEDDATE' WHERE QUOTEID = '$QUOTEID'";  
-  $result_clone = mysql_query($qry_clone);
+  $result_clone = mysqli_query($con,$qry_clone);
 
   $qry_cust_status = "UPDATE VIEW_CUSTOMER_MASTER SET STATUS = '$CUSTOMER_STATUS', QUOTEAPPROVED = '$APPROVED', MODIFIEDBY = '$MODIFIEDBY', MODIFIEDDATE = '$MODIFIEDDATE' WHERE CUSTOMERID = '$CUSTOMERID'";  
-  $result_cust_status = mysql_query($qry_cust_status);
+  $result_cust_status = mysqli_query($con,$qry_cust_status);
   
   
   if(!$result_clone){
       $arr = array('msg' => "", 'error' => $qry_cust_status. 'Unknown Exception occurred. Please check the application log for more details.');
       $jsn = json_encode($arr);
       trigger_error("Issue with mysql_query. Please check the detailed log", E_USER_NOTICE);
-      trigger_error(mysql_error());
+      trigger_error(mysqli_error());
       print_r($jsn);
   }else{
       $arr = array('msg' => "Updated QUOTE and CUSTOMER master status Successfully!!!", 'error' => '');

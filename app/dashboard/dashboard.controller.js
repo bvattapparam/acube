@@ -279,7 +279,7 @@
 				utilityServices.openConfigModal($modal, config);
 		};
 		if($scope.todocount > 0){
-			$scope.todoClient();
+			//$scope.todoClient();
 		}
 		
 	}

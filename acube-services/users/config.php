@@ -3,17 +3,23 @@
 /****************************************************
 			Database configuration						
 ****************************************************/
- 
+global $host;
 $host = "localhost"; 
 $user = "ACUBE"; 
 $pass = "GENACUBE"; 
 $database = "acube";
-$con = mysql_connect($host,$user,$pass);
+
+// $host = "localhost"; 
+// $user = "ACUBE2018"; 
+// $pass = "GENACUBE2018123$"; 
+// $database = "acube";
+global $con;
+$con = mysqli_connect($host,$user,$pass);
  
 if (!$con) {
 die('Sorry not able to connect, please contact DB administrator for more details ' . mysql_error());
 }
  
-mysql_select_db($database,$con);
+mysqli_select_db($con,$database);
 
 ?>

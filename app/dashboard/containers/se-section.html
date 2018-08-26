@@ -1,39 +1,43 @@
 <div class="row section-container">
-    <div class="col-xs-6">
+    <div class="col-xs-12 col-sm-6">
       <div class="col-xs-12 section-box">
         <div class="section-box-header">
           <h2 class="text-uppercase"><i class="fa fa-money"></i> {{'label.projectcash' | i18n}} </h2>
         </div>
         <div class="col-xs-12 section-box-body text-right minh-180">
-          <div class="col-lg-3 text-left dashboard-total"><label data-ng-bind="'label.total' | i18n"></label></div>
-          <div class="col-lg-9 text-right dashboard-total"><span  data-ng-bind="(PRTOTALAMOUNT | aswaCurrency) || '&mdash;'"></span></div>
+          <div class="col-lg-3 col-xs-6 text-left dashboard-total"><label data-ng-bind="'label.total' | i18n"></label></div>
+          <div class="col-xs-6 col-lg-9 text-right dashboard-total"><span  data-ng-bind="(PRTOTALAMOUNT | aswaCurrency) || '&mdash;'"></span></div>
           
-          <div class="col-lg-3 text-left dashboard-total"><label data-ng-bind="'label.spent' | i18n"></label></div>
-          <div class="col-lg-9 text-right dashboard-total"><span  data-ng-bind="(PO_TOTAL | aswaCurrency) || '&mdash;'"></span></div>
+          <div class="col-lg-3 col-xs-6 text-left dashboard-total"><label data-ng-bind="'label.spent' | i18n"></label></div>
+          <div class="col-lg-9 col-xs-6 text-right dashboard-total"><span  data-ng-bind="(PO_TOTAL | aswaCurrency) || '&mdash;'"></span></div>
 
-          <div class="col-lg-3 text-left dashboard-total"><label data-ng-bind="'label.balance' | i18n"></label></div>
-          <div class="col-lg-9 text-right dashboard-total" ng-class = "getClass(PRTOTALAMOUNT, PO_TOTAL)"><span data-ng-bind="(poBalanceCal(PRTOTALAMOUNT, PO_TOTAL)) || '&mdash;'"></span></div>
+          <div class="col-lg-3 col-xs-6 text-left dashboard-total"><label data-ng-bind="'label.balance' | i18n"></label></div>
+          <div class="col-lg-9  col-xs-6 text-right dashboard-total" ng-class = "getClass(PRTOTALAMOUNT, PO_TOTAL)"><span data-ng-bind="(poBalanceCal(PRTOTALAMOUNT, PO_TOTAL)) || '&mdash;'"></span></div>
         </div>
       </div>
     </div>
-    <div class="col-xs-6">
+
+    <div class="col-xs-12 m-t-m hidden-lg hidden-md"></div>
+
+    <div class="col-xs-12 col-sm-6">
       <div class="col-xs-12 section-box">
         <div class="section-box-header">
           <h2 class="text-uppercase"><i class="fa fa-money"></i> {{'label.operationalcash' | i18n}} </h2>
         </div>
         <div class="col-xs-12 section-box-body text-right minh-180">
-          <div class="col-lg-3 text-left dashboard-total"><label data-ng-bind="'label.total' | i18n"></label></div>
-          <div class="col-lg-9 text-right dashboard-total"><span  data-ng-bind="(OPTOTALAMOUNT | aswaCurrency) || '&mdash;'"></span></div>
+          <div class="col-lg-3 col-xs-6 text-left dashboard-total"><label data-ng-bind="'label.total' | i18n"></label></div>
+          <div class="col-lg-9 col-xs-6 text-right dashboard-total"><span  data-ng-bind="(OPTOTALAMOUNT | aswaCurrency) || '&mdash;'"></span></div>
           
-          <div class="col-lg-3 text-left dashboard-total"><label data-ng-bind="'label.spent' | i18n"></label></div>
-          <div class="col-lg-9 text-right dashboard-total"><span  data-ng-bind="(OPEXP_TOTAL | aswaCurrency) || '&mdash;' "></span></div>
+          <div class="col-lg-3 col-xs-6 text-left dashboard-total"><label data-ng-bind="'label.spent' | i18n"></label></div>
+          <div class="col-lg-9 col-xs-6 text-right dashboard-total"><span  data-ng-bind="(OPEXP_TOTAL | aswaCurrency) || '&mdash;' "></span></div>
 
-          <div class="col-lg-3 text-left dashboard-total"><label data-ng-bind="'label.balance' | i18n"></label></div>
-          <div class="col-lg-9 text-right dashboard-total" ng-class = "getClass(OPTOTALAMOUNT, OPEXP_TOTAL)"><span data-ng-bind="(opexpBalanceCal(OPTOTALAMOUNT, OPEXP_TOTAL)) || '&mdash;'"></span></div>
+          <div class="col-lg-3 col-xs-6 text-left dashboard-total"><label data-ng-bind="'label.balance' | i18n"></label></div>
+          <div class="col-lg-9 col-xs-6 text-right dashboard-total" ng-class = "getClass(OPTOTALAMOUNT, OPEXP_TOTAL)"><span data-ng-bind="(opexpBalanceCal(OPTOTALAMOUNT, OPEXP_TOTAL)) || '&mdash;'"></span></div>
         </div>
       </div>
     </div>
-    <dic class="row">&nbsp;</dic>
+    
+    <div class="col-xs-12 m-t-m"></div>
 
     <div class="col-xs-12">
       <div class="col-xs-12 section-box">

@@ -26,7 +26,6 @@
 		$scope.getLocations();
 
 		$scope.getLabours = function(){
-			console.log('asdasdasd')
 			$rootScope.showSpinner();
 			labourManagerServices.getLabours().then(function(data){
 				if(data.msg!=''){
@@ -118,7 +117,8 @@
 		
 
 		$scope.refresh	=	function(){
-			$scope.getUsers();
+			$scope.getLocations();
+			$scope.getLabours();
 		};
 
 		

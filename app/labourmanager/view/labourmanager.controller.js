@@ -170,6 +170,35 @@
 	};
 	$scope.getLabourTMSFull($scope.dataBO.CUSTOMERID);
 
+	$scope.getLabours = function(){
+		$rootScope.showSpinner();
+		labourManagerServices.getLabours().then(function(data){
+			if(data.msg!=''){
+				$scope.laboursList			=	[];
+				$scope.laboursBO			=	[];
+				$scope.laboursBO			=	data;
+				angular.forEach(data, function(val, key){
+					var node = {};
+					node.name	=	val.LABOUR;
+					node.code	=	val.LABOURID;
+					$scope.laboursList.push(node);
+				});
+				$scope.referencesData  = {};
+				angular.forEach(data, function(val, key){
+					var length  = data.length-1;
+					$scope.referencesData['LABOUR'] = {};
+					for(var i = length; i>=0;i--){
+						$scope.referencesData['LABOUR'][data[i]["LABOURID"]] = data[i]["LABOUR"];
+					}
+				});
+				$rootScope.hideSpinner();
+			}else{
+				$rootScope.hideSpinner();
+				$rootScope.showErrorBox('Error', data.error);
+			}
+		});
+	};
+	$scope.getLabours();
 	
 	$scope.editShiftPay = function (LABOUR, WEEKID) {
 		var config= {};

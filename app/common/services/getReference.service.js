@@ -21,17 +21,17 @@
           POTYPE.push({id:1, code: 'OPEXP', name: 'OPERATIONAL EXPENSE', status:1},{id:2, code: 'PREXP', name: 'PROJECT EXPENSE', status:1})
           data.POTYPE = POTYPE;
           self.references = data;
-          
           angular.forEach(data, function(item,key){
-            
-            var length  = item.length-1;
-           // console.log('VAL ', item)
-            self.referencesData[key]  = {};
-            for(var i=length; i>=0;i--){
-              //console.log('self ', item[i]["name"])
-              self.referencesData[key][item[i]["code"]] = item[i]["name"];
+            if(typeof item == 'undefined' || item == null){
+              $rootScope.showInfoBox(Messages['prompt.info.title'], Messages['prompt.label.referencenotloaded']);
+            }else{
+              var length  = item.length-1;
+              self.referencesData[key]  = {};
+              for(var i=length; i>=0;i--){
+                //console.log('self ', item[i]["name"])
+                self.referencesData[key][item[i]["code"]] = item[i]["name"];
+             }
             }
-           
         });
         }).error(function(data){
           deferred.reject(data);

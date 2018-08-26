@@ -279,7 +279,7 @@ Messages = {
 
 	"prompt.info.title"						:	"Info",
 	"prompt.label.referencenotloaded"		:	"Reference not loaded successfully, Please refresh the page once again...",
-
+	"prompt.label.permissionissue"			:	"There is some issue with Permissions. Please contact Administrator",
 
 	// DASHBOARD .....
 

@@ -6,14 +6,15 @@ get_customerpay();
 
 /** Function to Get Product **/
 function get_customerpay() {
+  global $con;
   $data = json_decode(file_get_contents("php://input"));
 
   $CUSTOMERID = $data->CUSTOMERID;
   $qry = "SELECT * FROM VIEW_CUSTOMER_PAY WHERE CUSTOMERID = '$CUSTOMERID' ORDER BY MODIFIEDDATE DESC";
-  $qry_res = mysql_query($qry);
+  $qry_res = mysqli_query($con,$qry);
   $data = array();
     
-  while($rows = mysql_fetch_array($qry_res))
+  while($rows = mysqli_fetch_array($qry_res))
   {
     $data[] = array(
       "ID"            =>  $rows['ID'],

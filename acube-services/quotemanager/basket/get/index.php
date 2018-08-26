@@ -11,21 +11,22 @@ switch($_GET['action']) {
 
 
 function get_quote_basket() {
+  global $con;
   
     $data = json_decode(file_get_contents("php://input"));
     $QUOTEID = $data->QUOTEID;
     $qry = "SELECT * FROM VIEW_QUOTE_BASKET WHERE QUOTEID = '$QUOTEID' ORDER BY LOCATION";
     
-    $result = mysql_query($qry);
+    $result = mysqli_query($con,$qry);
     if(!$result){
       $arr = array('msg' => "", 'error' => 'Unknown Exception occurred.');
       $jsn = json_encode($arr);
       trigger_error("Issue with mysql_query. Please check the detailed log", E_USER_NOTICE);
-      trigger_error(mysql_error());
+      trigger_error(mysqli_error());
       print_r($jsn);
     }else{
       $data  = array();
-      while($rows = mysql_fetch_array($result))
+      while($rows = mysqli_fetch_array($result))
       {
         $data[] = array(
           "ID"              =>  $rows['ID'],

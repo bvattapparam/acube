@@ -14,7 +14,7 @@
 </div>
 
 <div class="row section-container">
-  <div class="col-xs-8">
+  <div class="col-xs-12 col-lg-8">
     <div class="col-xs-12 section-box">
       <div class="section-box-header">
         <h2 class="text-uppercase"><i class="fa fa-bookmark"></i> {{'customermanager.basicdetails' | i18n}} </h2>
@@ -84,7 +84,8 @@
       </div>
     </div>
   </div>
-  <div class="col-xs-4">
+  <div class="col-xs-12 m-t-m hidden-lg hidden-md"></div>
+  <div class="col-xs-12 col-lg-4">
     <div class="col-xs-12 section-box">
       <div class="section-box-header">
         <h2 class="text-uppercase"><i class="fa fa-bookmark"></i> {{'label.projectcost' | i18n}} </h2>
@@ -177,10 +178,8 @@
 </div>
 
 
-
-
 <div class="row section-container">
-    <div class="col-xs-8">
+    <div class="col-xs-12 col-lg-8">
       <div class="col-xs-12 section-box">
         <div class="section-box-header">
           <h2 class="text-uppercase"><i class="fa fa-bookmark"></i> {{'customermanager.labourdetails' | i18n}} </h2>
@@ -190,6 +189,7 @@
               <div class="col-lg-7 expense-total text-right">
                   <span class="customerview-total txt-success" data-ng-bind="(MANDAYS) || '&mdash;'"></span>
                </div>
+               <div class="col-xs-12 m-t-m hidden-lg hidden-md"></div>
                <div class="col-lg-5 text-right actionbox">
                   <p> <a class="btn camelcase btn-primary" ng-href="#/labourmanager/{{CUSTOMERID}}/{{pathFlag}}" tooltip="{{'tooltip.add' | i18n}}"><i class="fa fa-plus"></i> <span data-ng-bind="'label.addlabourshift' | i18n"></span></a></p>
                   <p> <a class="btn camelcase btn-primary" ng-href="#/labourmanager/{{CUSTOMERID}}/{{pathFlag}}" tooltip="{{'tooltip.edit' | i18n}}"><i class="fa fa-edit"></i> <span data-ng-bind="'label.editlabourshift' | i18n"></span></a></p>
@@ -199,7 +199,8 @@
         </div>
       </div>
     </div>
-    <div class="col-xs-4">
+    <div class="col-xs-12 m-t-m hidden-lg hidden-md"></div>
+    <div class="col-xs-12 col-lg-4">
         <div class="col-xs-12 section-box">
           <div class="section-box-header">
             <h2 class="text-uppercase"><i class="fa fa-bookmark"></i> {{'customermanager.customernote' | i18n}} </h2>
@@ -213,13 +214,13 @@
         </div>
       </div>
   </div>
-
-
 <div class="row"></div>
 <div class="row section-container">
-  <div class="col-xs-4" ng-include src = "'customermanager/view/customer-view-po.html'"></div>
-  <div class="col-xs-4" ng-include src = "'customermanager/view/customer-view-qt.html'"></div>
-  <div class="col-xs-4" ng-include src = "'customermanager/view/customer-view-est.html'"></div>
+  <div class="col-lg-4 col-xs-12" ng-include src = "'customermanager/view/customer-view-po.html'"></div>
+  <div class="col-xs-12 m-t-m hidden-lg hidden-md"></div>
+  <div class="col-lg-4 col-xs-12" ng-include src = "'customermanager/view/customer-view-qt.html'"></div>
+  <div class="col-xs-12 m-t-m hidden-lg hidden-md"></div>
+  <div class="col-lg-4 col-xs-12" ng-include src = "'customermanager/view/customer-view-est.html'"></div>
 </div>
 <div class="row"></div>
 

@@ -16,6 +16,7 @@ switch($_GET['action']) {
 
   /** Function to Push Product **/
   function update_shift_pay() {
+    global $con;
 
     $data = json_decode(file_get_contents("php://input"));
 
@@ -32,12 +33,12 @@ switch($_GET['action']) {
     MODIFIEDDATE = '$MODIFIEDDATE' 
     WHERE ID = '$ID'";
 
-    $result = mysql_query($qry);
+    $result = mysqli_query($con,$qry);
     if(!$result){
         $arr = array('msg' => "", 'error' => 'Unknown Exception occurred. Please check the application log for more details.');
         $jsn = json_encode($arr);
         trigger_error("Issue with mysql_query. Please check the detailed log", E_USER_NOTICE);
-        trigger_error(mysql_error());
+        trigger_error(mysqli_error());
         print_r($jsn);
     }else{
         $arr = array('msg' => $qry . " PAYMENT EDIT - Updated recored Successfully!!!", 'error' => '');
@@ -49,6 +50,7 @@ switch($_GET['action']) {
 
 /** Function to Push Product **/
 function update_labour() {
+    global $con;
 
     $data = json_decode(file_get_contents("php://input"));
 
@@ -63,12 +65,12 @@ function update_labour() {
     MODIFIEDDATE = '$MODIFIEDDATE'  
     WHERE ID = '$ID'";
 
-    $result = mysql_query($qry);
+    $result = mysqli_query($con,$qry);
     if(!$result){
         $arr = array('msg' => "", 'error' => 'Unknown Exception occurred. Please check the application log for more details.');
         $jsn = json_encode($arr);
         trigger_error("Issue with mysql_query. Please check the detailed log", E_USER_NOTICE);
-        trigger_error(mysql_error());
+        trigger_error(mysqli_error());
         print_r($jsn);
     }else{
         $arr = array('msg' => $qry . " PAYMENT EDIT - Updated recored Successfully!!!", 'error' => '');
@@ -80,6 +82,7 @@ function update_labour() {
 
   /** Function to Push Product **/
   function update_tms() {
+    global $con;
 
     $data = file_get_contents('php://input');
     $cloneArray     =   json_decode($data, true);
@@ -93,20 +96,20 @@ function update_labour() {
         $ID         =   $value['ID'];
         $SHIFT      =   $value['SHIFT'];
         $qry_cln    =   "UPDATE VIEW_LABOURTMS_BASKET SET SHIFT = '$SHIFT', MODIFIEDBY = '$MODIFIEDBY' WHERE ID = '$ID'";
-        $result_cln =   mysql_query($qry_cln);
+        $result_cln =   mysqli_query($con,$qry_cln);
     }
     
     $qry_master     =   "UPDATE VIEW_LABOURTMS_MASTER 
     SET SALARY = '$SALARY', MODIFIEDBY = '$MODIFIEDBY' 
     WHERE CUSTOMERID = '$CUSTOMERID' 
     AND WEEKID = '$WEEKID' AND LABOURID = '$LABOURID'";
-    $result_master = mysql_query($qry_master);
+    $result_master = mysqli_query($con,$qry_master);
 
     if(!$result_cln){
         $arr = array('msg' => "", 'error' => 'Unknown Exception occurred. Please check the application log for more details.');
         $jsn = json_encode($arr);
         trigger_error("Issue with mysql_query. Please check the detailed log", E_USER_NOTICE);
-        trigger_error(mysql_error());
+        trigger_error(mysqli_error());
         print_r($jsn);
     }else{
         $arr = array('msg' => $qry . " PAYMENT EDIT - Updated recored Successfully!!!", 'error' => '');

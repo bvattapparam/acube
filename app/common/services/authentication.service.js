@@ -15,7 +15,8 @@
           if(data.length > 0){
             storageServices.set(data[0], "userdata","user");
             $rootScope.user = storageServices.get("userdata","user");
-            if(storageServices.get("userdata","user").PERMISSIONS == 'undefined'){
+            if(typeof storageServices.get("userdata","user").PERMISSIONS == 'undefined'){
+                $rootScope.showInfoBox(Messages['prompt.info.title'], Messages['prompt.label.permissionissue']);
                 $location.path('/logout');
             }
             $location.path('/dashboard');
@@ -62,10 +63,15 @@
          
         var found = false;
         angular.forEach(permissions, function(permission, index){
-            if(storageServices.get("userdata","user").PERMISSIONS.indexOf(permission) >= 0){
-               found = true;
-               return;
-           }                        
+            if(typeof storageServices.get("userdata","user").PERMISSIONS == 'undefined'){
+                $location.path('/logout');
+            }else{
+                if(storageServices.get("userdata","user").PERMISSIONS.indexOf(permission) >= 0){
+                    found = true;
+                    return;
+                } 
+            }
+                                   
         });
         
         return found;

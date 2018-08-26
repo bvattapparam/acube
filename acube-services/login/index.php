@@ -10,14 +10,15 @@ switch($_GET['action']) {
 
 /** Function to Get Product **/
 function get_user_data() {
+  global $con;
   $data = json_decode(file_get_contents("php://input"));
   $USERID = $data->USERID;
   $PASSWORD = $data->PASSWORD;
   $qry = "SELECT * FROM VIEW_AUTHENTICATION WHERE USERID = '$USERID'  AND PASSWORD = '$PASSWORD'";
-  $qry_res = mysql_query($qry);
+  $qry_res = mysqli_query($con,$qry);
   $data = array();
     
-  while($rows = mysql_fetch_array($qry_res))
+  while($rows = mysqli_fetch_array($qry_res))
   {
     $data[] = array(
       "USERID" => $rows['USERID'],

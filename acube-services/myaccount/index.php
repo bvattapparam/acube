@@ -14,18 +14,19 @@ switch($_GET['action']) {
 /** Function to Get Product **/
 
 function get_travel_data() {
+  global $con;
 
   //https://api.spotify.com/v1/search?query=iron+&offset="+($scope.currentPage-1)*$scope.limit+"&limit=20&type=artist")
   
   $limit = $_GET['limit'];
   $offset = $_GET['offset'];
 
-  $qry_count = mysql_query("SELECT * from tbl_travel");
-  $num_rows = mysql_num_rows($qry_count);
+  $qry_count = mysqli_query($con,"SELECT * from tbl_travel");
+  $num_rows = mysqli_num_rows($qry_count);
 
-  $qry = mysql_query("SELECT * from tbl_travel LIMIT $limit OFFSET $offset");
+  $qry = mysqli_query($con,"SELECT * from tbl_travel LIMIT $limit OFFSET $offset");
   $data = array();
-  while($rows = mysql_fetch_array($qry))
+  while($rows = mysqli_fetch_array($qry))
   {
     $data_item[] = array(
       "id" => $rows['travel_id'],

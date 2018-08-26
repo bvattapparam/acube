@@ -15,15 +15,16 @@ switch($_GET['action']) {
 
 /** Function to Get Product **/
 function get_labours() {
+  global $con;
   $data         =   json_decode(file_get_contents("php://input"));
 
   $qry = "SELECT * FROM VIEW_LABOUR ORDER BY ID ASC";
-  $qry_res = mysql_query($qry);
+  $qry_res = mysqli_query($con,$qry);
   
   
   $data = array();
     
-  while($rows = mysql_fetch_array($qry_res))
+  while($rows = mysqli_fetch_array($qry_res))
   {
     $data[] = array(
       "ID"            =>  $rows['ID'],
@@ -43,6 +44,7 @@ function get_labours() {
 
 /** Function to Get Product **/
 function get_labourtms_full() {
+  global $con;
   $data = json_decode(file_get_contents("php://input"));
   
   $CUSTOMERID   = $data->CUSTOMERID;
@@ -63,11 +65,11 @@ function get_labourtms_full() {
   LM.SALARY FROM VIEW_LABOURTMS_BASKET LB, VIEW_LABOURTMS_MASTER LM
    WHERE LB.CUSTOMERID = '$CUSTOMERID' AND LB.WEEKID = LM.WEEKID AND LB.CUSTOMERID = LM.CUSTOMERID AND
    LB.LABOURID = LM.LABOURID ORDER BY LB.WEEKID, LB.LABOURID, LB.WORKDATE";
-  $qry_res = mysql_query($qry);
+  $qry_res = mysqli_query($con,$qry);
 
   
   $data = array();
-  while($rows = mysql_fetch_array($qry_res))
+  while($rows = mysqli_fetch_array($qry_res))
   {
     $data[] = array(
       "ID"            =>  $rows['ID'],
@@ -110,6 +112,7 @@ function get_labourtms_full() {
 
 /** Function to Get Product **/
 function get_shift_edit_data() {
+  global $con;
   $data = json_decode(file_get_contents("php://input"));
 
   $CUSTOMERID             =   $data->CUSTOMERID;
@@ -134,17 +137,17 @@ function get_shift_edit_data() {
         WHERE VM.CUSTOMERID = VB.CUSTOMERID 
         AND VM.LABOURID = VB.LABOURID) AS T 
         WHERE WEEKID = '$WEEKID' and LABOURID = '$LABOURID' and CUSTOMERID = '$CUSTOMERID' GROUP BY CUSTOMERID";
-  $qry_res = mysql_query($qry);
+  $qry_res = mysqli_query($con,$qry);
   
   if(!$qry_res){
     $arr = array('msg' => "", 'error' => 'Unknown Exception occurred. Please check the application log for more details.');
     $jsn = json_encode($arr);
     trigger_error("Issue with mysql_query. Please check the detailed log", E_USER_NOTICE);
-    trigger_error(mysql_error());
+    trigger_error(mysqli_error());
     print_r($jsn);
   }else{
     $data = array();  
-    while($rows = mysql_fetch_array($qry_res))
+    while($rows = mysqli_fetch_array($qry_res))
     {
       $data[] = array(
         "ID"            =>  $rows['ID'],
@@ -170,10 +173,10 @@ function get_vendors() {
   $data = json_decode(file_get_contents("php://input"));
 
   $qry = "SELECT * FROM VIEW_VENDOR_MASTER ORDER BY MODIFIEDDATE DESC";
-  $qry_res = mysql_query($qry);
+  $qry_res = mysqli_query($con,$qry);
   $data = array();
     
-  while($rows = mysql_fetch_array($qry_res))
+  while($rows = mysqli_fetch_array($qry_res))
   {
     $data[] = array(
       "ID"                =>  $rows['ID'],

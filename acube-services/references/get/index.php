@@ -2,13 +2,14 @@
 include('../../users/config.php');
 include('../../config/log_handler.php');
 
-header("Access-Control-Allow-Origin: http://localhost:4200");
 get_reference_data();
 
   /** Main function to get the reference static data from reference tables **/
  function get_reference_data() {
+  global $con;
 
 $QRY_CUSTOMERSTATUS       =   "SELECT * FROM VIEW_REF_CUSTOMERSTATUS";
+
 $QRY_PAYMENTMODE          =   "SELECT * FROM VIEW_REF_PAYMENTMODE";
 $QRY_JURISDICTION         =   "SELECT * FROM VIEW_REF_JURISDICTION";
 $QRY_AVATAR               =   "SELECT * FROM VIEW_REF_AVATAR";
@@ -16,16 +17,15 @@ $QRY_CUSTOMERTYPE         =   "SELECT * FROM VIEW_REF_CUSTOMER_TYPE";
 $QRY_LOCATION             =   "SELECT * FROM VIEW_REF_LOCATION";
 
 	
-$RESULT_CUSTOMERSTATUS              =		mysql_query($QRY_CUSTOMERSTATUS); 
-$RESULT_PAYMENTMODE                 =   mysql_query($QRY_PAYMENTMODE); 
-$RESULT_JURISDICTION                =   mysql_query($QRY_JURISDICTION); 
-$RESULT_AVATAR                      =   mysql_query($QRY_AVATAR); 
-$RESULT_CUSTOMERTYPE                =   mysql_query($QRY_CUSTOMERTYPE); 
-$RESULT_LOCATION                    =   mysql_query($QRY_LOCATION); 
-
+$RESULT_CUSTOMERSTATUS              =		mysqli_query($con,$QRY_CUSTOMERSTATUS); 
+$RESULT_PAYMENTMODE                 =   mysqli_query($con,$QRY_PAYMENTMODE); 
+$RESULT_JURISDICTION                =   mysqli_query($con,$QRY_JURISDICTION); 
+$RESULT_AVATAR                      =   mysqli_query($con,$QRY_AVATAR); 
+$RESULT_CUSTOMERTYPE                =   mysqli_query($con,$QRY_CUSTOMERTYPE); 
+$RESULT_LOCATION                    =   mysqli_query($con,$QRY_LOCATION); 
 $DATA  = array();
   // Generic Status reference data
-  while($ROWS_CUSTOMERSTATUS	=	mysql_fetch_array($RESULT_CUSTOMERSTATUS)){
+  while($ROWS_CUSTOMERSTATUS	=	mysqli_fetch_array($RESULT_CUSTOMERSTATUS)){
     $DATA_CUSTOMERSTATUS[]	=	array(
       "id"          	=>  $ROWS_CUSTOMERSTATUS['ID'],
       "code"   		    =>  $ROWS_CUSTOMERSTATUS['CODE'],
@@ -35,7 +35,7 @@ $DATA  = array();
   };
 
   // payment mode reference data
-  while($ROW_PAYMENTMODE = mysql_fetch_array($RESULT_PAYMENTMODE)){
+  while($ROW_PAYMENTMODE = mysqli_fetch_array($RESULT_PAYMENTMODE)){
     $DATA_PAYMENTMODE[]  = array(
       "id"            =>  $ROW_PAYMENTMODE['ID'],
       "code"          =>  $ROW_PAYMENTMODE['CODE'],
@@ -44,7 +44,7 @@ $DATA  = array();
       );
   };
    // payment mode reference data
-  while($ROW_JURISDICTION = mysql_fetch_array($RESULT_JURISDICTION)){
+  while($ROW_JURISDICTION = mysqli_fetch_array($RESULT_JURISDICTION)){
     $DATA_JURISDICTION[]  = array(
       "id"            =>  $ROW_JURISDICTION['ID'],
       "code"          =>  $ROW_JURISDICTION['CODE'],
@@ -53,7 +53,7 @@ $DATA  = array();
       );
   };
    // avatar reference data
-  while($ROW_AVATAR = mysql_fetch_array($RESULT_AVATAR)){
+  while($ROW_AVATAR = mysqli_fetch_array($RESULT_AVATAR)){
     $DATA_AVATAR[]  = array(
       "id"            =>  $ROW_AVATAR['ID'],
       "code"          =>  $ROW_AVATAR['CODE'],
@@ -64,7 +64,7 @@ $DATA  = array();
 
   // CUSTOMER TYPE
 
-   while($ROW_CUSTOMERTYPE = mysql_fetch_array($RESULT_CUSTOMERTYPE)){
+   while($ROW_CUSTOMERTYPE = mysqli_fetch_array($RESULT_CUSTOMERTYPE)){
     $DATA_CUSTOMERTYPE[]  = array(
       "id"            =>  $ROW_CUSTOMERTYPE['ID'],
       "code"          =>  $ROW_CUSTOMERTYPE['CODE'],
@@ -73,7 +73,7 @@ $DATA  = array();
       );
   };
 
-  while($ROW_LOCATION = mysql_fetch_array($RESULT_LOCATION)){
+  while($ROW_LOCATION = mysqli_fetch_array($RESULT_LOCATION)){
     $DATA_LOCATION[]  = array(
       "id"            =>  $ROW_LOCATION['ID'],
       "code"          =>  $ROW_LOCATION['CODE'],

@@ -12,6 +12,7 @@ switch($_GET['action']) {
 
 /** Function to Get Product **/
 function get_vendor() {
+  global $con;
   $data = json_decode(file_get_contents("php://input"));
 
   $VENDORID = $_GET['VENDORID'];
@@ -21,10 +22,10 @@ function get_vendor() {
   WHERE VENDORID = '$VENDORID' 
   ORDER BY MODIFIEDDATE DESC";
 
-  $qry_res = mysql_query($qry);
+  $qry_res = mysqli_query($con,$qry);
   $data = array();
     
-  while($rows = mysql_fetch_array($qry_res))
+  while($rows = mysqli_fetch_array($qry_res))
   {
     $data[] = array(
       "ID"            =>  $rows['ID'],
@@ -48,13 +49,14 @@ return json_encode($data);
 
 /** Function to Get Product **/
 function get_vendors() {
+  global $con;
   $data = json_decode(file_get_contents("php://input"));
 
   $qry = "SELECT * FROM VIEW_VENDOR_MASTER ORDER BY MODIFIEDDATE DESC";
-  $qry_res = mysql_query($qry);
+  $qry_res = mysqli_query($con,$qry);
   $data = array();
     
-  while($rows = mysql_fetch_array($qry_res))
+  while($rows = mysqli_fetch_array($qry_res))
   {
     $data[] = array(
       "ID"                =>  $rows['ID'],
