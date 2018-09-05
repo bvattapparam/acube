@@ -56,6 +56,21 @@
 		};
 		$scope.getLabours();
 
+		$scope.getPrecontent = function(){
+			$rootScope.showSpinner();
+			settingsServices.getPrecontent().then(function(data){
+				if(data.msg!=''){
+					$scope.contentListBO			=	[];
+					$scope.contentListBO			=	data;
+					$rootScope.hideSpinner();
+				}else{
+					$rootScope.hideSpinner();
+					$rootScope.showErrorBox('Error', data.error);
+				}
+			});
+		};
+		$scope.getPrecontent();
+
 		$scope.editLocation = function (data) {
 			//console.log('EDIT BASKED:.... ', data)
 			var config= {};

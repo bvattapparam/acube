@@ -74,8 +74,15 @@ function formatString(){
 	};
 };
 
+function character(){
+	return function(input){
+        return String.fromCharCode(64 + parseInt(input,10));
+    };
+};
+
 aswaFilters.filter('aswaDate',['$filter','settings',aswaDate]);
 aswaFilters.filter('aswaCurrency',['$filter','settings', aswaCurrency]);
 aswaFilters.filter('pagination', pagination);
 aswaFilters.filter('reverseCode', reverseCode);
 aswaFilters.filter('formatString', formatString);
+aswaFilters.filter('character', character);

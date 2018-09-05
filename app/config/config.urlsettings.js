@@ -38,6 +38,7 @@
 		"estimatemanager.cloneEstimateBasket"			: 	"../acube-services/estimatemanager/generate/?action=clone_estimate_basket",
 		"estimatemanager.addEstimateBasket"				: 	"../acube-services/estimatemanager/basket/add/",
 		"estimatemanager.updateEstimateBasket"			: 	"../acube-services/estimatemanager/basket/update/",
+		"estimatemanager.updateEstimateDiscount"		: 	"../acube-services/estimatemanager/update/?action=update_estimate_discount",
 		"estimatemanager.deleteEstimateBasketData"		: 	"../acube-services/estimatemanager/basket/delete/",
 
 		"quotemanager.getQuoteCount"					: 	"../acube-services/quotemanager/get/?action=get_quote_count",
@@ -89,7 +90,9 @@
 		"labourmanager.updateLabour"					:	"../acube-services/labourmanager/update/?action=update_labour",
 
 		"settings.getLocations"							:	"../acube-services/settings/get/?action=get_locations",
-		"settings.updateLocation"						:	"../acube-services/settings/update/?action=update_location"
+		"settings.getPrecontent"						:	"../acube-services/settings/get/?action=get_prefill_content",
+		"settings.updateLocation"						:	"../acube-services/settings/update/?action=update_location",
+		"settings.estimateSortOrder"					:	"../acube-services/settings/update/?action=estimate_sort_order"
 		
 	}
 

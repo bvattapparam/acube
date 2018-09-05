@@ -32,6 +32,9 @@
               <td><span data-ng-bind="rel.CUSTOMERID" data-ng-if="rel.CUSTOMERID"></span> <span data-ng-bind="rel.EXPITEM" data-ng-if="rel.EXPITEM"></span></td>
               <td><i class="fa fa-eye icon-link fa-lg" tooltip="{{rel.COMMENT}}" tooltip-placement="left"></i></td>
             </tr>
+            <tr data-ng-if="paymentManagerBO == null">
+              <td colspan="8" class="text-center error-orange-text"><i class="fa fa-frown-o"></i> <span data-ng-bind = "'label.errorcontent' | i18n"></span></td>
+            </tr>
             </tbody>
             <tfoot>
               <tr><td colspan="8">

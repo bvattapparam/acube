@@ -138,6 +138,9 @@
               <td data-ng-bind="rel.CREATEDBY">Active</td>
               <td data-ng-bind="rel.MODIFIEDDATE | aswaDate">Active</td>
             </tr>
+            <tr data-ng-if="customerManagerBO == null">
+              <td colspan="5" class="text-center error-orange-text"><i class="fa fa-frown-o"></i> <span data-ng-bind = "'label.errorcontent' | i18n"></span></td>
+            </tr>
             </tbody>
           </table>
           <div class="loadRunner_modules" ng-show="spinner_top10Customers">

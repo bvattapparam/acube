@@ -87,7 +87,7 @@
         message   = message + "<li><i class='fa "+ icon +"'></i> " + errorMessages[i] + "</li>";
       }
     }
-    if(reqBO.STATUS == "3" && reqBO.QUOTEAPPROVED !== 1) {
+    if(reqBO.STATUS == "3" && reqBO.QUOTEAPPROVED !== '1') {
       message   = message + "<li><i class='fa "+ icon +"'></i> " +Messages['validation.customerstatus.confimred'] + "</li>";
       flag  = true;
       

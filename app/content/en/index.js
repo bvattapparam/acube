@@ -95,6 +95,7 @@ Messages = {
 	"validation.salary"				:	"Salary is mandatory",
 	"validation.noteheader"			:	"Note Header is mandatory",
 	"validation.notedescription"	:	"Note Description is mandatory",
+	"validation.customer"			:	"Customer is mandatory",
 
 	"validation.customerstatus.confimred"	:	"Can not change the status as CONFIRMED with out QUOTATION approved. Please follow the flow and ensure the QUOTATION is approved",
 
@@ -152,6 +153,14 @@ Messages = {
 // ------------------------------------------------------------------------------------------
 
 	"label.expirydate"						:	"Expiry Date",
+	"label.select"							:	"Select",
+	"label.sno"								:	"SNO",
+	"label.netvalue"						:	"Net Amount",
+	"label.discount"						:	"Discount",
+	"label.specialnotefooter"				:	"Footer Note",
+	"label.id"								:	"ID",
+	"label.settings.precontent"				:	"Pre Fill Content",
+	"label.precontent"						:	"Pre Content",
 	"label.settings.locations"				:	"Manage Locations",
 	"label.settings.labours"				:	"Manage Labours",
 	"label.locationid"						:	"Location ID",
@@ -185,7 +194,8 @@ Messages = {
 	"label.units"							: 	"Units",
 	"label.price"							: 	"Price",
 	"label.rate"							: 	"Rate",
-	"label.percost"							: 	"PerCost",
+	"label.percost"							: 	"RATE",
+	"label.sortorder"						:	"Sort Order",
 	"label.amount"							: 	"Amount",
 	"label.total"							: 	"Total",
 	"label.customer"						: 	"Customer",
@@ -386,7 +396,9 @@ Messages = {
 
 	"todo.todoclient.todolist"					:	"Todo List",
 	"settings.pageheader"						:	"Settings",
-	"settings.editlocation"						:	"Edit Location"
+	"settings.editlocation"						:	"Edit Location",
+	"settings.prefill"							:	"Prefill",
+	"settings.sortorder"						:	"Sorting Order"
 
 
 

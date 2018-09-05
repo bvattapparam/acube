@@ -2,11 +2,29 @@
   // create factory for header service to retun object in deffered way
   function utilityServices($rootScope,$http,$q){
 
+    this.dateOnly = function(date){
+      var YEAR =  date.getFullYear();
+      var MONTH = date.getMonth()+1;
+      var DATE = date.getDate();
+      var FullDate = YEAR + "-" + MONTH + "-" + DATE;
+      return FullDate; 
+    }
+
     this.clearSessionStorage = function(){
       for(key in sessionStorage){
         sessionStorage.removeItem(key);
       }
     }
+    this.removeDuplicates = function(arr){
+      console.log('tested')
+			let unique_array = []
+			for(let i = 0;i < arr.length; i++){
+				if(unique_array.indexOf(arr[i]) == -1){
+					unique_array.push(arr[i])
+				}
+			}
+			return unique_array
+		}
 
     // model with configuaration for form data handling
     this.closeModel = function(modalInstance, formName, title, message){
@@ -81,17 +99,17 @@
 	      }
 	    });     
 
-    	modalInstance.result.then(function (selectedItem) {
-        // console.log("inside the callback" ,selectedItem);
-		    config.callback('success', selectedItem);
-		}, function (selectedItem) {
-		      //$log.info('Modal dismissed at: ' + new Date());
-          config.callback('error', selectedItem);
-		});
-
-
+      modalInstance.result.then(function (selectedItem) {
+          // console.log("inside the callback" ,selectedItem);
+          config.callback('success', selectedItem);
+      }, function (selectedItem) {
+            //$log.info('Modal dismissed at: ' + new Date());
+            config.callback('error', selectedItem);
+      });
 
     }
+    
+   
 
 
   }

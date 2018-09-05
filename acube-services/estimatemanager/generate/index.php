@@ -57,17 +57,33 @@ switch($_GET['action']) {
 
     $CUSTOMERID         =   $data->CUSTOMERID;
     $ESTIMATEID         =   $data->ESTIMATEID;
+    $SORTORDER          =   $data->SORTORDER;
+    $DISCOUNT           =   $data->DISCOUNT;
     $MODIFIEDBY         =   $data->MODIFIEDBY;
     $MODIFIEDDATE       =   date("Y-m-d");
     $CREATEDDATE        =   date("Y-m-d");
     $CREATEDBY          =   $data->MODIFIEDBY;
     $STATUS = 0;
+   $qry = "INSERT INTO VIEW_ESTIMATE_MASTER (CUSTOMERID, ESTIMATEID, SORTORDER, DISCOUNT, CREATEDBY, CREATEDDATE, MODIFIEDDATE, MODIFIEDBY, STATUS) VALUES ('$CUSTOMERID', '$ESTIMATEID' ";
+    if($SORTORDER == null){
+        $qry = $qry . ",NULL";
+    }else{
+        $qry = $qry . ",'$SORTORDER'";
+    }
+    if($DISCOUNT == null){
+        $qry = $qry . ",NULL";
+    }else{
+        $qry = $qry . ",'$DISCOUNT'";
+    }
+    $qry = $qry . ",'$CREATEDBY', '$CREATEDDATE', '$MODIFIEDDATE', '$MODIFIEDBY', '$STATUS')";
     
-    
-    $qry = "INSERT INTO VIEW_ESTIMATE_MASTER (CUSTOMERID, ESTIMATEID, CREATEDBY, CREATEDDATE, MODIFIEDDATE, MODIFIEDBY, STATUS) VALUES ('$CUSTOMERID', '$ESTIMATEID', '$CREATEDBY', '$CREATEDDATE', '$MODIFIEDDATE', '$MODIFIEDBY', '$STATUS')";
+   // $qry = "INSERT INTO VIEW_ESTIMATE_MASTER1 (CUSTOMERID, ESTIMATEID, SORTORDER, DISCOUNT, CREATEDBY, CREATEDDATE, MODIFIEDDATE, MODIFIEDBY, STATUS) 
+    //VALUES ('$CUSTOMERID', '$ESTIMATEID', CASE $SORTORDER WHEN null THEN NULL ELSE $SORTORDER,CASE $DISCOUNT WHEN null THEN NULL ELSE $DISCOUNT,'$CREATEDBY', '$CREATEDDATE', '$MODIFIEDDATE', '$MODIFIEDBY', '$STATUS')";
+
+    //$qry = "INSERT INTO VIEW_ESTIMATE_MASTER (CUSTOMERID, ESTIMATEID, SORTORDER, DISCOUNT, CREATEDBY, CREATEDDATE, MODIFIEDDATE, MODIFIEDBY, STATUS) VALUES ('$CUSTOMERID', '$ESTIMATEID', '$SORTORDER', '$DISCOUNT','$CREATEDBY', '$CREATEDDATE', '$MODIFIEDDATE', '$MODIFIEDBY', '$STATUS')";
     $result = mysqli_query($con,$qry);
     if(!$result){
-        $arr = array('msg' => "", 'error' => 'Unknown Exception occurred. Please check the application log for more details.');
+        $arr = array('msg' => "", 'error' => $DISCOUNT . $qry . 'Unknown Exception occurred. Please check the application log for more details.');
         $jsn = json_encode($arr);
         trigger_error("Issue with mysql_query. Please check the detailed log", E_USER_NOTICE);
         trigger_error(mysqli_error());

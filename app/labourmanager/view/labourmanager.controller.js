@@ -134,12 +134,14 @@
 				$scope.customerManagerBO	=	data[0].ITEM;
 
 				// CREATE NEW REFERENCE FOR CUSTOMER..
+				if($scope.customerManagerBO !== null){
 					for(var i=0; i<$scope.customerManagerBO.length; i++){
 						var node 	=	{};
 						node.code 	= 	$scope.customerManagerBO[i].CUSTOMERID;
 						node.name	=	$scope.customerManagerBO[i].CUSTOMERID + " ( " + $scope.customerManagerBO[i].FULLNAME + " )";
 						$scope.reference.CUSTOMER.push(node);
 					}
+				}
 
 				$rootScope.hideSpinner();
 			}else{
@@ -150,26 +152,6 @@
 		});
 	};
 	$scope.getCustomers();
-
-	$scope.getLabourTMSFull = function(CUSTOMERID){
-		$rootScope.showSpinner();
-		var pushData   = {};
-		pushData.CUSTOMERID		=	CUSTOMERID;//$scope.dataBO.CUSTOMERID;
-		labourManagerServices.getLabourTMSFull(pushData).then(function(data){
-			if(data.msg!=''){
-				$scope.laboursTMSList			=	[];
-				$scope.laboursTMSList			=	data;
-				//console.log('LABOUT TMS DATA....: ', data)
-				$rootScope.hideSpinner();
-			}else{
-				$rootScope.hideSpinner();
-				$rootScope.showErrorBox('Error', data.error);
-			}
-			
-		});
-	};
-	$scope.getLabourTMSFull($scope.dataBO.CUSTOMERID);
-
 	$scope.getLabours = function(){
 		$rootScope.showSpinner();
 		labourManagerServices.getLabours().then(function(data){
@@ -199,6 +181,27 @@
 		});
 	};
 	$scope.getLabours();
+
+	$scope.getLabourTMSFull = function(CUSTOMERID){
+		$rootScope.showSpinner();
+		var pushData   = {};
+		pushData.CUSTOMERID		=	CUSTOMERID;//$scope.dataBO.CUSTOMERID;
+		labourManagerServices.getLabourTMSFull(pushData).then(function(data){
+			if(data.msg!=''){
+				$scope.laboursTMSList			=	[];
+				$scope.laboursTMSList			=	data;
+				console.log('LABOUT TMS DATA....: ', data)
+				$rootScope.hideSpinner();
+			}else{
+				$rootScope.hideSpinner();
+				$rootScope.showErrorBox('Error', data.error);
+			}
+			
+		});
+	};
+	$scope.getLabourTMSFull($scope.dataBO.CUSTOMERID);
+
+	
 	
 	$scope.editShiftPay = function (LABOUR, WEEKID) {
 		var config= {};
@@ -289,7 +292,7 @@
 				pushData.SHIFTS		= 		[];
 
 				// FORMAT THE DATA TMS AS PER TMS
-				$scope.referencesData  = {};
+				//$scope.referencesData  = {};
 				angular.forEach(tms, function(val, key){
 					var length  = tms.length-1;
 					$scope.referencesData['obj1'] = {};
@@ -318,6 +321,7 @@
 						$rootScope.hideSpinner();
 						$rootScope.addnotification(Messages['modal.add.title'], Messages['modal.add.message'])
 						$scope.getLabourTMSFull($scope.dataBO.CUSTOMERID);
+						$scope.getLabours();
 						$scope.dataBO = {};
 						$scope.dataBO.CUSTOMERID   = pushData.CUSTOMERID;
 					}else {

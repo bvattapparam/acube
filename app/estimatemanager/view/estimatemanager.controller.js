@@ -29,12 +29,14 @@
 					$scope.customerManagerBO	=	data[0].ITEM;
 
 					// CREATE NEW REFERENCE FOR CUSTOMER..
+					if($scope.customerManagerBO !== null){
 						for(var i=0; i<$scope.customerManagerBO.length; i++){
 							var node 	=	{};
 							node.code 	= 	$scope.customerManagerBO[i].CUSTOMERID;
 							node.name	=	$scope.customerManagerBO[i].CUSTOMERID + " ( " + $scope.customerManagerBO[i].FULLNAME + " )";
 							$scope.reference.CUSTOMER.push(node);
 						}
+					}	
 
 					$rootScope.hideSpinner();
 				}else{
@@ -82,7 +84,6 @@
 		$scope.getCustomer = function(customerid){
 			$rootScope.showSpinner();
 			customerManagerServices.getCustomer(customerid).then(function(data){
-				console.log(2)
 				if(data.msg!=''){
 					$scope.customerManagerBO	=	[];
 					$scope.customerManagerBO 	= 	data;
@@ -129,7 +130,7 @@
 			var COMPANY = "AGM";
 			var ENTITY = "ESTI";
 			var D = new Date();
-			var NDATE = D.getMonth()+1 + "" + D.getDate() + "" + D.getFullYear() + "" + D.getHours() + "" + D.getMinutes();
+			var NDATE = D.getMonth()+1 + "" + D.getDate() + "" + D.getFullYear() + "" + D.getHours() + "" + D.getMinutes() + "" + D.getSeconds();
 			var ESTIMATEID = COMPANY + "-" + ENTITY + "-" + CUSTOMER_TYPE + "-" + CUSTOMERNAME.substr(0,3).toUpperCase() + "-" + VERSION + "-" + NDATE;
 
 			var pushData = {};

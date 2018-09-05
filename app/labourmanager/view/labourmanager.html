@@ -83,7 +83,7 @@
                   </select>
                 </td>
                 <td data-ng-if="tdSpacer" style="width:70%"> </td>
-                <td ng-repeat ="rel in arrTMS">{{dataBO.ITEMTMS}}
+                <td ng-repeat ="rel in arrTMS">
                     <input tabindex="1" type="text" class="form-control" tabindex="1" ng-model="dataBO.ITEMTMS[rel.ITEMDATE]" ng-value = '0' maxlength="10" acube-num>
                 </td>
                 <td>
@@ -109,7 +109,7 @@
                         <thead class="table-bg">
                           <tr>
                             <th data-ng-bind="'label.labour' | i18n"></th>
-                            <th ng-repeat = "list in rel.TMSENTRIES[0].TMS">{{list.WORKDATE}}</th>
+                            <th ng-repeat = "list in rel.TMSENTRIES[0].TMS"></th>
                             <th permission="['JRD_ADMIN']" data-ng-bind="'label.pershift' | i18n"></th>
                             <th permission="['JRD_ADMIN']" data-ng-bind="'label.salary' | i18n"></th>
                           </tr>

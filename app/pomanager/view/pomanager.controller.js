@@ -28,12 +28,14 @@
 					$scope.customerManagerBO	=	[];
 					$scope.customerManagerBO	=	data[0].ITEM;
 					// CREATE NEW REFERENCE FOR CUSTOMER..
+					if($scope.customerManagerBO !== null){
 						for(var i=0; i<$scope.customerManagerBO.length; i++){
 							var node 	=	{};
 							node.code 	= 	$scope.customerManagerBO[i].CUSTOMERID;
 							node.name	=	$scope.customerManagerBO[i].CUSTOMERID + " ( " + $scope.customerManagerBO[i].FULLNAME + " )";
 							$scope.reference.CUSTOMER.push(node);
 						}
+					}
 
 					$rootScope.hideSpinner();
 				}else{

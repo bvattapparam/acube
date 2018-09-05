@@ -1,0 +1,41 @@
+<form name="frm">
+<div id="confirmationmodal">
+  <div class="col-xs-12 modal-container">
+    <div class="modal-header modal-header-customized">
+        <h2> {{ passingValues.title }}<i class="fa fa-close pull-right" ng-click="cancel(frm);"></i></h2>
+    </div>
+        <div class="row">
+            <div class="col-xs-12">
+                <div class="modal-body confirmationbox-body">
+                    <div class="col-xs-12 section-container" style="height: 450px; overflow: auto">
+                        <form name="frm">
+                            <div class="row section-box">
+                                <div class="col-sm-12 p-t-s text-uppercase">
+                                <ul ui-sortable="sortableOptions" ng-model="list" class="list">
+                                    <li ng-repeat="item in list" class="btn btn-default" style="text-align:left; min-width:450px">
+                                    <div class="myHandle"><i class="fa fa-arrows-alt"></i></div>
+                                    {{item.LOCATION}} -- {{referenceData.referencesDataMap.LOCATION[item.LOCATION]}}
+                                    </li>
+                                </ul>
+                                
+                            </div>
+                        </form>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-xs-12">
+                    <div class="modal-footer">
+                            <button class="btn camelcase btn-default" ng-click="cancel()">{{'label.cancel' | i18n}}</button>
+                            <button class="btn camelcase btn-primary" ng-click="save(list)">{{'label.save' | i18n}}</button>
+                    </div>
+                    </div>
+                </div>
+                <div class="col-xs-12">
+                <div class="audit-box" ng-if="isEdit">
+                    <span>Created by <strong>{{dataBO.CREATEDBY}} </strong>on <strong>{{dataBO.CREATEDDATE}}</strong>. Modified by <strong>{{dataBO.MODIFIEDBY}}</strong> on <strong>{{dataBO.MODIFIEDDATE}}</strong></span> 
+                </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>

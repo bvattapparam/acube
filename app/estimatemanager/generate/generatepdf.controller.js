@@ -34,6 +34,10 @@
         var output = [];
         output.push([ 
             {
+                text: Messages['label.sno'].toUpperCase(),
+                style: 'itemsHeader'
+            }, 
+            {
                 text: Messages['label.description'].toUpperCase(),
                 style: 'itemsHeader'
             }, 
@@ -54,17 +58,22 @@
                 style: [ 'itemsHeader', 'center']
             }
         ]);
-            
+        var sno_main = 1;
+        var sno = 1;
             for(var key in grouped){
-                output.push([{text:$scope.referenceData.referencesDataMap.LOCATION[key], style: 'tableHeaderone', colSpan: 5, alignment: 'left'}]);
+                output.push([{text: "(" + $filter('character')(sno_main) + ") " , style: 'tableHeaderone', alignment: 'left'},{text: $scope.referenceData.referencesDataMap.LOCATION[key], style: 'tableHeaderone', colSpan: 5, alignment: 'left'}]);
+                
                 if(grouped.hasOwnProperty(key)){
                     var val = grouped[key];
                     for(const s of val){
-                        output.push([{text:s.DESCRIPTION, style:'cellText'},{text:s.QTY},{text:s.UNIT},{text:$filter('aswaCurrency')(s.PERCOST), alignment: 'right'},{text:$filter('aswaCurrency')(s.AMOUNT), alignment: 'right'}])
+                        output.push([{text:sno, style:'cellText', alignment:'right'},{text:s.DESCRIPTION, style:'cellText'},{text:s.QTY},{text:s.UNIT},{text:$filter('aswaCurrency')(s.PERCOST), alignment: 'right'},{text:$filter('aswaCurrency')(s.AMOUNT), alignment: 'right'}])
+                        sno = sno+1;
                     }
+                   
                 }
+                sno_main = sno_main + 1;
             }
-            output.push([{text:'Sub Total', style:'subTotal'},{text:$scope.PDFBO.TOTALQTY,style:'subTotal'},{text:'', style:'subTotal'},{text:'',style:'subTotal'},{text:$filter('aswaCurrency')($scope.PDFBO.TOTALAMOUNT), style:'subTotal', alignment: 'right'}])
+            output.push([{text:'Sub Total', style:'subTotal',colSpan: 2},{text:$scope.PDFBO.TOTALQTY,style:'subTotal'},{text:'', style:'subTotal'},{text:'',style:'subTotal'},{text:'',style:'subTotal'},{text:$filter('aswaCurrency')($scope.PDFBO.TOTALAMOUNT), style:'subTotal', alignment: 'right'}])
 
         $scope.body= angular.copy(output);
         $scope.emptySpace = "";
@@ -73,6 +82,7 @@
         $scope.generatePDF = function(data, frm){
             $scope.EXPIRYDATE = data.EXPIRYDATE;
             $scope.SPECIALNOTE = data.COMMENT;
+            $scope.SPECIALNOTEFOOTER = data.COMMENTFOOTER;
             if(typeof $scope.SPECIALNOTE == 'undefined' || $scope.SPECIALNOTE == ''){
                 $scope.special_note = '';
             }else{
@@ -83,8 +93,18 @@
                     ],
                 };
             };
+            if(typeof $scope.SPECIALNOTEFOOTER == 'undefined' || $scope.SPECIALNOTEFOOTER == ''){
+                $scope.special_note_footer = '';
+            }else{
+                $scope.special_note_footer =  {   
+                    stack: [
+                        {text: 'Special Note :', style: 'specialNoteTitle'},
+                        {text: $scope.SPECIALNOTEFOOTER, style: 'specialNote'},
+                    ],
+                };
+            };
             var docDefinition = {
-                pageMargins: [ 10, 115, 10, 130 ],
+                pageMargins: [ 20, 115, 20, 130 ],
                 pageSize: 'A4',
                 
                 header: function(currentPage, pageCount, pageSize) {
@@ -264,12 +284,18 @@
                     {
                       table: {
                         headerRows: 1,
-                        widths: [ '*', 'auto', 'auto', 'auto', 'auto' ],
+                        widths: [ 20,'*', 'auto', 'auto', 'auto', 'auto' ],
                         body:$scope.body
                       }, 
                      
                      //layout: 'lightHorizontalLines'
                     
+                    },
+                    $scope.special_note_footer,
+                    { 
+                        stack: [
+                            {text: $scope.emptySpace, style: 'emptySpace'},
+                        ],
                     },
                     { 
                         text: 'NOTES',
@@ -449,8 +475,8 @@
                      fontSize:9
                  }
             }
-            //pdfMake.createPdf(docDefinition).open();
-           pdfMake.createPdf(docDefinition).download('EST_' + $scope.estimateManagerBO[0].CUSTOMERID);
+            pdfMake.createPdf(docDefinition).open();
+           //pdfMake.createPdf(docDefinition).download('EST_' + $scope.estimateManagerBO[0].CUSTOMERID);
            //pdfMake.createPdf(docDefinition).print();
            $scope.cancel(frm);
 			

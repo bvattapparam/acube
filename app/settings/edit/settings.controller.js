@@ -18,7 +18,22 @@
 			$scope.dataBO	= 	passingValues.dataBO;
 		}
 
-		
+		$scope.loadReferences = function(){
+			var deferred = $q.defer();
+			$rootScope.showSpinner();
+			getreferences.getReference('refresh').then(function(data){
+				if(typeof data !== 'object'){
+					$rootScope.showInfoBox(Messages['prompt.info.title'], Messages['prompt.label.referencenotloaded']);
+				}
+				deferred.resolve();
+			}, function(data){
+				console.log("ERROR ON LOADING REFERENCES...");
+				deferred.reject();
+			})["finally"](function(data){
+				$rootScope.hideSpinner();
+			});
+			return deferred.promise;
+		};
 		
 		$scope.saveLocation = function (record) {
 			//console.log('SAVE PAY RECORD', record)
@@ -33,6 +48,7 @@
 						if(data.msg != ''){
 							$rootScope.hideSpinner();
 							$rootScope.addnotification(Messages['modal.update.title'], Messages['modal.update.message'])
+							$scope.loadReferences();
 							$modalInstance.close();
 						}else {
 							$rootScope.hideSpinner();

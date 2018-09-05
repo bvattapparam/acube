@@ -13,30 +13,7 @@
 		{
 			$scope.dataBO	 					= 	passingValues.dataBO;
 		};
-		
-// MONTH AND YEAR ONLY
-		// $scope.today = function() {
-		// 	$scope.dt = new Date();
-		//   };
-		//   $scope.today();
-		
-		//   $scope.showWeeks = false;
-		
-		
-		//   $scope.open = function($event) {
-		// 	$event.preventDefault();
-		// 	$event.stopPropagation();
-		
-		// 	$scope.opened = true;
-		//   };
-		
-		//   $scope.dateOptions = {
-		// 	'year-format': "'yy'",
-		// 	'starting-day': 1,
-		// 	'datepicker-mode':"'month'",
-		// 	'min-mode':"month"
-		//   };
-// END HERE...
+
 
 		$scope.save = function (record) {
 			var pushData = {};
@@ -47,6 +24,8 @@
 				$rootScope.showErrorBox('Error', error);
 			}else{
 				$rootScope.showSpinner();
+				pushData.DATE = utilityServices.dateOnly(record.DATE);
+				console.log('DATE', pushData.DATE);
 				if($scope.isEdit){
 					customerManagerServices.updateCustomerPay(record).then(function(data){
 						if(data.msg!=""){

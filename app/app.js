@@ -5,6 +5,7 @@
 		'ui.bootstrap', 
 		'ui.bootstrap.datetimepicker',
 		'ui.select2', 
+		'ui.sortable',
 		'chart.js', 
 		'aswaFilters',
 		'acubeDirectives',

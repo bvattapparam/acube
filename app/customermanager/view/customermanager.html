@@ -60,9 +60,12 @@
                 <td data-ng-bind="referenceData.referencesDataMap.CUSTOMERSTATUS[rel.STATUS]" class="text-uppercase status-txt-{{rel.STATUS}}"></td>
                 <td class="f20 ng-binding action comment-content">
                   <i class="action-icon-md-primary fa fa-edit icon-link"  ng-click="editCustomer(rel)" tooltip="{{'tooltip.editcustomer'|i18n}}"></i>
-                  <i class="action-icon-md-primary fa fa-trash icon-link" ng-click="showInfoBox('Info', 'generalinfoone', 'sm')" tooltip="{{'tooltip.trashcustomer'|i18n}}"></i>
+                  <i permission="['JRD_ADMIN']" class="action-icon-md-primary fa fa-trash icon-link" ng-click="showInfoBox('Info', 'generalinfoone', 'sm')" tooltip="{{'tooltip.trashcustomer'|i18n}}"></i>
                   <a data-ng-if="showView(rel.STATUS)" ng-href="#/customer/customerview/{{rel.CUSTOMERID}}"><i class="action-icon-md-primary fa fa-eye icon-link" tooltip="{{'tooltip.viewcustomer'|i18n}}"></i></a>
                 </td>
+              </tr>
+              <tr ng-if="customerManagerBO == null">
+                <td colspan="10" class="text-center error-orange-text"><i class="fa fa-frown-o"></i> <span data-ng-bind = "'label.errorcontent' | i18n"></span></td>
               </tr>
               </tbody>
             </table>

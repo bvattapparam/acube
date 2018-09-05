@@ -4,6 +4,7 @@
 			"EXCLUDE_GENERIC_STATUS_TWO_PENDING"	: 0,
 			"EXCLUDE_GENERIC_STATUS_TWO_PAID"	: 1,
 			"NOCUSTOMERMANAGERSTATUS"	:	0,
+			"LOCATIONS":	"L1,L2,L3,L4,L5,L6,L7,L8,L9,L10,L11,L12,L13,L14,L15,L16,L17,L18,L19,L20,L21,L22,L23,L24,L25,L26,L27,L28,L29,L30",
 			travel_status:{
 				"1":"status-active-bg",
 				"2":"status-pending-bg",
@@ -49,7 +50,8 @@
 			"date":"dd-MMM-yyyy",
 			"currency":"",
 			"appURL" : "http://localhost/acube/app/",
-			"build": " Build : V1.0 on 01-JUNE-2018"
+			//"appURL" : "http://acubeapp.in/app/",
+			"build": " Build : V1.0 on 27-AUGUST-2018"
 		};
 	angular.module('aswa').constant('settings',Settings);
 })();

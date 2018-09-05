@@ -31,6 +31,19 @@
           });
             return deferred.promise;
         };
+        this.estimateSortOrder = function(pushdata){
+          var deferred = $q.defer();
+          $http({
+            method  : "POST",
+            url     : urlsettings['settings.estimateSortOrder'],
+            data    : pushdata
+          }).success(function(data, status, headers, config){
+            deferred.resolve(data);
+          }).error(function(data, status, headers, config){
+            deferred.reject(data, status, headers, config);
+          });
+            return deferred.promise;
+        };
 
         this.addUserData = function(pushdata){
           var deferred = $q.defer();
@@ -43,6 +56,21 @@
           }).error(function(data, status, headers, config){
             deferred.reject(data, status, headers, config);
           });
+            return deferred.promise;
+        };
+
+        this.getPrecontent = function(){
+          var deferred = $q.defer();
+            $http({
+              method  : "GET",
+              url     : urlsettings['settings.getPrecontent'],
+              headers :   {'Content-Type' : 'application/json'}
+            }).success(function(data){
+              deferred.resolve(data);
+            }).error(function(data){
+              deferred.reject(data);
+            });
+          
             return deferred.promise;
         };
 

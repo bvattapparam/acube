@@ -26,7 +26,7 @@
           var COMPANY = "AGM";
           var ENTITY = "QUOTE";
           var D = new Date();
-          var NDATE = D.getMonth()+1 + "" + D.getDate() + "" + D.getFullYear() + "" + D.getHours() + "" + D.getMinutes();
+          var NDATE = D.getMonth()+1 + "" + D.getDate() + "" + D.getFullYear() + "" + D.getHours() + "" + D.getMinutes() + "" + D.getSeconds();
           var QUOTEID = COMPANY + "-" + ENTITY + "-" + CUSTOMER_TYPE + "-" + CUSTOMERNAME.substr(0,3).toUpperCase() + "-" + VERSION + "-" + NDATE;
           return QUOTEID;
         }

@@ -133,6 +133,22 @@
           });
             return deferred.promise;
         };
+
+        this.updateEstimateDiscount = function(pushdata){
+          var deferred = $q.defer();
+          $http({
+            method  : "POST",
+            url     : urlsettings['estimatemanager.updateEstimateDiscount'],
+            data    : pushdata
+          }).success(function(data, status, headers, config){
+            deferred.resolve(data);
+          }).error(function(data, status, headers, config){
+            deferred.reject(data, status, headers, config);
+          });
+            return deferred.promise;
+        };
+
+        
         
         this.deleteEstimateBasketData = function(pushdata){
           var deferred = $q.defer();
@@ -155,7 +171,7 @@
             url     : urlsettings['estimatemanager.cloneEstimateMaster'],
             data    : pushdata
           }).success(function(data, status, headers, config){
-            deferred.resolve(status);
+            deferred.resolve(data);
           }).error(function(data, status, headers, config){
             deferred.reject(data, status, headers, config);
           });

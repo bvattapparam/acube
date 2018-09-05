@@ -40,10 +40,11 @@
 			}// check error close here
 		};
 
-		$scope.cancel = function (frm) {
+		$scope.cancel = function (record) {
 			var title 		= 	Messages["edit.form.confirmation.title"];
 			var message 	=	Messages["edit.form.confirmation.body"];
-			utilityServices.closeModelConfiguration($modalInstance,frm,title,message);
+			//utilityServices.closeModelConfiguration($modalInstance,frm,title,message);
+			$modalInstance.dismiss(record);
 		};
 	}
 

@@ -142,8 +142,8 @@
                   <i class="action-icon-md-primary fa fa-trash icon-link" tooltip="{{'tooltip.trash'|i18n}}" ng-click="showInfoBox('Info', 'generalinfoone', 'sm')"></i>
                 </td>
               </tr>
-              <tr data-ng-if="estimateManagerBO == ''">
-                <td colspan="3"><b><span data-ng-bind="'label.nodatafound' | i18n"></span></td>
+              <tr data-ng-if="paymentManagerBO == null">
+                <td colspan="7" class="text-center error-orange-text"><i class="fa fa-frown-o"></i> <span data-ng-bind = "'label.errorcontent' | i18n"></span></td>
               </tr>
               </tbody>
               <tfoot>

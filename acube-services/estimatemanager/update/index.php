@@ -2,38 +2,42 @@
 include('../../users/config.php');
 include('../../config/log_handler.php');
 
-  put_customer_data();
 
-
+switch($_GET['action']) {
+    case 'update_estimate_discount':
+    update_estimate_discount();
+        break;
+}
+  
+   
   /** Function to Push Product **/
-  function put_customer_data() {
+  function update_estimate_discount() {
     global $con;
-
     $data = json_decode(file_get_contents("php://input"));
 
-    $CUSTOMERID         =   $data->CUSTOMERID;
-    $TYPE               =   $data->TYPE;
-    $FULLNAME           =   $data->FULLNAME;
-    $MOBILE             =   $data->MOBILE;
-    $EMAIL              =   $data->EMAIL;
-    $ADDRESS            =   $data->ADDRESS;
-    $COMMENT            =   $data->COMMENT;
-
+    $ESTIMATEID         =   $data->ESTIMATEID;
+    $DISCOUNT           =   $data->DISCOUNT;
+    
     $MODIFIEDBY         =   $data->MODIFIEDBY;
     $MODIFIEDDATE       =   date("Y-m-d");
 
-
-    $qry = "UPDATE VIEW_CUSTOMER_MASTER SET TYPE = '$TYPE', FULLNAME = '$FULLNAME', MOBILE = '$MOBILE', EMAIL = '$EMAIL', ADDRESS = '$ADDRESS', COMMENT = '$COMMENT', MODIFIEDBY = '$MODIFIEDBY', MODIFIEDDATE = '$MODIFIEDDATE' WHERE CUSTOMERID = '$CUSTOMERID'";
-    $result = mysqli_query($con,$qry);
+    $qry = "UPDATE VIEW_ESTIMATE_MASTER ";
+    if($DISCOUNT == 1){
+        $qry = $qry . "SET DISCOUNT = NULL";
+    }else{
+        $qry = $qry . "SET DISCOUNT = '$DISCOUNT'";
+    }
+    $qry = $qry . " WHERE ESTIMATEID = '$ESTIMATEID'";
     
+    $result = mysqli_query($con,$qry);
     if(!$result){
-        $arr = array('msg' => "", 'error' => 'Unknown Exception occurred. Please check the application log for more details.');
+        $arr = array('msg' => "", 'error' => $qry);
         $jsn = json_encode($arr);
         trigger_error("Issue with mysql_query. Please check the detailed log", E_USER_NOTICE);
         trigger_error(mysqli_error());
         print_r($jsn);
     }else{
-        $arr = array('msg' => "Updated recored Successfully!!!", 'error' => '');
+        $arr = array('msg' => "Generated estimate Successfully!!!", 'error' => '');
         $jsn = json_encode($arr);
         print_r($jsn);
     }

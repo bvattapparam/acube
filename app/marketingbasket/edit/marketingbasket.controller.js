@@ -24,27 +24,27 @@
 			}else{
 				$rootScope.showSpinner();
 				if($scope.isEdit){
-					customerManagerServices.updateCustomerData(record).then(function(status){
-					if(status==200){
+					customerManagerServices.updateCustomerData(record).then(function(data){
+					if(data.msg !== ''){
 						$rootScope.hideSpinner();
 						$rootScope.addnotification(Messages['modal.update.title'], Messages['modal.update.message'])
 						$modalInstance.close();
 					}else {
 						$rootScope.hideSpinner();
-						$rootScope.showErrorBox('error', error);
+						$rootScope.showErrorBox('error', data.error);
 					}
 				})
 				}else{
 					var CUSTOMERID = customerManagerServices.customerIDCreation(record);
 					record.CUSTOMERID = CUSTOMERID;
-					customerManagerServices.addCustomerData(record).then(function(status){
-					if(status==200){
+					customerManagerServices.addCustomerData(record).then(function(data){
+					if(data.msg !==''){
 						$rootScope.hideSpinner();
 						$rootScope.addnotification(Messages['modal.add.title'], Messages['modal.add.message'])
 						$modalInstance.close();
 					}else {
 						$rootScope.hideSpinner();
-						$rootScope.showErrorBox('error', error);
+						$rootScope.showErrorBox('error', data.error);
 					}
 				})
 				}

@@ -5,9 +5,13 @@
     self.referencesData   = {};
     self.references  = null;
     // using this function to pass code and name alone for easy tracking purpose rather than using reversedropdown filter
-    this.getReference = function(){
+    this.getReference = function(param){
+      if(typeof param == 'undefined'){
+        param = 'norefresh';
+      }
       var deferred = $q.defer();
-      if(self.references){
+      if(self.references && param !== 'refresh'){
+        console.log('reference ......', self.references);
         deferred.resolve(self.references);
       }else{
         $rootScope.showSpinner;

@@ -117,15 +117,10 @@
 					$scope.paymentManagerBO	=	[];
 					$scope.paymentManagerBO	= data[0].ITEM;
 					//$scope.adminPaymentBO = data;
-					$scope.paymentManagerBO	= $scope.paymentManagerBO.slice(0,10);
-					
+					if($scope.paymentManagerBO !== null){
+						$scope.paymentManagerBO	= $scope.paymentManagerBO.slice(0,10);
+					}
 					var totalamount = 0;
-					// for(var i = 0; i< $scope.adminPaymentBO.length;i++){
-					// 	var amount 	=	$scope.adminPaymentBO[i].AMOUNT;
-					// 	totalamount += Number(amount);
-					// }
-					//$scope.TOTALAMOUNT 	=	totalamount;
-					//$rootScope.hideSpinner();
 					$scope.spinnerShow_Payment = false;
 				}else{
 					//$rootScope.hideSpinner();

@@ -1,6 +1,6 @@
 (function(){
 
-	function estimateBasketController($location, $window, $routeParams, $scope, $rootScope, $modal, $filter, settings, customerManagerServices, estimateManagerServices, quoteManagerServices, aswaValidationService, utilityServices, storageServices, getreferences,$http, mainServices){
+	function estimateBasketController($location, $window, $routeParams, $scope, $rootScope, $modal, $filter, settings, settingsServices, customerManagerServices, estimateManagerServices, quoteManagerServices, aswaValidationService, utilityServices, storageServices, getreferences,$http, mainServices){
 
 		$scope.estimateBasket				=	{};
 		$scope.dataBO = {};
@@ -36,6 +36,30 @@
 					if($scope.estimateManagerBO[0].ESTIMATESTATUS == 1){
 						$scope.hardLock = true;
 					}
+					console.log('here', data[0].SORTORDER)
+					var location_Sort_Order = data[0].SORTORDER;
+					if(location_Sort_Order != null){
+						if(location_Sort_Order.length > 0){
+							$scope.LOCATIONSORTORDER = location_Sort_Order.split(',');
+						}else{
+							var default_sorting = settings.rootScope.LOCATIONS;
+							$scope.LOCATIONSORTORDER = default_sorting.split(',');
+						}
+					}else{
+						var default_sorting = settings.rootScope.LOCATIONS;
+							$scope.LOCATIONSORTORDER = default_sorting.split(',');
+					}
+					
+					//console.log('SORT ORDER...', $scope.LOCATIONSORTORDER)
+
+					
+					
+
+					/*$scope.SORTING_DATA = [];
+					angular.forEach($scope.LOCATIONSORTORDER,function(val, key){
+						$scope.SORTING_DATA.push({'LOCATION':val, 'NAME': $scope.referenceData.referencesDataMap.LOCATION[val]})
+					})*/
+					
 					$scope.getEstimateBasket();
 					$rootScope.hideSpinner();
 				}else{
@@ -46,10 +70,15 @@
 		}
 		$scope.getEstimateMaster();
 
+		
+
 		$scope.amountCal = function(qty, percost){
 			var totalAmount = qty*percost;
 			$scope.dataBO.AMOUNT = totalAmount;
 		};
+
+
+		
 
 		$scope.getEstimateBasket = function(){
 			$rootScope.showSpinner();
@@ -59,8 +88,24 @@
 				if(data.msg!=''){
 					$scope.estimateBasketBO	=	[];
 					$scope.estimateBasketBO 	= 	data;
-					console.log('EST: ', data)
-					//$scope.groubedByTeam=groupBy(data, 'LOCATION')
+					var sortOrder = [];
+					sortOrder = $scope.LOCATIONSORTORDER;
+					data.sort(function(a, b) {
+						return sortOrder.indexOf(a.LOCATION) - sortOrder.indexOf(b.LOCATION);
+						});
+					//console.log('SORTED DATA ', data)
+
+					var location_sorted = []
+					angular.forEach(data, function(val, key){
+						location_sorted.push(val.LOCATION);
+					})
+					var LOCATIONS_SORTED = utilityServices.removeDuplicates(location_sorted);
+					$scope.LOCATIONS_SORTED = [];
+					angular.forEach(LOCATIONS_SORTED, function(val, key){
+						$scope.LOCATIONS_SORTED.push({'LOCATION': val})
+					})
+					console.log('SORTED LOCATION ', $scope.LOCATIONS_SORTED)
+						
 					var totalamount = 0;
 					var totalqty = 0;
 					for(var i = 0; i<data.length;i++){
@@ -76,6 +121,9 @@
 					$scope.estimatePDF.dataBO = data;
 					$scope.estimatePDF.TOTALAMOUNT = totalamount;
 					$scope.estimatePDF.TOTALQTY = totalqty;
+
+					// $scope.all = _.groupBy(data, 'LOCATION');
+					// console.log('scope all', $scope.all);
 					$rootScope.hideSpinner();
 				}else{
 					$rootScope.hideSpinner();
@@ -84,7 +132,10 @@
 			});
 		}
 
+
 		$scope.save = function (record) {
+
+			console.log("RECORD", record);
 			var pushData = {};
 			pushData = record;
 			pushData.MODIFIEDBY = $rootScope.user.USERID;
@@ -120,6 +171,50 @@
 			}// check error close here
 		};
 		
+		$scope.isDiscount = function(discount){
+			if(typeof discount == 'undefined' || discount == ''){
+				return false;
+			}
+			return true;
+		};
+		$scope.netAmount = function(discount, total){
+			var netamount = total - discount;
+			return netamount;
+		}
+		$scope.saveDiscount = function (discount) {
+			var pushData = {};
+			//pushData = discount;
+			pushData.MODIFIEDBY = $rootScope.user.USERID;
+			pushData.ESTIMATEID	=	$routeParams.ESTIMATEID;
+			pushData.DISCOUNT 	=	discount;
+			$rootScope.showSpinner();
+			estimateManagerServices.updateEstimateDiscount(pushData).then(function(data){
+				if(data.msg != ''){
+					$rootScope.hideSpinner();
+					$rootScope.addnotification(Messages['modal.update.title'], Messages['modal.update.message'])
+					$scope.getEstimateMaster();
+					$scope.dataBO.DISCOUNT = '';
+				}else {
+					$rootScope.hideSpinner();
+					$rootScope.showErrorBox('error', data.error);
+				}
+			})
+		};
+
+		$scope.getPrecontent = function(){
+			$rootScope.showSpinner();
+			settingsServices.getPrecontent().then(function(data){
+				if(data.msg!=''){
+					$scope.contentListBO			=	[];
+					$scope.contentListBO			=	data;
+					$rootScope.hideSpinner();
+				}else{
+					$rootScope.hideSpinner();
+					$rootScope.showErrorBox('Error', data.error);
+				}
+			});
+		};
+		$scope.getPrecontent();
 
 		$scope.deleteBasket = function (data) {
 			var config= {};
@@ -191,6 +286,26 @@
 				utilityServices.openConfigModal($modal, config);
 		};
 
+		$scope.addDesc = function () {
+			var config= {};
+				config.templateUrl = '../app/estimatemanager/edit/PREFILL.html';
+				config.controller = 'estimateBasketEditController';
+				config.size		= 'lg';
+				config.backdrop	= 'static';
+				config.passingValues = {};
+				config.passingValues.title = Messages['settings.prefill'];
+				config.passingValues.dataBO = $scope.contentListBO;
+				config.callback = function(status, item){
+					console.log('items ', item)
+					$scope.dataBO.DESCRIPTION = item;
+					if(status === 'success') {
+						//$scope.getEstimateBasket();
+					}
+				}
+				utilityServices.openConfigModal($modal, config);
+		};
+
+
 		// CLONE THE ESTIMATE ....
 		$scope.cloneEstimate = function(){
 			// FIND THE CURRENT COUNT OF ESTIMATES FROM MASTER TABLE...
@@ -241,10 +356,12 @@
 			pushData.CLONE 		=	true;
 			pushData.CLNESTIMATEID 		=	$routeParams.ESTIMATEID;
 			pushData.CLNBASKET 			=	$scope.estimateBasketBO;
-			//console.log("PUSH DATA - CLONE ESTIMATE MASTER ", pushData);
+			pushData.DISCOUNT 			=	$scope.estimateManagerBO[0].DISCOUNT;
+			pushData.SORTORDER 			=	$scope.estimateManagerBO[0].SORTORDER;
+			console.log("PUSH DATA - CLONE ESTIMATE MASTER ", pushData);
 
-			estimateManagerServices.cloneEstimateMaster(pushData).then(function(status){
-				if(status==200){
+			estimateManagerServices.cloneEstimateMaster(pushData).then(function(data){
+				if(data.msg != ''){
 					$rootScope.hideSpinner();
 					
 					$rootScope.addnotification(Messages['modal.update.title'], Messages['modal.update.message']);
@@ -252,7 +369,7 @@
 
 				}else {
 					$rootScope.hideSpinner();
-					$rootScope.showErrorBox('error', 'error');
+					$rootScope.showErrorBox('error', data.error);
 				}
 			});
 		};
@@ -402,8 +519,27 @@
 		$scope.fillContent= function(){
 			$scope.dataBO.DESCRIPTION = Messages['estimatebasket.description.prefill'];
 		};
+
+		$scope.sortOrder = function () {
+			var config= {};
+				config.templateUrl = '../app/estimatemanager/edit/sortorder.html';
+				config.controller = 'estimateSortOrderController';
+				config.size		= 'md';
+				config.backdrop	= 'static';
+				config.passingValues = {};
+				config.passingValues.title = Messages['settings.sortorder'];
+				config.passingValues.dataBO = $scope.estimateManagerBO;
+				config.callback = function(status, item){
+					console.log('items ', item)
+					$scope.dataBO.DESCRIPTION = item;
+					if(status === 'success') {
+						$scope.getEstimateMaster();
+					}
+				}
+				utilityServices.openConfigModal($modal, config);
+		};
 		
 	}
 
-	angular.module('aswa').controller('estimateBasketController',['$location', '$window', '$routeParams', '$scope', '$rootScope', '$modal', '$filter', 'settings', 'customerManagerServices', 'estimateManagerServices', 'quoteManagerServices', 'aswaValidationService', 'utilityServices', 'storageServices', 'getreferences', '$http', 'mainServices', estimateBasketController]);
+	angular.module('aswa').controller('estimateBasketController',['$location', '$window', '$routeParams', '$scope', '$rootScope', '$modal', '$filter', 'settings', 'settingsServices', 'customerManagerServices', 'estimateManagerServices', 'quoteManagerServices', 'aswaValidationService', 'utilityServices', 'storageServices', 'getreferences', '$http', 'mainServices', estimateBasketController]);
 })();

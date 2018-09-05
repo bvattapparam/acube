@@ -14,7 +14,7 @@ function get_estimate_basket() {
   global $con;
     $data = json_decode(file_get_contents("php://input"));
     $ESTIMATEID = $data->ESTIMATEID;
-    $qry = "SELECT * FROM VIEW_ESTIMATE_BASKET WHERE ESTIMATEID = '$ESTIMATEID' ORDER BY LOCATION";
+    $qry = "SELECT * FROM VIEW_ESTIMATE_BASKET WHERE ESTIMATEID = '$ESTIMATEID' ORDER BY LOCATION ASC";
     
     $result = mysqli_query($con,$qry);
     if(!$result){

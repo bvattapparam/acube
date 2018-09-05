@@ -57,7 +57,7 @@
             url     : urlsettings['customermanager.updateCustomer'],
             data    : pushdata
           }).success(function(data, status, headers, config){
-            deferred.resolve(status);
+            deferred.resolve(data);
           }).error(function(data, status, headers, config){
             deferred.reject(data, status, headers, config);
           });
@@ -111,7 +111,7 @@
             url     : urlsettings['customermanager.addCustomer'],
             data    : pushdata
           }).success(function(data, status, headers, config){
-            deferred.resolve(status);
+            deferred.resolve(data);
           }).error(function(data, status, headers, config){
             deferred.reject(data, status, headers, config);
           });
@@ -205,7 +205,7 @@
           var CUSTOMERNAME = CUSTOMERNAMETMP.replace(/\s/g,'');;
 					var COMPANY = "AGM";
 					var D = new Date();
-					var NDATE = D.getMonth()+1 + "" + D.getDate() + "" + D.getFullYear() + "" + D.getHours() + "" + D.getMinutes();
+					var NDATE = D.getMonth()+1 + "" + D.getDate() + "" + D.getFullYear() + "" + D.getHours() + "" + D.getMinutes() + "" + D.getSeconds();
 					var CUSTOMERID = COMPANY + "-" + CUSTOMER_TYPE + "-" + CUSTOMERNAME.substr(0,3).toUpperCase() + "-" + NDATE;
          
           return CUSTOMERID;

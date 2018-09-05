@@ -64,6 +64,9 @@
                   
                 </td>
               </tr>
+              <tr ng-if="vendorManagerBO.length < 1">
+                <td colspan="10" class="text-center error-orange-text"><i class="fa fa-frown-o"></i> <span data-ng-bind = "'label.errorcontent' | i18n"></span></td>
+              </tr>
               </tbody>
             </table>
         </div>
