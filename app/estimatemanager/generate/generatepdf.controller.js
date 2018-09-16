@@ -7,6 +7,7 @@
         $scope.estimateManagerBO    =   passingValues.estMaster;
         $scope.dataBO               =   {};
         console.log('PDFBO',  $scope.PDFBO)
+        $scope.dataBO.THANKNOTEFOOTER = Messages['pdffootet.thanknote.default'];
 
         $scope.reference						=	{};
 		$scope.referenceData					=	{};
@@ -73,17 +74,23 @@
                 }
                 sno_main = sno_main + 1;
             }
-            output.push([{text:'Sub Total', style:'subTotal',colSpan: 2},{text:$scope.PDFBO.TOTALQTY,style:'subTotal'},{text:'', style:'subTotal'},{text:'',style:'subTotal'},{text:'',style:'subTotal'},{text:$filter('aswaCurrency')($scope.PDFBO.TOTALAMOUNT), style:'subTotal', alignment: 'right'}])
-            output.push([{text:'Discount', style:'subTotal',colSpan: 2},{text:'',style:'subTotal'},{text:'', style:'subTotal'},{text:'',style:'subTotal'},{text:'',style:'subTotal'},{text:$filter('aswaCurrency')($scope.PDFBO.DISCOUNT), style:'subTotal', alignment: 'right'}])
+            output.push([{text:'Sub Total', style:'subTotal',colSpan: 5},{text:$scope.PDFBO.TOTALQTY,style:'subTotal'},{text:'', style:'subTotal'},{text:'',style:'subTotal'},{text:'',style:'subTotal'},{text:$filter('aswaCurrency')($scope.PDFBO.TOTALAMOUNT), style:'subTotal', alignment: 'right'}])
+            if($scope.PDFBO.DISCOUNT){
+                output.push([{text:'Discount', style:'subTotal',colSpan: 5},{text:'',style:'subTotal'},{text:'', style:'subTotal'},{text:'',style:'subTotal'},{text:'',style:'subTotal'},{text:$filter('aswaCurrency')($scope.PDFBO.DISCOUNT), style:'subTotal', alignment: 'right'}])
+                output.push([{text:'Net Amount', style:'subTotal',colSpan: 5},{text:'',style:'subTotal'},{text:'', style:'subTotal'},{text:'',style:'subTotal'},{text:'',style:'subTotal'},{text:$filter('aswaCurrency')($scope.PDFBO.NETAMOUNT), style:'subTotal', alignment: 'right'}])
+            }
+            
 
         $scope.body= angular.copy(output);
         $scope.emptySpace = "";
         // CODE TO GENERATE PDF.
       
         $scope.generatePDF = function(data, frm){
+            
             $scope.EXPIRYDATE = data.EXPIRYDATE;
             $scope.SPECIALNOTE = data.COMMENT;
             $scope.SPECIALNOTEFOOTER = data.COMMENTFOOTER;
+            $scope.THANKNOTEFOOTER = data.THANKNOTEFOOTER;
             if(typeof $scope.SPECIALNOTE == 'undefined' || $scope.SPECIALNOTE == ''){
                 $scope.special_note = '';
             }else{
@@ -101,6 +108,15 @@
                     stack: [
                         {text: 'Special Note :', style: 'specialNoteTitle'},
                         {text: $scope.SPECIALNOTEFOOTER, style: 'specialNote'},
+                    ],
+                };
+            };
+            if(typeof $scope.THANKNOTEFOOTER == 'undefined' || $scope.THANKNOTEFOOTER == ''){
+                $scope.thank_note_footer = '';
+            }else{
+                $scope.thank_note_footer =  {   
+                    stack: [
+                        {text: $scope.THANKNOTEFOOTER, style: 'specialNote'},
                     ],
                 };
             };
@@ -313,6 +329,12 @@
                             'Hinges : Ebbco/Hetitch/Sleek'
                         ]
                     },
+                    { 
+                        stack: [
+                            {text: $scope.emptySpace, style: 'emptySpace'},
+                        ],
+                    },
+                    $scope.thank_note_footer,
                 ],
                 styles: {
                     cellText:{
@@ -325,7 +347,8 @@
                     subTotal:{
                         bold:true,
                         fillColor:'#D7D7D8',
-                        fontSize: 10
+                        fontSize: 10,
+                        alignment:'right'
                     },
                     specialNote:{
                         fontSize:9,
@@ -341,6 +364,7 @@
                     emptySpace:{
                         margin:[0,0,10,10]
                     },
+                   
                     tableHeaderone:{
                         fillColor:'#D7D7D8',
                         bold: false,

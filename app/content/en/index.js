@@ -56,6 +56,7 @@ Messages = {
 	"placeholder.specialnote"		:	"Special notes and Comments",
 	
 	"pdf.generatepdf.estimate"		:	"Generate PDF for Estimate",
+	"pdffootet.thanknote.default"	:	"Please contact Sangeetha for any clarification either email to sangi@iagham.in or call +91 9047474350",
 
 	"validation.status"				: 	"Status is mandatory",
 	"validation.userid"				: 	"User ID is mandatory.",
@@ -153,6 +154,7 @@ Messages = {
 // ------------------------------------------------------------------------------------------
 
 	"label.expirydate"						:	"Expiry Date",
+	"label.thanknotefooter"					:	"Footer thank note",
 	"label.select"							:	"Select",
 	"label.sno"								:	"SNO",
 	"label.netvalue"						:	"Net Amount",

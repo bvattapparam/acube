@@ -112,6 +112,10 @@
 					$scope.estimatePDF.TOTALAMOUNT = totalamount;
 					$scope.estimatePDF.DISCOUNT = $scope.estimateManagerBO[0].DISCOUNT;
 					$scope.estimatePDF.TOTALQTY = totalqty;
+					if($scope.estimateManagerBO[0].DISCOUNT){
+						var netamount = totalamount - $scope.estimatePDF.DISCOUNT;
+						$scope.estimatePDF.NETAMOUNT = netamount;
+					}
 
 					// $scope.all = _.groupBy(data, 'LOCATION');
 					// console.log('scope all', $scope.all);

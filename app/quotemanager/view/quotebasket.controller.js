@@ -121,6 +121,12 @@
 					$scope.quotePDF.dataBO = data;
 					$scope.quotePDF.TOTALAMOUNT = totalamount;
 					$scope.quotePDF.TOTALQTY = totalqty;
+					$scope.quotePDF.DISCOUNT = $scope.quoteManagerBO[0].DISCOUNT;
+
+					if($scope.quoteManagerBO[0].DISCOUNT){
+						var netamount = totalamount - $scope.quotePDF.DISCOUNT;
+						$scope.quotePDF.NETAMOUNT = netamount;
+					}
 					$rootScope.hideSpinner();
 				}else{
 					$rootScope.hideSpinner();
