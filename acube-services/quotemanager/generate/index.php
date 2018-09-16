@@ -31,9 +31,24 @@ switch($_GET['action']) {
     $CREATEDBY          =   $data->MODIFIEDBY;
     $STATUS = 0;
     $APPROVED = 0;
+    $SORTORDER          =   $data->SORTORDER;
+    $DISCOUNT           =   $data->DISCOUNT;
     
+    $qry = "INSERT INTO VIEW_QUOTE_MASTER (CUSTOMERID, QUOTEID, SORTORDER, DISCOUNT, CREATEDBY, CREATEDDATE, MODIFIEDDATE, MODIFIEDBY, STATUS, APPROVED) VALUES ('$CUSTOMERID', '$QUOTEID' ";
+    if($SORTORDER == null){
+        $qry = $qry . ",NULL";
+    }else{
+        $qry = $qry . ",'$SORTORDER'";
+    }
+    if($DISCOUNT == null){
+        $qry = $qry . ",NULL";
+    }else{
+        $qry = $qry . ",'$DISCOUNT'";
+    }
+    $qry = $qry . ",'$CREATEDBY', '$CREATEDDATE', '$MODIFIEDDATE', '$MODIFIEDBY', '$STATUS', '$APPROVED')";
     
-    $qry = "INSERT INTO VIEW_QUOTE_MASTER (CUSTOMERID, QUOTEID, CREATEDBY, CREATEDDATE, MODIFIEDDATE, MODIFIEDBY, STATUS, APPROVED) VALUES ('$CUSTOMERID', '$QUOTEID', '$CREATEDBY', '$CREATEDDATE', '$MODIFIEDDATE', '$MODIFIEDBY', '$STATUS','$APPROVED')";
+
+    //$qry = "INSERT INTO VIEW_QUOTE_MASTER (CUSTOMERID, QUOTEID, CREATEDBY, CREATEDDATE, MODIFIEDDATE, MODIFIEDBY, STATUS, APPROVED) VALUES ('$CUSTOMERID', '$QUOTEID', '$CREATEDBY', '$CREATEDDATE', '$MODIFIEDDATE', '$MODIFIEDBY', '$STATUS','$APPROVED')";
     $result = mysqli_query($con,$qry);
     if(!$result){
         $arr = array('msg' => "", 'error' => 'Unknown Exception occurred. Please check the application log for more details.');

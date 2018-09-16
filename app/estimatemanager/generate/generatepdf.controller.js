@@ -74,6 +74,7 @@
                 sno_main = sno_main + 1;
             }
             output.push([{text:'Sub Total', style:'subTotal',colSpan: 2},{text:$scope.PDFBO.TOTALQTY,style:'subTotal'},{text:'', style:'subTotal'},{text:'',style:'subTotal'},{text:'',style:'subTotal'},{text:$filter('aswaCurrency')($scope.PDFBO.TOTALAMOUNT), style:'subTotal', alignment: 'right'}])
+            output.push([{text:'Discount', style:'subTotal',colSpan: 2},{text:'',style:'subTotal'},{text:'', style:'subTotal'},{text:'',style:'subTotal'},{text:'',style:'subTotal'},{text:$filter('aswaCurrency')($scope.PDFBO.DISCOUNT), style:'subTotal', alignment: 'right'}])
 
         $scope.body= angular.copy(output);
         $scope.emptySpace = "";

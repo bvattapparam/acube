@@ -16,7 +16,6 @@
       }
     }
     this.removeDuplicates = function(arr){
-      console.log('tested')
 			let unique_array = []
 			for(let i = 0;i < arr.length; i++){
 				if(unique_array.indexOf(arr[i]) == -1){

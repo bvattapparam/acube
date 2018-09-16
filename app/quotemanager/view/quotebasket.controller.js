@@ -49,6 +49,21 @@
 					} else if ($scope.quoteManagerBO[0].STATUS == 1 &&  $scope.quoteManagerBO[0].APPROVED == 0){
 						$scope.allowEdit = true;
 					}
+
+					console.log('quot here', data[0].SORTORDER)
+					var location_Sort_Order = data[0].SORTORDER;
+					if(location_Sort_Order != null){
+						if(location_Sort_Order.length > 0){
+							$scope.LOCATIONSORTORDER = location_Sort_Order.split(',');
+						}else{
+							var default_sorting = settings.rootScope.LOCATIONS;
+							$scope.LOCATIONSORTORDER = default_sorting.split(',');
+						}
+					}else{
+						var default_sorting = settings.rootScope.LOCATIONS;
+							$scope.LOCATIONSORTORDER = default_sorting.split(',');
+					}
+
 					$scope.getQuoteBasket();
 					$rootScope.hideSpinner();
 				}else{
@@ -72,6 +87,26 @@
 				if(data.msg!=''){
 					$scope.quoteBasketBO	=	[];
 					$scope.quoteBasketBO 	= 	data;
+
+					var sortOrder = [];
+					sortOrder = $scope.LOCATIONSORTORDER;
+					data.sort(function(a, b) {
+						return sortOrder.indexOf(a.LOCATION) - sortOrder.indexOf(b.LOCATION);
+						});
+					console.log('SORTED DATA ', data)
+
+					var location_sorted = []
+					angular.forEach(data, function(val, key){
+						location_sorted.push(val.LOCATION);
+					})
+					var LOCATIONS_SORTED = utilityServices.removeDuplicates(location_sorted);
+					$scope.LOCATIONS_SORTED = [];
+					angular.forEach(LOCATIONS_SORTED, function(val, key){
+						$scope.LOCATIONS_SORTED.push({'LOCATION': val})
+					})
+					console.log('SORTED LOCATION ', $scope.LOCATIONS_SORTED)
+						
+
 					var totalamount = 0;
 					var totalqty = 0;
 					for(var i = 0; i<data.length;i++){
@@ -251,9 +286,11 @@
 			pushData.QUOTEID 			=	QUOTEID;
 			pushData.CUSTOMERID 		= 	$scope.quoteManagerBO[0].CUSTOMERID;
 			pushData.MODIFIEDBY 		= 	$rootScope.user.USERID;
+			pushData.DISCOUNT 			=	$scope.quoteManagerBO[0].DISCOUNT;
+			pushData.SORTORDER 			=	$scope.quoteManagerBO[0].SORTORDER;
 			//console.log("PUSH DATA - CLONE QUOTE MASTER ", pushData);
-			quoteManagerServices.cloneQuoteMaster(pushData).then(function(status){
-				if(status==200){
+			quoteManagerServices.cloneQuoteMaster(pushData).then(function(data){
+				if(data.msg!=''){
 					$rootScope.hideSpinner();
 					
 					$rootScope.addnotification(Messages['modal.update.title'], Messages['modal.update.message']);
@@ -262,7 +299,7 @@
 
 				}else {
 					$rootScope.hideSpinner();
-					$rootScope.showErrorBox('error', 'error');
+					$rootScope.showErrorBox('error', data.error);
 				}
 			});
 		};
@@ -323,6 +360,57 @@
 				}
 			});
 			
+		};
+
+		
+		$scope.isDiscount = function(discount){
+			if(typeof discount == 'undefined' || discount == ''){
+				return false;
+			}
+			return true;
+		};
+		$scope.netAmount = function(discount, total){
+			var netamount = total - discount;
+			return netamount;
+		}
+		$scope.saveDiscount = function (discount) {
+			var pushData = {};
+			//pushData = discount;
+			pushData.MODIFIEDBY = $rootScope.user.USERID;
+			pushData.QUOTEID	=	$routeParams.QUOTEID;
+			pushData.DISCOUNT 	=	discount;
+			$rootScope.showSpinner();
+			quoteManagerServices.updateQuoteDiscount(pushData).then(function(data){
+				if(data.msg != ''){
+					$rootScope.hideSpinner();
+					$rootScope.addnotification(Messages['modal.update.title'], Messages['modal.update.message'])
+					$scope.getQuoteMaster();
+					$scope.dataBO.DISCOUNT = '';
+				}else {
+					$rootScope.hideSpinner();
+					$rootScope.showErrorBox('error', data.error);
+				}
+			})
+		};
+
+		
+		$scope.sortOrder = function () {
+			var config= {};
+				config.templateUrl = '../app/quotemanager/edit/sortorder.html';
+				config.controller = 'quoteSortOrderController';
+				config.size		= 'md';
+				config.backdrop	= 'static';
+				config.passingValues = {};
+				config.passingValues.title = Messages['settings.sortorder'];
+				config.passingValues.dataBO = $scope.quoteManagerBO;
+				config.callback = function(status, item){
+					console.log('items ', item)
+					$scope.dataBO.DESCRIPTION = item;
+					if(status === 'success') {
+						$scope.getQuoteMaster();
+					}
+				}
+				utilityServices.openConfigModal($modal, config);
 		};
 
 		$scope.refresh	=	function(){

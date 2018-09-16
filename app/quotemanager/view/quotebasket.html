@@ -129,46 +129,78 @@
                 </td>
               </tr>
               </tbody>
-              <tbody ng-repeat="(key, value) in quoteBasketBO | groupBy : 'LOCATION'">
-                <tr><td colspan="9" class="text-uppercase text-strong bg-table-info"><span data-ng-bind='referenceData.referencesDataMap.LOCATION[key]'</td></tr>
-                  <tr ng-repeat ="rel in value | orderBy: 'LOCATION'">
-                      <td class="f20 part1"></td>
-                      <td data-ng-bind="rel.DESCRIPTION"></td>
-                      <td data-ng-bind="referenceData.referencesDataMap.LOCATION[rel.LOCATION]"></td>
-                      <td data-ng-bind="rel.QTY"></td>
-                      <td data-ng-bind="rel.UNIT" class="text-uppercase"></td>
-                      <td data-ng-bind="rel.PERCOST"></td>
-                      <td data-ng-bind="rel.AMOUNT | aswaCurrency" class="text-right"></td>
-                      <td data-ng-class="{'soft-lock-container': allowEdit}" class="f20 ng-binding action comment-content" data-ng-class="lockIcon(quoteManagerBO[0].STATUS, quoteManagerBO[0].quoteManagerBO[0].QUOTEAPPROVED);"> 
-                        <i class="action-icon-md-primary fa fa-edit icon-link"  tooltip="{{'tooltip.edit' | i18n}}" ng-click="editQuoteBasket(rel)"></i>
-                        <i class="action-icon-md-primary fa fa-trash icon-link" tooltip="{{'tooltip.trash' | i18n}}" ng-click="deleteBasket(rel)"></i>
-                      </td>
-                    </tr>
-              </tbody>  
-              <tbody>
-              <tr class="highlight-bg1 text-totalvalue">
-                <td colspan="3" class="text-right"><label class="text-uppercase text-strong" data-ng-bind="'label.subtotal' | i18n"></label></td>
-                <td><span data-ng-bind="TOTALQTY" class="text-strong"></span></td><td></td>
-                 <td></td> 
-                <td class="text-right"><span data-ng-bind="TOTALAMOUNT | aswaCurrency" class="text-strong"></span></td><td></td>
-              </tr>
-              <tr data-ng-if="estimateManagerBO == ''">
-                <td colspan="3"><b><span data-ng-bind="'label.nodatafound' | i18n"></span></td>
-              </tr>
+              <tbody ng-repeat="key in LOCATIONS_SORTED">
+                <tr>
+                  <td class="bg-table-info"><strong>({{$index + 1 | character}})</strong></td>
+                  <td colspan="9" class="text-uppercase text-strong bg-table-info"><span data-ng-bind="referenceData.referencesDataMap.LOCATION[key.LOCATION]"></span></td>
+                  </tr>
+                  <tr ng-repeat ="rel in quoteBasketBO" ng-if="rel.LOCATION == key.LOCATION">
+                    <td class="f20 part1">{{$index + 1 }} - </td>
+                    <td data-ng-bind="rel.DESCRIPTION"></td>
+                    <td data-ng-bind="referenceData.referencesDataMap.LOCATION[rel.LOCATION]"></td>
+                    <td data-ng-bind="rel.QTY"></td>
+                    <td data-ng-bind="rel.UNIT" class="text-uppercase"></td>
+                    <td data-ng-bind="rel.PERCOST" class="text-right"></td>
+                    <td data-ng-bind="rel.AMOUNT | aswaCurrency" class="text-right"></td>
+                    <td class="f20 ng-binding action comment-content" data-ng-class="{'soft-lock-container': softLock}"> 
+                      <i class="action-icon-md-primary fa fa-edit icon-link"  tooltip="{{'tooltip.edit' | i18n}}" ng-click="editEstimateBasket(rel)"></i>
+                      <i class="action-icon-md-primary fa fa-trash icon-link" tooltip="{{'tooltip.trash' | i18n}}" ng-click="deleteBasket(rel)"></i>
+                    </td>
+                  </tr>
               </tbody>
+              
+              <tbody>
+                <tr class="highlight-bg1 text-totalvalue">
+                  <td colspan="3" ></td>
+                  <td><span data-ng-bind="TOTALQTY" class="text-strong"></span></td><td></td>
+                  <td class="text-right"><label class="text-uppercase text-strong" data-ng-bind="'label.subtotal' | i18n"></label></td> 
+                  <td class="text-right"><span data-ng-bind="TOTALAMOUNT | aswaCurrency" class="text-strong"></span></td><td></td>
+                </tr>
+                <tr class="highlight-bg1 text-totalvalue" data-ng-if="quoteManagerBO[0].DISCOUNT != null">
+                  <td colspan="6" class="text-right"><label class="text-uppercase text-strong" data-ng-bind="'label.discount' | i18n"></label></td>
+                  <td class="text-right"><span data-ng-bind="quoteManagerBO[0].DISCOUNT | aswaCurrency" class="text-strong"></span></td><td></td>
+                </tr>
+                <tr class="highlight-bg1 text-totalvalue" data-ng-if="quoteManagerBO[0].DISCOUNT != null">
+                  <td colspan="6" class="text-right"><label class="text-uppercase text-strong" data-ng-bind="'label.netvalue' | i18n"></label></td>
+                  <td class="text-right"><span data-ng-bind="netAmount(quoteManagerBO[0].DISCOUNT, TOTALAMOUNT)| aswaCurrency" class="text-strong"></span></td><td></td>
+                </tr>
+                <tr data-ng-if="quoteManagerBO == ''">
+                  <td colspan="3"><b><span data-ng-bind="'label.nodatafound' | i18n"></span></td>
+                </tr>
+                </tbody>
             </table>
-        </div>
-
-        
-        <div class="col-xs-12">
-          <div class="audit-box">&nbsp;
-          </div>
         </div>
       </div>
     </div>
     <div class="row"></div>
-  
-  <p>&nbsp;</p>
-      <p>&nbsp;</p>
+    <div class="col-xs-4 section-container pull-right">
+      <div class="row section-box">
+          <table class="table table-hover">
+              <thead class="table-bg text-uppercase">
+              <tr>
+                <th colspan = "2" data-ng-bind-html="'label.discount' | i18n"></th>
+              </tr>
+              </thead>
+              <tbody>
+              <tr>
+                <td style="width:100%">
+                    <input tabindex="1" type="text" class="form-control" tabindex="1" acube-currency data-ng-model="dataBO.DISCOUNT" maxlength="30">
+                </td>
+                <td>
+                    <button class="btn btn-sm camelcase btn-primary" tooltip="{{'tooltip.additem' | i18n}}" ng-click="saveDiscount(dataBO.DISCOUNT)" ng-disabled = "!isDiscount(dataBO.DISCOUNT)"><i class="fa fa-save"></i></button>
+                  </td>
+              </tr>
+            </tbody>
+          </table>
+      </div>
+  </div>
+
+  <div class="col-xs-3 section-container pull-left">
+      <div class="row section-box">
+          <div class="col-sm-12 p-t-s m-b-m text-uppercase">
+            <button class="col-lg-12 btn btn-sm btn-primary" tooltip="{{'tooltip.sort' | i18n}}" ng-click="sortOrder()"><i class="fa fa-sort"></i> {{'label.sortorder' | i18n}}</button>
+          </div>
+      </div>
+  </div>
      
 </div>

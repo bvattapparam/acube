@@ -102,7 +102,7 @@
 				spinnerCounter = 0;
 			}
 		};
-
+console.log('spinner',$rootScope.spinnerShow);
 		$rootScope.negativeFilterReplacer =  function(val){
 			if(!isNaN(val)){
 				const filtered_value = $filter('aswaCurrency')(val).replace("(","-").replace(")","");

@@ -51,6 +51,7 @@
 		"quotemanager.addQuoteBasket"					: 	"../acube-services/quotemanager/basket/add/",
 		"quotemanager.updateQuoteBasket"				: 	"../acube-services/quotemanager/basket/update/",
 		"quotemanager.approveQuoteMaster"				: 	"../acube-services/quotemanager/update/?action=approve_quote_master",
+		"quotemanager.updateQuoteDiscount"				: 	"../acube-services/quotemanager/update/?action=update_quote_discount",
 		"quotemanager.deleteQuoteBasketData"			: 	"../acube-services/quotemanager/basket/delete/",
 		
 		"vendormanager.addVendor"						:	"../acube-services/vendormanager/add/",
@@ -92,7 +93,8 @@
 		"settings.getLocations"							:	"../acube-services/settings/get/?action=get_locations",
 		"settings.getPrecontent"						:	"../acube-services/settings/get/?action=get_prefill_content",
 		"settings.updateLocation"						:	"../acube-services/settings/update/?action=update_location",
-		"settings.estimateSortOrder"					:	"../acube-services/settings/update/?action=estimate_sort_order"
+		"settings.estimateSortOrder"					:	"../acube-services/settings/update/?action=estimate_sort_order",
+		"settings.quoteSortOrder"						:	"../acube-services/settings/update/?action=quote_sort_order"
 		
 	}
 

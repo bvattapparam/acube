@@ -31,11 +31,26 @@
           });
             return deferred.promise;
         };
+
         this.estimateSortOrder = function(pushdata){
           var deferred = $q.defer();
           $http({
             method  : "POST",
             url     : urlsettings['settings.estimateSortOrder'],
+            data    : pushdata
+          }).success(function(data, status, headers, config){
+            deferred.resolve(data);
+          }).error(function(data, status, headers, config){
+            deferred.reject(data, status, headers, config);
+          });
+            return deferred.promise;
+        };
+        
+        this.quoteSortOrder = function(pushdata){
+          var deferred = $q.defer();
+          $http({
+            method  : "POST",
+            url     : urlsettings['settings.quoteSortOrder'],
             data    : pushdata
           }).success(function(data, status, headers, config){
             deferred.resolve(data);

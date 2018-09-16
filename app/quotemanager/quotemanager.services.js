@@ -139,7 +139,7 @@
             url     : urlsettings['quotemanager.cloneQuoteMaster'],
             data    : pushdata
           }).success(function(data, status, headers, config){
-            deferred.resolve(status);
+            deferred.resolve(data);
           }).error(function(data, status, headers, config){
             deferred.reject(data, status, headers, config);
           });
@@ -187,7 +187,19 @@
           });
             return deferred.promise;
         };
-
+        this.updateQuoteDiscount = function(pushdata){
+          var deferred = $q.defer();
+          $http({
+            method  : "POST",
+            url     : urlsettings['quotemanager.updateQuoteDiscount'],
+            data    : pushdata
+          }).success(function(data, status, headers, config){
+            deferred.resolve(data);
+          }).error(function(data, status, headers, config){
+            deferred.reject(data, status, headers, config);
+          });
+            return deferred.promise;
+        };
       
         
 

@@ -53,6 +53,8 @@ function get_quotes() {
   QUT.MODIFIEDDATE,
   QUT.STATUS,
   QUT.APPROVED,
+  QUT.SORTORDER,
+  QUT.DISCOUNT,
   CUST.CUSTOMERID,
   CUST.QUOTEAPPROVED   
   FROM VIEW_QUOTE_MASTER QUT, VIEW_CUSTOMER_MASTER CUST 
@@ -81,6 +83,8 @@ function get_quotes() {
         "MODIFIEDDATE"    =>  $rows['MODIFIEDDATE'],
         "STATUS"          =>  $rows['STATUS'],
         "APPROVED"        =>  $rows['APPROVED'],
+        "SORTORDER"        =>  $rows['SORTORDER'],
+        "DISCOUNT"        =>  $rows['DISCOUNT'],
         "QUOTEAPPROVED"   =>  $rows['QUOTEAPPROVED']
       );
     }
@@ -99,6 +103,8 @@ function get_quote_master() {
     QST.QUOTEID,
     QST.STATUS,
     QST.APPROVED,
+    QST.SORTORDER,
+    QST.DISCOUNT,
     QST.MODIFIEDBY,
     QST.MODIFIEDDATE,
     QST.CREATEDBY,
@@ -127,6 +133,8 @@ function get_quote_master() {
           "QUOTEID"           =>  $rows['QUOTEID'],
           "STATUS"            =>  $rows['STATUS'],
           "APPROVED"          =>  $rows['APPROVED'],
+          "SORTORDER"          =>  $rows['SORTORDER'],
+          "DISCOUNT"          =>  $rows['DISCOUNT'],
           "MODIFIEDBY"        =>  $rows['MODIFIEDBY'],
           "MODIFIEDDATE"      =>  $rows['MODIFIEDDATE'],
           "CREATEDBY"         =>  $rows['CREATEDBY'],

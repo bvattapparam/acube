@@ -50,16 +50,6 @@
 							$scope.LOCATIONSORTORDER = default_sorting.split(',');
 					}
 					
-					//console.log('SORT ORDER...', $scope.LOCATIONSORTORDER)
-
-					
-					
-
-					/*$scope.SORTING_DATA = [];
-					angular.forEach($scope.LOCATIONSORTORDER,function(val, key){
-						$scope.SORTING_DATA.push({'LOCATION':val, 'NAME': $scope.referenceData.referencesDataMap.LOCATION[val]})
-					})*/
-					
 					$scope.getEstimateBasket();
 					$rootScope.hideSpinner();
 				}else{
@@ -120,6 +110,7 @@
 					$scope.estimatePDF = {};
 					$scope.estimatePDF.dataBO = data;
 					$scope.estimatePDF.TOTALAMOUNT = totalamount;
+					$scope.estimatePDF.DISCOUNT = $scope.estimateManagerBO[0].DISCOUNT;
 					$scope.estimatePDF.TOTALQTY = totalqty;
 
 					// $scope.all = _.groupBy(data, 'LOCATION');
@@ -459,9 +450,11 @@
 			pushData.QUOTEID 			=	QUOTEID;
 			pushData.CUSTOMERID 		= 	$scope.estimateManagerBO[0].CUSTOMERID;
 			pushData.MODIFIEDBY 		= 	$rootScope.user.USERID;
-			//console.log("PUSH DATA - CLONE QUOTE MASTER ", pushData);
-			quoteManagerServices.cloneQuoteMaster(pushData).then(function(status){
-				if(status==200){
+			pushData.DISCOUNT 			=	$scope.estimateManagerBO[0].DISCOUNT;
+			pushData.SORTORDER 			=	$scope.estimateManagerBO[0].SORTORDER;
+			console.log("PUSH DATA - CLONE QUOTE MASTER ", pushData);
+			quoteManagerServices.cloneQuoteMaster(pushData).then(function(data){
+				if(data.msg!=''){
 					$rootScope.hideSpinner();
 					$rootScope.addnotification(Messages['modal.update.title'], Messages['modal.update.message']);
 					$scope.cloneUpdateEstimateMaster($routeParams.ESTIMATEID, 'Q', pushData.QUOTEID,pushData.CUSTOMERID); // UPDATE STATUS HERE FOR THE OLD ESTIMATE...
@@ -469,7 +462,7 @@
 
 				}else {
 					$rootScope.hideSpinner();
-					$rootScope.showErrorBox('error', 'error');
+					$rootScope.showErrorBox('error', data.error);
 				}
 			});
 		};
