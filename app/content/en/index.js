@@ -154,6 +154,7 @@ Messages = {
 // ------------------------------------------------------------------------------------------
 
 	"label.expirydate"						:	"Expiry Date",
+	"label.paymentdetails"					:	"Payment Details",
 	"label.thanknotefooter"					:	"Footer thank note",
 	"label.select"							:	"Select",
 	"label.sno"								:	"SNO",

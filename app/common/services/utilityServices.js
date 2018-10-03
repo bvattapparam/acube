@@ -2,28 +2,38 @@
   // create factory for header service to retun object in deffered way
   function utilityServices($rootScope,$http,$q){
 
-    this.dateOnly = function(date){
-      var YEAR =  date.getFullYear();
-      var MONTH = date.getMonth()+1;
-      var DATE = date.getDate();
-      var FullDate = YEAR + "-" + MONTH + "-" + DATE;
-      return FullDate; 
-    }
+    this.convertToSQL = function(inputdate){
+      var convertDate = new Date(inputdate);
+      var month = convertDate.getMonth()+1;
+      var year = convertDate.getFullYear();
+      var day = convertDate.getDate();
+      var formattedDate = year + '-' + (month < 10 ? '0' + month : month) + '-' + (day < 10 ? '0' + day : day);
+      return formattedDate;
+    };
 
     this.clearSessionStorage = function(){
       for(key in sessionStorage){
         sessionStorage.removeItem(key);
       }
-    }
+    };
+
+    this.isEmpty = function(value){
+      if(value == null || value == "" || value == undefined){
+        return true;
+      }else{
+        return false;
+      }
+    };
+
     this.removeDuplicates = function(arr){
-			let unique_array = []
-			for(let i = 0;i < arr.length; i++){
+			var unique_array = []
+			for(var i = 0;i < arr.length; i++){
 				if(unique_array.indexOf(arr[i]) == -1){
 					unique_array.push(arr[i])
 				}
 			}
-			return unique_array
-		}
+			return unique_array;
+		};
 
     // model with configuaration for form data handling
     this.closeModel = function(modalInstance, formName, title, message){
@@ -107,9 +117,6 @@
       });
 
     }
-    
-   
-
 
   }
   angular.module("aswa").service('utilityServices',['$rootScope','$http','$q', utilityServices]);

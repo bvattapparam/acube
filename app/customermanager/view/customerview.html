@@ -80,6 +80,10 @@
               <label class="label-width text-strong" data-ng-bind="'label.comment' | i18n"></label> : <BR>
               <span data-ng-bind-html="customerManagerBO.COMMENT | formatString"></span>
             </div> 
+            <div class="" ng-if="totalsBO[0].QUOTEAMOUNT[0].DISCOUNT !== undefined" permission="['JRD_ADMIN','JRD_MARKETING']">
+                <label class="label-width text-strong" data-ng-bind="'label.discount' | i18n"></label> : 
+                <label data-ng-bind="totalsBO[0].QUOTEAMOUNT[0].DISCOUNT | aswaCurrency"></label>
+              </div>
           </div>
       </div>
     </div>
@@ -114,7 +118,7 @@
   </div>
 </div>
 
-<div class="row section-container">
+<div class="row section-container" permission="['JRD_ADMIN','JRD_MARKETING']">
   <div class="col-xs-12">
     <div class="col-xs-12 section-box">
       <div class="section-box-header">
@@ -168,8 +172,8 @@
 </div>
 
 
-<div class="row section-container" permission="['JRD_ADMIN']">
-    <div class="col-xs-12 col-lg-8">
+<div class="row section-container" permission="['JRD_ADMIN','JRD_SUPERVISOR']">
+    <div class="col-xs-12 col-lg-8" permission="['JRD_ADMIN']">
       <div class="col-xs-12 section-box">
         <div class="section-box-header">
           <h2 class="text-uppercase"><i class="fa fa-bookmark"></i> {{'customermanager.labourdetails' | i18n}} </h2>

@@ -97,7 +97,7 @@
             url     : urlsettings['quotemanager.addQuoteBasket'],
             data    : pushdata
           }).success(function(data, status, headers, config){
-            deferred.resolve(status);
+            deferred.resolve(data);
           }).error(function(data, status, headers, config){
             deferred.reject(data, status, headers, config);
           });

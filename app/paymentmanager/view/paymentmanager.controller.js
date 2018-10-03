@@ -56,9 +56,8 @@
 			$rootScope.showSpinner();
 			customerManagerServices.getCustomers(pushdata).then(function(data){
 				if(data.msg!=''){
-
 					$scope.customerManagerBO	=	[];
-					angular.forEach(data, function(item,key){
+					angular.forEach(data[0].ITEM, function(item,key){
 						angular.forEach($rootScope.settings.SHOW_PO_CUSTOMER_STATUS, function(citem,ckey){
 							if(item.STATUS == citem){
 								$scope.customerManagerBO.push(item)

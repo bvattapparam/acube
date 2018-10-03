@@ -181,58 +181,14 @@ function get_totals(){
   $data = json_decode(file_get_contents("php://input"));
 
   $CUSTOMERID = $data->CUSTOMERID;
-/*
-  $qry = "SELECT SUM(AMOUNT) AS POAMOUNT FROM VIEW_QUOTE_MASTER WHERE CUSTOMERID = '$CUSTOMERID'";
 
-  $qry_res = mysql_query($qry);
-  $data = array();
-
-  while($rows = mysql_fetch_array($qry_res))
-  {
-    $data[] = array(
-      "POAMOUNT"  => $rows['POAMOUNT']
-    );
-  }
-  */
-/*
-SELECT CUSTOMERID, SUM(AMOUNT) 
-FROM (SELECT tbl_quote_basket.QUOTEID, 
-tbl_quote_master.CUSTOMERID, 
-tbl_quote_basket.AMOUNT FROM tbl_quote_basket 
-JOIN tbl_quote_master 
-ON tbl_quote_master.QUOTEID = tbl_quote_basket.QUOTEID 
-WHERE tbl_quote_master.CUSTOMERID='AGM-R-SUM-7720182211') AS T 
-GROUP BY CUSTOMERID
-*/
-/*
-SELECT CUSTOMERID, SUM(AMOUNT) 
-FROM (SELECT tbl_quote_basket.QUOTEID, 
-tbl_quote_master.CUSTOMERID, 
-tbl_quote_basket.AMOUNT FROM tbl_quote_basket 
-JOIN tbl_quote_master 
-ON tbl_quote_master.QUOTEID = tbl_quote_basket.QUOTEID 
-WHERE tbl_quote_master.CUSTOMERID='AGM-R-BI-41620182010' AND tbl_quote_master.APPROVED =1) AS T 
-GROUP BY CUSTOMERID
-*/
-/*
-SELECT CUSTOMERID, SUM(AMOUNT) AS POAMOUNT 
-FROM (SELECT tbl_PO_basket.POID, 
-tbl_PO_master.CUSTOMERID, 
-tbl_PO_basket.AMOUNT FROM tbl_PO_basket 
-JOIN tbl_PO_master 
-ON tbl_PO_master.POID = tbl_PO_basket.POID 
-WHERE tbl_PO_master.CUSTOMERID='AGM-R-BI-41620182010') AS T 
-GROUP BY CUSTOMERID
-*/
-/*
-SELECT LABOURID,WEEKID,CUSTOMERID, SUM(SHIFT) AS SHIFTSUM FROM (SELECT tbl_labourtms_basket.weekID, tbl_labourtms_master.CUSTOMERID, tbl_labourtms_basket.SHIFT, tbl_labourtms_master.LABOURID FROM tbl_labourtms_basket JOIN tbl_labourtms_master ON tbl_labourtms_master.WEEKID = tbl_labourtms_basket.WEEKID where tbl_labourtms_master.CUSTOMERID = tbl_labourtms_basket.CUSTOMERID and tbl_labourtms_master.LABOURID = tbl_labourtms_basket.LABOURID) AS T where weekid = 'WEEK1_AUG_2018' and labourid = 'L1' and customerid = 'AGM-R-BI-41620182010' GROUP BY CUSTOMERID
-*/
   $data = array();
 
   //  QUOTE TOTAL..
-  $qry_quote_total = "SELECT CUSTOMERID, SUM(AMOUNT) AS QUOTEAMOUNT 
+  $qry_quote_total = "SELECT CUSTOMERID, DISCOUNT, SUM(AMOUNT) AS QUOTEAMOUNT 
   FROM (SELECT tbl_quote_basket.QUOTEID, 
-  tbl_quote_master.CUSTOMERID, 
+  tbl_quote_master.CUSTOMERID,
+  tbl_quote_master.DISCOUNT, 
   tbl_quote_basket.AMOUNT FROM tbl_quote_basket 
   JOIN tbl_quote_master 
   ON tbl_quote_master.QUOTEID = tbl_quote_basket.QUOTEID 
@@ -244,18 +200,19 @@ SELECT LABOURID,WEEKID,CUSTOMERID, SUM(SHIFT) AS SHIFTSUM FROM (SELECT tbl_labou
   while($rows = mysqli_fetch_array($qry_res_quote))
   {
     $data_total_quoteamount[]  = array(
-      "QUOTEAMOUNT"  => $rows['QUOTEAMOUNT']
+      "QUOTEAMOUNT"  => $rows['QUOTEAMOUNT'],
+      "DISCOUNT"  => $rows['DISCOUNT'],
     );
   }
   
   // PO TOTAL...
   $qry_po_total = "SELECT CUSTOMERID, SUM(AMOUNT) AS POAMOUNT 
-  FROM (SELECT tbl_PO_basket.POID, 
-  tbl_PO_master.CUSTOMERID, 
-  tbl_PO_basket.AMOUNT FROM tbl_PO_basket 
-  JOIN tbl_PO_master 
-  ON tbl_PO_master.POID = tbl_PO_basket.POID 
-  WHERE tbl_PO_master.CUSTOMERID='$CUSTOMERID') AS T 
+  FROM (SELECT tbl_po_basket.POID, 
+  tbl_po_master.CUSTOMERID, 
+  tbl_po_basket.AMOUNT FROM tbl_po_basket 
+  JOIN tbl_po_master 
+  ON tbl_po_master.POID = tbl_po_basket.POID 
+  WHERE tbl_po_master.CUSTOMERID='$CUSTOMERID') AS T 
   GROUP BY CUSTOMERID";
   $qry_res_po = mysqli_query($con,$qry_po_total);
   

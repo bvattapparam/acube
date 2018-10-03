@@ -153,6 +153,31 @@
   <div permission="['JRD_ADMIN']" ng-include src = "'dashboard/containers/adm-payment-section.html'"></div>
 </div>
 
+<div class="row section-container" permission="['JRD_ADMIN']">
+  <div class="col-xs-12 m-t-m hidden-lg hidden-md"></div>
+  <div class="col-xs-12" permission="['JRD_ADMIN']">
+    <div class="col-xs-12 section-box">
+      <div class="section-box-header">
+        <h2 class="text-uppercase"><i class="fa fa-money"></i> {{'label.paymentdetails' | i18n}} <a ng-href="#/marketingbasket" ><i class="fa fa-ellipsis-h pull-right" tooltip="{{'tooltip.dashboard.marketingbasket' | i18n}}" tooltip-placement="left"></i></a></h2>
+      </div>
+      <div class="col-xs-12 section-box-body table-responsive">
+        <div class="row m-t-m">
+          <div class="col-xs-12">
+            <div class="form-group">
+            <select tabindex="7" ng-change="takeUser(USERID)" class="form-control" ui-select2="common.select2ClearWithoutSearch" ng-model="USERID" placeholder="{{'placeholder.selectone' | i18n}}" ng-disabled=true>
+            <option></option>
+              <option data-ng-repeat="item in reference.USER" value="{{item.code}}">{{item.name}}</option>
+            </select>
+            </div>
+          </div> 
+        </div>
+        <div permission="['JRD_ADMIN']" ng-include src = "'dashboard/containers/se-section.html'">
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
 
 <div permission="['JRD_SUPERVISOR']" ng-include src = "'dashboard/containers/se-section.html'">
 </div>

@@ -495,8 +495,8 @@
                      fontSize:9
                  }
             }
-            pdfMake.createPdf(docDefinition).open();
-           //pdfMake.createPdf(docDefinition).download('EST_' + $scope.estimateManagerBO[0].CUSTOMERID);
+           // pdfMake.createPdf(docDefinition).open();
+           pdfMake.createPdf(docDefinition).download('QUOTE_' + $scope.quoteManagerBO[0].CUSTOMERID);
            //pdfMake.createPdf(docDefinition).print();
            $scope.cancel(frm);
 			

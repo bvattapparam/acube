@@ -39,7 +39,7 @@
 				$rootScope.showErrorBox('Error', error);
 			}else{
 				$rootScope.showSpinner();
-				pushData.DATE = utilityServices.dateOnly(record.DATE);
+				pushData.DATE = utilityServices.convertToSQL(record.DATE);
 				if($scope.isEdit){
 					paymentManagerServices.updatePayment(record).then(function(data){
 						if(data.msg != ''){

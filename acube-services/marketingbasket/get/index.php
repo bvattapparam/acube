@@ -6,6 +6,7 @@ get_customer_data();
 
 /** Function to Get Product **/
 function get_customer_data() {
+  global $con;
   $data = json_decode(file_get_contents("php://input"));
   $qry = "SELECT * FROM VIEW_MARKETINGBASKET ORDER BY MODIFIEDDATE DESC";
   $qry_res = mysqli_query($con,$qry);

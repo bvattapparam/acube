@@ -1,6 +1,6 @@
 (function(){
 
-	function quoteBasketController($location, $window, $routeParams, $scope, $rootScope, $modal, $filter, settings, customerManagerServices, quoteManagerServices, aswaValidationService, utilityServices, storageServices, getreferences,$http, mainServices){
+	function quoteBasketController($location, $window, $routeParams, $scope, $rootScope, $modal, $filter, settings, customerManagerServices, quoteManagerServices, aswaValidationService, utilityServices, storageServices, settingsServices, getreferences,$http, mainServices){
 
 		$scope.quoteBasket				=	{};
 		$scope.dataBO = {};
@@ -157,14 +157,21 @@
 						}
 					})
 				}else{
-					quoteManagerServices.addQuoteBasketData(record).then(function(status){
-						if(status==200){
+					quoteManagerServices.addQuoteBasketData(record).then(function(data){
+						if(data.msg!=''){
 							$rootScope.hideSpinner();
 							$rootScope.addnotification(Messages['modal.add.title'], Messages['modal.add.message'])
+							$scope.dataBO.DESCRIPTION = '';
+							$scope.dataBO.LOCATION = '';
+							$scope.dataBO.QTY = '';
+							$scope.dataBO.UNIT = '';
+							$scope.dataBO.PERCOST = '';
+							$scope.dataBO.AMOUNT = '';
 							$scope.getQuoteBasket();
+							
 						}else {
 							$rootScope.hideSpinner();
-							$rootScope.showErrorBox('error', error);
+							$rootScope.showErrorBox('error', data.error);
 						}
 					})
 				}
@@ -346,6 +353,38 @@
 				}
 			});
 		};
+		$scope.addDesc = function () {
+			var config= {};
+				config.templateUrl = '../app/estimatemanager/edit/prefill.html';
+				config.controller = 'estimateBasketEditController';
+				config.size		= 'lg';
+				config.backdrop	= 'static';
+				config.passingValues = {};
+				config.passingValues.title = Messages['settings.prefill'];
+				config.passingValues.dataBO = $scope.contentListBO;
+				config.callback = function(status, item){
+					console.log('items ', item)
+					$scope.dataBO.DESCRIPTION = item;
+					if(status === 'success') {
+						//$scope.getEstimateBasket();
+					}
+				}
+				utilityServices.openConfigModal($modal, config);
+		};
+		$scope.getPrecontent = function(){
+			$rootScope.showSpinner();
+			settingsServices.getPrecontent().then(function(data){
+				if(data.msg!=''){
+					$scope.contentListBO			=	[];
+					$scope.contentListBO			=	data;
+					$rootScope.hideSpinner();
+				}else{
+					$rootScope.hideSpinner();
+					$rootScope.showErrorBox('Error', data.error);
+				}
+			});
+		};
+		$scope.getPrecontent();
 
 		$scope.cloneQuoteBasket = function(QUOTEID){
 			var pushData = {};
@@ -429,5 +468,5 @@
 		
 	}
 
-	angular.module('aswa').controller('quoteBasketController',['$location', '$window', '$routeParams', '$scope', '$rootScope', '$modal', '$filter', 'settings', 'customerManagerServices', 'quoteManagerServices','aswaValidationService', 'utilityServices', 'storageServices', 'getreferences', '$http', 'mainServices', quoteBasketController]);
+	angular.module('aswa').controller('quoteBasketController',['$location', '$window', '$routeParams', '$scope', '$rootScope', '$modal', '$filter', 'settings', 'customerManagerServices', 'quoteManagerServices','aswaValidationService', 'utilityServices', 'storageServices', 'settingsServices', 'getreferences', '$http', 'mainServices', quoteBasketController]);
 })();

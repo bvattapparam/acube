@@ -71,12 +71,25 @@
 			//$rootScope.showSpinner();
 			$scope.showModuleSpinner = true;
 			customerManagerServices.getTotals(pushdata).then(function(data){
+				console.log("total data..", data)
 				if(data.msg!=''){
 					$scope.totalsBO			=	[];
 					$scope.totalsBO 		= 	data;
 					if(data[0].QUOTEAMOUNT.length > 0){
-						$scope.PROJECTCOST 		= 	data[0].QUOTEAMOUNT[0].QUOTEAMOUNT;
+						if(!utilityServices.isEmpty(data[0].QUOTEAMOUNT[0].DISCOUNT)){
+							var discount 			= data[0].QUOTEAMOUNT[0].DISCOUNT;
+							var project_cost 		= data[0].QUOTEAMOUNT[0].QUOTEAMOUNT;
+							var final_PROJECTCOST 	= Number(project_cost) - Number(discount);
+							$scope.PROJECTCOST 		= final_PROJECTCOST;
+						} else {
+							$scope.PROJECTCOST 		= 	data[0].QUOTEAMOUNT[0].QUOTEAMOUNT;
+						}
+						//$scope.PROJECTCOST 		= 	data[0].QUOTEAMOUNT[0].QUOTEAMOUNT;
+
 					}
+
+					// calculate the discount portion here...
+
 					if(data[1].PAIDAMOUNT.length > 0){
 						$scope.PAIDAMOUNT		= 	data[1].PAIDAMOUNT[0].PAIDAMOUNT;
 					}

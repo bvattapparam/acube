@@ -152,14 +152,20 @@
 						}
 					})
 				}else{
-					estimateManagerServices.addEstimateBasketData(record).then(function(status){
-						if(status==200){
+					estimateManagerServices.addEstimateBasketData(record).then(function(data){
+						if(data.msg!=''){
 							$rootScope.hideSpinner();
 							$rootScope.addnotification(Messages['modal.add.title'], Messages['modal.add.message'])
 							$scope.getEstimateBasket();
+							$scope.dataBO.DESCRIPTION = '';
+							$scope.dataBO.LOCATION = '';
+							$scope.dataBO.QTY = '';
+							$scope.dataBO.UNIT = '';
+							$scope.dataBO.PERCOST = '';
+							$scope.dataBO.AMOUNT = '';
 						}else {
 							$rootScope.hideSpinner();
-							$rootScope.showErrorBox('error', error);
+							$rootScope.showErrorBox('error', data.error);
 						}
 					})
 				}
@@ -283,7 +289,7 @@
 
 		$scope.addDesc = function () {
 			var config= {};
-				config.templateUrl = '../app/estimatemanager/edit/PREFILL.html';
+				config.templateUrl = '../app/estimatemanager/edit/prefill.html';
 				config.controller = 'estimateBasketEditController';
 				config.size		= 'lg';
 				config.backdrop	= 'static';

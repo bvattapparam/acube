@@ -7,7 +7,7 @@ global $host;
 $host = "localhost"; 
 $user = "ACUBE"; 
 $pass = "GENACUBE"; 
-$database = "acube";
+$database = "live_acube";
 
 // $host = "localhost"; 
 // $user = "ACUBE2018"; 

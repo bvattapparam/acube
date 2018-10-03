@@ -1,6 +1,6 @@
 (function(){
 
-	function dashboardController($scope, $rootScope, $filter, utilityServices, $modal, mainServices, dashboardServices, customerManagerServices, paymentManagerServices, marketingBasketServices, getreferences, storageServices){
+	function dashboardController($scope, $rootScope, $filter, utilityServices, $modal, mainServices, dashboardServices, customerManagerServices, paymentManagerServices, marketingBasketServices, userManagerServices, getreferences, storageServices){
 		
 		$scope.LIMIT_PAYMENT 			= 	80;
 		$scope.sval						=	5;
@@ -133,9 +133,13 @@
 		
 
 		// FOR JURI_SUPERVISOR...
-		$scope.getCashDetails =  function(){
+		$scope.getCashDetails =  function(userid){
 			var pushData 			= {};
-			pushData.USERID 	= $rootScope.user.USERID;
+			if(userid){
+				pushData.USERID 				= 	userid;
+			}else{
+				pushData.USERID 				= 	$rootScope.user.USERID;
+			}
 			$rootScope.showSpinner();
 			paymentManagerServices.getCashDetails(pushData).then(function(data){
 				if(data.msg!=''){
@@ -165,7 +169,7 @@
 						prTotalAmount += Number(amount);
 					}
 					$scope.PRTOTALAMOUNT 	=	prTotalAmount;
-
+					
 					$rootScope.hideSpinner();
 				}else{
 					$rootScope.hideSpinner();
@@ -175,10 +179,14 @@
 			});
 		};
 
-		$scope.getPaymentByUser = function(){
+		$scope.getPaymentByUser = function(userid){
 			$scope.spinnerShow_Payment = true;
 			var pushData 					= 	{};
-			pushData.USERID 				= 	$rootScope.user.USERID;
+			if(userid){
+				pushData.USERID 				= 	userid;
+			}else{
+				pushData.USERID 				= 	$rootScope.user.USERID;
+			}
 			pushData.limit					=	$scope.pagination_payment.limit;
 			pushData.currentPage			=	$scope.pagination_payment.currentPage;
 			pushData.pagenation				=	true;
@@ -276,7 +284,37 @@
 		if($scope.todocount > 0){
 			//$scope.todoClient();
 		}
+		$scope.getUsers = function(){
+			$scope.reference.USER = [];
+			$rootScope.showSpinner();
+			userManagerServices.getUsers().then(function(data){
+				if(data.msg!=''){
+					$scope.userManagerBO	=	[];
+					$scope.userManagerBO 	= 	data;
+
+					// CREATE NEW REFERENCE FOR CUSTOMER..
+					for(var i=0; i<data.length; i++){
+						var node 	=	{};
+						node.code 	= 	data[i].USERID;
+						node.name	=	data[i].USERID + " ( " + data[i].FULLNAME + " )";
+						$scope.reference.USER.push(node);
+					}
+					$rootScope.hideSpinner();
+				}else{
+					$rootScope.hideSpinner();
+					$rootScope.showErrorBox('Error', data.error);
+				}
+				
+			});
+		};
+		$scope.getUsers();
+
+		if($rootScope.user.PERMISSIONS[0] === 'JRD_ADMIN'){
+			$scope.getPaymentByUser('dhana');
+			$scope.getCashDetails('dhana');
+			$scope.USERID = 'dhana';
+		}
 		
 	}
-	angular.module('aswa').controller('dashboardController',['$scope', '$rootScope', '$filter', 'utilityServices', '$modal', 'mainServices', 'dashboardServices', 'customerManagerServices', 'paymentManagerServices', 'marketingBasketServices', 'getreferences', 'storageServices', dashboardController]);
+	angular.module('aswa').controller('dashboardController',['$scope', '$rootScope', '$filter', 'utilityServices', '$modal', 'mainServices', 'dashboardServices', 'customerManagerServices', 'paymentManagerServices', 'marketingBasketServices', 'userManagerServices', 'getreferences', 'storageServices', dashboardController]);
 })();
