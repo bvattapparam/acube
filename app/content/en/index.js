@@ -400,6 +400,7 @@ Messages = {
 	"todo.todoclient.todolist"					:	"Todo List",
 	"settings.pageheader"						:	"Settings",
 	"settings.editlocation"						:	"Edit Location",
+	"settings.editprefill"						:	"Edit Pre content",
 	"settings.prefill"							:	"Prefill",
 	"settings.sortorder"						:	"Sorting Order"
 

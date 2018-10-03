@@ -68,7 +68,7 @@
                   <th></th>
                   <th data-ng-bind-html="'label.id' | i18n"></th>
                   <th data-ng-bind-html="'label.precontent' | i18n"></th>
-                  <th></th>
+                  <th><i class="action-icon-md-primary fa fa-plus icon-link"  ng-click="addPrefill()" tooltip="{{'tooltip.add' | i18n}}"></i></th>
                 </tr>
                 </thead>
                 <tbody>
@@ -77,7 +77,7 @@
                   <td data-ng-bind="rel.ID"></td>
                   <td data-ng-bind="rel.CONTENT"></td>
                   <td class="f20 ng-binding action comment-content">
-                    <i class="action-icon-md-primary fa fa-edit icon-link"  ng-click="editLocation(rel)" tooltip="{{'tooltip.edit' | i18n}}"></i>
+                    <i class="action-icon-md-primary fa fa-edit icon-link"  ng-click="editPrefill(rel)" tooltip="{{'tooltip.edit' | i18n}}"></i>
                     <i class="action-icon-md-primary fa fa-trash icon-link" ng-click="showInfoBox('Info', 'generalinfoone', 'sm')" tooltip="{{'tooltip.trash' | i18n}}"></i>
                   </td>
                 </tr>

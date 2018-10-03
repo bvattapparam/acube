@@ -31,6 +31,33 @@
           });
             return deferred.promise;
         };
+        this.updatePrefill = function(pushdata){
+          var deferred = $q.defer();
+          $http({
+            method  : "POST",
+            url     : urlsettings['settings.updatePrefill'],
+            data    : pushdata
+          }).success(function(data, status, headers, config){
+            deferred.resolve(data);
+          }).error(function(data, status, headers, config){
+            deferred.reject(data, status, headers, config);
+          });
+            return deferred.promise;
+        };
+        
+        this.addPrefill = function(pushdata){
+          var deferred = $q.defer();
+          $http({
+            method  : "POST",
+            url     : urlsettings['settings.addPrefill'],
+            data    : pushdata
+          }).success(function(data, status, headers, config){
+            deferred.resolve(data);
+          }).error(function(data, status, headers, config){
+            deferred.reject(data, status, headers, config);
+          });
+            return deferred.promise;
+        };
 
         this.estimateSortOrder = function(pushdata){
           var deferred = $q.defer();

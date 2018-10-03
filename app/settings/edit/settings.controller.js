@@ -58,6 +58,38 @@
 			}// check error close here
 		};
 
+		$scope.savePrefill = function (record) {
+			//console.log('SAVE PAY RECORD', record)
+			var pushData 			= {};
+			pushData 				= record;
+				$rootScope.showSpinner();
+				if($scope.isEdit){
+					settingsServices.updatePrefill(record).then(function(data){
+						if(data.msg != ''){
+							$rootScope.hideSpinner();
+							$rootScope.addnotification(Messages['modal.update.title'], Messages['modal.update.message'])
+							//$scope.loadReferences();
+							$modalInstance.close();
+						}else {
+							$rootScope.hideSpinner();
+							$rootScope.showErrorBox('error', data.error);
+						}
+					})
+				}else{
+					settingsServices.addPrefill(record).then(function(data){
+						if(data.msg != ''){
+							$rootScope.hideSpinner();
+							$rootScope.addnotification(Messages['modal.add.title'], Messages['modal.update.message'])
+							//$scope.loadReferences();
+							$modalInstance.close();
+						}else {
+							$rootScope.hideSpinner();
+							$rootScope.showErrorBox('error', data.error);
+						}
+					})
+				}
+		};
+
 
 		$scope.saveTMS = function (record) {
 			//console.log('SAVE TMS RECORD', record)

@@ -21,14 +21,23 @@
                     </div>
                   </div>
               </div>
+              <div class ="row" ng-if="MODE === 'prefill'">
+                <div class="col-xs-12">
+                  <div class="form-group">
+                  <label ng-bind="'label.precontent' | i18n"></label>
+                  <textarea tabindex="9" name="content" id="comment" class="form-control" placeholder="{{'placeholder.comment'| i18n }}" tabindex="1" data-ng-model="dataBO.CONTENT"></textarea>
+                    <input type="hidden" data-ng-model="dataBO.ID">
+                </div>
+                </div>
+              </div>
             </div>
-              
           </div>
           <div class="row">
             <div class="col-xs-12">
               <div class="modal-footer">
                 <button tabindex="5" class="btn camelcase btn-default" ng-click="cancel(frm)">{{'label.cancel' | i18n}}</button>
                 <button tabindex="4" ng-if="MODE === 'location'" class="btn camelcase btn-primary" ng-click="saveLocation(dataBO)">{{'label.save' | i18n}}</button>
+                <button tabindex="4" ng-if="MODE === 'prefill'" class="btn camelcase btn-primary" ng-click="savePrefill(dataBO)">{{'label.save' | i18n}}</button>
               </div>
             </div>
           </div>

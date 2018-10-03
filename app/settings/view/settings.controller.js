@@ -90,6 +90,44 @@
 			}
 			utilityServices.openConfigModal($modal, config);
 		};
+		$scope.editPrefill = function (data) {
+			//console.log('EDIT BASKED:.... ', data)
+			var config= {};
+			config.templateUrl = '../app/settings/edit/location.html';
+			config.controller = 'settingsEditController';
+			config.size		= 'lg';
+			config.backdrop	= 'static';
+			config.passingValues = {};
+			config.passingValues.title = Messages['settings.editprefill'];
+			config.passingValues.isEdit = true;
+			config.passingValues.dataBO = data;
+			config.passingValues.mode = 'prefill';
+			config.callback = function(status, item){
+				if(status === 'success') {
+					$scope.getPrecontent();
+				}
+			}
+			utilityServices.openConfigModal($modal, config);
+		};
+		$scope.addPrefill = function (data) {
+			//console.log('EDIT BASKED:.... ', data)
+			var config= {};
+			config.templateUrl = '../app/settings/edit/location.html';
+			config.controller = 'settingsEditController';
+			config.size		= 'lg';
+			config.backdrop	= 'static';
+			config.passingValues = {};
+			config.passingValues.title = Messages['settings.editprefill'];
+			config.passingValues.isEdit = false;
+			config.passingValues.dataBO = data;
+			config.passingValues.mode = 'prefill';
+			config.callback = function(status, item){
+				if(status === 'success') {
+					$scope.getPrecontent();
+				}
+			}
+			utilityServices.openConfigModal($modal, config);
+		};
 		$scope.editLabour = function (data) {
 			//console.log('EDIT BASKED:.... ', data)
 			var config= {};
