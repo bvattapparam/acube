@@ -43,6 +43,16 @@
 		};
 
 		$scope.getCustomers();
+		
+		$scope.viewComment = function(comment){
+			if(!utilityServices.isEmpty(comment)){
+				var comments = $filter('formatString')(comment);
+			}else{
+				var comments = 'No comments available...';
+			}
+			
+			$rootScope.showInfoBox('COMMENTS', comments, 'lg');
+		};
 
 		$scope.editCustomer = function (data) {
 			var config= {};
